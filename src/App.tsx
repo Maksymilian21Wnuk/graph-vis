@@ -1,5 +1,5 @@
-import './App.css'
 import GraphMap from './components/graph_map'
+import Navbar from './components/navbar'
 
 
 
@@ -7,7 +7,10 @@ import GraphMap from './components/graph_map'
 function App() {
 
   return (
-    <GraphMap/>    
+    <>
+      <Navbar/>
+      <GraphMap/>    
+    </>
   )
 }
 

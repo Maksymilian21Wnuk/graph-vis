@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { ButtonProps } from "../shared/interfaces/button.interface"
 
 

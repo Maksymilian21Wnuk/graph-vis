@@ -1,4 +1,3 @@
-import { Node } from "@xyflow/react";
 
 
 export interface ButtonProps {
