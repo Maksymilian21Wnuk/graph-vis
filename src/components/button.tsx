@@ -1,8 +1,12 @@
+import { useState } from "react";
+import { ButtonProps } from "../shared/interfaces/button.interface"
 
 
 
-export default function Button(foo : any) {
+
+export default function Button({onClick, text} : ButtonProps) {
+
     return (
-        <button onClick={foo}>Spawn</button>
+        <button onClick={onClick}>{text}</button>
     )
 };
