@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+  vite_docker:
+    image: node:alpine
+    container_name: graph_vis
+    entrypoint: /bin/sh
+    ports:
+      - "3000:3000"
+    working_dir: /srv/app
+    tty: true
+    volumes:
+     - type: bind
+       source: ./
+       target: /srv/app

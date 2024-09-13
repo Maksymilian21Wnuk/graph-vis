@@ -41,15 +41,16 @@ export default function GraphMap() {
 
     function spawnNode(_e : React.MouseEvent<HTMLElement>) {
         setNodeCount(nodeCount + 1);
+        setRemoveMode(false);
         setNodes([...nodes, 
-            { id: String(nodeCount), position: { x: 200, y: 200 }, data: { label: String(nodeCount) }, ...nodeDefaults }]);
+            { id: String(nodeCount), position: { x: WIDTH / 2, y: HEIGHT / 2 }, data: { label: String(nodeCount) }, ...nodeDefaults }]);
     }
 
     function removeNode(_e : React.MouseEvent<HTMLElement>) {
         setRemoveMode(!removeMode);
     }
 
-    let mapSize = "w-[" + String(WIDTH) +"px] h-[" + String(HEIGHT) + "px] border-2 border-black";
+    let mapSize = `w-[700px] h-[500px] border-2 border-black`;
 
     return (
         <>
