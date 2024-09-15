@@ -1,4 +1,4 @@
-import { ButtonProps } from "../shared/interfaces/button.interface"
+import { ButtonProps } from "../../shared/interfaces/button.interface"
 
 
 

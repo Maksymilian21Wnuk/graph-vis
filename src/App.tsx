@@ -1,5 +1,5 @@
-import GraphMap from './components/graph_map'
-import Navbar from './components/navbar'
+import GraphMap from './components/graph_map/graph_map'
+import Navbar from './components/utility/navbar'
 
 
 

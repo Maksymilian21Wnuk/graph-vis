@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Button from "./button";
+import Button from "../utility/button";
 import {
     ReactFlow,
     useNodesState,
@@ -11,7 +11,8 @@ import {
     BackgroundVariant,
   } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import { WIDTH, HEIGHT } from "../shared/constants";
+import { WIDTH, HEIGHT } from "../../shared/constants";
+import CodeField from "../code_field/code_field";
 
 
 const nodeDefaults = {
@@ -84,8 +85,8 @@ export default function GraphMap() {
                 </ReactFlow>
             
             </div>
-            <div className="flex-auto">
-
+            <div className="flex-auto px-5">
+                <CodeField/>
             </div>
         </div>
         </>
