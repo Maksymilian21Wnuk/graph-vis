@@ -2,11 +2,7 @@ import { useContext, useState } from "react";
 import Button from "../utility/button";
 import {
     ReactFlow,
-    useNodesState,
-    useEdgesState,
     addEdge,
-    Node,
-    Edge,
     Background,
     BackgroundVariant,
   } from '@xyflow/react';
@@ -66,10 +62,10 @@ export default function GraphMap() {
                     onConnect={(params) => setEdges(addEdge(params, edges))}
                     onNodesChange={onNodesChange}
                     onEdgesChange={onEdgesChange}
-                    onEdgeClick={(_event, edge) => setEdges(edges.filter(e => e.id !== edge.id))}
+                    onEdgeClick={(_event, edge) => setEdges(edges.filter((e: { id: string; }) => e.id !== edge.id))}
                     onNodeClick={(_event, node) => {
                         if (removeMode){
-                            setNodes(nodes.filter(n => n.id !== node.id));
+                            setNodes(nodes.filter((n: { id: string; }) => n.id !== node.id));
                             setNodeCount(nodeCount - 1);
                         }
                         }}
