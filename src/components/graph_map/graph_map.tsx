@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "../utility/button";
 import {
     ReactFlow,
@@ -13,7 +13,7 @@ import {
 import '@xyflow/react/dist/style.css';
 import { WIDTH, HEIGHT } from "../../shared/constants";
 import CodeField from "../code_field/code_field";
-
+import { Context } from "../../App";
 
 const nodeDefaults = {
     style: {
@@ -27,18 +27,12 @@ const nodeDefaults = {
   };
 
 
-const initialNodes : Node[]  = [
-]
 
-const initialEdges : Edge[] = [
-]
 
 export default function GraphMap() {
-    const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-    const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
     const [nodeCount, setNodeCount] = useState(0);
     const [removeMode, setRemoveMode] = useState(false);
-
+    const [nodes, setNodes, onNodesChange, edges, setEdges, onEdgesChange] = useContext(Context);
 
     function spawnNode(_e : React.MouseEvent<HTMLElement>) {
         setNodeCount(nodeCount + 1);
@@ -55,7 +49,7 @@ export default function GraphMap() {
 
     return (
         <>
-        <div style={{ height: 100, width: 100 }}>
+        <div className="w-[100px] h-[100px]">
             <Button onClick={spawnNode} text={"Add node"}/>
             <Button onClick={removeNode} text={"Remove node"}/>
         </div>    
