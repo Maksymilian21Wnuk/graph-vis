@@ -1,82 +1,86 @@
-import { useContext, useState } from "react";
+import { useReducer, useState } from "react";
 import Button from "../utility/button";
 import {
     ReactFlow,
+    useNodesState,
+    useEdgesState,
     addEdge,
-    Background,
-    BackgroundVariant,
   } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { WIDTH, HEIGHT } from "../../shared/constants";
-import CodeField from "../code_field/code_field";
-import { Context } from "../../App";
+import useStore from "./store";
+import useShallow from "zustand/react/shallow";
+import reducer from "./reducer";
+import { GraphState } from "../../shared/types/types";
 
-const nodeDefaults = {
-    style: {
-      borderRadius: '100%',
-      width: 50,
-      height: 50,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  };
-
-
+const selector = (state : any) => ({
+    nodes: state.nodes,
+    edges: state.edges,
+    onNodesChange: state.onNodesChange,
+    onEdgesChange: state.onEdgesChange,
+    onConnect: state.onConnect,
+    setNodes: state.setNodes,
+    setEdges: state.setEdges,
+});
 
 
 export default function GraphMap() {
-    const [nodeCount, setNodeCount] = useState(0);
-    const [removeMode, setRemoveMode] = useState(false);
-    const [nodes, setNodes, onNodesChange, edges, setEdges, onEdgesChange] = useContext(Context);
+    const {nodes, edges, onNodesChange, onEdgesChange, onConnect, setNodes, setEdges} = useStore(selector);
 
-    function spawnNode(_e : React.MouseEvent<HTMLElement>) {
-        setNodeCount(nodeCount + 1);
-        setRemoveMode(false);
-        setNodes([...nodes, 
-            { id: String(nodeCount), position: { x: WIDTH / 2, y: HEIGHT / 2 }, data: { label: String(nodeCount) }, ...nodeDefaults }]);
+    const initialState: GraphState = {
+        newNode: { id: "0", position: { x:0, y: 0}, data: { label: "0" }, style: { borderRadius: '100%', width: 50, height: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', }, },
+        removeMode: false,
+        addMode: false,
+        nodeCount: 0,
+        first: -1,
+        second: -1,
+        dragMode: true
+    };
+
+    const [state, dispatch] = useReducer(reducer, initialState);
+
+    function onNodeClick(_event: any, node: any){
+        if (state.removeMode){
+            setNodes(nodes.filter(n => n.id !== node.id));
+            setEdges(edges.filter(e => e.source !== node.id && e.target !== node.id));
+            dispatch({type: "COUNT_ADD", payload: -1});
+        }
+        else if(state.addMode){
+            dispatch({type: "SET_PAIR", payload: parseInt(node.id)});
+            if (state.first !== -1 && state.second !== -1){
+                setEdges([...edges, {id: `${state.first}-${state.second}`, source: String(state.first), target: String(state.second)}]);
+                dispatch({type: "SET_PAIR", payload: -1});
+            }
+        }
     }
-
-    function removeNode(_e : React.MouseEvent<HTMLElement>) {
-        setRemoveMode(!removeMode);
-    }
-
-    let mapSize = `w-[700px] h-[500px] border-2 border-black`;
 
     return (
         <>
-        <div className="w-[100px] h-[100px]">
-            <Button onClick={spawnNode} text={"Add node"}/>
-            <Button onClick={removeNode} text={"Remove node"}/>
+        <div className="flex flex-col mx-5 my-2">
+                <Button onClick={(_e) => dispatch({type : "MOVE_MODE"})} text={"Move"}/>
+                <Button onClick={(_e) => {
+                    dispatch({type : "ADD_NODE"})
+                    setNodes([...nodes, state.newNode]);
+                    }} text={"Add"}/>
+                <Button onClick={(_e) => dispatch({type : "REMOVE_NODE"})} text={"Remove"}/>
         </div>    
 
         <div className="flex ">
-            <div className="flex-none w-64 ">
 
-            </div>
-
-            <div className={mapSize}>
+            <div className="w-screen h-[400px] border-2 border-black mx-5">
                 <ReactFlow
                     nodes={nodes}
                     edges={edges}
                     onConnect={(params) => setEdges(addEdge(params, edges))}
                     onNodesChange={onNodesChange}
                     onEdgesChange={onEdgesChange}
-                    onEdgeClick={(_event, edge) => setEdges(edges.filter((e: { id: string; }) => e.id !== edge.id))}
-                    onNodeClick={(_event, node) => {
-                        if (removeMode){
-                            setNodes(nodes.filter((n: { id: string; }) => n.id !== node.id));
-                            setNodeCount(nodeCount - 1);
-                        }
-                        }}
+                    onEdgeClick={(_event, edge) => setEdges(edges.filter(e => e.id !== edge.id))}
+                    onNodeClick={onNodeClick}
                     snapToGrid={true}
+                    panOnDrag={state.dragMode}
                     snapGrid={[15, 15]}>
-                        <Background variant={BackgroundVariant.Lines}/>
                 </ReactFlow>
             
-            </div>
-            <div className="flex-auto px-5">
-                <CodeField/>
             </div>
         </div>
         </>
