@@ -16,7 +16,7 @@ function reducer(state : GraphState, action : GraphAction) : GraphState{
 
     switch (action.type) {
         case "ADD_NODE": {
-            let node_new = { id: String(state.nodeCount), position: { x:0, y: 0}, data: { label: String(state.nodeCount) }, ...nodeDefaults };
+            let node_new = { id: String(state.nodeCount + 1), position: { x:0, y: 0}, data: { label: String(state.nodeCount + 1) }, ...nodeDefaults };
             return {...state, newNode: node_new, nodeCount: state.nodeCount + 1, addMode: true, removeMode: false};
     
         }

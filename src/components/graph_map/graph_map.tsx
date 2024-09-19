@@ -7,9 +7,7 @@ import {
     addEdge,
   } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import { WIDTH, HEIGHT } from "../../shared/constants";
 import useStore from "./store";
-import useShallow from "zustand/react/shallow";
 import reducer from "./reducer";
 import { GraphState } from "../../shared/types/types";
 
