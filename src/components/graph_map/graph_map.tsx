@@ -6,7 +6,7 @@ import {
     useReactFlow,
   } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import useStore from "./store";
+import useStore from "./store/store";
 import reducer from "./reducer";
 import { Coordinates, GraphState } from "../../shared/types/types";
 import { useShallow } from "zustand/shallow";
@@ -46,8 +46,17 @@ export default function GraphMap() {
         }
         else if(state.addMode){
             if (state.connect){
+                let first = state.first;
                 let scnd = parseInt(node.id);
-                setEdges([...edges, {id: `${state.first}-${scnd}`, source: String(state.first), target: String(scnd), type: 'straight', label: '1'}]);
+
+                if (first > scnd){
+                    let tmp = first;
+                    first = scnd;
+                    scnd = tmp;
+                }
+                // this is for removing double edges
+                let id = `${first}-${scnd}`;
+                setEdges([...edges, {id: id, source: String(first), target: String(scnd), type: 'straight', label: '1'}]);
                 dispatch({type: "SET_PAIR", payload: -1});
             }
             if (!state.connect){

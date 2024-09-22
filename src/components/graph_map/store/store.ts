@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { addEdge, applyNodeChanges, applyEdgeChanges, Edge, Node } from '@xyflow/react';
 
-import { AppState } from '../../shared/types/types';
+import { AppState } from '../../../shared/types/types';
 
 
 const initialNodes : Node[]  = [
