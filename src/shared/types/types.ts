@@ -36,3 +36,10 @@ export type GraphAction = {
     type: string;
     payload?: any | Coordinates;
 }
+
+
+export type GraphButtonsProps = {
+    dispatch : React.Dispatch<GraphAction>;
+    setEdges : (edges : Edge[]) => void;
+    edges : Edge[];
+}

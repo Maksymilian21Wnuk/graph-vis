@@ -1,4 +1,4 @@
-import { GraphAction, GraphState } from "../../shared/types/types";
+import { GraphAction, GraphState } from "../../../shared/types/types";
 
 
 const nodeDefaults = {

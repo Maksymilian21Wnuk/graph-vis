@@ -1,15 +1,15 @@
-import { useReducer, useState } from "react";
-import Button from "../utility/button";
+import { useReducer } from "react";
 import {
     ReactFlow,
     addEdge,
-    useReactFlow,
+    
   } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import useStore from "./store/store";
-import reducer from "./reducer";
-import { Coordinates, GraphState } from "../../shared/types/types";
+import reducer from "./store/reducer";
+import { GraphState } from "../../shared/types/types";
 import { useShallow } from "zustand/shallow";
+import Buttons from "./components/buttons";
 
 const selector = (state : any) => ({
     nodes: state.nodes,
@@ -54,8 +54,14 @@ export default function GraphMap() {
                     first = scnd;
                     scnd = tmp;
                 }
+                console.log(first, scnd);
+                console.log(edges);
                 // this is for removing double edges
                 let id = `${first}-${scnd}`;
+                // handle same id's
+                if (edges.some(e => e.id === id) || first === scnd){
+                    return;
+                }
                 setEdges([...edges, {id: id, source: String(first), target: String(scnd), type: 'straight', label: '1'}]);
                 dispatch({type: "SET_PAIR", payload: -1});
             }
@@ -80,14 +86,10 @@ export default function GraphMap() {
     }
 
 
+
     return (
         <>
-        <div className="flex flex-col mx-5 my-2">
-                <Button onClick={(_e) => dispatch({type : "MOVE_MODE"})} text={"Move"}/>
-                <Button onClick={(_e) => dispatch({type : "MODE_ADD"})} text={"Add"}/>
-                <Button onClick={(_e) => dispatch({type : "MODE_REMOVE"})} text={"Remove"}/>
-        </div>    
-
+        <Buttons dispatch={dispatch} setEdges={setEdges} edges={edges}/>
         <div className="flex ">
 
             <div className="w-screen h-[400px] border-2 border-black mx-5">
