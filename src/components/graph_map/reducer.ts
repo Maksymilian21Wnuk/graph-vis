@@ -16,13 +16,17 @@ function reducer(state : GraphState, action : GraphAction) : GraphState{
 
     switch (action.type) {
         case "ADD_NODE": {
-            let node_new = { id: String(state.nodeCount + 1), position: { x:0, y: 0}, data: { label: String(state.nodeCount + 1) }, ...nodeDefaults };
-            return {...state, newNode: node_new, nodeCount: state.nodeCount + 1, addMode: true, removeMode: false};
+            let node_new = { id: String(state.nodeCount + 1), position: { x:action.payload.x, y: action.payload.y}, data: { label: String(state.nodeCount + 1) }, ...nodeDefaults };
+            return {...state, newNode: node_new, nodeCount: state.nodeCount + 1, addMode: true, removeMode: false, dragMode: false};
     
         }
 
-        case "REMOVE_NODE": {
-            return {...state, nodeCount: state.nodeCount - 1, addMode: false, removeMode: true};
+        case "MODE_ADD": {
+            return {...state, addMode: true, removeMode: false, dragMode: false};
+        }
+
+        case "MODE_REMOVE": {
+            return {...state, nodeCount: state.nodeCount - 1, addMode: false, removeMode: true, dragMode: false};
         }
 
         case "COUNT_ADD":{
@@ -30,20 +34,17 @@ function reducer(state : GraphState, action : GraphAction) : GraphState{
         }
 
         case 'SET_PAIR': {
-            if (state.first === -1 && state.second === -1){
-                return {...state, first: action.payload};
-            }
-            else if(state.first !== -1 && state.second === -1){
-                return {...state, second: action.payload};
+            if (state.first === -1){
+                return {...state, first: action.payload, connect: true};
             }
             else{
-                return {...state, first: -1, second: -1};
+                return {...state, first: -1, connect: false};
             }
 
         }
 
         case 'MOVE_MODE': {
-            return {...state, addMode: false, removeMode: false, second: -1, first: -1, dragMode: true};
+            return {...state, addMode: false, removeMode: false, first: -1, dragMode: true};
         }
         
         default: {

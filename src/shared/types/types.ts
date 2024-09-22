@@ -23,11 +23,16 @@ export type GraphState = {
     addMode: boolean;
     nodeCount: number;
     first: number;
-    second: number;
+    connect: boolean;
     dragMode: boolean;
+}
+
+export type Coordinates = {
+    x: number;
+    y: number;
 }
 
 export type GraphAction = {
     type: string;
-    payload?: any;
+    payload?: any | Coordinates;
 }
