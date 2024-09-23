@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import {
     ReactFlow,
     addEdge,
@@ -10,6 +10,8 @@ import reducer from "./store/reducer";
 import { GraphState } from "../../shared/types/types";
 import { useShallow } from "zustand/shallow";
 import Buttons from "./components/buttons";
+import Heap from "heap-js";
+import { Weight } from "../../shared/enumerations/enums";
 
 const selector = (state : any) => ({
     nodes: state.nodes,
@@ -20,18 +22,24 @@ const selector = (state : any) => ({
     setEdges: state.setEdges,
 });
 
+const DBG = true;
+
+function dbg(...args: any[]){
+    DBG ? console.log(args) : null;
+}
 
 export default function GraphMap() {
     const {nodes, edges, onNodesChange, onEdgesChange, setNodes, setEdges} = useStore(useShallow(selector));
 
     const initialState: GraphState = {
-        newNode: { id: "0", position: { x:0, y: 0}, data: { label: "0" }, style: { borderRadius: '100%', width: 50, height: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', }, },
+        newNode: { id: "0", position: { x:-500, y: -500}, data: { label: "0" }, style: { borderRadius: '100%', width: 50, height: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity:0 }, },
         removeMode: false,
         addMode: false,
         nodeCount: 0,
         first: -1,
         connect: false,
-        dragMode: true
+        dragMode: true,
+        minHeap: new Heap<string>(),
     };
 
 
@@ -40,29 +48,34 @@ export default function GraphMap() {
 
     function onNodeClick(_event: any, node: any){
         if (state.removeMode){
+            // add removed to min heap
+            // decrement state of node count
+            dispatch({type: "SET_MIN_HEAP", payload: node.id});
+            dispatch({type: "COUNT_ADD", payload: -1});
             setNodes(nodes.filter(n => n.id !== node.id));
             setEdges(edges.filter(e => e.source !== node.id && e.target !== node.id));
-            dispatch({type: "COUNT_ADD", payload: -1});
         }
         else if(state.addMode){
             if (state.connect){
-                let first = state.first;
-                let scnd = parseInt(node.id);
+                let first : number = state.first;
+                let scnd : number = parseInt(node.id);
 
                 if (first > scnd){
-                    let tmp = first;
+                    const tmp : number= first;
                     first = scnd;
                     scnd = tmp;
                 }
-                console.log(first, scnd);
-                console.log(edges);
                 // this is for removing double edges
                 let id = `${first}-${scnd}`;
+                if (first === -1){
+                    dispatch({type: "SET_PAIR", payload: first});
+                    return;
+                }
                 // handle same id's
                 if (edges.some(e => e.id === id) || first === scnd){
                     return;
                 }
-                setEdges([...edges, {id: id, source: String(first), target: String(scnd), type: 'straight', label: '1'}]);
+                setEdges([...edges, {id: id, source: String(first), target: String(scnd), type: 'straight', label: Weight.UNWEIGHTED}]);
                 dispatch({type: "SET_PAIR", payload: -1});
             }
             if (!state.connect){
@@ -76,12 +89,15 @@ export default function GraphMap() {
             setEdges(edges.filter(e => e.id !== edge.id))
     }
 
+    useEffect(() => {
+        setNodes([...nodes, state.newNode]);
+    }, [state.newNode]);
+
     function onPaneClick(_event : React.MouseEvent<Element, MouseEvent>) : void {
         if (state.addMode){
             const x = _event.clientX;
             const y = _event.clientY;
             dispatch({type: "ADD_NODE", payload: {x, y}});
-            setNodes([...nodes, state.newNode]);
         }
     }
 
@@ -90,13 +106,12 @@ export default function GraphMap() {
     return (
         <>
         <Buttons dispatch={dispatch} setEdges={setEdges} edges={edges}/>
-        <div className="flex ">
+        <div className="flex justify-center ">
 
-            <div className="w-screen h-[400px] border-2 border-black mx-5">
+            <div className="w-screen md:w-3/5 max-auto h-[400px] border-2 border-black mx-5">
                 <ReactFlow
                     nodes={nodes}
                     edges={edges}
-                    onConnect={(params) => setEdges(addEdge(params, edges))}
                     onNodesChange={onNodesChange}
                     onEdgesChange={onEdgesChange}
                     onEdgeClick={onEdgeClick}

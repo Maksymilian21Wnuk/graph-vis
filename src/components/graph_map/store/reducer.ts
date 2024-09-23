@@ -1,5 +1,6 @@
+import Heap from "heap-js";
 import { GraphAction, GraphState } from "../../../shared/types/types";
-
+import { Node } from "@xyflow/react";
 
 const nodeDefaults = {
     style: {
@@ -16,8 +17,20 @@ function reducer(state : GraphState, action : GraphAction) : GraphState{
 
     switch (action.type) {
         case "ADD_NODE": {
-            let node_new = { id: String(state.nodeCount + 1), position: { x:action.payload.x, y: action.payload.y}, data: { label: String(state.nodeCount + 1) }, ...nodeDefaults };
-            return {...state, newNode: node_new, nodeCount: state.nodeCount + 1, addMode: true, removeMode: false, dragMode: false};
+            // logic for adding node that was previously removed
+            // and recycling its id
+            let node_new : Node;
+            if (state.minHeap.size() > 0){
+                let id : any = state.minHeap.peek();
+                let newHeap = new Heap<string>();
+                newHeap.init([...state.minHeap.toArray().slice(1, state.minHeap.size())]);
+                node_new = { id: id, position: { x:action.payload.x, y: action.payload.y}, data: { label: id }, ...nodeDefaults };
+                return {...state, newNode: node_new, nodeCount: state.nodeCount + 1, addMode: true, removeMode: false, dragMode: false, minHeap: newHeap};
+            }
+            else{
+                node_new = { id: String(state.nodeCount + 1), position: { x:action.payload.x, y: action.payload.y}, data: { label: String(state.nodeCount + 1) }, ...nodeDefaults };
+                return {...state, newNode: node_new, nodeCount: state.nodeCount + 1, addMode: true, removeMode: false, dragMode: false};
+            }
     
         }
 
@@ -45,6 +58,14 @@ function reducer(state : GraphState, action : GraphAction) : GraphState{
 
         case 'MOVE_MODE': {
             return {...state, addMode: false, removeMode: false, first: -1, dragMode: true};
+        }
+
+        case 'SET_MIN_HEAP': {
+            // wtf but works
+            let newHeap = new Heap<string>();
+            newHeap.init([...state.minHeap.toArray(), action.payload]);
+            console.log(newHeap);
+            return {...state, minHeap: newHeap};
         }
         
         default: {

@@ -5,6 +5,7 @@ import {
     OnEdgesChange,
     OnConnect,
 } from '@xyflow/react';
+import Heap from 'heap-js';
   
   
 export type AppState = {
@@ -25,6 +26,7 @@ export type GraphState = {
     first: number;
     connect: boolean;
     dragMode: boolean;
+    minHeap: Heap<string>;
 }
 
 export type Coordinates = {
