@@ -1,7 +1,7 @@
 import Button from "../../utility/button";
 import { Edge } from "@xyflow/react";
 import { Weight } from "../../../shared/enumerations/enums";
-import { GraphButtonsProps } from "../../../shared/types/types";
+import { GraphButtonsProps } from "../../../shared/types/interactive_types";
 import { NODE_MAX } from "../../../shared/constants";
 
 function getRandomInt(max : number) {

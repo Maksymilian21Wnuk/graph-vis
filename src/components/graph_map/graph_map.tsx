@@ -1,17 +1,18 @@
 import { useEffect, useReducer } from "react";
 import {
     ReactFlow,
-    addEdge,
-    
+    Node,
+    Edge,
   } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import useStore from "./store/store";
-import reducer from "./store/reducer";
-import { GraphState } from "../../shared/types/types";
+import useStore from "../store/store";
+import reducer from "../store/reducer";
+import { GraphState } from "../../shared/types/interactive_types";
 import { useShallow } from "zustand/shallow";
 import Buttons from "./components/buttons";
 import Heap from "heap-js";
 import { Weight } from "../../shared/enumerations/enums";
+import GraphSpawner from "./components/graph_spawner";
 
 const selector = (state : any) => ({
     nodes: state.nodes,
@@ -52,8 +53,8 @@ export default function GraphMap() {
             // decrement state of node count
             dispatch({type: "SET_MIN_HEAP", payload: node.id});
             dispatch({type: "COUNT_ADD", payload: -1});
-            setNodes(nodes.filter(n => n.id !== node.id));
-            setEdges(edges.filter(e => e.source !== node.id && e.target !== node.id));
+            setNodes(nodes.filter((n : Node) => n.id !== node.id));
+            setEdges(edges.filter((e : Edge) => e.source !== node.id && e.target !== node.id));
         }
         else if(state.addMode){
             if (state.connect){
@@ -72,7 +73,7 @@ export default function GraphMap() {
                     return;
                 }
                 // handle same id's
-                if (edges.some(e => e.id === id) || first === scnd){
+                if (edges.some((e : Edge) => e.id === id) || first === scnd){
                     return;
                 }
                 setEdges([...edges, {id: id, source: String(first), target: String(scnd), type: 'straight', label: Weight.UNWEIGHTED}]);
@@ -86,10 +87,13 @@ export default function GraphMap() {
 
     function onEdgeClick(_event : React.MouseEvent<Element, MouseEvent>, edge : any) : void {
         if (state.removeMode)
-            setEdges(edges.filter(e => e.id !== edge.id))
+            setEdges(edges.filter((e : Edge) => e.id !== edge.id))
     }
 
+    // zmiana
     useEffect(() => {
+        dbg(nodes);
+        dbg(edges);
         setNodes([...nodes, state.newNode]);
     }, [state.newNode]);
 
@@ -101,12 +105,13 @@ export default function GraphMap() {
         }
     }
 
-
-
     return (
         <>
         <Buttons dispatch={dispatch} setEdges={setEdges} edges={edges}/>
         <div className="flex justify-center ">
+            <div className="w-1/5">
+                <GraphSpawner/>
+            </div>
 
             <div className="w-screen md:w-3/5 max-auto h-[400px] border-2 border-black mx-5">
                 <ReactFlow
@@ -121,6 +126,8 @@ export default function GraphMap() {
                     panOnDrag={state.dragMode}
                     snapGrid={[15, 15]}>
                 </ReactFlow>
+            </div>
+            <div className="w-1/5">
             
             </div>
         </div>

@@ -8,6 +8,11 @@ import {
 import Heap from 'heap-js';
   
   
+export type Graph = {
+    nodes: Node[];
+    edges: Edge[];
+}
+
 export type AppState = {
     nodes: Node[];
     edges: Edge[];
@@ -44,4 +49,10 @@ export type GraphButtonsProps = {
     dispatch : React.Dispatch<GraphAction>;
     setEdges : (edges : Edge[]) => void;
     edges : Edge[];
+}
+
+export type GraphName = {
+    name: string;
+    description: string;
+    id: string;
 }

@@ -1,5 +1,5 @@
 import Heap from "heap-js";
-import { GraphAction, GraphState } from "../../../shared/types/types";
+import { GraphAction, GraphState } from "../../shared/types/interactive_types";
 import { Node } from "@xyflow/react";
 
 const nodeDefaults = {
