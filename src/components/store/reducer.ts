@@ -9,7 +9,7 @@ const nodeDefaults = {
       height: 50,
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'center'
     },
   };
 

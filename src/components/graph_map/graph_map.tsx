@@ -86,6 +86,7 @@ export default function GraphMap() {
     }
 
     function onEdgeClick(_event : React.MouseEvent<Element, MouseEvent>, edge : any) : void {
+        dbg(edges);
         if (state.removeMode)
             setEdges(edges.filter((e : Edge) => e.id !== edge.id))
     }

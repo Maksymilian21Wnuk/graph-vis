@@ -1,8 +1,9 @@
 import { useShallow } from "zustand/shallow";
 import useStore from "../store/store";
-import test from "./algorithms/test";
-import { Node } from "@xyflow/react";
+import bfs from "./algorithms/bfs";
 import { useState } from "react";
+import Graph from "../../shared/models/graph";
+import colorNodes from "./color_nodes";
 
 const selector = (state : any) => ({
     nodes: state.nodes,
@@ -11,7 +12,7 @@ const selector = (state : any) => ({
     setEdges: state.setEdges,
 });
 
-let gen = test(10);
+let gen = bfs(new Graph());
 let initialState = gen.next();
 
 export default function Visualisation() {
@@ -20,14 +21,17 @@ export default function Visualisation() {
     const [genval, setGenval] = useState(initialState);
 
     function next_step(){
-        console.log(genval);
         let next = gen.next();
-        setGenval(next);
+        if (next.value!){
+            let colored = colorNodes(next, nodes);
+            setNodes(colored);
+            setGenval(next);
+        }
     }
 
     function start(){
-        gen = test(nodes);
-        setGenval(gen.next());
+        let graph = new Graph(nodes, edges);
+        gen = bfs(graph);
     }
 
     return (

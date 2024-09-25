@@ -2,7 +2,7 @@ import { OnEdgesChange, OnNodesChange, Edge, Node} from '@xyflow/react'
 
 
 
-export interface Graph{
+export interface GraphStore{
     nodes: Node[];
     setNodes: React.Dispatch<React.SetStateAction<Node[]>>;
     onNodesChange: OnNodesChange<Node>;
