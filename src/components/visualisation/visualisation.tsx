@@ -4,6 +4,8 @@ import bfs from "./algorithms/bfs";
 import { useState } from "react";
 import Graph from "../../shared/models/graph";
 import colorNodes from "./color_nodes";
+import { Node } from "@xyflow/react";
+import reset_color from "./util/reset_color";
 
 const selector = (state : any) => ({
     nodes: state.nodes,
@@ -27,18 +29,27 @@ export default function Visualisation() {
             setNodes(colored);
             setGenval(next);
         }
+        else{
+            setNodes(reset_color(nodes));
+        }
     }
 
     function start(){
+        setNodes(reset_color(nodes));
         let graph = new Graph(nodes, edges);
         gen = bfs(graph);
     }
 
     return (
-        <div className="flex justify-center gap-4 p-2 m-5">
-            <button className="btn" onClick={start}>Go Start </button>
-            <button className="btn" onClick={next_step}>Go Next</button>
-        </div>
+        <>       
+            <div className="flex justify-center gap-4 p-2 m-5">
+                <button className="btn" onClick={start}>Go Start </button>
+                <button className="btn" onClick={next_step}>Go Next</button>
+            </div>
+            <div className="flex justify-center">
+                <h1>Depth First Search, idea: description, concept, pseudocode</h1>
+            </div>
+        </>
     );
 
 }

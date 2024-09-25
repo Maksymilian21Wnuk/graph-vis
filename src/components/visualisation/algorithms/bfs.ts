@@ -1,6 +1,5 @@
 import Graph from "../../../shared/models/graph";
 import { ReturnObj } from "../../../shared/types/graph_types";
-import { Node } from "../../../shared/types/graph_types";
 // use node !!! not stirngs in future
 
 export default function* bfs(g : Graph) : Generator<ReturnObj> {
@@ -14,7 +13,7 @@ export default function* bfs(g : Graph) : Generator<ReturnObj> {
         // idea: return node that is currently being visited
         // also may return stack as msg
         if (!visited.has(node)){
-            yield {nodes: [{id: node}], msg: `Visiting node ${node}`};
+            yield {nodes: [node], msg: `Visiting node ${node}`};
             visited.add(node);
             let neighbours = g.get_neighbours(node);
             for (let neighbour of neighbours){
