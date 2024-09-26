@@ -1,8 +1,11 @@
-import { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import {
     ReactFlow,
     Node,
     Edge,
+    Controls,
+    useReactFlow,
+    XYPosition,
   } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import useStore from "../store/store";
@@ -32,6 +35,8 @@ function dbg(...args: any[]){
 export default function GraphMap() {
     const {nodes, edges, onNodesChange, onEdgesChange, setNodes, setEdges} = useStore(useShallow(selector));
 
+    const reactFlow = useReactFlow();
+
     const initialState: GraphState = {
         newNode: { id: "0", position: { x:-500, y: -500}, data: { label: "0" }, style: { borderRadius: '100%', width: 50, height: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity:0 }, },
         removeMode: false,
@@ -39,7 +44,6 @@ export default function GraphMap() {
         nodeCount: 0,
         first: -1,
         connect: false,
-        dragMode: true,
         minHeap: new Heap<string>(),
     };
 
@@ -100,9 +104,10 @@ export default function GraphMap() {
 
     function onPaneClick(_event : React.MouseEvent<Element, MouseEvent>) : void {
         if (state.addMode){
-            const x = _event.clientX;
-            const y = _event.clientY;
-            dispatch({type: "ADD_NODE", payload: {x, y}});
+            let xy : XYPosition = {x : _event.clientX, y : _event.clientY};
+            //xy = reactFlow.screenToFlowPosition(xy);
+            xy = reactFlow.screenToFlowPosition(xy);
+            dispatch({type: "ADD_NODE", payload: {x : xy.x, y : xy.y}});
         }
     }
 
@@ -115,18 +120,19 @@ export default function GraphMap() {
             </div>
 
             <div className="w-screen md:w-3/5 max-auto h-[400px] border-2 border-black mx-5">
-                <ReactFlow
-                    nodes={nodes}
-                    edges={edges}
-                    onNodesChange={onNodesChange}
-                    onEdgesChange={onEdgesChange}
-                    onEdgeClick={onEdgeClick}
-                    onNodeClick={onNodeClick}
-                    snapToGrid={true}
-                    onPaneClick={onPaneClick}
-                    panOnDrag={state.dragMode}
-                    snapGrid={[15, 15]}>
-                </ReactFlow>
+                
+                    <ReactFlow
+                        nodes={nodes}
+                        edges={edges}
+                        onNodesChange={onNodesChange}
+                        onEdgesChange={onEdgesChange}
+                        onEdgeClick={onEdgeClick}
+                        onNodeClick={onNodeClick}
+                        snapToGrid={true}
+                        onPaneClick={onPaneClick}
+                        snapGrid={[15, 15]}>
+                            <Controls />
+                    </ReactFlow>
             </div>
             <div className="w-1/5">
             

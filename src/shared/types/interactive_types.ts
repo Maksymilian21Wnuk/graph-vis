@@ -30,7 +30,6 @@ export type GraphState = {
     nodeCount: number;
     first: number;
     connect: boolean;
-    dragMode: boolean;
     minHeap: Heap<string>;
 }
 

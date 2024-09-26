@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+/* the pointer-events is just the trick
+for making handle invisible and thus
+not draggable*/
+
 .react-flow .react-flow__handle {
   top: 50%;
   left: 50%;
@@ -9,4 +13,5 @@
   bottom: auto;
   transform: translate(-50%, -50%);
   opacity: 0;
+  pointer-events: none;
 }

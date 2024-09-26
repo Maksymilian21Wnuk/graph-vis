@@ -25,21 +25,21 @@ function reducer(state : GraphState, action : GraphAction) : GraphState{
                 let newHeap = new Heap<string>();
                 newHeap.init([...state.minHeap.toArray().slice(1, state.minHeap.size())]);
                 node_new = { id: id, position: { x:action.payload.x, y: action.payload.y}, data: { label: id }, ...nodeDefaults };
-                return {...state, newNode: node_new, nodeCount: state.nodeCount + 1, addMode: true, removeMode: false, dragMode: false, minHeap: newHeap};
+                return {...state, newNode: node_new, nodeCount: state.nodeCount + 1, addMode: true, removeMode: false, minHeap: newHeap};
             }
             else{
                 node_new = { id: String(state.nodeCount + 1), position: { x:action.payload.x, y: action.payload.y}, data: { label: String(state.nodeCount + 1) }, ...nodeDefaults };
-                return {...state, newNode: node_new, nodeCount: state.nodeCount + 1, addMode: true, removeMode: false, dragMode: false};
+                return {...state, newNode: node_new, nodeCount: state.nodeCount + 1, addMode: true, removeMode: false};
             }
     
         }
 
         case "MODE_ADD": {
-            return {...state, addMode: true, removeMode: false, dragMode: false};
+            return {...state, addMode: true, removeMode: false};
         }
 
         case "MODE_REMOVE": {
-            return {...state, nodeCount: state.nodeCount - 1, addMode: false, removeMode: true, dragMode: false};
+            return {...state, nodeCount: state.nodeCount - 1, addMode: false, removeMode: true};
         }
 
         case "COUNT_ADD":{
@@ -56,9 +56,6 @@ function reducer(state : GraphState, action : GraphAction) : GraphState{
 
         }
 
-        case 'MOVE_MODE': {
-            return {...state, addMode: false, removeMode: false, first: -1, dragMode: true};
-        }
 
         case 'SET_MIN_HEAP': {
             // wtf but works
