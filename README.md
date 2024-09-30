@@ -1,2 +1,2 @@
-# Visualisation for graphs
-React app for graph visualisation with parsing to chosen coding language.
+# Interactive graph algorithms visualisation
+React app for creating own graph and running algorithm on it.

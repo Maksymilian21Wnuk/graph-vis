@@ -16,6 +16,7 @@ import Buttons from "./components/buttons";
 import Heap from "heap-js";
 import { Weight } from "../../shared/enumerations/enums";
 import GraphSpawner from "./components/graph_spawner";
+import { edgeDefaultStyle, nodeDefaultStyle } from "../../shared/constants";
 
 const selector = (state : any) => ({
     nodes: state.nodes,
@@ -37,11 +38,12 @@ export default function GraphMap() {
 
     const reactFlow = useReactFlow();
 
+    // todo: make addMode by default so that removal is only chosen by clicking
     const initialState: GraphState = {
-        newNode: { id: "0", position: { x:-500, y: -500}, data: { label: "0" }, style: { borderRadius: '100%', width: 50, height: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity:0 }, },
+        newNode: { id: "6", position: { x:300, y: 200}, data: { label: "6" }, ...nodeDefaultStyle},
         removeMode: false,
         addMode: false,
-        nodeCount: 0,
+        nodeCount: 6,
         first: -1,
         connect: false,
         minHeap: new Heap<string>(),
@@ -80,7 +82,7 @@ export default function GraphMap() {
                 if (edges.some((e : Edge) => e.id === id) || first === scnd){
                     return;
                 }
-                setEdges([...edges, {id: id, source: String(first), target: String(scnd), type: 'straight', label: Weight.UNWEIGHTED}]);
+                setEdges([...edges, {id: id, source: String(first), target: String(scnd), type: 'straight', label: Weight.UNWEIGHTED, style: {edgeDefaultStyle}}]);
                 dispatch({type: "SET_PAIR", payload: -1});
             }
             if (!state.connect){
@@ -95,7 +97,7 @@ export default function GraphMap() {
             setEdges(edges.filter((e : Edge) => e.id !== edge.id))
     }
 
-    // zmiana
+    // do zmiany!
     useEffect(() => {
         dbg(nodes);
         dbg(edges);
@@ -129,9 +131,10 @@ export default function GraphMap() {
                         onEdgeClick={onEdgeClick}
                         onNodeClick={onNodeClick}
                         snapToGrid={true}
+                        onInit={() => reactFlow.fitView()}
                         onPaneClick={onPaneClick}
                         snapGrid={[15, 15]}>
-                            <Controls />
+                    <Controls />
                     </ReactFlow>
             </div>
             <div className="w-1/5">

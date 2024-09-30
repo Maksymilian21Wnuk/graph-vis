@@ -3,10 +3,7 @@ import { Edge } from "@xyflow/react";
 import { Weight } from "../../../shared/enumerations/enums";
 import { GraphButtonsProps } from "../../../shared/types/interactive_types";
 import { NODE_MAX } from "../../../shared/constants";
-
-function getRandomInt(max : number) {
-    return Math.floor(Math.random() * max);
-}
+import getRandomInt from "../../utility/random_int";
 
 
 export default function Buttons({dispatch, setEdges, edges}: GraphButtonsProps) {

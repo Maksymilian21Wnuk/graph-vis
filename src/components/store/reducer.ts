@@ -1,17 +1,8 @@
 import Heap from "heap-js";
 import { GraphAction, GraphState } from "../../shared/types/interactive_types";
 import { Node } from "@xyflow/react";
+import { nodeDefaultStyle } from "../../shared/constants";
 
-const nodeDefaults = {
-    style: {
-      borderRadius: '100%',
-      width: 50,
-      height: 50,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
-    },
-  };
 
 function reducer(state : GraphState, action : GraphAction) : GraphState{
 
@@ -24,11 +15,11 @@ function reducer(state : GraphState, action : GraphAction) : GraphState{
                 let id : any = state.minHeap.peek();
                 let newHeap = new Heap<string>();
                 newHeap.init([...state.minHeap.toArray().slice(1, state.minHeap.size())]);
-                node_new = { id: id, position: { x:action.payload.x, y: action.payload.y}, data: { label: id }, ...nodeDefaults };
+                node_new = { id: id, position: { x:action.payload.x, y: action.payload.y}, data: { label: id }, ...nodeDefaultStyle };
                 return {...state, newNode: node_new, nodeCount: state.nodeCount + 1, addMode: true, removeMode: false, minHeap: newHeap};
             }
             else{
-                node_new = { id: String(state.nodeCount + 1), position: { x:action.payload.x, y: action.payload.y}, data: { label: String(state.nodeCount + 1) }, ...nodeDefaults };
+                node_new = { id: String(state.nodeCount + 1), position: { x:action.payload.x, y: action.payload.y}, data: { label: String(state.nodeCount + 1) }, ...nodeDefaultStyle };
                 return {...state, newNode: node_new, nodeCount: state.nodeCount + 1, addMode: true, removeMode: false};
             }
     

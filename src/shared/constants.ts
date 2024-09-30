@@ -1,10 +1,28 @@
 
 
+const nodeDefaultStyle = {
+    style: {
+      borderRadius: '100%',
+      width: 50,
+      height: 50,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+};
 
+const edgeDefaultStyle = {
+    style : {
+        background : "red",
+    }
+}
 
 const WIDTH : number = 700
 const HEIGHT : number = 500
 const NODE_MAX : number = 20
-const HELP_TXT : string = `This is a graph editor. You can add nodes by clicking on the canvas. You can connect nodes by clicking on the node and then clicking on another node. You can remove nodes by clicking on the node and then clicking on the remove button. You can remove edges by clicking on the edge and then clicking on the remove button.`
+const HELP_TXT : string = `This page was created for visualisation of most popular algorithms on graphs. 
+You can add nodes by choosing add button and then clicking on map and add edges by clicking two nodes. 
+Removal happens after clicking remove button and choosing either node or edge. 
+Run algorithm using dropdown panel on down side of page.`
 
-export {WIDTH, HEIGHT, NODE_MAX, HELP_TXT}
+export {WIDTH, HEIGHT, NODE_MAX, HELP_TXT, nodeDefaultStyle, edgeDefaultStyle}

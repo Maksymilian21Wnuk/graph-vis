@@ -16,6 +16,7 @@ export type Graph = {
 export type AppState = {
     nodes: Node[];
     edges: Edge[];
+    currentlyClicked: string;
     onNodesChange: OnNodesChange<Node>;
     onEdgesChange: OnEdgesChange;
     onConnect: OnConnect;
