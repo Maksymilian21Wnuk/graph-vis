@@ -10,15 +10,16 @@ import {
 import '@xyflow/react/dist/style.css';
 import useStore from "../store/store";
 import reducer from "../store/reducer";
-import { GraphState } from "../../shared/types/interactive_types";
+import { AppState, GraphState } from "../../shared/types/interactive_types";
 import { useShallow } from "zustand/shallow";
 import Buttons from "./components/buttons";
-import Heap from "heap-js";
 import { Weight } from "../../shared/enumerations/enums";
 import GraphSpawner from "./components/graph_spawner";
-import { edgeDefaultStyle, nodeDefaultStyle } from "../../shared/constants";
+import { nodeDefaultStyle } from "../../shared/constants";
+import find_first_free_index from "./functions/find_first_free_index";
+import find_first_free from "./functions/find_first_free_index";
 
-const selector = (state : any) => ({
+const selector = (state : AppState) => ({
     nodes: state.nodes,
     edges: state.edges,
     onNodesChange: state.onNodesChange,
@@ -40,25 +41,20 @@ export default function GraphMap() {
 
     // todo: make addMode by default so that removal is only chosen by clicking
     const initialState: GraphState = {
-        newNode: { id: "6", position: { x:300, y: 200}, data: { label: "6" }, ...nodeDefaultStyle},
         removeMode: false,
         addMode: false,
-        nodeCount: 6,
         first: -1,
         connect: false,
-        minHeap: new Heap<string>(),
     };
 
 
     const [state, dispatch] = useReducer(reducer, initialState);
 
-
-    function onNodeClick(_event: any, node: any){
+    // looks weird, maybe to change
+    function onNodeClick(_event: React.MouseEvent<Element, MouseEvent>, node: Node){
         if (state.removeMode){
             // add removed to min heap
             // decrement state of node count
-            dispatch({type: "SET_MIN_HEAP", payload: node.id});
-            dispatch({type: "COUNT_ADD", payload: -1});
             setNodes(nodes.filter((n : Node) => n.id !== node.id));
             setEdges(edges.filter((e : Edge) => e.source !== node.id && e.target !== node.id));
         }
@@ -82,7 +78,7 @@ export default function GraphMap() {
                 if (edges.some((e : Edge) => e.id === id) || first === scnd){
                     return;
                 }
-                setEdges([...edges, {id: id, source: String(first), target: String(scnd), type: 'straight', label: Weight.UNWEIGHTED, style: {edgeDefaultStyle}}]);
+                setEdges([...edges, {id: id, source: String(first), target: String(scnd), type: 'straight', label: Weight.UNWEIGHTED}]);
                 dispatch({type: "SET_PAIR", payload: -1});
             }
             if (!state.connect){
@@ -91,25 +87,21 @@ export default function GraphMap() {
         }
     }
 
-    function onEdgeClick(_event : React.MouseEvent<Element, MouseEvent>, edge : any) : void {
-        dbg(edges);
+    function onEdgeClick(_event : React.MouseEvent<Element, MouseEvent>, edge : Edge) : void {
+        dbg(reactFlow);
         if (state.removeMode)
             setEdges(edges.filter((e : Edge) => e.id !== edge.id))
     }
 
-    // do zmiany!
-    useEffect(() => {
-        dbg(nodes);
-        dbg(edges);
-        setNodes([...nodes, state.newNode]);
-    }, [state.newNode]);
 
     function onPaneClick(_event : React.MouseEvent<Element, MouseEvent>) : void {
         if (state.addMode){
             let xy : XYPosition = {x : _event.clientX, y : _event.clientY};
-            //xy = reactFlow.screenToFlowPosition(xy);
             xy = reactFlow.screenToFlowPosition(xy);
-            dispatch({type: "ADD_NODE", payload: {x : xy.x, y : xy.y}});
+            const first_free : string = find_first_free(nodes);
+            const new_node = { id: first_free, position: { x:xy.x, y: xy.y}, data: { label: first_free }, ...nodeDefaultStyle };
+            console.log(nodes);
+            setNodes([...nodes, new_node]);
         }
     }
 

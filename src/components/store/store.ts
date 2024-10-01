@@ -25,7 +25,6 @@ const initialEdges : Edge[] = [
 const useStore = create<AppState>((set, get) => ({
   nodes: initialNodes,
   edges: initialEdges,
-  currentlyClicked: "1",
   onNodesChange: (changes) => {
     set({
       nodes: applyNodeChanges(changes, get().nodes),

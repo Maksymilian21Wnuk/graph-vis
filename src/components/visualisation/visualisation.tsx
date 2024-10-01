@@ -7,13 +7,16 @@ import Graph from "../../shared/models/graph";
 import colorNodes from "./color_nodes";
 import reset_color from "./util/reset_color";
 import { algos } from "./algorithms/algorithms_aggreg";
-
+import { Value } from "../../shared/enumerations/enums";
+import { Node } from "@xyflow/react";
+import get_currently_clicked from "./util/get_currently_clicked";
 
 const selector = (state : any) => ({
     nodes: state.nodes,
     edges: state.edges,
     setNodes: state.setNodes,
     setEdges: state.setEdges,
+    currentlyClicked: state.currentlyClicked,
 });
 
 let gen = bfs(new Graph());
@@ -23,7 +26,7 @@ export default function Visualisation() {
     const {nodes, edges, setNodes, setEdges} = useStore(useShallow(selector));
 
     const [genval, setGenval] = useState(initialState);
-    const [selectedValue, setSelectedValue] = useState(-1);
+    const [selectedValue, setSelectedValue] = useState(Value.NOT_SELECTED);
     const [chosenFunction, setChosenFunction] = useState<any>(algos[0]);
 
     function next_step(){
@@ -39,11 +42,14 @@ export default function Visualisation() {
     }
 
     function start(){
+        console.log(nodes);
         setNodes(reset_color(nodes));
-        let graph = new Graph(nodes, edges);
+        // gets currently clicked node in order to start algo in this node (case of node starting algo)
+        const currentClicked : string = get_currently_clicked(nodes);
+        let graph = new Graph(currentClicked, nodes, edges);
+        // run chosen algo on given graph
         gen = chosenFunction.foo(graph);
         next_step();
-        console.log(chosenFunction);
 
     }
 
@@ -56,9 +62,9 @@ export default function Visualisation() {
 
     return (
         <>     
-            {selectedValue !== -1 ? (<div className="flex justify-center gap-4 p-2 m-5">
-                <button className="btn" onClick={start}>Go Start </button>
-                <button className="btn" onClick={next_step}>Go Next</button>
+            {selectedValue !== Value.NOT_SELECTED ? (<div className="flex justify-center gap-4 p-2 m-5">
+                <button className="btn" onClick={start}>Start </button>
+                <button className="btn" onClick={next_step}>Next</button>
             </div>) : null}
 
             <div className="flex justify-center">

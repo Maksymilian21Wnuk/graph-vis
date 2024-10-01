@@ -4,7 +4,7 @@ import { ReturnObj } from "../../../shared/types/graph_types";
 
 export default function* dfs(g : Graph) : Generator<ReturnObj> {
     let visited = new Set<string>();
-    let stack : string[] = [g.nodes[0]];
+    let stack : string[] = [g.start_node];
 
 
     while (stack.length > 0){

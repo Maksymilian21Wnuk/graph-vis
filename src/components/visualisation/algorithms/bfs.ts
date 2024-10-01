@@ -4,7 +4,7 @@ import Graph from "../../../shared/models/graph";
 
 export default function* bfs(g : Graph) : Generator<ReturnObj> {
     let visited = new Set<string>();
-    let queue : string[] = [g.nodes[0]];
+    let queue : string[] = [g.start_node];
 
     while (queue.length > 0){
         // type assertion

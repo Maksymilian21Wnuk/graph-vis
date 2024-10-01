@@ -5,13 +5,17 @@ import { Node, Edge } from "@xyflow/react";
 export default class Graph{
     edges : Map<string, string[]>;
     nodes : string[];
+    start_node : string;
 
-    constructor(nodes?: Node[], edges?: Edge[]){
+    constructor(start_node_id? : string, nodes?: Node[], edges?: Edge[]){
         this.edges = new Map<string, string[]>();
         this.nodes = [];
-        if (nodes && edges){
+        this.start_node = "1";
+
+        if (nodes && edges && start_node_id){
             this.edges = convert_flow(edges);
             this.nodes = nodes.map((node : Node) => node.id);
+            this.start_node = nodes?.find((n : Node) => n.id = start_node_id)!.id;
         }
     }
 

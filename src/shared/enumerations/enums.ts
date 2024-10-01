@@ -11,3 +11,7 @@ export enum NodeColor {
     UNVISITED = "white",
     CURRENT = "red",
 };
+
+export enum Value {
+    NOT_SELECTED = -1,
+}
