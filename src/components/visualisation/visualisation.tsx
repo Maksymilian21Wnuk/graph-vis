@@ -19,7 +19,6 @@ const selector = (state : AppState) => ({
 
 
 
-
 export default function Visualisation() {
     const {nodes, edges, setNodes, setEdges} = useStore(useShallow(selector));
 

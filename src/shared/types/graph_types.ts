@@ -10,7 +10,7 @@ export type Step = {
     msg? : string;
 };
 
-export type AlgorithmFunction = (g : Graph) => Generator<Step>;
+export type AlgorithmFunction = (g : Graph) => Step[];
 
 export type Algorithm = {
     foo : AlgorithmFunction;
