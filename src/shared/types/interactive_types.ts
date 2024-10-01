@@ -5,8 +5,8 @@ import {
     OnEdgesChange,
     OnConnect,
 } from '@xyflow/react';
-  
-  
+
+
 export type Graph = {
     nodes: Node[];
     edges: Edge[];
@@ -27,6 +27,7 @@ export type GraphState = {
     addMode: boolean;
     first: number;
     connect: boolean;
+    weighted: boolean;
 }
 
 export type Coordinates = {
@@ -36,14 +37,14 @@ export type Coordinates = {
 
 export type GraphAction = {
     type: string;
-    payload?: any | Coordinates;
+    payload?: any | Coordinates | boolean | number;
 }
 
 
 export type GraphButtonsProps = {
-    dispatch : React.Dispatch<GraphAction>;
-    setEdges : (edges : Edge[]) => void;
-    edges : Edge[];
+    dispatch: React.Dispatch<GraphAction>;
+    setEdges: (edges: Edge[]) => void;
+    edges: Edge[];
 }
 
 export type GraphName = {

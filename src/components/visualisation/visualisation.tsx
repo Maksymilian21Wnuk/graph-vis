@@ -8,7 +8,6 @@ import colorNodes from "./color_nodes";
 import reset_color from "./util/reset_color";
 import { algos } from "./algorithms/algorithms_aggreg";
 import { Value } from "../../shared/enumerations/enums";
-import { Node } from "@xyflow/react";
 import get_currently_clicked from "./util/get_currently_clicked";
 
 const selector = (state : any) => ({
@@ -42,7 +41,6 @@ export default function Visualisation() {
     }
 
     function start(){
-        console.log(nodes);
         setNodes(reset_color(nodes));
         // gets currently clicked node in order to start algo in this node (case of node starting algo)
         const currentClicked : string = get_currently_clicked(nodes);
@@ -50,7 +48,6 @@ export default function Visualisation() {
         // run chosen algo on given graph
         gen = chosenFunction.foo(graph);
         next_step();
-
     }
 
 
@@ -71,8 +68,8 @@ export default function Visualisation() {
                 <select className="select select-bordered w-full max-w-xs" 
                         value={selectedValue} onChange={handleChange}>
                             <option>Pick algorithm...</option>
-                    {/* this is for using array index not finding value */}
-                    {algos.map((alg : Algorithm, i : number = 0) => <option value={i++}>{alg.name}</option>)}
+                    {/* this is for using array index for not using .find() */}
+                    {algos.map((alg : Algorithm, i : number = 0) => <option key={alg.name} value={i++}>{alg.name}</option>)}
                 </select>
             </div>
 
