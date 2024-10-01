@@ -4,13 +4,13 @@
 import Graph from "../models/graph";
 
 
-export type ReturnObj = {
+export type Step = {
     nodes? : string[];
     edges? : string[];
     msg? : string;
 };
 
-export type AlgorithmFunction = (g : Graph) => Generator<ReturnObj>;
+export type AlgorithmFunction = (g : Graph) => Generator<Step>;
 
 export type Algorithm = {
     foo : AlgorithmFunction;

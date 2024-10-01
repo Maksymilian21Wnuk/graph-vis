@@ -1,43 +1,45 @@
 import { useShallow } from "zustand/shallow";
 import useStore from "../store/store";
-import dfs from "./algorithms/dfs";
-import bfs from "./algorithms/bfs";
 import { useState } from "react";
 import Graph from "../../shared/models/graph";
-import colorNodes from "./color_nodes";
 import reset_color from "./util/reset_color";
 import { algos } from "./algorithms/algorithms_aggreg";
 import { Value } from "../../shared/enumerations/enums";
 import get_currently_clicked from "./util/get_currently_clicked";
+import { AppState } from "../../shared/types/interactive_types";
+import { Step } from "../../shared/types/graph_types";
+import colorNodes from "./color_nodes";
 
-const selector = (state : any) => ({
+const selector = (state : AppState) => ({
     nodes: state.nodes,
     edges: state.edges,
     setNodes: state.setNodes,
     setEdges: state.setEdges,
-    currentlyClicked: state.currentlyClicked,
 });
 
-let gen = bfs(new Graph());
-let initialState = gen.next();
+
+
 
 export default function Visualisation() {
     const {nodes, edges, setNodes, setEdges} = useStore(useShallow(selector));
 
-    const [genval, setGenval] = useState(initialState);
     const [selectedValue, setSelectedValue] = useState(Value.NOT_SELECTED);
     const [chosenFunction, setChosenFunction] = useState<any>(algos[0]);
+    const [steps, setSteps] = useState<Step[]>([]);
 
     function next_step(){
-        let next = gen.next();
-        if (next.value!){
-            let colored = colorNodes(next, nodes);
-            setNodes(colored);
-            setGenval(next);
+        console.log(steps);
+        const step : Step = steps.shift()!;
+        if (step){
+            setSteps(steps);
+            setNodes(colorNodes(step, nodes));
+            
         }
         else{
+            setSteps([]);
             setNodes(reset_color(nodes));
         }
+    
     }
 
     function start(){
@@ -46,8 +48,8 @@ export default function Visualisation() {
         const currentClicked : string = get_currently_clicked(nodes);
         let graph = new Graph(currentClicked, nodes, edges);
         // run chosen algo on given graph
-        gen = chosenFunction.foo(graph);
-        next_step();
+        const new_steps : Step[] = chosenFunction.foo(graph);
+        setSteps(new_steps);
     }
 
 

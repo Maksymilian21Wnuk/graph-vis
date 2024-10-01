@@ -1,5 +1,5 @@
 import { NodeColor } from "../../shared/enumerations/enums";
-import { ReturnObj } from "../../shared/types/graph_types"
+import { Step } from "../../shared/types/graph_types"
 import { Node } from "@xyflow/react"
 
 
@@ -14,10 +14,10 @@ function change_to_visited(nodes : Node[], color : string) : Node[] {
 }
 
 // simple for, wanted to make code more readable
-export default function colorNodes(gen_obj : IteratorResult<ReturnObj, any>, nodes : Node[]) : Node[]{
+export default function colorNodes(step : Step, nodes : Node[]) : Node[]{
     nodes = change_to_visited(nodes, NodeColor.VISITED);
     // the property nodes gives nodes to change color
-    let nodes_to_change : string[] = gen_obj.value.nodes;
+    let nodes_to_change : string[] = step.nodes!;
     for (let id of nodes_to_change) {
         nodes = change_given_id(nodes, id, NodeColor.CURRENT);
     }
