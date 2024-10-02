@@ -18,6 +18,7 @@ import GraphSpawner from "./components/graph_spawner";
 import { NODE_MAX, nodeDefaultStyle } from "../../shared/constants";
 import find_first_free from "./functions/find_first_free_index";
 import getRandomInt from "../utility/random_int";
+import Steps from "./components/steps";
 
 const selector = (state: AppState) => ({
     nodes: state.nodes,
@@ -26,6 +27,7 @@ const selector = (state: AppState) => ({
     onEdgesChange: state.onEdgesChange,
     setNodes: state.setNodes,
     setEdges: state.setEdges,
+    message: state.message,
 });
 
 const DBG = true;
@@ -35,7 +37,7 @@ function dbg(...args: any[]) {
 }
 
 export default function GraphMap() {
-    const { nodes, edges, onNodesChange, onEdgesChange, setNodes, setEdges } = useStore(useShallow(selector));
+    const { nodes, edges, onNodesChange, onEdgesChange, setNodes, setEdges, message } = useStore(useShallow(selector));
 
     const reactFlow = useReactFlow();
 
@@ -82,7 +84,7 @@ export default function GraphMap() {
 
                 const new_label : string = state.weighted ? String(getRandomInt(NODE_MAX)) : Weight.UNWEIGHTED;  
 
-                setEdges([...edges, { id: id, source: String(first), target: String(scnd), type: 'straight', label: new_label }]);
+                setEdges([...edges, { id: id, source: String(first), target: String(scnd), type: 'straight', label: new_label, style: {stroke: "black"} }]);
                 dispatch({ type: "SET_PAIR", payload: -1 });
             }
             if (!state.connect) {
@@ -111,14 +113,13 @@ export default function GraphMap() {
 
     return (
         <>
-            <Buttons dispatch={dispatch} setEdges={setEdges} edges={edges} />
+            <Buttons dispatch={dispatch} setEdges={setEdges} edges={edges} setNodes={setNodes} />
             <div className="flex justify-center ">
                 <div className="w-1/5">
                     <GraphSpawner />
                 </div>
 
                 <div className="w-screen md:w-3/5 max-auto h-[400px] border-2 border-black mx-5">
-
                     <ReactFlow
                         nodes={nodes}
                         edges={edges}
@@ -134,7 +135,7 @@ export default function GraphMap() {
                     </ReactFlow>
                 </div>
                 <div className="w-1/5">
-
+                    <Steps msg = {message.msg}/>
                 </div>
             </div>
         </>

@@ -13,7 +13,7 @@ const nodeDefaultStyle = {
 
 const edgeDefaultStyle = {
     style : {
-        background : "red",
+        stroke: "black",
     }
 }
 

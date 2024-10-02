@@ -5,7 +5,6 @@ import { Step } from "../../../shared/types/graph_types";
 export default function dfs(g : Graph) : Step[] {
     let visited = new Set<string>();
     let stack : string[] = [g.start_node];
-    let steps : Step[] = [];
 
     while (stack.length > 0){
         // type assertion
@@ -13,7 +12,7 @@ export default function dfs(g : Graph) : Step[] {
         // idea: return node that is currently being visited
         // also may return stack as msg
         if (!visited.has(node)){
-            steps.push({nodes: [node], msg: `Visiting node ${node}`});
+            g.add_step({nodes: [node], msg: `Visiting node ${node}`});
             visited.add(node);
             let neighbours = g.get_neighbours(node);
             for (let neighbour of neighbours){
@@ -21,5 +20,5 @@ export default function dfs(g : Graph) : Step[] {
             }
         }
     }
-    return steps
+    return g.get_steps();
 }

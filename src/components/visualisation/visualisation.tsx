@@ -2,29 +2,33 @@ import { useShallow } from "zustand/shallow";
 import useStore from "../store/store";
 import { useState } from "react";
 import Graph from "../../shared/models/graph";
-import reset_color from "./util/reset_color";
 import { algos } from "./algorithms/algorithms_aggreg";
 import { Value } from "../../shared/enumerations/enums";
 import get_currently_clicked from "./util/get_currently_clicked";
 import { AppState } from "../../shared/types/interactive_types";
 import { Step } from "../../shared/types/graph_types";
-import colorNodes from "./color_nodes";
+import colorNodes from "./util/color_nodes";
+import colorEdges from "./util/color_edges";
+import reset_edge_color from "./util/reset_edge_color";
+import reset_node_color from "./util/reset_node_color";
 
 const selector = (state : AppState) => ({
     nodes: state.nodes,
     edges: state.edges,
     setNodes: state.setNodes,
     setEdges: state.setEdges,
+    setMessage: state.setMessage,
 });
 
 
 
 export default function Visualisation() {
-    const {nodes, edges, setNodes, setEdges} = useStore(useShallow(selector));
+    const {nodes, edges, setNodes, setEdges, setMessage} = useStore(useShallow(selector));
 
     const [selectedValue, setSelectedValue] = useState(Value.NOT_SELECTED);
     const [chosenFunction, setChosenFunction] = useState<any>(algos[0]);
     const [steps, setSteps] = useState<Step[]>([]);
+    const [nextVisible, setNextVisible] = useState(false);
 
     function next_step(){
         console.log(steps);
@@ -32,17 +36,26 @@ export default function Visualisation() {
         if (step){
             setSteps(steps);
             setNodes(colorNodes(step, nodes));
-            
+            setEdges(colorEdges(step, edges));
+            // case when message exists
+            if (step.msg){
+                setMessage({msg : step.msg});
+            }
         }
         else{
             setSteps([]);
-            setNodes(reset_color(nodes));
+            setNextVisible(false);
+            setMessage({msg : "Algorithm terminated."})
+            setNodes(reset_node_color(nodes));
+            setEdges(reset_edge_color(edges));
         }
     
     }
 
     function start(){
-        setNodes(reset_color(nodes));
+        setNextVisible(true);
+        setNodes(reset_node_color(nodes));
+        setEdges(reset_edge_color(edges));
         // gets currently clicked node in order to start algo in this node (case of node starting algo)
         const currentClicked : string = get_currently_clicked(nodes);
         let graph = new Graph(currentClicked, nodes, edges);
@@ -60,9 +73,9 @@ export default function Visualisation() {
 
     return (
         <>     
-            {selectedValue !== Value.NOT_SELECTED ? (<div className="flex justify-center gap-4 p-2 m-5">
-                <button className="btn" onClick={start}>Start </button>
-                <button className="btn" onClick={next_step}>Next</button>
+            {selectedValue !== Value.NOT_SELECTED ? (
+            <div className="flex justify-center gap-4 p-2 m-5">
+                {nextVisible ? <button className="btn" onClick={next_step}>Next</button> : <button className="btn" onClick={start}>Start </button>}
             </div>) : null}
 
             <div className="flex justify-center">

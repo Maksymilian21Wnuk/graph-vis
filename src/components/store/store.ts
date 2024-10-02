@@ -4,6 +4,7 @@ import { AppState } from '../../shared/types/interactive_types';
 import { nodeDefaultStyle } from '../../shared/constants';
 import { Weight } from '../../shared/enumerations/enums';
 import { edgeDefaultStyle } from '../../shared/constants';
+import { Message } from '../../shared/types/graph_types';
 
 const initialNodes: Node[] = [
   { id: "1", position: { x: 200, y: 200 }, data: { label: "1" }, ...nodeDefaultStyle },
@@ -14,16 +15,19 @@ const initialNodes: Node[] = [
 ]
 
 const initialEdges: Edge[] = [
-  { id: "1e2", source: "1", target: "2", type: 'straight', label: Weight.UNWEIGHTED, ...edgeDefaultStyle },
-  { id: "2e4", source: "2", target: "4", type: 'straight', label: Weight.UNWEIGHTED, ...edgeDefaultStyle },
-  { id: "2e5", source: "2", target: "5", type: 'straight', label: Weight.UNWEIGHTED, ...edgeDefaultStyle },
-  { id: "2e3", source: "2", target: "3", type: 'straight', label: Weight.UNWEIGHTED, ...edgeDefaultStyle },
+  { id: "1-2", source: "1", target: "2", type: 'straight', label: Weight.UNWEIGHTED, ...edgeDefaultStyle },
+  { id: "2-4", source: "2", target: "4", type: 'straight', label: Weight.UNWEIGHTED, ...edgeDefaultStyle },
+  { id: "2-5", source: "2", target: "5", type: 'straight', label: Weight.UNWEIGHTED, ...edgeDefaultStyle },
+  { id: "2-3", source: "2", target: "3", type: 'straight', label: Weight.UNWEIGHTED, ...edgeDefaultStyle },
 ]
+
+const initialMessage : Message  = {msg : ""};
 
 // this is from documentation, appropriate way of storing graph data
 const useStore = create<AppState>((set, get) => ({
   nodes: initialNodes,
   edges: initialEdges,
+  message: initialMessage,
   onNodesChange: (changes) => {
     set({
       nodes: applyNodeChanges(changes, get().nodes),
@@ -44,7 +48,10 @@ const useStore = create<AppState>((set, get) => ({
   },
   setEdges: (edges) => {
     set({ edges });
-  }
+  },
+  setMessage: (message) => {
+    set({message});
+  },
 }));
 
 export default useStore;

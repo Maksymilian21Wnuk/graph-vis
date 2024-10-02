@@ -1,18 +1,18 @@
-import { Step } from "../../../shared/types/graph_types";
 import Graph from "../../../shared/models/graph";
+import { Step } from "../../../shared/types/graph_types";
 
 
-export default function bfs(g : Graph) : Step[] {
+
+// copied from bfs
+export default function connectivity_check(g : Graph) : Step[] {
     let visited = new Set<string>();
     let queue : string[] = [g.start_node];
-    // to change
+    let current_node_count = 0;
 
     while (queue.length > 0){
-        // type assertion
         let node : string = queue.shift()!;
-        // idea: return node that is currently being visited
-        // also may return queue as msg
         if (!visited.has(node)){
+            current_node_count += 1;
             g.add_step({nodes: [node], msg: `Visiting node ${node}`});
             visited.add(node);
             let neighbours = g.get_neighbours(node);
@@ -21,6 +21,12 @@ export default function bfs(g : Graph) : Step[] {
                 queue.push(neighbour);
             }
         }
+    }
+    if (current_node_count != g.get_node_count()){
+        g.add_step({msg : `Graph is not connected, achieves ${current_node_count} of ${g.get_node_count()} nodes`});
+    }
+    else{
+        g.add_step({msg : `Graph is connected`});
     }
 
     return g.get_steps();

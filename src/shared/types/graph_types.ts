@@ -8,6 +8,11 @@ export type Step = {
     nodes? : string[];
     edges? : string[];
     msg? : string;
+    source_node? : string;
+};
+
+export type Message = {
+    msg : string;
 };
 
 export type AlgorithmFunction = (g : Graph) => Step[];

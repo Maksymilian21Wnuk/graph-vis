@@ -5,6 +5,7 @@ import {
     OnEdgesChange,
     OnConnect,
 } from '@xyflow/react';
+import { Message } from './graph_types';
 
 
 export type Graph = {
@@ -20,6 +21,8 @@ export type AppState = {
     onConnect?: OnConnect;
     setNodes: (nodes: Node[]) => void;
     setEdges: (edges: Edge[]) => void;
+    message: Message;
+    setMessage: (msg : Message) => void;
 };
 
 export type GraphState = {
@@ -45,6 +48,7 @@ export type GraphButtonsProps = {
     dispatch: React.Dispatch<GraphAction>;
     setEdges: (edges: Edge[]) => void;
     edges: Edge[];
+    setNodes: (nodes : Node[]) => void;
 }
 
 export type GraphName = {

@@ -1,5 +1,5 @@
-import { NodeColor } from "../../shared/enumerations/enums";
-import { Step } from "../../shared/types/graph_types"
+import { NodeColor } from "../../../shared/enumerations/enums";
+import { Step } from "../../../shared/types/graph_types"
 import { Node } from "@xyflow/react"
 
 
@@ -18,6 +18,10 @@ export default function colorNodes(step : Step, nodes : Node[]) : Node[]{
     nodes = change_to_visited(nodes, NodeColor.VISITED);
     // the property nodes gives nodes to change color
     let nodes_to_change : string[] = step.nodes!;
+    // if no nodes to change, return previous set of nodes
+    if (!nodes_to_change){
+        return nodes;
+    }
     for (let id of nodes_to_change) {
         nodes = change_given_id(nodes, id, NodeColor.CURRENT);
     }
