@@ -17,8 +17,9 @@ import { Weight } from "../../shared/enumerations/enums";
 import GraphSpawner from "./components/graph_spawner";
 import { NODE_MAX, nodeDefaultStyle } from "../../shared/constants";
 import find_first_free from "./functions/find_first_free_index";
-import getRandomInt from "../utility/random_int";
+import getRandomInt from "../utility/functions/random_int";
 import Steps from "./components/steps";
+
 
 const selector = (state: AppState) => ({
     nodes: state.nodes,
@@ -28,6 +29,8 @@ const selector = (state: AppState) => ({
     setNodes: state.setNodes,
     setEdges: state.setEdges,
     message: state.message,
+    setModifyMode: state.setModifyMode,
+    modifyMode: state.modifyMode,
 });
 
 const DBG = true;
@@ -37,7 +40,7 @@ function dbg(...args: any[]) {
 }
 
 export default function GraphMap() {
-    const { nodes, edges, onNodesChange, onEdgesChange, setNodes, setEdges, message } = useStore(useShallow(selector));
+    const { nodes, edges, onNodesChange, onEdgesChange, setNodes, setEdges, message, setModifyMode, modifyMode} = useStore(useShallow(selector));
 
     const reactFlow = useReactFlow();
 
@@ -55,6 +58,7 @@ export default function GraphMap() {
 
     // looks weird, maybe to change
     function onNodeClick(_event: React.MouseEvent<Element, MouseEvent>, node: Node) {
+        setModifyMode(true);
         if (state.removeMode) {
             // add removed to min heap
             // decrement state of node count
@@ -94,6 +98,7 @@ export default function GraphMap() {
     }
 
     function onEdgeClick(_event: React.MouseEvent<Element, MouseEvent>, edge: Edge): void {
+        setModifyMode(true);
         dbg(reactFlow);
         if (state.removeMode)
             setEdges(edges.filter((e: Edge) => e.id !== edge.id))
@@ -101,12 +106,12 @@ export default function GraphMap() {
 
 
     function onPaneClick(_event: React.MouseEvent<Element, MouseEvent>): void {
+        setModifyMode(true);
         if (state.addMode) {
             let xy: XYPosition = { x: _event.clientX, y: _event.clientY };
             xy = reactFlow.screenToFlowPosition(xy);
             const first_free: string = find_first_free(nodes);
             const new_node = { id: first_free, position: { x: xy.x, y: xy.y }, data: { label: first_free }, ...nodeDefaultStyle };
-            console.log(nodes);
             setNodes([...nodes, new_node]);
         }
     }
@@ -118,7 +123,6 @@ export default function GraphMap() {
                 <div className="w-1/5">
                     <GraphSpawner />
                 </div>
-
                 <div className="w-screen md:w-3/5 max-auto h-[400px] border-2 border-black mx-5">
                     <ReactFlow
                         nodes={nodes}
@@ -135,7 +139,7 @@ export default function GraphMap() {
                     </ReactFlow>
                 </div>
                 <div className="w-1/5">
-                    <Steps msg = {message.msg}/>
+                    <Steps msg = {message.msg} modifyMode={modifyMode}/>
                 </div>
             </div>
         </>

@@ -17,6 +17,7 @@ const edgeDefaultStyle = {
     }
 }
 
+const NOT_SELECTED : number = -1;
 const WIDTH : number = 700
 const HEIGHT : number = 500
 const NODE_MAX : number = 20
@@ -25,4 +26,4 @@ You can add nodes by choosing add button and then clicking on map and add edges 
 Removal happens after clicking remove button and choosing either node or edge. 
 Run algorithm using dropdown panel on down side of page.`
 
-export {WIDTH, HEIGHT, NODE_MAX, HELP_TXT, nodeDefaultStyle, edgeDefaultStyle}
+export {WIDTH, HEIGHT, NODE_MAX, HELP_TXT, nodeDefaultStyle, edgeDefaultStyle, NOT_SELECTED}

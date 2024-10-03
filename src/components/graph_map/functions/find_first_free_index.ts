@@ -7,9 +7,9 @@ export function find_first_free_index(idx_arr: number[]): string {
         return "1";
     }
     else {
-        idx_arr.sort();
+        const sorted_arr : number[] = idx_arr.sort((n1, n2) => n1 - n2);
         let first: number = 1;
-        for (let idx of idx_arr) {
+        for (let idx of sorted_arr) {
             if (idx == first) {
                 first += 1;
             }

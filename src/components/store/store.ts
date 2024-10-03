@@ -22,12 +22,14 @@ const initialEdges: Edge[] = [
 ]
 
 const initialMessage : Message  = {msg : ""};
+const initialModifyMode : boolean = true;
 
 // this is from documentation, appropriate way of storing graph data
 const useStore = create<AppState>((set, get) => ({
   nodes: initialNodes,
   edges: initialEdges,
   message: initialMessage,
+  modifyMode: initialModifyMode,
   onNodesChange: (changes) => {
     set({
       nodes: applyNodeChanges(changes, get().nodes),
@@ -51,6 +53,9 @@ const useStore = create<AppState>((set, get) => ({
   },
   setMessage: (message) => {
     set({message});
+  },
+  setModifyMode: (modifyMode) => {
+    set({modifyMode})
   },
 }));
 

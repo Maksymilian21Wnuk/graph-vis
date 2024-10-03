@@ -23,6 +23,8 @@ export type AppState = {
     setEdges: (edges: Edge[]) => void;
     message: Message;
     setMessage: (msg : Message) => void;
+    modifyMode: boolean;
+    setModifyMode : (mode : boolean) => void;
 };
 
 export type GraphState = {

@@ -1,12 +1,19 @@
 import { Message } from "../../../shared/types/graph_types"
 
 
-export default function Steps({msg} : Message) {
+export default function Steps({msg, additional, additional_name, modifyMode} : Message) {
 
-    return (
-        <>
-            Steps of algorithm:
-            {msg}
-        </>
-    )
+    return msg && !modifyMode ? (
+        <div className="mx-2 p-2">
+            <div>
+                Steps of algorithm:
+            </div>
+            <div className="py-5">
+                {msg}
+            </div>
+            <div className="py-6">
+                Additional info:
+            </div>
+        </div>
+    ) : null
 }
