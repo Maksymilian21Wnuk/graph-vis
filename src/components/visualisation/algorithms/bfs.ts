@@ -4,7 +4,7 @@ import Graph from "../../../shared/models/graph";
 
 export default function bfs(g : Graph) : Step[] {
     let visited = new Set<string>();
-    let queue : string[] = [g.start_node];
+    let queue : string[] = [g.get_start_node()];
     // to change
 
     while (queue.length > 0){

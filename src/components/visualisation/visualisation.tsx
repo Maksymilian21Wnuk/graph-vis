@@ -1,9 +1,7 @@
 import { useShallow } from "zustand/shallow";
 import useStore from "../store/store";
 import { useState } from "react";
-import Graph from "../../shared/models/graph";
 import { algos } from "./algorithms/algorithms_aggreg";
-import { Value } from "../../shared/enumerations/enums";
 import get_currently_clicked from "../utility/functions/get_currently_clicked";
 import { AppState } from "../../shared/types/interactive_types";
 import { Step } from "../../shared/types/graph_types";
@@ -11,10 +9,11 @@ import colorNodes from "../utility/functions/color_nodes";
 import colorEdges from "../utility/functions/color_edges";
 import reset_edge_color from "../utility/functions/reset_edge_color";
 import reset_node_color from "../utility/functions/reset_node_color";
-import Description from "./components/description";
+import Description from "./components/description/description";
 import AlgorithmDropdown from "./components/algorithm_dropdown";
 import ProgressButtons from "./components/progress_buttons";
 import { NOT_SELECTED } from "../../shared/constants";
+import WeightedGraph from "../../shared/models/weighted_graph";
 
 
 const selector = (state: AppState) => ({
@@ -70,7 +69,7 @@ export default function Visualisation() {
         setEdges(reset_edge_color(edges));
         // gets currently clicked node in order to start algo in this node (case of node starting algo)
         const currentClicked: string = get_currently_clicked(nodes);
-        let graph = new Graph(currentClicked, nodes, edges);
+        let graph = new WeightedGraph(currentClicked, nodes, edges);
         // run chosen algo on given graph
         const new_steps: Step[] = chosenFunction.foo(graph);
         setSteps(new_steps);
@@ -80,10 +79,10 @@ export default function Visualisation() {
     // if user didnt choose algorithm, do not show progress buttons
     return (
         <>
-            {selectedValue !== Value.NOT_SELECTED ?
+            {selectedValue !== NOT_SELECTED ?
                 <ProgressButtons modifyMode={modifyMode} start={start} next_step={next_step} /> : null}
             <AlgorithmDropdown setSelectedValue={setSelectedValue} setChosenFunction={setChosenFunction} selectedValue={selectedValue} />
-            <Description selectedValue={selectedValue}/>
+            {selectedValue !== NOT_SELECTED ? <Description selectedValue={selectedValue} /> : null}
         </>
     );
 

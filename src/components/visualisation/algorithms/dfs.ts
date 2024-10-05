@@ -4,7 +4,7 @@ import { Step } from "../../../shared/types/graph_types";
 
 export default function dfs(g : Graph) : Step[] {
     let visited = new Set<string>();
-    let stack : string[] = [g.start_node];
+    let stack : string[] = [g.get_start_node()];
 
     while (stack.length > 0){
         // type assertion

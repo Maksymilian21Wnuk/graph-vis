@@ -6,7 +6,7 @@ import { Step } from "../../../shared/types/graph_types";
 // copied from bfs
 export default function connectivity_check(g : Graph) : Step[] {
     let visited = new Set<string>();
-    let queue : string[] = [g.start_node];
+    let queue : string[] = [g.get_start_node()];
     let current_node_count = 0;
 
     while (queue.length > 0){

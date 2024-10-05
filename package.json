@@ -11,10 +11,13 @@
     "test": "jest"
   },
   "dependencies": {
+    "@tyriar/fibonacci-heap": "^2.0.9",
     "@xyflow/react": "^12.3.0",
     "heap-js": "^2.5.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-syntax-highlighter": "^15.5.0",
+    "yui-lint": "^0.2.0",
     "zustand": "^5.0.0-rc.2"
   },
   "devDependencies": {
@@ -22,6 +25,7 @@
     "@types/jest": "^29.5.13",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
+    "@types/react-syntax-highlighter": "^15.5.13",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "autoprefixer": "^10.4.20",
     "daisyui": "^4.12.10",

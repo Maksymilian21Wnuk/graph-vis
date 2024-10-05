@@ -1,11 +1,13 @@
-import { ButtonProps } from "../../shared/interfaces/button.interface"
 
+interface ButtonProps {
+    onClick: (e : React.MouseEvent<HTMLElement>) => void;
+    text: string;
+    style?: string;
+};
 
-
-
-export default function Button({onClick, text} : ButtonProps) {
+export default function Button({onClick, text, style} : ButtonProps) {
 
     return (
-        <button className="btn" onClick={onClick}>{text}</button>
+        <button className={`btn ${style}`} onClick={onClick}>{text}</button>
     )
 };
