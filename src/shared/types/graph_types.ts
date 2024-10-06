@@ -2,6 +2,7 @@
 // format: `{$SOURCE}e{$TARGET}`
 
 import Graph from "../models/graph";
+import WeightedGraph from "../models/weighted_graph";
 
 
 export type Step = {
@@ -9,7 +10,7 @@ export type Step = {
     edges? : string[];
     msg? : string;
     source_node? : string;
-    additional? : string[];
+    additional? : string;
     additional_name? : string;
 };
 
@@ -18,14 +19,15 @@ export type Step = {
 // for example distances ( dijkstra )
 export type Message = {
     msg : string;
-    additional? : string[];
+    additional? : string;
     additional_name? : string;
     modifyMode? : boolean;
 };
 
-export type AlgorithmFunction = (g : Graph) => Step[];
+export type AlgorithmFunction = (g : WeightedGraph) => Step[];
 
 export type Algorithm = {
     foo : AlgorithmFunction;
     name : string;
+    require_weights : boolean;
 };

@@ -68,6 +68,10 @@ export default class Graph{
         return this.nodes;
     }
 
+    get_edges() : Map<string, string[]> {
+        return this.edges;
+    }
+
 }
 
 

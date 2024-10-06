@@ -6,9 +6,7 @@ export function HelpPopup() {
         <>
         <button className="btn mx-5" onClick={()=>{
             const modal = document.getElementById('help_modal');
-            if (modal) {
-                modal.showModal();
-            }
+                (modal as any).showModal();
         }}>Help</button>
         <dialog id="help_modal" className="modal">
         <div className="modal-box text-black">

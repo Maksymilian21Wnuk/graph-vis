@@ -19,6 +19,7 @@ import { NODE_MAX, nodeDefaultStyle } from "../../shared/constants";
 import find_first_free from "./functions/find_first_free_index";
 import getRandomInt from "../utility/functions/random_int";
 import Steps from "./components/steps";
+import EdgePopup from "./components/edge_popup";
 
 
 const selector = (state: AppState) => ({
@@ -99,7 +100,6 @@ export default function GraphMap() {
 
     function onEdgeClick(_event: React.MouseEvent<Element, MouseEvent>, edge: Edge): void {
         setModifyMode(true);
-        dbg(reactFlow);
         if (state.removeMode)
             setEdges(edges.filter((e: Edge) => e.id !== edge.id))
     }
@@ -139,7 +139,7 @@ export default function GraphMap() {
                     </ReactFlow>
                 </div>
                 <div className="w-1/5">
-                    <Steps msg = {message.msg} modifyMode={modifyMode}/>
+                    <Steps msg = {message.msg} additional={message.additional} additional_name={message.additional_name} modifyMode={modifyMode}/>
                 </div>
             </div>
         </>

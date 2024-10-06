@@ -1,6 +1,10 @@
 import { Message } from "../../../shared/types/graph_types"
 
 
+
+
+
+
 export default function Steps({msg, additional, additional_name, modifyMode} : Message) {
 
     return msg && !modifyMode ? (
@@ -12,7 +16,10 @@ export default function Steps({msg, additional, additional_name, modifyMode} : M
                 {msg}
             </div>
             <div className="py-6">
-                Additional info:
+                {additional_name}
+            </div>
+            <div className="py-6">
+                {additional ? additional : ""}
             </div>
         </div>
     ) : null

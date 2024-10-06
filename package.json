@@ -13,6 +13,7 @@
   "dependencies": {
     "@tyriar/fibonacci-heap": "^2.0.9",
     "@xyflow/react": "^12.3.0",
+    "disjoint-set-ds": "^1.0.1",
     "heap-js": "^2.5.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

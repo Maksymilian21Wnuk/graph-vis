@@ -26,8 +26,8 @@ export default function Buttons({ dispatch, setEdges, edges, setNodes }: GraphBu
         <div className="flex flex-col mx-5 my-2 md:flex-row w-full justify-evenly">
             <Button onClick={() => dispatch({ type: "MODE_ADD" })} text={"Add"} />
             <Button onClick={() => dispatch({ type: "MODE_REMOVE" })} text={"Remove"} />
-            <Button onClick={random_weight} text={"Random weights"} />
-            <Button onClick={no_weights} text={"No weights"} />
+            <Button onClick={random_weight} text={"Weighted"} />
+            <Button onClick={no_weights} text={"Not weighted"} />
             <Button onClick={clear} text={"Clear"}/>
         </div>
     );

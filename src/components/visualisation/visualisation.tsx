@@ -46,7 +46,7 @@ export default function Visualisation() {
             setEdges(colorEdges(step, edges));
             // case when message exists
             if (step.msg) {
-                setMessage({ msg: step.msg });
+                setMessage({ msg: step.msg, additional: step.additional, additional_name: step.additional_name});
             }
         }
         // case when algorithm finished execution
@@ -64,15 +64,22 @@ export default function Visualisation() {
     it basically initialize the graph with
     currently placed nodes and edges on the graph map*/
     function start() {
-        setModifyMode(false);
         setNodes(reset_node_color(nodes));
         setEdges(reset_edge_color(edges));
         // gets currently clicked node in order to start algo in this node (case of node starting algo)
         const currentClicked: string = get_currently_clicked(nodes);
         let graph = new WeightedGraph(currentClicked, nodes, edges);
-        // run chosen algo on given graph
-        const new_steps: Step[] = chosenFunction.foo(graph);
-        setSteps(new_steps);
+        // if requires weighted but graph is not weighted
+        if (chosenFunction.require_weights && !graph.get_is_weighted()){
+            setMessage({msg: "WARNING\n Graph must be weighted!"});
+        }
+        // else run algorithm
+        else{
+            setModifyMode(false);
+            // run chosen algo on given graph
+            const new_steps: Step[] = chosenFunction.foo(graph);
+            setSteps(new_steps);
+        }
     }
 
 
