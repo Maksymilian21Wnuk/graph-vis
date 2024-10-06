@@ -53,7 +53,7 @@ export default class Graph{
     }
 
     get_steps() : Step[] {
-        return this.steps;
+        return this.steps || [];
     }
 
     get_node_count() : number {

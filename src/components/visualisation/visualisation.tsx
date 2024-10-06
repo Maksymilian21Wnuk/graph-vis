@@ -71,7 +71,7 @@ export default function Visualisation() {
         let graph = new WeightedGraph(currentClicked, nodes, edges);
         // if requires weighted but graph is not weighted
         if (chosenFunction.require_weights && !graph.get_is_weighted()){
-            setMessage({msg: "WARNING\n Graph must be weighted!"});
+            alert("Graph must be weighted");
         }
         // else run algorithm
         else{

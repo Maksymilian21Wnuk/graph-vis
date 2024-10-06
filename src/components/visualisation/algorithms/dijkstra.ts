@@ -32,7 +32,9 @@ export default function dijkstra(g : WeightedGraph) : Step[] {
         visited.add(v.value!);
         console.log("Calculating value from: " + v.value);
         const cur_node = v.value!;
-        g.add_step({nodes : [cur_node], msg: "Calculating value from: " + cur_node, additional: parse_additional(distances), additional_name: "Distances:" });
+        g.add_step({nodes : [cur_node], msg: "Calculating value from: " + cur_node, 
+            additional: parse_additional(distances), additional_name: "Distances:",
+            edges:g.get_neighbours(v.value!)!, source_node: v.value!});
         for (const neighbour of g.get_neighbours(v.value!)){
             if (visited.has(neighbour)){
                 continue;
@@ -45,6 +47,9 @@ export default function dijkstra(g : WeightedGraph) : Step[] {
         }
 
     }
+
+    g.add_step({ msg: "Algorithm terminated", 
+    additional: parse_additional(distances), additional_name: "Final distances:"});
 
 
 
