@@ -23,7 +23,7 @@ export default function colorNodes(step : Step, nodes : Node[]) : Node[]{
         return nodes;
     }
     for (let id of nodes_to_change) {
-        nodes = change_given_id(nodes, id, NodeColor.CURRENT);
+        nodes = change_given_id(nodes, id, step.color ? step.color : NodeColor.CURRENT);
     }
     return nodes;
 }

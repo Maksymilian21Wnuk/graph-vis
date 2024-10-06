@@ -1,7 +1,6 @@
 
 // format: `{$SOURCE}e{$TARGET}`
 
-import Graph from "../models/graph";
 import WeightedGraph from "../models/weighted_graph";
 
 
@@ -10,16 +9,23 @@ export type Step = {
     edges? : string[];
     msg? : string;
     source_node? : string;
-    additional? : string;
+    additional? : Additional[];
     additional_name? : string;
+    color? : string;
 };
 
 // additional might be queue of node id
 // or it might be list of 
 // for example distances ( dijkstra )
+
+export type Additional = {
+    id : string;
+    value : string;
+}
+
 export type Message = {
     msg : string;
-    additional? : string;
+    additional? : Additional[];
     additional_name? : string;
     modifyMode? : boolean;
 };

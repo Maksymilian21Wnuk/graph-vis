@@ -19,8 +19,6 @@ import { NODE_MAX, nodeDefaultStyle } from "../../shared/constants";
 import find_first_free from "./functions/find_first_free_index";
 import getRandomInt from "../utility/functions/random_int";
 import Steps from "./components/steps";
-import EdgePopup from "./components/edge_popup";
-
 
 const selector = (state: AppState) => ({
     nodes: state.nodes,
@@ -111,19 +109,24 @@ export default function GraphMap() {
             let xy: XYPosition = { x: _event.clientX, y: _event.clientY };
             xy = reactFlow.screenToFlowPosition(xy);
             const first_free: string = find_first_free(nodes);
-            const new_node = { id: first_free, position: { x: xy.x, y: xy.y }, data: { label: first_free }, ...nodeDefaultStyle };
+            const new_node = { id: first_free, position: { x: xy.x - 25, y: xy.y - 25 }, data: { label: first_free }, ...nodeDefaultStyle };
             setNodes([...nodes, new_node]);
         }
     }
 
+    const fit_view = () => {
+        reactFlow.fitView();
+    }
+
+
     return (
         <>
-            <Buttons dispatch={dispatch} setEdges={setEdges} edges={edges} setNodes={setNodes} />
+            <Buttons dispatch={dispatch} setEdges={setEdges} edges={edges} setNodes={setNodes} nodes={nodes} />
             <div className="flex justify-center ">
                 <div className="w-1/5">
-                    <GraphSpawner />
+                    <GraphSpawner setNodes={setNodes} setEdges={setEdges} fit_view={fit_view}/>
                 </div>
-                <div className="w-screen md:w-3/5 max-auto h-[400px] border-2 border-black mx-5">
+                <div className="w-screen md:w-3/5 max-auto h-[400px] border-2 border-black mx-5 font-sans">
                     <ReactFlow
                         nodes={nodes}
                         edges={edges}
@@ -132,7 +135,7 @@ export default function GraphMap() {
                         onEdgeClick={onEdgeClick}
                         onNodeClick={onNodeClick}
                         snapToGrid={true}
-                        onInit={() => reactFlow.fitView()}
+                        onInit={fit_view}
                         onPaneClick={onPaneClick}
                         snapGrid={[15, 15]}>
                         <Controls />

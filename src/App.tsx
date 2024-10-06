@@ -9,13 +9,13 @@ import Visualisation from './components/visualisation/visualisation'
 function App() {
 
   return (
-    <>
-    <ReactFlowProvider>
-      <Navbar/>
-      <GraphMap/>    
-      <Visualisation/>
-    </ReactFlowProvider>
-    </>
+    <div className='font-mono'>
+      <ReactFlowProvider>
+        <Navbar />
+        <GraphMap />
+        <Visualisation />
+      </ReactFlowProvider>
+    </div>
   )
 }
 

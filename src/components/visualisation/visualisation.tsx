@@ -54,8 +54,7 @@ export default function Visualisation() {
             setSteps([]);
             setModifyMode(false);
             setMessage({ msg: "Algorithm terminated." })
-            setNodes(reset_node_color(nodes));
-            setEdges(reset_edge_color(edges));
+            reset_graph();
         }
 
     }
@@ -64,6 +63,7 @@ export default function Visualisation() {
     it basically initialize the graph with
     currently placed nodes and edges on the graph map*/
     function start() {
+        setMessage({msg: 'Starting Algorithm:'});
         setNodes(reset_node_color(nodes));
         setEdges(reset_edge_color(edges));
         // gets currently clicked node in order to start algo in this node (case of node starting algo)
@@ -82,13 +82,18 @@ export default function Visualisation() {
         }
     }
 
+    const reset_graph = () => {
+        setNodes(reset_node_color(nodes));
+        setEdges(reset_edge_color(edges));
+        setModifyMode(true);
+    }
 
     // if user didnt choose algorithm, do not show progress buttons
     return (
         <>
             {selectedValue !== NOT_SELECTED ?
                 <ProgressButtons modifyMode={modifyMode} start={start} next_step={next_step} /> : null}
-            <AlgorithmDropdown setSelectedValue={setSelectedValue} setChosenFunction={setChosenFunction} selectedValue={selectedValue} />
+            <AlgorithmDropdown resetGraph={reset_graph} setSelectedValue={setSelectedValue} setChosenFunction={setChosenFunction} selectedValue={selectedValue} />
             {selectedValue !== NOT_SELECTED ? <Description selectedValue={selectedValue} /> : null}
         </>
     );

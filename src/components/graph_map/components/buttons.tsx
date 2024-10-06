@@ -6,7 +6,7 @@ import { NODE_MAX } from "../../../shared/constants";
 import getRandomInt from "../../utility/functions/random_int";
 
 
-export default function Buttons({ dispatch, setEdges, edges, setNodes }: GraphButtonsProps) {
+export default function Buttons({ dispatch, setEdges, edges, setNodes, nodes }: GraphButtonsProps) {
     const random_weight = () => {
         setEdges(edges.map((e: Edge) => { return { ...e, label: String(getRandomInt(NODE_MAX)) } }));
         dispatch({ type: 'CHANGE_WEIGHTED', payload: true });
@@ -22,6 +22,13 @@ export default function Buttons({ dispatch, setEdges, edges, setNodes }: GraphBu
         setNodes([]);
     }
 
+    // used for exporting graph in console 
+    // will be removed in future
+    const export_graph = () => {
+        console.log(JSON.stringify(edges));
+        console.log(JSON.stringify(nodes));
+    }
+
     return (
         <div className="flex flex-col mx-5 my-2 md:flex-row w-full justify-evenly">
             <Button onClick={() => dispatch({ type: "MODE_ADD" })} text={"Add"} />
@@ -29,6 +36,7 @@ export default function Buttons({ dispatch, setEdges, edges, setNodes }: GraphBu
             <Button onClick={random_weight} text={"Weighted"} />
             <Button onClick={no_weights} text={"Not weighted"} />
             <Button onClick={clear} text={"Clear"}/>
+            <Button onClick={export_graph} text={"Export graph"}/>
         </div>
     );
 }

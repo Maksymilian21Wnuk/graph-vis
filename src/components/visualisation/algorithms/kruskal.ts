@@ -40,10 +40,16 @@ export default function kruskal(g : WeightedGraph) : Step[]{
         if (disjoint_set.find(e.source) != disjoint_set.find(e.dest)){
             disjoint_set.union(e.source, e.dest);
             result.push(e);
-            g.add_step({source_node : e.source, edges : [e.dest], nodes : [e.dest, e.source]});
+            g.add_step({source_node : e.source, edges : [e.dest], nodes : [e.dest, e.source],
+                msg:`adding ${e.source} and ${e.dest} to result`
+            }
+            );
         }
         else{
             console.log("Forms cycle");
+            g.add_step({nodes : [e.dest, e.source], 
+                msg: `${e.source} and ${e.dest} forms a cycle`
+            });
         }
     }
 

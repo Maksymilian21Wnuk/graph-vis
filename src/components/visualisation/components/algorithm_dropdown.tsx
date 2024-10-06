@@ -5,13 +5,15 @@ interface DropdownProps {
     setSelectedValue : React.Dispatch<React.SetStateAction<number>>;
     setChosenFunction : React.Dispatch<React.SetStateAction<any>>;
     selectedValue : number;
+    resetGraph : () => void;
 };
 
-export default function AlgorithmDropdown({setSelectedValue, setChosenFunction, selectedValue} : DropdownProps) {
+export default function AlgorithmDropdown({setSelectedValue, setChosenFunction, selectedValue, resetGraph} : DropdownProps) {
     const handleChange = (event : any) => {
         setSelectedValue(event.target.value);
         const a : Algorithm = algos[event.target.value];
         setChosenFunction(a);
+        resetGraph();
     }
 
     return (

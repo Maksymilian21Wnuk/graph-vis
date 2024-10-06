@@ -51,10 +51,10 @@ export type GraphButtonsProps = {
     setEdges: (edges: Edge[]) => void;
     edges: Edge[];
     setNodes: (nodes : Node[]) => void;
+    nodes : Node[];
 }
 
 export type GraphName = {
     name: string;
     description: string;
-    id: string;
 }

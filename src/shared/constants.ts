@@ -25,6 +25,7 @@ const NODE_MAX : number = 20
 const HELP_TXT : string = `This page was created for visualisation of most popular algorithms on graphs. 
 You can add nodes by choosing add button and then clicking on map and add edges by clicking two nodes. 
 Removal happens after clicking remove button and choosing either node or edge. 
-Run algorithm using dropdown panel on down side of page.`
+Run algorithm using dropdown panel on down side of page. On map there are controls for fitting view,
+zooming out and in and blocking interactions.`
 
 export {WIDTH, HEIGHT, NODE_MAX, HELP_TXT, nodeDefaultStyle, edgeDefaultStyle, NOT_SELECTED, TITLES}
