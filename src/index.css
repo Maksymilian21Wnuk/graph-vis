@@ -16,3 +16,7 @@ not draggable*/
   pointer-events: none;
 }
 
+.h1-custom {
+  @apply text-xl font-bold p-4;
+}
+

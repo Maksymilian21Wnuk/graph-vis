@@ -3,14 +3,6 @@ import { Step } from "../../../shared/types/graph_types";
 import parse_additional from "./utility/parse_additional";
 
 
-interface Edge {
-    source : string;
-    dest : string;
-}
-
-function parse_edge(s1 : string, s2 : string) : Edge {
-    return parseInt(s1) > parseInt(s2) ? {source : s1, dest : s2} : {source : s2, dest : s1};
-}
 
 
 function dfs_recursive(vertice: string, prev_vertice: string, visited: Set<string>, g: Graph) {
@@ -19,7 +11,7 @@ function dfs_recursive(vertice: string, prev_vertice: string, visited: Set<strin
     }
     else {
         visited.add(vertice);
-        const edge = parse_edge(vertice, prev_vertice);
+        const edge = g.create_edge(vertice, prev_vertice);
         g.add_step({
             nodes: [vertice], msg: `Visiting node ${vertice}`,
             additional: parse_additional(visited), additional_name: "Visited nodes:",

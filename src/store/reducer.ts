@@ -1,5 +1,4 @@
-import { GraphAction, GraphState } from "../../shared/types/interactive_types";
-
+import { GraphState, GraphAction } from "../shared/types/interactive_types";
 
 function reducer(state: GraphState, action: GraphAction): GraphState {
 
@@ -11,6 +10,10 @@ function reducer(state: GraphState, action: GraphAction): GraphState {
 
         case "MODE_REMOVE": {
             return { ...state, addMode: false, removeMode: true };
+        }
+
+        case "MODE_CHOOSE": {
+            return {...state, first: -1, connect: false, addMode: false, removeMode: false};
         }
 
         case 'SET_PAIR': {

@@ -1,7 +1,7 @@
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { code_text } from '../../algorithms/algorithms_description/code_algorithms';
-import Button from '../../../utility/button';
+import Button from '../../../utility/atoms/button';
 import { useState } from 'react';
 import { description_text } from '../../algorithms/algorithms_description/description_algorithms';
 

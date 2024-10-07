@@ -1,6 +1,7 @@
 import WeightedGraph from "../../../shared/models/weighted_graph";
 import { Step } from "../../../shared/types/graph_types";
 import { DisjointSet } from "disjoint-set-ds/dist";
+import parse_additional from "./utility/parse_additional";
 
 
 interface Edge {
@@ -18,8 +19,9 @@ function sort_edges(edges : Edge[]) : Edge[] {
 export default function kruskal(g : WeightedGraph) : Step[]{
     let disjoint_set = new DisjointSet<string>();
     let edges : Edge[] = [];
-
+    
     // initialization of disjoint set O(E + V)
+    g.add_step({msg: 'Initializing disjoint set'})
     for (const node of g.get_nodes()){
         disjoint_set.makeSet(node);
         // initialization of array of edge values
@@ -32,7 +34,9 @@ export default function kruskal(g : WeightedGraph) : Step[]{
             }
         }
     }
+
     // sort edges nlogn
+    g.add_step({msg: 'Sorting edges'})
     edges = sort_edges(edges);
     let result : Edge[] = [];
 
@@ -40,15 +44,15 @@ export default function kruskal(g : WeightedGraph) : Step[]{
         if (disjoint_set.find(e.source) != disjoint_set.find(e.dest)){
             disjoint_set.union(e.source, e.dest);
             result.push(e);
-            g.add_step({source_node : e.source, edges : [e.dest], nodes : [e.dest, e.source],
-                msg:`adding ${e.source} and ${e.dest} to result`
+            g.add_step({source_node : e.source, edges : [e.dest], nodes : [e.dest, e.source], should_color_visited: true,
+                msg:`adding ${e.source} and ${e.dest} to result`,
             }
             );
         }
         else{
             console.log("Forms cycle");
             g.add_step({nodes : [e.dest, e.source], 
-                msg: `${e.source} and ${e.dest} forms a cycle`
+                msg: `${e.source} and ${e.dest} forms a cycle`,
             });
         }
     }

@@ -1,8 +1,7 @@
-import { ReactFlowProvider } from '@xyflow/react'
-import GraphMap from './components/graph_map/graph_map'
 import Navbar from './components/navbar/navbar'
-import Visualisation from './components/visualisation/visualisation'
-
+import { Route, Routes } from 'react-router-dom'
+import GraphVisualisation from './pages/graph_page'
+import HomePage from './pages/home_page'
 
 
 
@@ -10,11 +9,11 @@ function App() {
 
   return (
     <div className='font-mono'>
-      <ReactFlowProvider>
         <Navbar />
-        <GraphMap />
-        <Visualisation />
-      </ReactFlowProvider>
+        <Routes>
+          <Route path="/visualise" element={<GraphVisualisation/>}/>
+          <Route path="/" element={<HomePage/>}/>
+        </Routes>
     </div>
   )
 }

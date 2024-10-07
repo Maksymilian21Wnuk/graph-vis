@@ -8,13 +8,13 @@ import {
     XYPosition,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import useStore from "../store/store";
-import reducer from "../store/reducer";
+import useStore from "../../store/store";
+import reducer from "../../store/reducer";
 import { AppState, GraphState } from "../../shared/types/interactive_types";
 import { useShallow } from "zustand/shallow";
 import Buttons from "./components/buttons";
 import { Weight } from "../../shared/enumerations/enums";
-import GraphSpawner from "./components/graph_spawner";
+import GraphSpawner from "./components/graph_spawner/graph_spawner";
 import { NODE_MAX, nodeDefaultStyle } from "../../shared/constants";
 import find_first_free from "./functions/find_first_free_index";
 import getRandomInt from "../utility/functions/random_int";
@@ -32,11 +32,6 @@ const selector = (state: AppState) => ({
     modifyMode: state.modifyMode,
 });
 
-const DBG = true;
-
-function dbg(...args: any[]) {
-    DBG ? console.log(args) : null;
-}
 
 export default function GraphMap() {
     const { nodes, edges, onNodesChange, onEdgesChange, setNodes, setEdges, message, setModifyMode, modifyMode} = useStore(useShallow(selector));
@@ -119,9 +114,10 @@ export default function GraphMap() {
     }
 
 
+
     return (
         <>
-            <Buttons dispatch={dispatch} setEdges={setEdges} edges={edges} setNodes={setNodes} nodes={nodes} />
+            <Buttons setModifyMode={() => setModifyMode(true)} dispatch={dispatch} setEdges={setEdges} edges={edges} setNodes={setNodes} nodes={nodes} />
             <div className="flex justify-center ">
                 <div className="w-1/5">
                     <GraphSpawner setNodes={setNodes} setEdges={setEdges} fit_view={fit_view}/>

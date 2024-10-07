@@ -1,6 +1,11 @@
 import { Node, Edge } from "@xyflow/react";
 import { Step } from "../types/graph_types";
 
+interface GraphEdge {
+    source : string;
+    dest : string;
+}
+
 export default class Graph{
     protected edges : Map<string, string[]>;
     protected nodes : string[];
@@ -42,6 +47,10 @@ export default class Graph{
     
         return neighbours;
     
+    }
+
+    create_edge(v1 : string, v2 : string) : GraphEdge {
+        return parseInt(v1) > parseInt(v2) ? {source : v1, dest : v2} : {source : v2, dest : v1};
     }
 
     get_neighbours(node : string) : string[]{

@@ -6,12 +6,15 @@ import WeightedGraph from "../models/weighted_graph";
 
 export type Step = {
     nodes? : string[];
+    // edges destination
     edges? : string[];
     msg? : string;
+    // edge source
     source_node? : string;
     additional? : Additional[];
     additional_name? : string;
     color? : string;
+    should_color_visited? : boolean;
 };
 
 // additional might be queue of node id

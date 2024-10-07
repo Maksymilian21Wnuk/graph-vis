@@ -1,10 +1,10 @@
-import { HELP_TXT } from "../../shared/constants";
+import { HELP_TXT } from "../../../shared/constants";
 
 
 export function HelpPopup() {
     return (
         <>
-        <button className="btn mx-5" onClick={()=>{
+        <button className="btn mx-5 btn-sm" onClick={()=>{
             const modal = document.getElementById('help_modal');
                 (modal as any).showModal();
         }}>Help</button>

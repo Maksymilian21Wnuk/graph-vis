@@ -1,5 +1,5 @@
 import { useShallow } from "zustand/shallow";
-import useStore from "../store/store";
+import useStore from "../../store/store";
 import { useState } from "react";
 import { algos } from "./algorithms/algorithms_aggreg";
 import get_currently_clicked from "../utility/functions/get_currently_clicked";
@@ -63,7 +63,7 @@ export default function Visualisation() {
     it basically initialize the graph with
     currently placed nodes and edges on the graph map*/
     function start() {
-        setMessage({msg: 'Starting Algorithm:'});
+        setMessage({msg: 'Starting Algorithm'});
         setNodes(reset_node_color(nodes));
         setEdges(reset_edge_color(edges));
         // gets currently clicked node in order to start algo in this node (case of node starting algo)
@@ -92,7 +92,7 @@ export default function Visualisation() {
     return (
         <>
             {selectedValue !== NOT_SELECTED ?
-                <ProgressButtons modifyMode={modifyMode} start={start} next_step={next_step} /> : null}
+                <ProgressButtons prev_step={() => "x"} modifyMode={modifyMode} start={start} next_step={next_step} /> : null}
             <AlgorithmDropdown resetGraph={reset_graph} setSelectedValue={setSelectedValue} setChosenFunction={setChosenFunction} selectedValue={selectedValue} />
             {selectedValue !== NOT_SELECTED ? <Description selectedValue={selectedValue} /> : null}
         </>

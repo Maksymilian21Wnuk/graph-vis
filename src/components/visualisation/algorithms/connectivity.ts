@@ -1,5 +1,6 @@
 import Graph from "../../../shared/models/graph";
 import { Step } from "../../../shared/types/graph_types";
+import parse_additional from "./utility/parse_additional";
 
 
 
@@ -13,10 +14,12 @@ export default function connectivity_check(g : Graph) : Step[] {
         let node : string = queue.shift()!;
         if (!visited.has(node)){
             current_node_count += 1;
-            g.add_step({nodes: [node], msg: `Visiting node ${node}`});
+            g.add_step({nodes: [node], msg: `Visiting node ${node} Count: ${current_node_count}`,
+                additional: parse_additional(visited), additional_name: "Visited nodes: "});
             visited.add(node);
             let neighbours = g.get_neighbours(node);
-            g.add_step({edges : neighbours, source_node: node, msg: `Visiting neighbours of ${node}`})
+            g.add_step({edges : neighbours, source_node: node, msg: `Visiting neighbours of ${node} Count: ${current_node_count}`,
+                additional: parse_additional(visited), additional_name: "Visited nodes: "})
             for (let neighbour of neighbours){
                 queue.push(neighbour);
             }

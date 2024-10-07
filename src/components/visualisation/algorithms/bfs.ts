@@ -17,7 +17,7 @@ export default function bfs(g : Graph) : Step[] {
             g.add_step({nodes: [node], msg: `Visiting node ${node}`, additional: parse_additional(visited), additional_name: "Visited List: "});
             visited.add(node);
             let neighbours = g.get_neighbours(node);
-            g.add_step({edges : neighbours, source_node: node, msg: `Visiting neighbours of ${node}`, additional: parse_additional(visited), additional_name: "Visited List: "})
+            g.add_step({edges : neighbours, source_node: node, msg: `Visiting non-visited neighbours of ${node}`, additional: parse_additional(visited), additional_name: "Visited List: ", nodes: neighbours})
             for (let neighbour of neighbours){
                 queue.push(neighbour);
             }

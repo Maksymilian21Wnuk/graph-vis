@@ -4,8 +4,9 @@ import { Node } from "@xyflow/react"
 
 
 // spec: given id of nodes color only those nodes
-function change_given_id(nodes : Node[], id : string, color : string) : Node[]{
-    return nodes.map((n : Node) => n.id === id ? {...n, style : {...n.style, background: color}} : n);
+function change_given_id(nodes : Node[], id : string, color : string, should_color_visited : boolean = false) : Node[]{
+    // gimmick: do not color visited nodes, should change
+    return nodes.map((n : Node) => (n.id === id && (should_color_visited ? true : n.style?.background) !== NodeColor.VISITED) ? {...n, style : {...n.style, background: color}} : n);
 }
 
 // function for making previously visited yellow
@@ -23,7 +24,7 @@ export default function colorNodes(step : Step, nodes : Node[]) : Node[]{
         return nodes;
     }
     for (let id of nodes_to_change) {
-        nodes = change_given_id(nodes, id, step.color ? step.color : NodeColor.CURRENT);
+        nodes = change_given_id(nodes, id, step.color ? step.color : NodeColor.CURRENT, step.should_color_visited);
     }
     return nodes;
 }

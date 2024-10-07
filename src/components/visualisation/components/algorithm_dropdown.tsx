@@ -14,7 +14,7 @@ export default function AlgorithmDropdown({setSelectedValue, setChosenFunction, 
         const a : Algorithm = algos[event.target.value];
         setChosenFunction(a);
         resetGraph();
-    }
+    }    
 
     return (
         <div className="flex justify-center">
