@@ -12,13 +12,13 @@ import useStore from "../../store/store";
 import reducer from "../../store/reducer";
 import { AppState, GraphState } from "../../shared/types/interactive_types";
 import { useShallow } from "zustand/shallow";
-import Buttons from "./components/buttons";
 import { Weight } from "../../shared/enumerations/enums";
 import GraphSpawner from "./components/graph_spawner/graph_spawner";
 import { NODE_MAX, nodeDefaultStyle } from "../../shared/constants";
 import find_first_free from "./functions/find_first_free_index";
 import getRandomInt from "../utility/functions/random_int";
 import Steps from "./components/steps";
+import CustomControls from "./custom_controls/custom_controls";
 
 const selector = (state: AppState) => ({
     nodes: state.nodes,
@@ -113,12 +113,25 @@ export default function GraphMap() {
         reactFlow.fitView();
     }
 
+    const random_weight = () => {
+        setEdges(edges.map((e: Edge) => { return { ...e, label: String(getRandomInt(NODE_MAX)) } }));
+        dispatch({ type: 'CHANGE_WEIGHTED', payload: true });
+    };
 
+    const clear = () => {
+        setEdges([]);
+        setNodes([]);
+        setModifyMode(true);
+    }
+
+    const no_weights = () => {
+        setEdges(edges.map((e: Edge) => { return { ...e, label: Weight.UNWEIGHTED } }));
+        dispatch({ type: 'CHANGE_WEIGHTED', payload: false });
+    }
 
     return (
         <>
-            <Buttons setModifyMode={() => setModifyMode(true)} dispatch={dispatch} setEdges={setEdges} edges={edges} setNodes={setNodes} nodes={nodes} />
-            <div className="flex justify-center ">
+            <div className="flex justify-center py-5">
                 <div className="w-1/5">
                     <GraphSpawner setNodes={setNodes} setEdges={setEdges} fit_view={fit_view}/>
                 </div>
@@ -134,7 +147,7 @@ export default function GraphMap() {
                         onInit={fit_view}
                         onPaneClick={onPaneClick}
                         snapGrid={[15, 15]}>
-                        <Controls />
+                        <CustomControls noWeights={no_weights} dispatch={dispatch} clearGraph={clear} randomizeWeight={random_weight}/>
                     </ReactFlow>
                 </div>
                 <div className="w-1/5">

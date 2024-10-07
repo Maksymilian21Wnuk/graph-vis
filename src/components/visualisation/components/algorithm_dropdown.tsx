@@ -17,7 +17,7 @@ export default function AlgorithmDropdown({setSelectedValue, setChosenFunction, 
     }    
 
     return (
-        <div className="flex justify-center">
+        <div className="flex justify-center py-2">
             <select className="select select-bordered w-full max-w-xs" 
                     value={selectedValue} onChange={handleChange}>
                         <option>Pick algorithm...</option>

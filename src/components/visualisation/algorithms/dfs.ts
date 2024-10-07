@@ -4,7 +4,6 @@ import parse_additional from "./utility/parse_additional";
 
 
 
-
 function dfs_recursive(vertice: string, prev_vertice: string, visited: Set<string>, g: Graph) {
     if (visited.has(vertice)) {
         return;

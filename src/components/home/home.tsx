@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom"
-
+import InfoField from "../utility/atoms/info_field"
+import { fields } from "./constants/infos"
+import InfoFieldProps from "../../shared/interfaces/info_field.interface"
 
 
 export default function Home() {
@@ -11,18 +13,11 @@ export default function Home() {
                 </h1>
                 <Link className="btn" to="/visualise">Ready? Get started</Link>
             </div>
-            <div className="divider "></div>
-            <div className="grid grid-cols-1 md:grid-cols-3 ">
-                <div className="bg-cyan-50">
-                    <h1 className="h1-custom">Graphs</h1>
-                    asdf
-                </div>
-                <div className="bg-gray-50">
-                    <h1 className="h1-custom">Problems solved by graphs</h1>
-                </div>
-                <div className="bg-cyan-50">
-                    <h1 className="h1-custom">Why this page?</h1>
-                </div>
+            <div className="divider"></div>
+            <div className="flex flex-col gap-8 justify-center items-center">
+                {fields.map((field : InfoFieldProps) =>
+                    <InfoField title={field.title} content={field.content} />
+                )}
             </div>
         </>
     )
