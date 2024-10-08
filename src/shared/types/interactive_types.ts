@@ -25,6 +25,8 @@ export type AppState = {
     setMessage: (msg : Message) => void;
     modifyMode: boolean;
     setModifyMode : (mode : boolean) => void;
+    selectedValue : number;
+    setSelectedValue : (n : number) => void;
 };
 
 export type GraphState = {

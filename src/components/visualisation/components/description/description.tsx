@@ -1,69 +1,84 @@
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { code_text } from '../../algorithms/algorithms_description/code_algorithms';
-import Button from '../../../utility/atoms/button';
 import { useState } from 'react';
 import { description_text } from '../../algorithms/algorithms_description/description_algorithms';
-
+import Dropdown from '../../../utility/atoms/dropdown';
+import DescNames from '../../../../shared/interfaces/desc_names.interface';
+import { step_text } from '../../algorithms/algorithms_description/step_algorithms';
 
 interface DescriptionProps {
-    selectedValue : number;
+    algo_selected: number;
 }
 
-enum DescriptionEnum {
-    DESCRIPTION,
-    STEP_BY_STEP,
-    CODE
-}
 
 // to change?
-function description_chooser(desc : DescriptionEnum, selectedValue : number) {
-    switch(desc){
-        case DescriptionEnum.DESCRIPTION:
+function description_chooser(desc: number, selectedValue: number) {
+    // bad
+    desc = Number(desc);
+
+
+    switch (desc as number) {
+        case 0:
+            if (!description_text[selectedValue]){
+                return "you must description steps text";
+            }
             return (
                 <div className=''>
                     {description_text[selectedValue]}
                 </div>
             )
-        case DescriptionEnum.STEP_BY_STEP:
+        case 1:
+            if (!step_text[selectedValue]){
+                return "you must add steps text";
+            }
             return (
-                <div>
-
+                <div className='py-2'>
+                    <ol type='1' className='list-decimal list-inside'>
+                        {step_text[selectedValue].steps.map((step : string, key : number = 1) =>
+                            <li className='pl-2' key={`step-` + key++}>{step}</li>
+                        )}
+                    </ol>
                 </div>
             )
-        case DescriptionEnum.CODE:
-            return(
-                <SyntaxHighlighter language="python" style={docco} showLineNumbers>
+        case 2:
+            if (!code_text[selectedValue]){
+                return "you must add code text";
+            }
+            return (
+                <SyntaxHighlighter language="python" style={docco} showLineNumbers wrapLines>
                     {code_text[selectedValue]}
                 </SyntaxHighlighter>
             )
         default:
-            null
+            return (
+                <div>
+                    {"No description, you should add it"}
+                </div>)
     }
 
 }
 
-const button_style = "border-black rounded-none"
+const desc_names: DescNames[] = [
+    { name: "Description" },
+    { name: "Step-by-step" },
+    { name: "Code" }
+]
 
-export default function Description({selectedValue} : DescriptionProps) {
-    const [desc, setDesc] = useState(DescriptionEnum.DESCRIPTION);
+export default function Description({ algo_selected }: DescriptionProps) {
+    const [desc, setDesc] = useState(0);
 
-    const onClick = (val : DescriptionEnum) => {
-        document.getElementById('down')?.scrollIntoView();
-        setDesc(val);
+    const onChange = (event: any) => {
+        setDesc(event.target.value);
     }
 
     return (
-        <div className="flex flex-col justify-center items-center my-5">
+        <div className="flex flex-col justify-center items-center">
             <div className='flex-row'>
-                <Button style = {button_style} text={"Description"} onClick={() => onClick(DescriptionEnum.DESCRIPTION)}/>
-                <Button style = {button_style} text={"Step-by-step"} onClick={() => onClick(DescriptionEnum.STEP_BY_STEP)}/>
-                <Button style = {button_style} text={"Code"} onClick={() => onClick(DescriptionEnum.CODE)}/>
+                <Dropdown selectedValue={desc} obj={desc_names} handleChange={onChange} />
             </div>
             <div>
-                {description_chooser(desc, selectedValue)}
-            </div>
-            <div id='down'>
+                {description_chooser(desc, algo_selected)}
             </div>
         </div>
     )

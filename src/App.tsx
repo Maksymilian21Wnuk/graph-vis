@@ -2,6 +2,7 @@ import Navbar from './components/navbar/navbar'
 import { Route, Routes } from 'react-router-dom'
 import GraphVisualisation from './pages/graph_page'
 import HomePage from './pages/home_page'
+import Footer from './components/footer/footer'
 
 
 
@@ -14,6 +15,7 @@ function App() {
           <Route path="/visualise" element={<GraphVisualisation/>}/>
           <Route path="/" element={<HomePage/>}/>
         </Routes>
+        <Footer />
     </div>
   )
 }

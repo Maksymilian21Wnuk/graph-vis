@@ -6,5 +6,5 @@ export const mockNames: GraphName[] = [
     {name: "Star", description: "A star graph with 4 nodes"},
     {name: "Cycle", description: "A cycle graph with 4 nodes"},
     {name: "Complete", description: "A complete graph with 4 nodes"},
-    {name: "Random", description: "Random graph"}
+    {name: "Random TODO", description: "Random graph"}
 ]

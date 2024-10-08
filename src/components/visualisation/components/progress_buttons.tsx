@@ -1,4 +1,4 @@
-
+import Button from "../../utility/atoms/button";
 
 interface ProgressButtonsProps {
     modifyMode : boolean;
@@ -9,11 +9,11 @@ interface ProgressButtonsProps {
 
 export default function ProgressButtons({modifyMode, next_step, start} : ProgressButtonsProps) {
     return (
-        <div className="flex justify-center gap-4 p-2 m-5">
+        <div className="flex justify-center">
             {!modifyMode ?
                 (
                     <div>
-                        <button className="btn" onClick={next_step}>Next</button>
+                        <Button onClick={next_step} text="Next"/>
                     </div>)
                 :
                 <button className="btn" onClick={start}>Start </button>}

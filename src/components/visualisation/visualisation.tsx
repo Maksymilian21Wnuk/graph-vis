@@ -9,7 +9,6 @@ import colorNodes from "../utility/functions/color_nodes";
 import colorEdges from "../utility/functions/color_edges";
 import reset_edge_color from "../utility/functions/reset_edge_color";
 import reset_node_color from "../utility/functions/reset_node_color";
-import Description from "./components/description/description";
 import AlgorithmDropdown from "./components/algorithm_dropdown";
 import ProgressButtons from "./components/progress_buttons";
 import { NOT_SELECTED } from "../../shared/constants";
@@ -24,14 +23,15 @@ const selector = (state: AppState) => ({
     setMessage: state.setMessage,
     setModifyMode: state.setModifyMode,
     modifyMode: state.modifyMode,
+    selectedValue: state.selectedValue,
+    setSelectedValue: state.setSelectedValue,
 });
 
 
 
 export default function Visualisation() {
-    const { nodes, edges, setNodes, setEdges, setMessage, setModifyMode, modifyMode } = useStore(useShallow(selector));
+    const { nodes, edges, setNodes, setEdges, setMessage, setModifyMode, modifyMode, selectedValue, setSelectedValue } = useStore(useShallow(selector));
 
-    const [selectedValue, setSelectedValue] = useState(NOT_SELECTED);
     const [chosenFunction, setChosenFunction] = useState<any>(algos[0]);
     const [steps, setSteps] = useState<Step[]>([]);
 
@@ -94,7 +94,6 @@ export default function Visualisation() {
             {selectedValue !== NOT_SELECTED ?
                 <ProgressButtons modifyMode={modifyMode} start={start} next_step={next_step} /> : null}
             <AlgorithmDropdown resetGraph={reset_graph} setSelectedValue={setSelectedValue} setChosenFunction={setChosenFunction} selectedValue={selectedValue} />
-            {selectedValue !== NOT_SELECTED ? <Description selectedValue={selectedValue} /> : null}
         </>
     );
 
