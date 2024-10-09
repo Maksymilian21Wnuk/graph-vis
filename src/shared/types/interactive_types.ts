@@ -27,6 +27,8 @@ export type AppState = {
     setModifyMode : (mode : boolean) => void;
     selectedValue : number;
     setSelectedValue : (n : number) => void;
+    isDirected : boolean;
+    setIsDirected : (b : boolean) => void;
 };
 
 export type GraphState = {

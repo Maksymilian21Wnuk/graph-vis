@@ -10,6 +10,7 @@ const initialEdges: Edge[] = [{"id":"1-5","source":"1","target":"5","type":"stra
 const initialMessage : Message  = {msg : "", step_idx: -1};
 const initialModifyMode : boolean = true;
 const initialSelectedValue : number = NOT_SELECTED;
+const initialDirected : boolean  = false;
 
 // this is from documentation, appropriate way of storing graph data
 const useStore = create<AppState>((set, get) => ({
@@ -18,6 +19,7 @@ const useStore = create<AppState>((set, get) => ({
   message: initialMessage,
   modifyMode: initialModifyMode,
   selectedValue: initialSelectedValue,
+  isDirected: initialDirected,
   onNodesChange: (changes) => {
     set({
       nodes: applyNodeChanges(changes, get().nodes),
@@ -47,6 +49,9 @@ const useStore = create<AppState>((set, get) => ({
   },
   setSelectedValue: (selectedValue) => {
     set({selectedValue});
+  },
+  setIsDirected: (isDirected) => {
+    set({isDirected})
   }
 }));
 

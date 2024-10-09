@@ -17,6 +17,8 @@ const edgeDefaultStyle = {
     }
 }
 
+const ARROW_SVG_ID = "custom_arrow"
+const NO_ARROW = ""
 const TITLES : string[] = ["Description", "Step-by-step", "Pseudocode"]
 const NOT_SELECTED : number = -1;
 const WIDTH : number = 700
@@ -28,4 +30,4 @@ Removal happens after clicking remove button and choosing either node or edge.
 Run algorithm using dropdown panel on down side of page. On map there are controls for fitting view,
 zooming out and in and blocking interactions.`
 
-export {WIDTH, HEIGHT, NODE_MAX, HELP_TXT, nodeDefaultStyle, edgeDefaultStyle, NOT_SELECTED, TITLES}
+export {NO_ARROW, WIDTH, HEIGHT, NODE_MAX, HELP_TXT, nodeDefaultStyle, edgeDefaultStyle, NOT_SELECTED, TITLES, ARROW_SVG_ID}

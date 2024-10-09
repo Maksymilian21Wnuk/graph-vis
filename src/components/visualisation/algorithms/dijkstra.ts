@@ -11,6 +11,7 @@ export default function dijkstra(g: WeightedGraph): Step[] {
     let iNodes = new Map<string, INode<number, string>>();
 
     distances.set(g.get_start_node(), 0);
+    g.add_step({step_idx: 0, current_node: g.get_start_node()});
     iNodes.set(g.get_start_node(), heap.insert(0, g.get_start_node()));
 
     // infinity path to rest nodes
@@ -20,6 +21,7 @@ export default function dijkstra(g: WeightedGraph): Step[] {
             iNodes.set(node, heap.insert(Infinity, node));
         }
     }
+    g.add_step({step_idx: 1, current_node: g.get_start_node()});
 
     while (!heap.isEmpty()) {
         const v: INode<number, string> = heap.extractMinimum()!;
@@ -29,12 +31,11 @@ export default function dijkstra(g: WeightedGraph): Step[] {
         }
 
         visited.add(v.value!);
-        console.log("Calculating value from: " + v.value);
         const cur_node = v.value!;
         g.add_step({
-            nodes: [cur_node], msg: "Calculating value from: " + cur_node,
+            nodes: [cur_node],
             additional: parse_additional(distances), additional_name: "Distances:",
-            edges: g.get_neighbours(v.value!)!, source_node: v.value!
+            edges: g.get_neighbours(v.value!)!, source_node: v.value!, step_idx: 4, current_node: v.value!
         });
         for (const neighbour of g.get_neighbours(v.value!)) {
             if (visited.has(neighbour)) {
@@ -46,12 +47,18 @@ export default function dijkstra(g: WeightedGraph): Step[] {
                 heap.decreaseKey(iNodes.get(neighbour)!, new_dist);
             }
         }
+        g.add_step({
+            nodes: [cur_node],
+            additional: parse_additional(distances), additional_name: "Distances:",
+            edges: g.get_neighbours(v.value!)!, source_node: v.value!, step_idx: 2, current_node: v.value!
+        });
 
     }
 
     g.add_step({
         msg: "Algorithm terminated",
-        additional: parse_additional(distances), additional_name: "Final distances:"
+        additional: parse_additional(distances), additional_name: "Final distances:",
+        step_idx: 5
     });
 
 

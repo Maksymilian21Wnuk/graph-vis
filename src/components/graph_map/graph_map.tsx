@@ -12,12 +12,13 @@ import reducer from "../../store/reducer";
 import { AppState, GraphState } from "../../shared/types/interactive_types";
 import { useShallow } from "zustand/shallow";
 import { Weight } from "../../shared/enumerations/enums";
-import { NODE_MAX, NOT_SELECTED, nodeDefaultStyle } from "../../shared/constants";
+import { ARROW_SVG_ID, NODE_MAX, NO_ARROW, nodeDefaultStyle } from "../../shared/constants";
 import find_first_free from "./functions/find_first_free_index";
 import getRandomInt from "../utility/functions/random_int";
-import Steps from "./components/steps";
+import Steps from "./components/steps/steps";
 import CustomControls from "./custom_controls/custom_controls";
-import Description from "../description/description";
+import CustomMarker from "./components/custom_edge/marker";
+import convert_to_undirected from "./functions/convert_to_undirected";
 
 const selector = (state: AppState) => ({
     nodes: state.nodes,
@@ -30,11 +31,13 @@ const selector = (state: AppState) => ({
     setModifyMode: state.setModifyMode,
     modifyMode: state.modifyMode,
     selectedValue: state.selectedValue,
+    isDirected: state.isDirected,
+    setIsDirected: state.setIsDirected
 });
 
 
 export default function GraphMap() {
-    const { nodes, edges, onNodesChange, onEdgesChange, setNodes, setEdges, message, setModifyMode, modifyMode, selectedValue } = useStore(useShallow(selector));
+    const { nodes, edges, onNodesChange, onEdgesChange, setNodes, setEdges, message, setModifyMode, modifyMode, isDirected, setIsDirected } = useStore(useShallow(selector));
 
     const reactFlow = useReactFlow();
 
@@ -60,32 +63,71 @@ export default function GraphMap() {
             setEdges(edges.filter((e: Edge) => e.source !== node.id && e.target !== node.id));
         }
         else if (state.addMode) {
+            console.log(isDirected);
+
+
             if (state.connect) {
-                let first: number = state.first;
-                let scnd: number = parseInt(node.id);
+                if (isDirected) {
+                    const first: string = String(state.first);
+                    if (first === "-1") {
+                        dispatch({ type: "SET_PAIR", payload: first });
+                        return;
+                    }
+                    const scnd: string = node.id;
+                    const id: string = `${first}-${scnd}`;
+                    const prevent_two_arrows_id : string = `${scnd}-${first}`;
+                    if (edges.some((e: Edge) => e.id === id) || first === scnd) {
+                        return;
+                    }
+                    const new_label: string = state.weighted ? String(getRandomInt(NODE_MAX)) : Weight.UNWEIGHTED;
+                    
+                    if (edges.some((e : Edge) => e.id === prevent_two_arrows_id)){
+                        console.log("two");
+                        setEdges([...edges.filter((e : Edge) => e.id !== prevent_two_arrows_id), {
+                            id: id, source: first, target: scnd, type: 'straight', label: new_label,
+                            style: { stroke: "black" }, markerEnd: ARROW_SVG_ID
+                        }]);
+                    }
+                    else{
+                        setEdges([...edges, {
+                            id: id, source: first, target: scnd, type: 'straight', label: new_label,
+                            style: { stroke: "black" }, markerEnd: ARROW_SVG_ID
+                        }]);
+                    }
+                    dispatch({ type: "SET_PAIR", payload: -1 });
 
-                if (first > scnd) {
-                    const tmp: number = first;
-                    first = scnd;
-                    scnd = tmp;
                 }
-                // this is for removing double edges
-                let id = `${first}-${scnd}`;
-                if (first === -1) {
-                    dispatch({ type: "SET_PAIR", payload: first });
-                    return;
-                }
-                // handle same id's
-                if (edges.some((e: Edge) => e.id === id) || first === scnd) {
-                    return;
-                }
+                else {
+                    // holding invariant
+                    let first: number = state.first;
+                    let scnd: number = parseInt(node.id);
 
-                const new_label: string = state.weighted ? String(getRandomInt(NODE_MAX)) : Weight.UNWEIGHTED;
+                    if (first > scnd) {
+                        const tmp: number = first;
+                        first = scnd;
+                        scnd = tmp;
+                    }
+                    // this is for removing double edges
+                    const id = `${first}-${scnd}`;
+                    if (first === -1) {
+                        dispatch({ type: "SET_PAIR", payload: first });
+                        return;
+                    }
+                    // handle same id's
+                    if (edges.some((e: Edge) => e.id === id) || first === scnd) {
+                        return;
+                    }
 
-                setEdges([...edges, { id: id, source: String(first), target: String(scnd), type: 'straight', label: new_label, style: { stroke: "black" } }]);
-                dispatch({ type: "SET_PAIR", payload: -1 });
+                    const new_label: string = state.weighted ? String(getRandomInt(NODE_MAX)) : Weight.UNWEIGHTED;
+
+                    setEdges([...edges, {
+                        id: id, source: String(first), target: String(scnd), type: 'straight', label: new_label,
+                        style: { stroke: "black" }, markerEnd: NO_ARROW
+                    }]);
+                    dispatch({ type: "SET_PAIR", payload: -1 });
+                }
             }
-            if (!state.connect) {
+            else {
                 dispatch({ type: "SET_PAIR", payload: parseInt(node.id) });
             }
         }
@@ -93,12 +135,21 @@ export default function GraphMap() {
 
     function onEdgeClick(_event: React.MouseEvent<Element, MouseEvent>, edge: Edge): void {
         setModifyMode(true);
-        if (state.removeMode)
+        if (state.removeMode) {
             setEdges(edges.filter((e: Edge) => e.id !== edge.id))
+        }
+        else if (isDirected) {
+            setEdges([...edges.filter((e: Edge) => e.id !== edge.id), {
+                id: String(edge.target) + "-" + String(edge.source), source: edge.target, target: edge.source, type: 'straight', label: edge.label,
+                style: { stroke: "black" }, markerEnd: ARROW_SVG_ID
+            }]);
+        }
+
     }
 
 
     function onPaneClick(_event: React.MouseEvent<Element, MouseEvent>): void {
+        console.log(edges);
         setModifyMode(true);
         if (state.addMode) {
             let xy: XYPosition = { x: _event.clientX, y: _event.clientY };
@@ -131,8 +182,22 @@ export default function GraphMap() {
         alert("Graph exported");
     }
 
+    const set_directed = () => {
+        if (isDirected) {
+            // remove arrows holding invariant
+            setEdges(convert_to_undirected(edges));
+            setIsDirected(false);
+        }
+        // give arrows to edges
+        else {
+            setEdges(edges.map((e: Edge) => { return { ...e, markerEnd: ARROW_SVG_ID } }));
+            setIsDirected(true);
+        }
+    }
+
     return (
         <>
+            <CustomMarker />
             <div className="bg-white w-screen md:w-3/5 max-auto h-[400px] border-2 border-black font-sans">
                 <ReactFlow
                     nodes={nodes}
@@ -145,7 +210,7 @@ export default function GraphMap() {
                     onInit={() => reactFlow.fitView()}
                     onPaneClick={onPaneClick}
                     snapGrid={[15, 15]}>
-                    <CustomControls exportGraph={export_graph} noWeights={no_weights} dispatch={dispatch} clearGraph={clear} randomizeWeight={random_weight} />
+                    <CustomControls setIsDirected={set_directed} exportGraph={export_graph} noWeights={no_weights} dispatch={dispatch} clearGraph={clear} randomizeWeight={random_weight} />
                 </ReactFlow>
             </div>
             <div className="w-1/5">

@@ -1,5 +1,5 @@
-import { Message } from "../../../shared/types/graph_types"
-import { Additional } from "../../../shared/types/graph_types";
+import { Message } from "../../../../shared/types/graph_types"
+import { Additional } from "../../../../shared/types/graph_types";
 
 
 interface AdditionalProps {

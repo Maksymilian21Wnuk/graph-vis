@@ -18,10 +18,11 @@ function sort_edges(edges : Edge[]) : Edge[] {
 
 export default function kruskal(g : WeightedGraph) : Step[]{
     let disjoint_set = new DisjointSet<string>();
-    let edges : Edge[] = [];
+    // array as object for type checking
+    let edges : Edge[] = new Array<Edge>();
     
     // initialization of disjoint set O(E + V)
-    g.add_step({msg: 'Initializing disjoint set', step_idx: 0})
+    g.add_step({step_idx: 0})
     for (const node of g.get_nodes()){
         disjoint_set.makeSet(node);
         // initialization of array of edge values
@@ -36,7 +37,7 @@ export default function kruskal(g : WeightedGraph) : Step[]{
     }
 
     // sort edges nlogn
-    g.add_step({msg: 'Sorting edges', step_idx: 0})
+    g.add_step({step_idx: 0})
     edges = sort_edges(edges);
     let result : Edge[] = [];
 
@@ -45,19 +46,19 @@ export default function kruskal(g : WeightedGraph) : Step[]{
             disjoint_set.union(e.source, e.dest);
             result.push(e);
             g.add_step({source_node : e.source, edges : [e.dest], nodes : [e.dest, e.source], should_color_visited: true,
-                msg:`adding ${e.source} and ${e.dest} to result`, step_idx: 1
+                step_idx: 1
             }
             );
         }
         else{
             console.log("Forms cycle");
             g.add_step({nodes : [e.dest, e.source], 
-                msg: `${e.source} and ${e.dest} forms a cycle`, step_idx: 2
+                step_idx: 2
             });
         }
     }
-    g.add_step({msg : "Sorted array empty", step_idx: 3})
-    g.add_step({msg : "Minimum spanning tree finished", step_idx: 4})
-    
+    g.add_step({step_idx: 3})
+    g.add_step({step_idx: 4})
+
     return g.get_steps();
 }
