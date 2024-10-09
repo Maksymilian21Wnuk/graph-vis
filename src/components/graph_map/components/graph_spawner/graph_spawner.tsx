@@ -1,24 +1,29 @@
 import { useState } from "react";
-import { GraphName } from "../../../../shared/types/interactive_types";
+import { AppState } from "../../../../shared/types/interactive_types";
 import { mocked_graphs } from "./mock_data/mock_graph";
 import { mockNames } from "./mock_data/mock_names";
-import { Node, Edge } from "@xyflow/react";
+import { useReactFlow } from "@xyflow/react";
 import RandomSpawner from "./random_spawner/random_spawner";
 import Dropdown from "../../../utility/atoms/dropdown";
-
-interface GraphSpawnerProps {
-    setNodes: (n: Node[]) => void;
-    setEdges: (e: Edge[]) => void;
-    fit_view: () => void;
-    setModifyMode: (mode : boolean) => void;
-}
+import useStore from "../../../../store/store";
+import { useShallow } from "zustand/shallow";
 
 
-export default function GraphSpawner({ setNodes, setEdges, fit_view, setModifyMode }: GraphSpawnerProps) {
+const selector = (state: AppState) => ({
+    setNodes: state.setNodes,
+    setEdges: state.setEdges,
+    setModifyMode: state.setModifyMode,
+});
+
+export default function GraphSpawner() {
+    const { setNodes, setEdges, setModifyMode } = useStore(useShallow(selector));
 
     const [selectedValue, setSelectedValue] = useState(-1);
+    const reactFlow = useReactFlow();
 
-    
+    const fit_view = () => {
+        reactFlow.fitView();
+    }    
 
     const onChange = (event: any) => {
         const chosen = mocked_graphs[event.target.value];
@@ -34,7 +39,7 @@ export default function GraphSpawner({ setNodes, setEdges, fit_view, setModifyMo
     }
 
     return (
-        <div className="flex flex-col px-5 py-2 justify-center col">
+        <div className="flex flex-col px-5 py-2 justify-center items-center col">
             <div>
                 <Dropdown selectedValue={selectedValue} handleChange={onChange} obj={mockNames} />
             </div>

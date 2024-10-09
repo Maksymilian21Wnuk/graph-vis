@@ -38,23 +38,21 @@ export default function Visualisation() {
 
     // function for handling next step of algorithm progression
     function next_step() {
-        console.log(steps);
         const step: Step = steps.shift()!;
         if (step) {
             setSteps(steps);
             setNodes(colorNodes(step, nodes));
             setEdges(colorEdges(step, edges));
             // case when message exists
-            if (step.msg) {
-                setMessage({ msg: step.msg, additional: step.additional, additional_name: step.additional_name});
-            }
+            setMessage({ msg: step.msg, additional: step.additional, additional_name: step.additional_name, step_idx : step.step_idx});
+            
         }
         // case when algorithm finished execution
         else {
             setSteps([]);
             setModifyMode(false);
-            setMessage({ msg: "Algorithm terminated." })
             reset_graph();
+            setMessage({step_idx: -1, msg:''});
         }
 
     }
@@ -63,7 +61,7 @@ export default function Visualisation() {
     it basically initialize the graph with
     currently placed nodes and edges on the graph map*/
     function start() {
-        setMessage({msg: 'Starting Algorithm'});
+        setMessage({msg: 'Starting Algorithm', step_idx: -1});
         setNodes(reset_node_color(nodes));
         setEdges(reset_edge_color(edges));
         // gets currently clicked node in order to start algo in this node (case of node starting algo)

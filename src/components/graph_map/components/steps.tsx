@@ -19,16 +19,10 @@ function AdditionalDisplay({additional} : AdditionalProps) {
 }
 
 
-export default function Steps({msg, additional, additional_name, modifyMode} : Message) {
+export default function Steps({additional, additional_name, modifyMode, step_idx} : Message) {
 
-    return msg && !modifyMode ? (
+    return additional_name && !modifyMode ? (
         <div className="mx-2 p-2">
-            <div>
-                Steps of algorithm:
-            </div>
-            <div className="py-5">
-                {msg}
-            </div>
             <div className="z">
                 {additional_name ? additional_name : null}
             </div>
