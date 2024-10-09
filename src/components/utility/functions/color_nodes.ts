@@ -21,6 +21,10 @@ export default function colorNodes(step : Step, nodes : Node[]) : Node[]{
     let nodes_to_change : string[] = step.nodes!;
     // if no nodes to change, return previous set of nodes
     if (!nodes_to_change){
+        // sometimes we just want to color current node only
+        if (step.current_node){
+            nodes = change_given_id(nodes, step.current_node, NodeColor.CURRENT, true);    
+        }
         return nodes;
     }
     for (let id of nodes_to_change) {

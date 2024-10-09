@@ -126,6 +126,11 @@ export default function GraphMap() {
         dispatch({ type: 'CHANGE_WEIGHTED', payload: false });
     }
 
+    const export_graph = () => {
+        navigator.clipboard.writeText("{nodes: " + JSON.stringify(nodes) + ",\n" + "edges: " + JSON.stringify(edges) + "}");
+        alert("Graph exported");
+    }
+
     return (
         <>
             <div className="bg-white w-screen md:w-3/5 max-auto h-[400px] border-2 border-black font-sans">
@@ -140,7 +145,7 @@ export default function GraphMap() {
                     onInit={() => reactFlow.fitView()}
                     onPaneClick={onPaneClick}
                     snapGrid={[15, 15]}>
-                    <CustomControls noWeights={no_weights} dispatch={dispatch} clearGraph={clear} randomizeWeight={random_weight} />
+                    <CustomControls exportGraph={export_graph} noWeights={no_weights} dispatch={dispatch} clearGraph={clear} randomizeWeight={random_weight} />
                 </ReactFlow>
             </div>
             <div className="w-1/5">

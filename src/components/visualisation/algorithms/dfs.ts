@@ -12,9 +12,9 @@ function dfs_recursive(vertice: string, prev_vertice: string, visited: Set<strin
         visited.add(vertice);
         const edge = g.create_edge(vertice, prev_vertice);
         g.add_step({
-            nodes: [vertice], msg: `Visiting node ${vertice}`,
+            current_node: vertice,
             additional: parse_additional(visited), additional_name: "Visited nodes:",
-            edges : [edge.dest], source_node : edge.source
+            edges : [edge.dest], source_node : edge.source, step_idx: 1
         });
         console.log(vertice, prev_vertice);
         for (const v of g.get_neighbours(vertice)) {
@@ -26,6 +26,7 @@ function dfs_recursive(vertice: string, prev_vertice: string, visited: Set<strin
 
 export default function dfs(g: Graph): Step[] {
     var visited = new Set<string>();
+    g.add_step({current_node: g.get_start_node(), step_idx: 0});
     dfs_recursive(g.get_start_node(), "-1", visited, g);
     return g.get_steps();
 }
