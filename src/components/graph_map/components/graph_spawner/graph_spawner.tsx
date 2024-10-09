@@ -13,10 +13,11 @@ const selector = (state: AppState) => ({
     setNodes: state.setNodes,
     setEdges: state.setEdges,
     setModifyMode: state.setModifyMode,
+    setIsDirected: state.setIsDirected,
 });
 
 export default function GraphSpawner() {
-    const { setNodes, setEdges, setModifyMode } = useStore(useShallow(selector));
+    const { setNodes, setEdges, setModifyMode, setIsDirected } = useStore(useShallow(selector));
 
     const [selectedValue, setSelectedValue] = useState(-1);
     const reactFlow = useReactFlow();
@@ -33,9 +34,9 @@ export default function GraphSpawner() {
         setSelectedValue(event.target.value)
         setEdges(chosen.edges);
         setNodes(chosen.nodes);
-        // is this correct solution?
         setTimeout(fit_view);
         setModifyMode(true);
+        setIsDirected(false);
     }
 
     return (
