@@ -76,6 +76,7 @@ export default function Visualisation() {
             setModifyMode(false);
             // run chosen algo on given graph
             const new_steps: Step[] = chosenFunction.foo(graph);
+            console.log(new_steps);
             setSteps(new_steps);
         }
     }

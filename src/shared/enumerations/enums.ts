@@ -10,6 +10,7 @@ export enum NodeColor {
     VISITED = "yellow",
     UNVISITED = "white",
     CURRENT = "red",
+    CURRENTLY_VISITING = "orange",
 };
 
 export enum EdgeColor {

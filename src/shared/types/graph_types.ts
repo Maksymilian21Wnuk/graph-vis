@@ -8,9 +8,10 @@ Info about step structure
 */
 
 export type Step = {
-    // nodes to color
+    // nodes to color, by default to orange,
+    // since those are nodes being visited
     nodes? : string[];
-    // edges destination
+    // edges destination, array of id's as strings
     edges? : string[];
     // message displayed to the right
     msg? : string;
@@ -29,6 +30,8 @@ export type Step = {
     should_color_visited? : boolean;
     // index of current step
     step_idx : number;
+    // current node if needs being colored
+    current_node? : string;
 };
 
 // additional might be queue of node id
