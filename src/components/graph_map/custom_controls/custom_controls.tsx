@@ -1,7 +1,8 @@
 import { Controls, ControlButton } from "@xyflow/react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShareNodes, faDice, faX, faHand, faTrash, faFileExport, faToiletPaperSlash, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faShareNodes, faDice, faX, faHand, faTrash, faFileExport, faToiletPaperSlash, faArrowRight, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { GraphAction } from "../../../shared/types/interactive_types";
+import { useState } from "react";
 
 /*
 file for setting custom controls
@@ -20,32 +21,44 @@ interface CustomControlsProps {
 }
 
 export default function CustomControls({ exportGraph, randomizeWeight, clearGraph, dispatch, noWeights, setIsDirected }: CustomControlsProps) {
+    const [ hidden, setHidden ] = useState(false);
+
+    const onHiddenClick = () => {
+        setHidden(!hidden);
+    }
+
     return (
         <Controls position="top-right" showInteractive={false} showZoom={false}>
-            <ControlButton onClick={randomizeWeight}>
-                <FontAwesomeIcon icon={faDice} />
+            <ControlButton onClick={onHiddenClick}>
+                <FontAwesomeIcon icon={hidden ? faPlus : faMinus} />
             </ControlButton>
-            <ControlButton onClick={clearGraph}>
-                <FontAwesomeIcon icon={faX} />
-            </ControlButton>
-            <ControlButton onClick={() => dispatch({ type: "MODE_ADD" })}>
-                <FontAwesomeIcon icon={faShareNodes} />
-            </ControlButton>
-            <ControlButton onClick={() => dispatch({ type: "MODE_CHOOSE" })}>
-                <FontAwesomeIcon icon={faHand} />
-            </ControlButton>
-            <ControlButton onClick={() => dispatch({ type: "MODE_REMOVE" })}>
-                <FontAwesomeIcon icon={faTrash} />
-            </ControlButton>
-            <ControlButton onClick={noWeights}>
-                <FontAwesomeIcon icon={faToiletPaperSlash} />
-            </ControlButton>
-            <ControlButton onClick={exportGraph}>
-                <FontAwesomeIcon icon={faFileExport} />
-            </ControlButton>
-            <ControlButton onClick={setIsDirected}>
-                <FontAwesomeIcon icon={faArrowRight} />
-            </ControlButton>
+            {hidden ? null :
+                (
+                    <><ControlButton onClick={randomizeWeight}>
+                        <FontAwesomeIcon icon={faDice} />
+                    </ControlButton>
+                        <ControlButton onClick={clearGraph}>
+                            <FontAwesomeIcon icon={faX} />
+                        </ControlButton>
+                        <ControlButton onClick={() => dispatch({ type: "MODE_ADD" })}>
+                            <FontAwesomeIcon icon={faShareNodes} />
+                        </ControlButton>
+                        <ControlButton onClick={() => dispatch({ type: "MODE_CHOOSE" })}>
+                            <FontAwesomeIcon icon={faHand} />
+                        </ControlButton>
+                        <ControlButton onClick={() => dispatch({ type: "MODE_REMOVE" })}>
+                            <FontAwesomeIcon icon={faTrash} />
+                        </ControlButton>
+                        <ControlButton onClick={noWeights}>
+                            <FontAwesomeIcon icon={faToiletPaperSlash} />
+                        </ControlButton>
+                        <ControlButton onClick={exportGraph}>
+                            <FontAwesomeIcon icon={faFileExport} />
+                        </ControlButton>
+                        <ControlButton onClick={setIsDirected}>
+                            <FontAwesomeIcon icon={faArrowRight} />
+                        </ControlButton>
+                    </>) }
         </Controls>
     )
 }
