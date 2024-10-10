@@ -1,6 +1,7 @@
 import { Edge } from "@xyflow/react";
 import { Step } from "../../../shared/types/graph_types";
 import { EdgeColor } from "../../../shared/enumerations/enums";
+import { ARROW_SVG_ID } from "../../../shared/constants";
 
 
 // changes to given color
@@ -22,11 +23,15 @@ function change_to_visited(edges: Edge[]): Edge[] {
 }
 
 // returns ids to change
-function parse_ids(source: string, neighbours: string[]): string[] {
-    return neighbours.map((dest: string) => parseInt(source) > parseInt(dest) ? `${dest}-${source}` : `${source}-${dest}`);
+function parse_ids_directed(source: string, neighbours: string[]): string[] {
+    return neighbours.map((dest: string) => `${source}-${dest}`);
 }
 
-// step spec: edges is neighbours, source is nei src
+function parse_ids_undirected(source: string, neighbours: string[]): string[] {
+    return neighbours.map((dest: string) => parseInt(source) > parseInt(dest) ? `${dest}-${source}` : `${source}-${dest}` );
+}
+
+// step spec: edges is neighbours, source is neigbours' src
 export default function colorEdges(step: Step, edges: Edge[]): Edge[] {
     edges = change_to_visited(edges);
     const edges_to_change: string[] = step.edges!;
@@ -34,7 +39,16 @@ export default function colorEdges(step: Step, edges: Edge[]): Edge[] {
     if (!edges_to_change && !src) {
         return edges;
     }
-    const ids: string[] = parse_ids(src, edges_to_change);
+    let ids: string[] = [];
+
+    // parsing edges invariant
+    if (edges.some((e : Edge) => e.markerEnd === ARROW_SVG_ID)){
+        ids = parse_ids_directed(src, edges_to_change);
+    }
+    else{
+        ids = parse_ids_undirected(src, edges_to_change);
+    }
+
     console.log(ids);
     for (const id of ids) {
         edges = change_given_id(edges, id);

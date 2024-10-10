@@ -59,4 +59,6 @@ export type Algorithm = {
     foo : AlgorithmFunction;
     name : string;
     require_weights : boolean;
+    require_directed : boolean;
+    require_non_directed : boolean;
 };

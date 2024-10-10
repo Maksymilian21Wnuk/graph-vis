@@ -51,7 +51,6 @@ export default function kruskal(g : WeightedGraph) : Step[]{
             );
         }
         else{
-            console.log("Forms cycle");
             g.add_step({nodes : [e.dest, e.source], 
                 step_idx: 2
             });

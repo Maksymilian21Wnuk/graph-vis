@@ -28,6 +28,7 @@ export default function dfs(g: Graph): Step[] {
     var visited = new Set<string>();
     g.add_step({current_node: g.get_start_node(), step_idx: 0});
     dfs_recursive(g.get_start_node(), "-1", visited, g);
+    g.add_step({step_idx: 2});
     return g.get_steps();
 }
 

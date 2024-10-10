@@ -12,8 +12,9 @@ import reset_node_color from "../utility/functions/reset_node_color";
 import AlgorithmDropdown from "./components/algorithm_dropdown";
 import ProgressButtons from "./components/progress_buttons";
 import { NOT_SELECTED } from "../../shared/constants";
-import WeightedGraph from "../../shared/models/weighted_graph";
-
+import DirectedGraph from "../../shared/models/directed_graph";
+import requirements_guard from "./util/requirements_guard";
+import { Algorithm } from "../../shared/types/graph_types";
 
 const selector = (state: AppState) => ({
     nodes: state.nodes,
@@ -32,7 +33,7 @@ const selector = (state: AppState) => ({
 export default function Visualisation() {
     const { nodes, edges, setNodes, setEdges, setMessage, setModifyMode, modifyMode, selectedValue, setSelectedValue } = useStore(useShallow(selector));
 
-    const [chosenFunction, setChosenFunction] = useState<any>(algos[0]);
+    const [chosenFunction, setChosenFunction] = useState<Algorithm>(algos[0]);
     const [steps, setSteps] = useState<Step[]>([]);
 
 
@@ -66,13 +67,10 @@ export default function Visualisation() {
         setEdges(reset_edge_color(edges));
         // gets currently clicked node in order to start algo in this node (case of node starting algo)
         const currentClicked: string = get_currently_clicked(nodes);
-        let graph = new WeightedGraph(currentClicked, nodes, edges);
-        // if requires weighted but graph is not weighted
-        if (chosenFunction.require_weights && !graph.get_is_weighted()){
-            alert("Graph must be weighted");
-        }
-        // else run algorithm
-        else{
+        let graph = new DirectedGraph(currentClicked, nodes, edges);
+
+        // requirements checking for functions
+        if (requirements_guard(chosenFunction, graph)){
             setModifyMode(false);
             // run chosen algo on given graph
             const new_steps: Step[] = chosenFunction.foo(graph);
