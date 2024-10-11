@@ -6,7 +6,7 @@ import { ReactFlowProvider } from "@xyflow/react"
 
 export default function GraphVisualisation() {
     return (
-        <>
+        <div className="animate-appear">
             <ReactFlowProvider>
                 <GraphSpawner />
                 <div className="flex justify-center">
@@ -15,6 +15,6 @@ export default function GraphVisualisation() {
                 </div>
                 <Visualisation />
             </ReactFlowProvider>
-        </>
+        </div>
     )
 }

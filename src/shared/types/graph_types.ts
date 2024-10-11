@@ -1,6 +1,7 @@
 
 // format: `{$SOURCE}e{$TARGET}`
 
+import DirectedGraph from "../models/directed_graph";
 import WeightedGraph from "../models/weighted_graph";
 
 /*
@@ -36,6 +37,9 @@ export type Step = {
     step_idx : number;
     // current node if needs being colored
     current_node? : string;
+    // sometimes instead of coloring we want to remove some edges,
+    // if true edges from 'edges' array will be deleted
+    edge_removal? : boolean;
 };
 
 // additional might be queue of node id
@@ -59,7 +63,7 @@ export type Message = {
     step_idx : number;
 };
 
-export type AlgorithmFunction = (g : WeightedGraph) => Step[];
+export type AlgorithmFunction = (g : DirectedGraph) => Step[];
 
 export type Algorithm = {
     foo : AlgorithmFunction;

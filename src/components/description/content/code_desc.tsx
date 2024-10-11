@@ -4,17 +4,19 @@ import { code_text } from "../../visualisation/algorithms/algorithms_description
 
 
 interface CodeDescProps {
-    selectedValue : number;
+    selectedValue: number;
 }
 
 
-export default function CodeDesc({selectedValue} : CodeDescProps) {
+export default function CodeDesc({ selectedValue }: CodeDescProps) {
     if (!code_text[selectedValue]) {
         return "you must add code text";
     }
     return (
-        <SyntaxHighlighter language="python" style={docco} showLineNumbers wrapLines>
-            {code_text[selectedValue]}
-        </SyntaxHighlighter>
+        <div className="animate-appear">
+            <SyntaxHighlighter language="python" style={docco} showLineNumbers wrapLines>
+                {code_text[selectedValue]}
+            </SyntaxHighlighter>
+        </div>
     )
 }

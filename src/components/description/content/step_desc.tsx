@@ -19,11 +19,11 @@ export default function StepDesc({selectedValue} : StepDescProps) {
         return "you must add steps text";
     }
     return (
-        <div className='py-2'>
+        <div className='animate-appear py-2'>
             <ol type='1' className='list-decimal list-inside'>
                 {step_text[selectedValue].steps.map((step: string, key: number = 1) =>
                     <li className=
-                    {step_idx === -1 ? 'pl-2' : (step_idx != key ? 'pl-2' : 'pl-2 bg-red-300 font-bold')}
+                    {step_idx === -1 ? 'pl-2' : (step_idx != key ? 'pl-2' : 'rounded-md m-1 pl-2 animate-redColorChange font-bold')}
                      key={`step-` + key++}>{step}</li>
                 )}
             </ol>

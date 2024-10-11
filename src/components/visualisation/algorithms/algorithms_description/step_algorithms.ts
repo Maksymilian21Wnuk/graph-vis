@@ -21,5 +21,16 @@ export const step_text: StepInterface[] = [
             "Every visited, terminate"]
     },
     // kruskal
-    { steps: ["Sort edges in increasing order", "Pick smallest edge", "If edge creates cycle, repeat 2", "Sorted array is empty", "Terminate"] }
+    { steps: ["Sort edges in increasing order", 
+        "Pick smallest edge", 
+        "If edge creates cycle, repeat 2", 
+        "Sorted array is empty", 
+        "Mst found"] },
+    // kahn
+    { steps: ["Initialize indegree values for vertices", 
+        "Add to queue vertices with indegree == 0", 
+        "Extract from queue vertice and add to result",
+        "Decrement from neighbours their value",
+        "Choose next vertice with indegree == 0",
+        "Queue empty, terminate algorithm"]}
 ]

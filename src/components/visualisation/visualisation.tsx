@@ -89,7 +89,7 @@ export default function Visualisation() {
     return (
         <>
             {selectedValue !== NOT_SELECTED ?
-                <ProgressButtons modifyMode={modifyMode} start={start} next_step={next_step} /> : null}
+                <ProgressButtons setModifyMode={setModifyMode} modifyMode={modifyMode} start={start} next_step={next_step} /> : null}
             <AlgorithmDropdown resetGraph={reset_graph} setSelectedValue={setSelectedValue} setChosenFunction={setChosenFunction} selectedValue={selectedValue} />
         </>
     );

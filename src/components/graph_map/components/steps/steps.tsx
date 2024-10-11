@@ -12,7 +12,7 @@ function AdditionalDisplay({ additional }: AdditionalProps) {
     return (
         <div className="overflow-y-auto h-[300px] absolute">
             <ul>
-                {additional.map((additional: Additional) => <li key={additional.id} className="border-2 m-1 px-3 py-1 w-fit border-black">{additional.id}   {additional.value === String(Infinity) ? "∞" : additional.value}</li>)}
+                {additional.map((additional: Additional) => <li key={additional.id} className="animate-appear border-2 m-1 px-3 py-1 w-fit border-black">{additional.id}   {additional.value === String(Infinity) ? "∞" : additional.value}</li>)}
             </ul>
         </div>
     )

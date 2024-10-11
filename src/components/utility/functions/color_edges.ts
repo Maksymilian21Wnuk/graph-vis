@@ -6,19 +6,19 @@ import { ARROW_SVG_ID } from "../../../shared/constants";
 
 // changes to given color
 // this should not color to current when it is visited!
-function change_given_id(edges: Edge[], id: string): Edge[] {
+function change_given_id(edges: Edge[], id: string, should_color_visited_edge: boolean = false): Edge[] {
     return edges.map((e: Edge) => e.id === id ? {
         ...e,
         style: {
             ...e.style,
-            stroke: e.style?.stroke === EdgeColor.VISITED ? EdgeColor.VISITED : EdgeColor.CURRENT
+            stroke: e.style?.stroke === EdgeColor.VISITED ? (should_color_visited_edge ? EdgeColor.CURRENT : EdgeColor.VISITED) : EdgeColor.CURRENT
         }
     }
         : e);
 }
 
 // function for making previously visited yellow
-function change_to_visited(edges: Edge[], should_color_visited_edge : boolean): Edge[] {
+function change_to_visited(edges: Edge[]): Edge[] {
     return edges.map((e: Edge) => e.style?.stroke === EdgeColor.CURRENT ? { ...e, style: { ...e.style, stroke: EdgeColor.VISITED } } : e);
 }
 
@@ -33,12 +33,7 @@ function parse_ids_undirected(source: string, neighbours: string[]): string[] {
 
 // step spec: edges is neighbours, source is neigbours' src
 export default function colorEdges(step: Step, edges: Edge[]): Edge[] {
-    if (!step.should_color_visited_edge){
-        edges = change_to_visited(edges, false);
-    }
-    else{
-        edges = change_to_visited(edges, true);
-    }
+    edges = change_to_visited(edges);
     
     const edges_to_change: string[] = step.edges!;
     const src: string = step.source_node!;
@@ -57,7 +52,12 @@ export default function colorEdges(step: Step, edges: Edge[]): Edge[] {
 
     console.log(ids);
     for (const id of ids) {
-        edges = change_given_id(edges, id);
+        edges = change_given_id(edges, id, step.should_color_visited_edge);
+    }
+
+    if (step.edge_removal){
+        console.log("asfd");
+        edges = edges.filter((e : Edge) => !ids.includes(e.id));
     }
 
     return edges;

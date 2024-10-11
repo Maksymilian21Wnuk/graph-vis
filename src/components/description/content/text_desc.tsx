@@ -10,7 +10,7 @@ export default function TextDesc({selectedValue} : TextDescProps) {
         return "you must description steps text";
     }
     return (
-        <div className=''>
+        <div className='animate-appear'>
             {description_text[selectedValue]}
         </div>)
 }

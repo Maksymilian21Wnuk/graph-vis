@@ -29,7 +29,7 @@ export default function Description() {
     }
 
     return (
-        <div className="w-1/5">
+        <div className="animate-appear w-1/5">
             {algo_selected !== NOT_SELECTED ? (
                 <div className="flex flex-col justify-center items-center">
                     <div className='flex-row'>

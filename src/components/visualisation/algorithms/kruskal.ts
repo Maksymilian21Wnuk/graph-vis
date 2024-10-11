@@ -59,9 +59,16 @@ export default function kruskal(g : WeightedGraph) : Step[]{
         else{
             g.add_step({nodes : [e.dest, e.source], 
                 step_idx: 2,
+                additional_name: "Creates cycle", additional: parse_additional(edges_additional),
+                should_color_visited : true,
+            });
+            g.add_step({nodes : [e.dest, e.source], 
+                step_idx: 2,
                 additional_name: "Sorted edges: ", additional: parse_additional(edges_additional),
-                should_color_visited : true
-
+                should_color_visited : true,
+                edge_removal: true,
+                source_node: e.source,
+                edges: [e.dest]
             });
         }
         edges_additional.shift();
