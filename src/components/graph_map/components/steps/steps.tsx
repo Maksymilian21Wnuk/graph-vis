@@ -3,31 +3,42 @@ import { Additional } from "../../../../shared/types/graph_types";
 
 
 interface AdditionalProps {
-    additional : Additional[];
+    additional: Additional[];
 }
 
 
-function AdditionalDisplay({additional} : AdditionalProps) {
+function AdditionalDisplay({ additional }: AdditionalProps) {
 
     return (
-        <div className="overflow-y-auto h-60">
+        <div className="overflow-y-auto h-[300px] absolute">
             <ul>
-                {additional.map((additional : Additional) => <li key={additional.id} className="border-2 m-1 px-3 py-1 w-fit border-black">{additional.id}   {additional.value === String(Infinity) ? "∞" : additional.value}</li>)}
+                {additional.map((additional: Additional) => <li key={additional.id} className="border-2 m-1 px-3 py-1 w-fit border-black">{additional.id}   {additional.value === String(Infinity) ? "∞" : additional.value}</li>)}
             </ul>
         </div>
     )
 }
 
 
-export default function Steps({additional, additional_name, modifyMode, step_idx} : Message) {
+export default function Steps({ additional, additional_name, modifyMode, additional_snd, additional_snd_name }: Message) {
 
     return additional_name && !modifyMode ? (
-        <div className="mx-2 p-2">
-            <div className="z">
-                {additional_name ? additional_name : null}
+        <div className="grid grid-cols-2 mx-2 p-2">
+            <div>
+                <div className="">
+                    {additional_name ? additional_name : null}
+                </div>
+                <div className="py-6">
+                    {additional ? <AdditionalDisplay additional={additional} /> : null}
+                </div>
             </div>
-            <div className="py-6">
-                {additional ? <AdditionalDisplay additional={additional}/> : null }
+
+            <div>
+                <div className="">
+                    {additional_snd_name ? additional_snd_name : null}
+                </div>
+                <div className="py-6">
+                    {additional_snd ? <AdditionalDisplay additional={additional_snd} /> : null}
+                </div>
             </div>
         </div>
     ) : null

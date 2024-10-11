@@ -6,7 +6,7 @@ export interface StepInterface {
 
 export const step_text: StepInterface[] = [
     //bfs
-    { steps: ["Initialize queue Q", "Extract node from Q", "Add unvisited neighbours to Q", "Repeat from 2, if Q is not empty", "Terminate"] },
+    { steps: ["Initialize queue Q", "Extract node from Q", "Add unvisited neighbours to Q", "Repeat from 2, if Q is not empty", "Q is empty" ,"Terminate"] },
     //dfs
     { steps: ["Select start node", "Move to the first unvisited node", "Terminate"] },
     // connection check

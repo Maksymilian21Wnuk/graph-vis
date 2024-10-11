@@ -45,7 +45,7 @@ export default function Visualisation() {
             setNodes(colorNodes(step, nodes));
             setEdges(colorEdges(step, edges));
             // case when message exists
-            setMessage({ msg: step.msg, additional: step.additional, additional_name: step.additional_name, step_idx : step.step_idx});
+            setMessage({ msg: step.msg, additional: step.additional, additional_name: step.additional_name, step_idx : step.step_idx, additional_snd: step.additional_snd, additional_snd_name: step.additional_snd_name});
             
         }
         // case when algorithm finished execution

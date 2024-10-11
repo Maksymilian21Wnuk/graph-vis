@@ -31,13 +31,13 @@ export default function dijkstra(g: WeightedGraph): Step[] {
         }
 
         visited.add(v.value!);
-        const cur_node = v.value!;
+        const neigbours = g.get_neighbours(v.value!);
         g.add_step({
-            nodes: [cur_node],
+            nodes: neigbours, should_color_visited: true,
             additional: parse_additional(distances), additional_name: "Distances:",
             edges: g.get_neighbours(v.value!)!, source_node: v.value!, step_idx: 4, current_node: v.value!
         });
-        for (const neighbour of g.get_neighbours(v.value!)) {
+        for (const neighbour of neigbours) {
             if (visited.has(neighbour)) {
                 continue;
             }
@@ -48,7 +48,7 @@ export default function dijkstra(g: WeightedGraph): Step[] {
             }
         }
         g.add_step({
-            nodes: [cur_node],
+            nodes: neigbours, should_color_visited : true,
             additional: parse_additional(distances), additional_name: "Distances:",
             edges: g.get_neighbours(v.value!)!, source_node: v.value!, step_idx: 2, current_node: v.value!
         });

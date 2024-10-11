@@ -214,7 +214,7 @@ export default function GraphMap() {
                 </ReactFlow>
             </div>
             <div className="w-1/5">
-                <Steps step_idx={message.step_idx} msg={message.msg} additional={message.additional} additional_name={message.additional_name} modifyMode={modifyMode} />
+                <Steps additional_snd={message.additional_snd} additional_snd_name={message.additional_snd_name} step_idx={message.step_idx} msg={message.msg} additional={message.additional} additional_name={message.additional_name} modifyMode={modifyMode} />
             </div>
         </>
     );

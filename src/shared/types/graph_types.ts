@@ -22,12 +22,16 @@ export type Step = {
     // before adding to array of steps
     additional? : Additional[];
     // name of additional structure
+    additional_snd_name? : string;
+    // secondary additionals
+    additional_snd? : Additional[];
     additional_name? : string;
     color? : string;
     // should visited be colored again? because visited
     // are by default not colored, for example in bfs
     // wouldnt make much sense
     should_color_visited? : boolean;
+    should_color_visited_edge? : boolean;
     // index of current step
     step_idx : number;
     // current node if needs being colored
@@ -47,6 +51,8 @@ export type Message = {
     msg? : string;
     additional? : Additional[];
     additional_name? : string;
+    additional_snd? : Additional[];
+    additional_snd_name? : string;
     modifyMode? : boolean;
     // must be explicitly given
     // for coloring the current step

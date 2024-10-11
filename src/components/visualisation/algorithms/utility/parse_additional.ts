@@ -35,14 +35,17 @@ export default function parse_additional(additional: AdditionalType): Additional
     }
     // handle queue and stack
     else if (Array.isArray(additional) && additional.every(a => typeof a === 'string')) {
-        additional.forEach((value: string) => {
+        additional.forEach((value: any) => {
             res.push({ id: value, value: "" });
         })
     }
-    
-    else if (Array.isArray(additional)) {
-        
+
+    else if(Array.isArray(additional)){
+        additional.forEach((edge: any) => {
+            res.push({ id: `${edge.source}e${edge.dest}`, value: edge.value });
+        })
     }
+    
 
     return res;
 }

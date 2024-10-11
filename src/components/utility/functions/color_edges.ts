@@ -18,7 +18,7 @@ function change_given_id(edges: Edge[], id: string): Edge[] {
 }
 
 // function for making previously visited yellow
-function change_to_visited(edges: Edge[]): Edge[] {
+function change_to_visited(edges: Edge[], should_color_visited_edge : boolean): Edge[] {
     return edges.map((e: Edge) => e.style?.stroke === EdgeColor.CURRENT ? { ...e, style: { ...e.style, stroke: EdgeColor.VISITED } } : e);
 }
 
@@ -33,7 +33,13 @@ function parse_ids_undirected(source: string, neighbours: string[]): string[] {
 
 // step spec: edges is neighbours, source is neigbours' src
 export default function colorEdges(step: Step, edges: Edge[]): Edge[] {
-    edges = change_to_visited(edges);
+    if (!step.should_color_visited_edge){
+        edges = change_to_visited(edges, false);
+    }
+    else{
+        edges = change_to_visited(edges, true);
+    }
+    
     const edges_to_change: string[] = step.edges!;
     const src: string = step.source_node!;
     if (!edges_to_change && !src) {
