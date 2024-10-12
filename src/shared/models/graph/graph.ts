@@ -1,5 +1,5 @@
 import { Node, Edge } from "@xyflow/react";
-import { Step } from "../types/graph_types";
+import { Step } from "../../types/graph_types";
 
 interface GraphEdge {
     source : string;

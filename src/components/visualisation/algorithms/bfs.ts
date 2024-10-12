@@ -1,5 +1,5 @@
 import { Step } from "../../../shared/types/graph_types";
-import Graph from "../../../shared/models/graph";
+import Graph from "../../../shared/models/graph/graph";
 import parse_additional from "./utility/parse_additional";
 
 

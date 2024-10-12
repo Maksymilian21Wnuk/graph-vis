@@ -1,4 +1,4 @@
-import Graph from "../../../shared/models/graph";
+import Graph from "../../../shared/models/graph/graph";
 import { Step } from "../../../shared/types/graph_types";
 
 export default function bipartite_check(g : Graph) : Step[] {

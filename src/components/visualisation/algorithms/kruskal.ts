@@ -1,4 +1,4 @@
-import WeightedGraph from "../../../shared/models/weighted_graph";
+import WeightedGraph from "../../../shared/models/weighted_graph/weighted_graph";
 import { Step } from "../../../shared/types/graph_types";
 import { DisjointSet } from "disjoint-set-ds/dist";
 import parse_additional from "./utility/parse_additional";

@@ -12,7 +12,7 @@ import reset_node_color from "../utility/functions/reset_node_color";
 import AlgorithmDropdown from "./components/algorithm_dropdown";
 import ProgressButtons from "./components/progress_buttons";
 import { NOT_SELECTED } from "../../shared/constants";
-import DirectedGraph from "../../shared/models/directed_graph";
+import DirectedGraph from "../../shared/models/directed_graph/directed_graph";
 import requirements_guard from "./util/requirements_guard";
 import { Algorithm } from "../../shared/types/graph_types";
 

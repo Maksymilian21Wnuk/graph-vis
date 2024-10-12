@@ -1,9 +1,7 @@
 
 // format: `{$SOURCE}e{$TARGET}`
 
-import DirectedGraph from "../models/directed_graph";
-import WeightedGraph from "../models/weighted_graph";
-
+import DirectedGraph from "../models/directed_graph/directed_graph";
 /*
 Info about step structure
 */

@@ -1,4 +1,4 @@
-import DirectedGraph from "../../../shared/models/directed_graph";
+import DirectedGraph from "../../../shared/models/directed_graph/directed_graph";
 import { Step } from "../../../shared/types/graph_types";
 import parse_additional from "./utility/parse_additional";
 

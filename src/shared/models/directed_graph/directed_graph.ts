@@ -1,5 +1,5 @@
-import { ARROW_SVG_ID } from "../constants";
-import WeightedGraph from "./weighted_graph"
+import WeightedGraph from "../weighted_graph/weighted_graph";
+import { ARROW_SVG_ID } from "../../constants";
 import { Edge, Node } from "@xyflow/react";
 
 

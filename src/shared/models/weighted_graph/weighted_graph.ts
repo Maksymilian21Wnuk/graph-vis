@@ -1,7 +1,6 @@
-import Graph from "./graph";
+import Graph from "../graph/graph";
 import { Edge, Node } from "@xyflow/react";
-import { Weight } from "../enumerations/enums";
-
+import { Weight } from "../../enumerations/enums";
 
 
 export default class WeightedGraph extends Graph {
