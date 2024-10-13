@@ -1,8 +1,11 @@
 import { useState } from "react"
-import Button from "../../../../utility/atoms/button";
+import Button from "../../../../utility/atoms/button/button";
 import Input from "../../input";
 import Slider from "../slider";
 import randomizer from "./randomizer";
+import { AppState } from "../../../../../shared/types/interactive_types";
+import useStore from "../../../../../store/store";
+import { useShallow } from "zustand/shallow";
 
 
 
@@ -12,8 +15,14 @@ interface RandomSpawnerProps {
 
 const RANDOM_GRAPH_NUM = 5;
 
+const selector = (state: AppState) => ({
+    setNodes: state.setNodes,
+    setEdges: state.setEdges,
+});
+
 
 export default function RandomSpawner({ selectedValue }: RandomSpawnerProps) {
+    const {setNodes, setEdges} = useStore(useShallow(selector));
     const [sliderValue, setSliderValue] = useState<string | number>(0.5);
     const [nodeCount, setNodeCount] = useState<string | number>(10);
     
@@ -23,8 +32,9 @@ export default function RandomSpawner({ selectedValue }: RandomSpawnerProps) {
 
     const submitSpawn = (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         if (typeof(sliderValue) === "number" && typeof(nodeCount) === "number"){
-            randomizer(sliderValue, nodeCount);
-            
+            const {edges, nodes} = randomizer(sliderValue, nodeCount);
+            setNodes(nodes);
+            setEdges(edges);
         }
         else{
             alert("Error");

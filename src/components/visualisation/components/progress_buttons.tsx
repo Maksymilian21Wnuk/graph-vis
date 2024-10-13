@@ -1,4 +1,4 @@
-import Button from "../../utility/atoms/button";
+import Button from "../../utility/atoms/button/button";
 
 interface ProgressButtonsProps {
     modifyMode : boolean;

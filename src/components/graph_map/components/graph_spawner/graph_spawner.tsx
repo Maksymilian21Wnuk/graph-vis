@@ -4,7 +4,7 @@ import { mocked_graphs } from "./mock_data/mock_graph";
 import { mockNames } from "./mock_data/mock_names";
 import { useReactFlow } from "@xyflow/react";
 import RandomSpawner from "./random_spawner/random_spawner";
-import Dropdown from "../../../utility/atoms/dropdown";
+import Dropdown from "../../../utility/atoms/dropdown/dropdown";
 import useStore from "../../../../store/store";
 import { useShallow } from "zustand/shallow";
 

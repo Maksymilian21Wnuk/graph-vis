@@ -1,4 +1,4 @@
-import Dropdown from "../../utility/atoms/dropdown";
+import Dropdown from "../../utility/atoms/dropdown/dropdown";
 import { algos } from "../algorithms/algorithms_aggreg";
 
 

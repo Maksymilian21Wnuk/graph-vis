@@ -1,6 +1,5 @@
 import Graph from "./graph";
 import { Node, Edge } from "@xyflow/react";
-import { Step } from "../../types/graph_types";
 
 
 let nodes: Node[] = [{ id: "1", data: { "label": "1" }, position: { x: 1, y: 2 } }, { id: "2", data: { "label": "2" }, position: { x: 1, y: 2 } }];
