@@ -6,6 +6,7 @@ import randomizer from "./randomizer";
 import { AppState } from "../../../../../shared/types/interactive_types";
 import useStore from "../../../../../store/store";
 import { useShallow } from "zustand/shallow";
+import { useReactFlow } from "@xyflow/react";
 
 
 
@@ -25,7 +26,8 @@ export default function RandomSpawner({ selectedValue }: RandomSpawnerProps) {
     const {setNodes, setEdges} = useStore(useShallow(selector));
     const [sliderValue, setSliderValue] = useState<string | number>(0.5);
     const [nodeCount, setNodeCount] = useState<string | number>(10);
-    
+    const reactFlow = useReactFlow();
+
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSliderValue(parseFloat(event.target.value));
     }
@@ -35,6 +37,7 @@ export default function RandomSpawner({ selectedValue }: RandomSpawnerProps) {
             const {edges, nodes} = randomizer(sliderValue, nodeCount);
             setNodes(nodes);
             setEdges(edges);
+            setTimeout(() => reactFlow.fitView());
         }
         else{
             alert("Error");

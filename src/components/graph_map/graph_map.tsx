@@ -150,6 +150,7 @@ export default function GraphMap() {
 
     function onPaneClick(_event: React.MouseEvent<Element, MouseEvent>): void {
         console.log(edges);
+        console.log(nodes);
         setModifyMode(true);
         if (state.addMode) {
             let xy: XYPosition = { x: _event.clientX, y: _event.clientY };
