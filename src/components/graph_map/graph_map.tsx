@@ -163,6 +163,7 @@ export default function GraphMap() {
 
 
     const random_weight = () => {
+        setModifyMode(true);
         setEdges(edges.map((e: Edge) => { return { ...e, label: String(getRandomInt(NODE_MAX)) } }));
         dispatch({ type: 'CHANGE_WEIGHTED', payload: true });
     };
@@ -174,6 +175,7 @@ export default function GraphMap() {
     }
 
     const no_weights = () => {
+        setModifyMode(true);
         setEdges(edges.map((e: Edge) => { return { ...e, label: Weight.UNWEIGHTED } }));
         dispatch({ type: 'CHANGE_WEIGHTED', payload: false });
     }
@@ -184,6 +186,7 @@ export default function GraphMap() {
     }
 
     const set_directed = () => {
+        setModifyMode(true);
         if (isDirected) {
             // remove arrows holding invariant
             setEdges(convert_to_undirected(edges));

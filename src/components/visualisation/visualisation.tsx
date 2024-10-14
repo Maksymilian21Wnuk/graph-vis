@@ -15,6 +15,7 @@ import { NOT_SELECTED } from "../../shared/constants";
 import DirectedGraph from "../../shared/models/directed_graph/directed_graph";
 import requirements_guard from "./util/requirements_guard";
 import { Algorithm } from "../../shared/types/graph_types";
+//import { Node, Edge } from "@xyflow/react";
 
 const selector = (state: AppState) => ({
     nodes: state.nodes,
@@ -28,14 +29,19 @@ const selector = (state: AppState) => ({
     setSelectedValue: state.setSelectedValue,
 });
 
-
+/*
+interface Graph {
+    nodes: Node[];
+    edges: Edge[];
+}
+*/
 
 export default function Visualisation() {
     const { nodes, edges, setNodes, setEdges, setMessage, setModifyMode, modifyMode, selectedValue, setSelectedValue } = useStore(useShallow(selector));
 
     const [chosenFunction, setChosenFunction] = useState<Algorithm>(algos[0]);
     const [steps, setSteps] = useState<Step[]>([]);
-
+//    const [prevGraph, setPrevGraph] = useState<Graph>();
 
     // function for handling next step of algorithm progression
     function next_step() {
@@ -89,7 +95,7 @@ export default function Visualisation() {
     return (
         <>
             {selectedValue !== NOT_SELECTED ?
-                <ProgressButtons setModifyMode={setModifyMode} modifyMode={modifyMode} start={start} next_step={next_step} /> : null}
+                <ProgressButtons resetGraph={reset_graph} setModifyMode={setModifyMode} modifyMode={modifyMode} start={start} next_step={next_step} stepCount={steps.length} /> : null}
             <AlgorithmDropdown resetGraph={reset_graph} setSelectedValue={setSelectedValue} setChosenFunction={setChosenFunction} selectedValue={selectedValue} />
         </>
     );

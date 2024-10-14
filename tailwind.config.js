@@ -24,9 +24,9 @@ export default {
       }
     },
     animation: {
-      appear: 'appear 1s ease-in-out',
+      appear: 'appear 0.5s ease-in-out',
       disappear: 'disappear 2s ease-in-out',
-      redColorChange: 'redColorChange 1s forwards ease-in-out',
+      redColorChange: 'redColorChange 0.5s forwards ease-in-out',
     }
   },
   plugins: [

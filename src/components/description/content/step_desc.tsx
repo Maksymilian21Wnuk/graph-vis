@@ -10,10 +10,11 @@ interface StepDescProps {
 
 const selector = (state: AppState) => ({
     message : state.message,
+    modifyMode : state.modifyMode,
 });
 
 export default function StepDesc({selectedValue} : StepDescProps) {
-    const step_idx = useStore(useShallow(selector)).message.step_idx;
+    const {message, modifyMode} = useStore(useShallow(selector));
 
     if (!step_text[selectedValue]) {
         return "you must add steps text";
@@ -23,7 +24,7 @@ export default function StepDesc({selectedValue} : StepDescProps) {
             <ol type='1' className='list-decimal list-inside'>
                 {step_text[selectedValue].steps.map((step: string, key: number = 1) =>
                     <li className=
-                    {step_idx === -1 ? 'pl-2' : (step_idx != key ? 'pl-2' : 'rounded-md m-1 pl-2 animate-redColorChange font-bold')}
+                    {message.step_idx === -1 ? 'pl-2' : (message.step_idx != key || modifyMode ? 'pl-2' : 'rounded-md m-1 pl-2 animate-redColorChange font-bold')}
                      key={`step-` + key++}>{step}</li>
                 )}
             </ol>

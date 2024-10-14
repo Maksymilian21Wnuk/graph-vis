@@ -15,6 +15,7 @@ interface RandomSpawnerProps {
 }
 
 const RANDOM_GRAPH_NUM = 5;
+const MAX_LIMIT = 20;
 
 const selector = (state: AppState) => ({
     setNodes: state.setNodes,
@@ -33,11 +34,14 @@ export default function RandomSpawner({ selectedValue }: RandomSpawnerProps) {
     }
 
     const submitSpawn = (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-        if (typeof(sliderValue) === "number" && typeof(nodeCount) === "number"){
+        if (typeof(sliderValue) === "number" && typeof(nodeCount) === "number" && nodeCount < MAX_LIMIT){
             const {edges, nodes} = randomizer(sliderValue, nodeCount);
             setNodes(nodes);
             setEdges(edges);
             setTimeout(() => reactFlow.fitView());
+        }
+        else if (nodeCount as number >= MAX_LIMIT) {
+            alert("Too many nodes");
         }
         else{
             alert("Error");
