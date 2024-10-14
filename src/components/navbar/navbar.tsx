@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { faShareNodes, faHome, faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { HelpPopup } from "../utility/atoms/help_popup";
 
 export default function Navbar() {
     return (
@@ -21,9 +22,7 @@ export default function Navbar() {
                             </Link>
                         </li>
                         <li>
-                            <Link className="text-xl" to="/help">
-                                <FontAwesomeIcon icon={faCircleQuestion} />
-                            </Link>
+                            <HelpPopup/>
                         </li>
                         <li>
                             <Link className="text-xl font-bold p-4" to="/">

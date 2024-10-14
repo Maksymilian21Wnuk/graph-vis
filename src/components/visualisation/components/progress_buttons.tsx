@@ -11,7 +11,7 @@ interface ProgressButtonsProps {
 }
 
 
-const ANIMATE_TIME = 200;
+const ANIMATE_TIME = 400;
 
 export default function ProgressButtons({ setModifyMode, modifyMode, next_step, start, resetGraph, stepCount }: ProgressButtonsProps) {
 
@@ -30,7 +30,7 @@ export default function ProgressButtons({ setModifyMode, modifyMode, next_step, 
     // ???
     const onAnimate = async () => {
         setAnimating(true);
-        for (let i = 0; i < stepCount; i++) {
+        for (let i = 0; i <= stepCount; i++) {
             if (btn_ref.current && !stopAnimation) {
                 btn_ref.current.click();
                 console.log(stopAnimation)

@@ -6,7 +6,7 @@ import { ReactFlowProvider } from "@xyflow/react"
 
 export default function GraphVisualisation() {
     return (
-        <div className="animate-appear">
+        <div className="animate-appear min-h-screen">
             <ReactFlowProvider>
                 <GraphSpawner />
                 <div className="flex justify-center">

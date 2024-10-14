@@ -10,7 +10,7 @@ import FundamentalConceptsPage from './components/fundamental_concepts/fundament
 function App() {
 
   return (
-    <div className='font-mono'>
+    <div className='font-mono h-screen'>
         <Navbar />
         <Routes>
           <Route path="/visualise" element={<GraphVisualisation/>}/>
