@@ -19,10 +19,11 @@ function AdditionalDisplay({ additional }: AdditionalProps) {
 }
 
 
-export default function Steps({ additional, additional_name, modifyMode, additional_snd, additional_snd_name }: Message) {
+export default function Steps({msg, additional, additional_name, modifyMode, additional_snd, additional_snd_name }: Message) {
 
-    return additional_name && !modifyMode ? (
+    return (additional_name || msg) && !modifyMode ? (
         <div className="grid grid-cols-2 mx-2 p-2">
+            {msg ? <div> {msg} </div> : null}
             <div>
                 <div className="">
                     {additional_name ? additional_name : null}

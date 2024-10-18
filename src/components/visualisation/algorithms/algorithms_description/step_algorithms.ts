@@ -32,5 +32,12 @@ export const step_text: StepInterface[] = [
         "Extract from queue vertice and add to result",
         "Decrement from neighbours their value",
         "Choose next vertice with indegree == 0",
-        "Queue empty, terminate algorithm"]}
+        "Queue empty, terminate algorithm"]},
+    { steps: [
+        `Select start node and color it to blue`,
+        `Extract node from queue`,
+        `Visit adjacent nodes`,
+        `Color adjacent nodes to a color different from current node`,
+        `Terminate algorithm`
+    ]}
 ]

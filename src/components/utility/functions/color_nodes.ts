@@ -14,11 +14,28 @@ function change_to_visited(nodes : Node[], color : string) : Node[] {
     return nodes.map((n : Node) => n.style?.background === NodeColor.CURRENTLY_VISITING || n.style?.background === NodeColor.CURRENT ? {...n, style : {...n.style, background: color}} : n);
 }
 
+
 // simple for, wanted to make code more readable
 export default function colorNodes(step : Step, nodes : Node[]) : Node[]{
     nodes = change_to_visited(nodes, NodeColor.VISITED);
     // the property nodes gives nodes to change color
     let nodes_to_change : string[] = step.nodes!;
+
+    // if we want to colorize nodes, ignore coloring
+    // unvisited and visited
+    if (step.colorize_nodes) {
+        for (const colorize of step.colorize_nodes){
+            for (const node of colorize.nodes){
+                nodes = change_given_id(nodes, node, colorize.color, true);
+            }
+        }
+        if (step.current_node){
+            nodes = change_given_id(nodes, step.current_node, NodeColor.CURRENT, true);    
+        }
+
+        return nodes;
+    }
+
     // if no nodes to change, return previous set of nodes
     if (!nodes_to_change){
         // sometimes we just want to color current node only
@@ -28,13 +45,15 @@ export default function colorNodes(step : Step, nodes : Node[]) : Node[]{
         return nodes;
     }
     for (let id of nodes_to_change) {
-        nodes = change_given_id(nodes, id, step.color ? step.color : NodeColor.CURRENTLY_VISITING, step.should_color_visited);
+        nodes = change_given_id(nodes, id, NodeColor.CURRENTLY_VISITING, step.should_color_visited);
     }
 
     // we want to color current node 
     if (step.current_node){
         nodes = change_given_id(nodes, step.current_node, NodeColor.CURRENT, true);
     }
+
+
 
     return nodes;
 }

@@ -6,6 +6,14 @@ import DirectedGraph from "../models/directed_graph/directed_graph";
 Info about step structure
 */
 
+
+export type ColorizeNode = {
+    color: string;
+    nodes : string[];
+}
+
+export type ColorizeNodes = ColorizeNode[];
+
 export type Step = {
     // nodes to color, by default to orange,
     // since those are nodes being visited
@@ -25,7 +33,6 @@ export type Step = {
     // secondary additionals
     additional_snd? : Additional[];
     additional_name? : string;
-    color? : string;
     // should visited be colored again? because visited
     // are by default not colored, for example in bfs
     // wouldnt make much sense
@@ -38,6 +45,8 @@ export type Step = {
     // sometimes instead of coloring we want to remove some edges,
     // if true edges from 'edges' array will be deleted
     edge_removal? : boolean;
+    // colorize nodes for coloring algorithms
+    colorize_nodes? : ColorizeNodes;
 };
 
 // additional might be queue of node id
@@ -51,8 +60,11 @@ export type Additional = {
 
 export type Message = {
     msg? : string;
+    // first additional showing on right side...
     additional? : Additional[];
+    // name of additional 
     additional_name? : string;
+    // ... and second
     additional_snd? : Additional[];
     additional_snd_name? : string;
     modifyMode? : boolean;
@@ -61,8 +73,13 @@ export type Message = {
     step_idx : number;
 };
 
+
+// type of visualization algorithm
 export type AlgorithmFunction = (g : DirectedGraph) => Step[];
 
+
+// algorithm requires: function, name of algorithm
+// or some guards
 export type Algorithm = {
     foo : AlgorithmFunction;
     name : string;
