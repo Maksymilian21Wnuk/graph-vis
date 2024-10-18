@@ -5,6 +5,7 @@ import connectivity_check from "./connectivity";
 import dijkstra from "./dijkstra";
 import kruskal from "./kruskal";
 import topological_sort from "./kahn";
+import bipartite from "./bipartite";
 
 export const algos : Algorithm[] = [
     {foo : bfs, name : "Breadth first search", require_weights: false, require_directed: false, require_non_directed: false},
@@ -13,5 +14,9 @@ export const algos : Algorithm[] = [
     {foo : dijkstra, name : "Dijkstra's shortest path", require_weights: true, require_directed: false, require_non_directed: false},
     {foo : kruskal, name: "Kruskal's MST", require_weights: true, require_directed: false, require_non_directed: true},
     {foo : topological_sort, name: "Kahn's topological sort", require_weights: false, require_directed: true, require_non_directed: false},
-    {foo : kruskal, name: "Randomized kruskal's MST", require_weights: false, require_directed: false, require_non_directed: true},
+    {foo : kruskal, name: "TODO Randomized kruskal's MST", require_weights: false, require_directed: false, require_non_directed: true},
+    {foo : kruskal, name: "TODO Tarjan's algorithm", require_weights: false, require_directed: true, require_non_directed: false},
+    {foo : kruskal, name: "TODO Kosaraju's algorithm", require_weights: false, require_directed: true, require_non_directed: false},
+    {foo : kruskal, name: "TODO Finding diameter of tree", require_weights: false, require_directed: true, require_non_directed: false},
+    {foo : bipartite, name: "TODO Biparte Graph check", require_weights: false, require_directed: false, require_non_directed: true},
 ]

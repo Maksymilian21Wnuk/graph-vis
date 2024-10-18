@@ -11,7 +11,7 @@ interface ProgressButtonsProps {
 }
 
 
-const ANIMATE_TIME = 400;
+const ANIMATE_TIME = 600;
 
 export default function ProgressButtons({ setModifyMode, modifyMode, next_step, start, resetGraph, stepCount }: ProgressButtonsProps) {
 

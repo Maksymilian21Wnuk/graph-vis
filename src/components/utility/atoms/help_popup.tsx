@@ -1,6 +1,7 @@
 import { HELP_TXT } from "../../../shared/constants";
 import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Legend from "../../description/content/legend";
 
 export function HelpPopup() {
     return (
@@ -15,6 +16,7 @@ export function HelpPopup() {
                 <div className="modal-box text-black">
                     <h3 className="font-bold text-lg">Help</h3>
                     <p className="py-4">{HELP_TXT}</p>
+                    <Legend />
                     <div className="modal-action">
                         <form method="dialog">
                             <button className="btn">Close</button>
