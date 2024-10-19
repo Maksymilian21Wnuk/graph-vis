@@ -37,7 +37,9 @@ export default function kruskal(g : WeightedGraph) : Step[]{
     }
 
     // sort edges nlogn
-    g.add_step({step_idx: -1, additional_name: "Edges: ", additional: parse_additional(edges)})
+    g.add_step({step_idx: -1, additional_name: "Edges: ", 
+        additional: parse_additional(edges)
+    })
     edges = sort_edges(edges);
     g.add_step({step_idx: 0, additional_name: "Sorted edges: ", additional: parse_additional(edges)})
 

@@ -29,19 +29,11 @@ const selector = (state: AppState) => ({
     setSelectedValue: state.setSelectedValue,
 });
 
-/*
-interface Graph {
-    nodes: Node[];
-    edges: Edge[];
-}
-*/
-
 export default function Visualisation() {
     const { nodes, edges, setNodes, setEdges, setMessage, setModifyMode, modifyMode, selectedValue, setSelectedValue } = useStore(useShallow(selector));
 
     const [chosenFunction, setChosenFunction] = useState<Algorithm>(algos[0]);
     const [steps, setSteps] = useState<Step[]>([]);
-//    const [prevGraph, setPrevGraph] = useState<Graph>();
 
     // function for handling next step of algorithm progression
     function next_step() {
@@ -57,8 +49,8 @@ export default function Visualisation() {
         // case when algorithm finished execution
         else {
             setSteps([]);
-            setModifyMode(false);
             reset_graph();
+            setModifyMode(false);
             setMessage({step_idx: -1, msg:''});
         }
 
@@ -80,7 +72,6 @@ export default function Visualisation() {
             setModifyMode(false);
             // run chosen algo on given graph
             const new_steps: Step[] = chosenFunction.foo(graph);
-            console.log(new_steps);
             setSteps(new_steps);
         }
     }

@@ -1,5 +1,6 @@
 import { DisjointSet } from "disjoint-set-ds/dist";
 import { Additional } from "../../../../shared/types/graph_types";
+import { Queue } from "queue-typescript";
 
 // TODO: hide implementation of parse_additional,
 // so that user can parse using method on Graph
@@ -10,10 +11,9 @@ type Edge = {
     value: number;
 }
 
-type Queue = string[];
 type Stack = string[];
 
-type AdditionalType = Map<string, number> | Set<string> | DisjointSet<string> | Queue | Stack | Array<Edge>;
+type AdditionalType = Map<string, number> | DisjointSet<string> | Set<string> | Queue<string> | Stack | Array<Edge>;
 
 
 // function for parsing additional information of type Map<string, number> or
@@ -27,25 +27,37 @@ export default function parse_additional(additional: AdditionalType): Additional
         })
     }
 
+    else if (additional instanceof Queue) {
+        additional.toArray().forEach((element: string) => {
+            res.push({ id: element, value: "" })
+        });
+
+    }
+
+    else if (additional instanceof DisjointSet) {
+        console.log(additional);
+    }
+
     // handle set, that is visited
     else if (additional instanceof Set) {
         additional.forEach((value: string) => {
             res.push({ id: value, value: "" });
         })
     }
-    // handle queue and stack
+    // handle stack
     else if (Array.isArray(additional) && additional.every(a => typeof a === 'string')) {
-        additional.forEach((value: any) => {
+        additional.forEach((value: string) => {
             res.push({ id: value, value: "" });
         })
     }
 
-    else if(Array.isArray(additional)){
-        additional.forEach((edge: any) => {
-            res.push({ id: `${edge.source}e${edge.dest}`, value: edge.value });
+    // handle case of edge type
+    else if (Array.isArray(additional)) {
+        additional.forEach((edge: Edge) => {
+            res.push({ id: `${edge.source}e${edge.dest}`, value: String(edge.value) });
         })
     }
-    
+
 
     return res;
 }

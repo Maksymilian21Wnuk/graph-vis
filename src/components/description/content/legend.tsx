@@ -5,7 +5,7 @@
 export default function Legend() {
     return (
         <div className='pt-5'>
-            Legend
+            <p className="text-xl font-bold">Legend</p>
             <div className='grid grid-cols-2 gap-y-2  '>
                 <div className="w-6 h-6 bg-red-500"></div>
                 <div> Current node</div>

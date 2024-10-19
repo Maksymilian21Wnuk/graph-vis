@@ -7,10 +7,10 @@ interface TextDescProps {
 
 export default function TextDesc({selectedValue} : TextDescProps) {
     if (!description_text[selectedValue]) {
-        return "you must description steps text";
+        return "you must write description steps text";
     }
     return (
-        <div className='animate-appear'>
+        <div className='animate-appear m-3'>
             {description_text[selectedValue]}
         </div>)
 }
