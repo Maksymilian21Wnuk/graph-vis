@@ -1,7 +1,7 @@
 import { Edge } from "@xyflow/react";
 import { Step } from "../../../shared/types/graph_types";
 import { EdgeColor } from "../../../shared/enumerations/enums";
-import { ARROW_SVG_ID } from "../../../shared/constants";
+import { ARROW_SVG_ID, INVISIBLE_ARROW, NO_ARROW } from "../../../shared/constants";
 
 
 // changes to given color
@@ -57,7 +57,7 @@ export default function colorEdges(step: Step, edges: Edge[]): Edge[] {
 
     if (step.edge_removal){
         console.log("asfd");
-        edges = edges.filter((e : Edge) => !ids.includes(e.id));
+        edges = edges.map((e : Edge) => ids.includes(e.id) ? {...e, markerEnd: INVISIBLE_ARROW, style: {...e.style, stroke: "white"}, labelStyle: {fill: 'white'}} : e);
     }
 
     return edges;
