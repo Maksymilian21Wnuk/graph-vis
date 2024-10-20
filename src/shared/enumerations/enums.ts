@@ -7,16 +7,16 @@ export enum Weight {
 };
 
 export enum NodeColor {
-    VISITED = "yellow",
+    VISITED = "#ffed29",
     UNVISITED = "white",
-    CURRENT = "red",
+    CURRENT = "#FF7074",
     CURRENTLY_VISITING = "orange",
 };
 
 export enum EdgeColor {
     VISITED = "#a3951a",
     UNVISITED = "black",
-    CURRENT = "red",
+    CURRENT = "#ed556a",
 }
 
 export enum Value {

@@ -30,6 +30,34 @@ export default function CustomMarker() {
                     />
                 </marker>
             </defs>
+            {/* invisible arrow for distinction of undirected and directed with invisible arrow */}
+            <defs>
+                <marker
+                    id="invisible_arrow"
+                    markerWidth="40"
+                    markerHeight="40"
+                    viewBox="-10 -10 20 20"
+                    markerUnits="strokeWidth"
+                    orient="auto-start-reverse"
+                    refX="13"
+                    refY="0"
+                    style={{
+                        position: "static"
+                    }}
+                >
+                    <polyline
+                        style={{
+                            stroke: "black",
+                            fill: "black",
+                            strokeWidth: 1,
+                            opacity: 0,
+                        }}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        points="-5,-4 0,0 -5,4 -5,-4"
+                    />
+                </marker>
+            </defs>
             <defs>
                 <marker
                     id="red_arrow"
