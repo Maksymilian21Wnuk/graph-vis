@@ -5,7 +5,7 @@ import { HelpPopup } from "../help/help_popup";
 
 export default function Navbar() {
     return (
-        <nav className="bg-gray-600 text-white">
+        <nav id="navbar" className="bg-gray-600 text-white">
             <ul>
                 <div className="flex justify-between py-4">
                         <li>

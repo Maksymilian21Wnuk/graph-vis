@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import Button from "../../utility/atoms/button/button";
+import Button from "../../../utility/atoms/button/button";
 
 interface ProgressButtonsProps {
     modifyMode: boolean;
@@ -27,7 +27,7 @@ export default function ProgressButtons({ setModifyMode, modifyMode, next_step, 
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    // ???
+    // ??? this is bad
     const onAnimate = async () => {
         setAnimating(true);
         for (let i = 0; i <= stepCount; i++) {
@@ -44,7 +44,7 @@ export default function ProgressButtons({ setModifyMode, modifyMode, next_step, 
     const btn_ref = useRef<HTMLButtonElement | null>(null);
 
     return (
-        <div className="flex justify-center">
+        <div className="flex justify-center pt-4">
             {!modifyMode ?
                 (
                     <div className="grid grid-cols-3 pl-20">

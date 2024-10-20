@@ -56,8 +56,7 @@ export default function colorEdges(step: Step, edges: Edge[]): Edge[] {
     }
 
     if (step.edge_removal){
-        console.log("asfd");
-        edges = edges.map((e : Edge) => ids.includes(e.id) ? {...e, markerEnd: INVISIBLE_ARROW, style: {...e.style, stroke: "white"}, labelStyle: {fill: 'white'}} : e);
+        edges = edges.map((e : Edge) => ids.includes(e.id) ? {...e, markerEnd: (e.markerEnd ? INVISIBLE_ARROW : NO_ARROW), style: {...e.style, stroke: "white"}, labelStyle: {fill: 'white'}} : e);
     }
 
     return edges;

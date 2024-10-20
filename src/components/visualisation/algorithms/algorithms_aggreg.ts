@@ -8,15 +8,15 @@ import topological_sort from "./kahn";
 import bipartite from "./bipartite";
 
 export const algos : Algorithm[] = [
-    {foo : bfs, name : "Breadth first search", require_weights: false, require_directed: false, require_non_directed: false},
-    {foo : dfs, name : "Depth first search", require_weights: false, require_directed: false, require_non_directed: false},
-    {foo : connectivity_check, name : "Connectivity check", require_weights: false, require_directed: false, require_non_directed: true},
-    {foo : dijkstra, name : "Dijkstra's shortest path", require_weights: true, require_directed: false, require_non_directed: false},
-    {foo : kruskal, name: "Kruskal's MST", require_weights: true, require_directed: false, require_non_directed: true},
-    {foo : topological_sort, name: "Kahn's topological sort", require_weights: false, require_directed: true, require_non_directed: false},
-    {foo : bipartite, name: "Biparte Graph check", require_weights: false, require_directed: false, require_non_directed: true},
-    {foo : kruskal, name: "TODO Randomized kruskal's MST", require_weights: false, require_directed: false, require_non_directed: true},
-    {foo : kruskal, name: "TODO Tarjan's algorithm", require_weights: false, require_directed: true, require_non_directed: false},
-    {foo : kruskal, name: "TODO Kosaraju's algorithm", require_weights: false, require_directed: true, require_non_directed: false},
-    {foo : kruskal, name: "TODO Finding diameter of tree", require_weights: false, require_directed: true, require_non_directed: false},
+    { description:`Graph traversal with queue structure`, foo : bfs, name : "Breadth first search", require_weights: false, require_directed: false, require_non_directed: false},
+    { description:`Stack using graph traversal`, foo : dfs, name : "Depth first search", require_weights: false, require_directed: false, require_non_directed: false},
+    { description:`Check if given graph is connected`, foo : connectivity_check, name : "Connectivity check", require_weights: false, require_directed: false, require_non_directed: true},
+    { description:`Find all shortest paths`, foo : dijkstra, name : "Dijkstra's shortest path", require_weights: true, require_directed: false, require_non_directed: false},
+    { description:`Find minimum spanning tree`, foo : kruskal, name: "Kruskal's MST", require_weights: true, require_directed: false, require_non_directed: true},
+    { description:`Sort graph topologically`, foo : topological_sort, name: "Kahn's topological sort", require_weights: false, require_directed: true, require_non_directed: false},
+    { description:`Check if given graph is bipartite`, foo : bipartite, name: "Biparte Graph check", require_weights: false, require_directed: false, require_non_directed: true},
+    { description:`Randomly create spanning tree`, foo : kruskal, name: "TODO Randomized kruskal's MST", require_weights: false, require_directed: false, require_non_directed: true},
+    { description:`lorem ipsum `, foo : kruskal, name: "TODO Tarjan's algorithm", require_weights: false, require_directed: true, require_non_directed: false},
+    { description:`lorem ipsum give me description`, foo : kruskal, name: "TODO Kosaraju's algorithm", require_weights: false, require_directed: true, require_non_directed: false},
+    { description:`Find diameter of tree`, foo : kruskal, name: "TODO Finding diameter of tree", require_weights: false, require_directed: true, require_non_directed: false},
 ]
