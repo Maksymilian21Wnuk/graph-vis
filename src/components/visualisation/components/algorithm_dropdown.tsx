@@ -1,6 +1,6 @@
 import Dropdown from "../../utility/atoms/dropdown/dropdown";
 import { algos } from "../algorithms/algorithms_aggreg";
-
+import { Algorithm } from "../../../shared/types/graph_types";
 
 interface DropdownProps {
     setSelectedValue : (n : number) => void;
@@ -19,8 +19,13 @@ export default function AlgorithmDropdown({setSelectedValue, setChosenFunction, 
     }    
 
     return (
-        <div className="flex justify-center py-5 pb-6">
-            <Dropdown selectedValue={selectedValue} handleChange={handleChange} obj={algos} text="Choose algorithm..." />
+        <div className="flex flex-col items-center content-center py-5 pb-6">
+            <h1 className="text-2xl font-bold">Algorithms</h1>
+            <ul>
+                {algos.map((a : Algorithm) => 
+                    <li className="">{a.name} </li>
+                )}
+            </ul>
         </div>
     );
 }
