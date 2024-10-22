@@ -17,6 +17,11 @@ not draggable*/
 }
 
 
+.react-flow .react-flow__node.selected {
+  border: 1.5px solid black
+}
+
+
 .h1-custom {
   @apply text-xl font-bold p-4 md:text-2xl;
 }

@@ -11,11 +11,11 @@ interface ListElementProps {
 export default function ListElement({ elem, onClick, idx }: ListElementProps) {
     return (
         <div>
-            <li key={idx} onClick={() => onClick(idx)} className="grid grid-cols-3 gap-x-10 cursor-pointer hover:bg-gray-200 border border-4 p-5">
-                <div className="font-bold">
+            <li key={idx} onClick={() => onClick(idx)} className="grid grid-cols-3 gap-x-10 cursor-pointer hover:bg-gray-100 rounded-xl border-2 mb-2 bg-white">
+                <div className="font-bold border-r-2 p-5">
                     {elem.name}
                 </div>
-                <div className="col-span-2">
+                <div className="col-span-2 p-5">
                     {elem.description ? elem.description : "No description provided, provide it lorem ipsum"}
                 </div>
             </li>

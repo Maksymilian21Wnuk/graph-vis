@@ -1,11 +1,12 @@
 import { Step } from "../../../shared/types/graph_types";
 import Graph from "../../../shared/models/graph/graph";
-import parse_additional from "./utility/parse_additional";
 import colorize_binary from "./utility/colorize_binary";
 import { Queue } from "queue-typescript";
+import { NodeColor } from "../../../shared/enumerations/enums";
 
-const BLUE = false;
 
+const BLUE : string = "#8fd9fb";
+const RED : string = "#5ce65c";
 
 export default function bipartite(g: Graph): Step[] {
     let visited = new Set<string>();
@@ -14,13 +15,13 @@ export default function bipartite(g: Graph): Step[] {
     let q : Queue<string> = new Queue<string>(g.get_start_node());
 
     // map color, let 0 be blue and 1 red
-    let map_color = new Map<string, boolean>();
+    let map_color = new Map<string, string>();
     map_color.set(g.get_start_node(), BLUE);
 
     g.add_step({
         additional_name: `Queue:`,
-        additional: parse_additional(q), msg: ``, step_idx: 0,
-        additional_snd_name: `Visited:`, additional_snd: parse_additional(visited),
+        additional: q, msg: ``, step_idx: 0,
+        additional_snd_name: `Visited:`, additional_snd: visited,
         colorize_nodes: colorize_binary(map_color)
     })
 
@@ -34,8 +35,8 @@ export default function bipartite(g: Graph): Step[] {
 
         g.add_step({
             step_idx: 1,
-            additional: parse_additional(q), additional_name: `Queue:`,
-            additional_snd_name: `Visited:`, additional_snd: parse_additional(visited),
+            additional: q, additional_name: `Queue:`,
+            additional_snd_name: `Visited:`, additional_snd: visited,
             colorize_nodes: colorize_binary(map_color),
             current_node: node
         });
@@ -45,8 +46,9 @@ export default function bipartite(g: Graph): Step[] {
 
         g.add_step({
             edges: neighbours, source_node: node, step_idx: 2,
-            additional: parse_additional(q), additional_name: `Queue:`,
-            additional_snd_name: `Visited:`, additional_snd: parse_additional(visited),
+            should_color_visited_edge : true,
+            additional: q, additional_name: `Queue:`,
+            additional_snd_name: `Visited:`, additional_snd: visited,
             colorize_nodes: colorize_binary(map_color)
         })
 
@@ -54,7 +56,7 @@ export default function bipartite(g: Graph): Step[] {
             if (!visited.has(neighbour)) {
                 q.enqueue(neighbour);
                 visited.add(neighbour);
-                map_color.set(neighbour, !node_color);
+                map_color.set(neighbour, node_color === BLUE ? RED : BLUE);
             }
             else {
                 if (map_color.get(neighbour) === node_color) {
@@ -68,10 +70,10 @@ export default function bipartite(g: Graph): Step[] {
             }
         }
         g.add_step({
-            additional: parse_additional(q),
+            additional: q,
             additional_name: `Queue:`,
             step_idx: 3,
-            additional_snd_name: `Visited:`, additional_snd: parse_additional(visited),
+            additional_snd_name: `Visited:`, additional_snd: visited,
             colorize_nodes: colorize_binary(map_color)
         });
 

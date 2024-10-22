@@ -18,5 +18,6 @@ export const algos : Algorithm[] = [
     { description:`Randomly create spanning tree`, foo : kruskal, name: "TODO Randomized kruskal's MST", require_weights: false, require_directed: false, require_non_directed: true},
     { description:`lorem ipsum `, foo : kruskal, name: "TODO Tarjan's algorithm", require_weights: false, require_directed: true, require_non_directed: false},
     { description:`lorem ipsum give me description`, foo : kruskal, name: "TODO Kosaraju's algorithm", require_weights: false, require_directed: true, require_non_directed: false},
-    { description:`Find diameter of tree`, foo : kruskal, name: "TODO Finding diameter of tree", require_weights: false, require_directed: true, require_non_directed: false},
+    { description:`Finding node, which distance to other nodes is maximized`, foo : kruskal, name: "TODO Finding diameter of tree", require_weights: false, require_directed: true, require_non_directed: false},
+    { description: 'Minimal set of vertices containing each edge endpoints', foo: kruskal, name : `TODO Vertex cover`, require_weights: false, require_directed: false, require_non_directed: true}
 ]

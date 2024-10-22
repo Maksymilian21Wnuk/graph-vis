@@ -1,19 +1,9 @@
-import { DisjointSet } from "disjoint-set-ds/dist";
-import { Additional } from "../../../../shared/types/graph_types";
+import { Additional, AdditionalType, PlainEdge } from "../../../../shared/types/graph_types";
 import { Queue } from "queue-typescript";
+import { DisjointSetCustom } from "../../../../shared/models/disjoint_set_custom/disjoint_set";
 
 // TODO: hide implementation of parse_additional,
 // so that user can parse using method on Graph
-
-type Edge = {
-    source: string;
-    dest: string;
-    value: number;
-}
-
-type Stack = string[];
-
-type AdditionalType = Map<string, number> | DisjointSet<string> | Set<string> | Queue<string> | Stack | Array<Edge>;
 
 
 // function for parsing additional information of type Map<string, number> or
@@ -21,7 +11,13 @@ type AdditionalType = Map<string, number> | DisjointSet<string> | Set<string> | 
 export default function parse_additional(additional: AdditionalType): Additional[] {
     // handle map for idk distances or edges
     let res: Additional[] = [];
-    if (additional instanceof Map) {
+
+    if (!additional){
+        return res;
+    }
+
+    else if (additional instanceof Map) {
+        additional = new Map([...additional].sort((a, b) => a[1] - b[1]));
         additional.forEach((value: number, key: string) => {
             res.push({ id: key, value: String(value) });
         })
@@ -34,8 +30,11 @@ export default function parse_additional(additional: AdditionalType): Additional
 
     }
 
-    else if (additional instanceof DisjointSet) {
-        console.log(additional);
+    else if (additional instanceof DisjointSetCustom) {
+        additional.get_sets().forEach((value : string[], key : string) => {
+            res.push({id: key + `)`, value: value.join(" ")});
+        }
+    )
     }
 
     // handle set, that is visited
@@ -53,7 +52,7 @@ export default function parse_additional(additional: AdditionalType): Additional
 
     // handle case of edge type
     else if (Array.isArray(additional)) {
-        additional.forEach((edge: Edge) => {
+        additional.forEach((edge: PlainEdge) => {
             res.push({ id: `${edge.source}e${edge.dest}`, value: String(edge.value) });
         })
     }

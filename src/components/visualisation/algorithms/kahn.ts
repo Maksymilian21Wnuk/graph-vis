@@ -42,7 +42,7 @@ export default function topological_sort(g: DirectedGraph): Step[] {
 
     while (queue.length) {
         g.add_step({
-            step_idx: 4, additional_name: `Result`, additional_snd_name: `Indegrees updated: `,
+            step_idx: 4, additional_name: `Result`, additional_snd_name: `Indegrees: `,
             additional: parse_additional(result), additional_snd: parse_additional(indegrees),
             current_node: queue[0]
         })
@@ -52,7 +52,7 @@ export default function topological_sort(g: DirectedGraph): Step[] {
         indegrees.delete(vertice);
 
         g.add_step({
-            step_idx: 2, additional_name: `Result`, additional_snd_name: `Indegrees updated: `,
+            step_idx: 2, additional_name: `Result`, additional_snd_name: `Indegrees: `,
             additional: parse_additional(result), additional_snd: parse_additional(indegrees),
             current_node: vertice
         })
@@ -68,7 +68,7 @@ export default function topological_sort(g: DirectedGraph): Step[] {
         }
 
         g.add_step({
-            step_idx: 3, additional_name: `Result`, additional_snd_name: `Indegrees updated: `,
+            step_idx: 3, additional_name: `Result`, additional_snd_name: `Indegrees: `,
             additional: parse_additional(result), additional_snd: parse_additional(indegrees),
             edge_removal: true, source_node: vertice, edges: neighbours
         })

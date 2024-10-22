@@ -1,5 +1,6 @@
 import { Node, Edge } from "@xyflow/react";
 import { Step } from "../../types/graph_types";
+import { Queue } from "queue-typescript";
 
 interface GraphEdge {
     source : string;
@@ -10,13 +11,13 @@ export default class Graph{
     protected edges : Map<string, string[]>;
     protected nodes : string[];
     protected start_node : string;
-    protected steps : Step[];
+    protected steps : Queue<Step>;
 
     constructor(start_node_id? : string, nodes?: Node[], edges?: Edge[]){
         this.edges = new Map<string, string[]>();
         this.nodes = [];
         this.start_node = "1";
-        this.steps = [];
+        this.steps = new Queue<Step>();
 
         if (nodes && edges && start_node_id){
             this.edges = this.convert_flow(edges);
@@ -58,10 +59,10 @@ export default class Graph{
     }
 
     add_step(step : Step) : void {
-        this.steps.push(step);
+        this.steps.enqueue(step);
     }
 
-    get_steps() : Step[] {
+    get_steps() : Step {
         return this.steps || [];
     }
 

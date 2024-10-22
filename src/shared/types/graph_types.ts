@@ -1,7 +1,9 @@
 
 // format: `{$SOURCE}e{$TARGET}`
 
+import { Queue } from "queue-typescript";
 import DirectedGraph from "../models/directed_graph/directed_graph";
+import { DisjointSetCustom } from "../models/disjoint_set_custom/disjoint_set";
 /*
 Info about step structure
 */
@@ -11,6 +13,15 @@ export type ColorizeNode = {
     color: string;
     nodes : string[];
 }
+export type PlainEdge = {
+    source: string;
+    dest: string;
+    value: number;
+}
+
+type Stack = string[];
+
+export type AdditionalType = Map<string, number> | DisjointSetCustom | Set<string> | Queue<string> | Stack | Array<PlainEdge>;
 
 export type ColorizeNodes = ColorizeNode[];
 
@@ -27,11 +38,11 @@ export type Step = {
     // additional structure,
     // must be parsed by parse_additional
     // before adding to array of steps
-    additional? : Additional[];
+    additional? : AdditionalType;
     // name of additional structure
     additional_snd_name? : string;
     // secondary additionals
-    additional_snd? : Additional[];
+    additional_snd? : AdditionalType;
     additional_name? : string;
     // should visited be colored again? because visited
     // are by default not colored, for example in bfs

@@ -9,12 +9,13 @@ import colorNodes from "../utility/functions/color_nodes";
 import colorEdges from "../utility/functions/color_edges";
 import reset_edge_color from "../utility/functions/reset_edge_color";
 import reset_node_color from "../utility/functions/reset_node_color";
-import AlgorithmDropdown from "./components/algorithm_list/algorithm_list";
 import ProgressButtons from "./components/progress_buttons/progress_buttons";
 import { NOT_SELECTED } from "../../shared/constants";
 import DirectedGraph from "../../shared/models/directed_graph/directed_graph";
 import requirements_guard from "./util/requirements_guard";
 import { Algorithm } from "../../shared/types/graph_types";
+import AlgorithmList from "./components/algorithm_list/algorithm_list";
+import parse_additional from "./algorithms/utility/parse_additional";
 //import { Node, Edge } from "@xyflow/react";
 
 const selector = (state: AppState) => ({
@@ -43,14 +44,13 @@ export default function Visualisation() {
             setNodes(colorNodes(step, nodes));
             setEdges(colorEdges(step, edges));
             // case when message exists
-            setMessage({ msg: step.msg, additional: step.additional, additional_name: step.additional_name, step_idx: step.step_idx, additional_snd: step.additional_snd, additional_snd_name: step.additional_snd_name });
+            setMessage({ msg: step.msg, additional: parse_additional(step.additional!), additional_name: step.additional_name, step_idx: step.step_idx, additional_snd: parse_additional(step.additional_snd!), additional_snd_name: step.additional_snd_name });
 
         }
         // case when algorithm finished execution
         else {
             setSteps([]);
             reset_graph();
-            setModifyMode(false);
             setMessage({ step_idx: -1, msg: '' });
         }
 
@@ -84,14 +84,14 @@ export default function Visualisation() {
 
     // if user didnt choose algorithm, do not show progress buttons
     return (
-        <>
+        <div className="">
             {selectedValue !== NOT_SELECTED ?
                 <ProgressButtons resetGraph={reset_graph} setModifyMode={setModifyMode} modifyMode={modifyMode} start={start} next_step={next_step} stepCount={steps.length} /> : null}
-            <div className="flex flex-col items-center">
-                <h1 className="text-2xl font-bold pt-2">{ selectedValue === NOT_SELECTED ? `Select algorithm...` : chosenFunction.name}</h1>
+            <div className="flex flex-col items-center bg-white">
+                <h1 className="text-2xl font-bold py-4">{ selectedValue === NOT_SELECTED ? `Select algorithm...` : chosenFunction.name}</h1>
             </div>
-            <AlgorithmDropdown resetGraph={reset_graph} setSelectedValue={setSelectedValue} setChosenFunction={setChosenFunction} />
-        </>
+            <AlgorithmList resetGraph={reset_graph} setSelectedValue={setSelectedValue} setChosenFunction={setChosenFunction} />
+        </div>
     );
 
 }

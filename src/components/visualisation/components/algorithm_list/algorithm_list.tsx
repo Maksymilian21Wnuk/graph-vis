@@ -10,7 +10,7 @@ interface DropdownProps {
 };
 
 
-export default function AlgorithmDropdown({ setSelectedValue, setChosenFunction, resetGraph }: DropdownProps) {
+export default function AlgorithmList({ setSelectedValue, setChosenFunction, resetGraph }: DropdownProps) {
     const [filterVal, setFilterVal] = useState("");
 
     const handleChange = (idx_chosen: number) => {
