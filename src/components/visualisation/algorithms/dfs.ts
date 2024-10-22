@@ -1,6 +1,5 @@
 import Graph from "../../../shared/models/graph/graph";
-import { Step } from "../../../shared/types/graph_types";
-import parse_additional from "./utility/parse_additional";
+import { Steps } from "../../../shared/types/graph_types";
 
 
 
@@ -14,7 +13,7 @@ function dfs_recursive(vertice: string, prev_vertice: string, visited: Set<strin
         const edge = g.create_edge(vertice, prev_vertice);
         g.add_step({
             current_node: vertice,
-            additional: parse_additional(visited), additional_name: "Visited nodes:",
+            additional: visited, additional_name: "Visited nodes:",
             edges : [edge.dest], source_node : edge.source, step_idx: 1
         });
         console.log(vertice, prev_vertice);
@@ -25,7 +24,7 @@ function dfs_recursive(vertice: string, prev_vertice: string, visited: Set<strin
     }
 }
 
-export default function dfs(g: Graph): Step[] {
+export default function dfs(g: Graph): Steps {
     var visited = new Set<string>();
     g.add_step({current_node: g.get_start_node(), step_idx: 0});
     dfs_recursive(g.get_start_node(), "-1", visited, g);

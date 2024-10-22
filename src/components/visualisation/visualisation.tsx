@@ -4,7 +4,7 @@ import { useState } from "react";
 import { algos } from "./algorithms/algorithms_aggreg";
 import get_currently_clicked from "../utility/functions/get_currently_clicked";
 import { AppState } from "../../shared/types/interactive_types";
-import { Step } from "../../shared/types/graph_types";
+import { Step, Steps } from "../../shared/types/graph_types";
 import colorNodes from "../utility/functions/color_nodes";
 import colorEdges from "../utility/functions/color_edges";
 import reset_edge_color from "../utility/functions/reset_edge_color";
@@ -16,6 +16,7 @@ import requirements_guard from "./util/requirements_guard";
 import { Algorithm } from "../../shared/types/graph_types";
 import AlgorithmList from "./components/algorithm_list/algorithm_list";
 import parse_additional from "./algorithms/utility/parse_additional";
+import { Queue } from "queue-typescript";
 //import { Node, Edge } from "@xyflow/react";
 
 const selector = (state: AppState) => ({
@@ -34,22 +35,27 @@ export default function Visualisation() {
     const { nodes, edges, setNodes, setEdges, setMessage, setModifyMode, modifyMode, selectedValue, setSelectedValue } = useStore(useShallow(selector));
 
     const [chosenFunction, setChosenFunction] = useState<Algorithm>(algos[0]);
-    const [steps, setSteps] = useState<Step[]>([]);
+    const [steps, setSteps] = useState<Steps>(new Queue<Step>());
 
     // function for handling next step of algorithm progression
     function next_step() {
-        const step: Step = steps.shift()!;
+        const step: Step = steps.dequeue();
         if (step) {
             setSteps(steps);
             setNodes(colorNodes(step, nodes));
             setEdges(colorEdges(step, edges));
             // case when message exists
-            setMessage({ msg: step.msg, additional: parse_additional(step.additional!), additional_name: step.additional_name, step_idx: step.step_idx, additional_snd: parse_additional(step.additional_snd!), additional_snd_name: step.additional_snd_name });
+            setMessage({ msg: step.msg, 
+                additional: parse_additional(step.additional!), 
+                additional_name: step.additional_name, 
+                step_idx: step.step_idx, 
+                additional_snd: parse_additional(step.additional_snd!), 
+                additional_snd_name: step.additional_snd_name });
 
         }
         // case when algorithm finished execution
         else {
-            setSteps([]);
+            setSteps(new Queue<Step>());
             reset_graph();
             setMessage({ step_idx: -1, msg: '' });
         }
@@ -71,7 +77,7 @@ export default function Visualisation() {
         if (requirements_guard(chosenFunction, graph)) {
             setModifyMode(false);
             // run chosen algo on given graph
-            const new_steps: Step[] = chosenFunction.foo(graph);
+            const new_steps: Steps = chosenFunction.foo(graph);
             setSteps(new_steps);
         }
     }

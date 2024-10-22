@@ -1,9 +1,8 @@
-import { Step } from "../../../shared/types/graph_types";
+import { Steps } from "../../../shared/types/graph_types";
 import { FibonacciHeap, INode } from "@tyriar/fibonacci-heap";
-import parse_additional from "./utility/parse_additional";
 import WeightedGraph from "../../../shared/models/weighted_graph/weighted_graph";
 
-export default function dijkstra(g: WeightedGraph): Step[] {
+export default function dijkstra(g: WeightedGraph): Steps {
     let visited = new Set<string>();
     let distances = new Map<string, number>();
     let heap = new FibonacciHeap<number, string>();
@@ -34,7 +33,7 @@ export default function dijkstra(g: WeightedGraph): Step[] {
         const neigbours = g.get_neighbours(v.value!);
         g.add_step({
             nodes: neigbours, should_color_visited: true,
-            additional: parse_additional(distances), additional_name: "Distances:",
+            additional: distances, additional_name: "Distances:",
             edges: g.get_neighbours(v.value!)!, source_node: v.value!, step_idx: 4, current_node: v.value!
         });
         for (const neighbour of neigbours) {
@@ -49,7 +48,7 @@ export default function dijkstra(g: WeightedGraph): Step[] {
         }
         g.add_step({
             nodes: neigbours, should_color_visited : true,
-            additional: parse_additional(distances), additional_name: "Distances:",
+            additional: distances, additional_name: "Distances:",
             edges: g.get_neighbours(v.value!)!, source_node: v.value!, step_idx: 2, current_node: v.value!
         });
 
@@ -57,7 +56,7 @@ export default function dijkstra(g: WeightedGraph): Step[] {
 
     g.add_step({
         msg: "Algorithm terminated",
-        additional: parse_additional(distances), additional_name: "Final distances:",
+        additional: distances, additional_name: "Final distances:",
         step_idx: 5
     });
 

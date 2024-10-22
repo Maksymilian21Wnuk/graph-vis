@@ -1,5 +1,5 @@
 import { Node, Edge } from "@xyflow/react";
-import { Step } from "../../types/graph_types";
+import { Step, Steps } from "../../types/graph_types";
 import { Queue } from "queue-typescript";
 
 interface GraphEdge {
@@ -62,8 +62,8 @@ export default class Graph{
         this.steps.enqueue(step);
     }
 
-    get_steps() : Step {
-        return this.steps || [];
+    get_steps() : Steps {
+        return this.steps;
     }
 
     get_node_count() : number {

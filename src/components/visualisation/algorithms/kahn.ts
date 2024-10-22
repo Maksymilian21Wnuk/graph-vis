@@ -1,6 +1,5 @@
 import DirectedGraph from "../../../shared/models/directed_graph/directed_graph";
-import { Step } from "../../../shared/types/graph_types";
-import parse_additional from "./utility/parse_additional";
+import { Steps } from "../../../shared/types/graph_types";
 
 function indegree_counter(g: DirectedGraph): Map<string, number> {
     let indegrees = new Map<string, number>();
@@ -20,14 +19,14 @@ function indegree_counter(g: DirectedGraph): Map<string, number> {
     return indegrees;
 }
 
-export default function topological_sort(g: DirectedGraph): Step[] {
+export default function topological_sort(g: DirectedGraph): Steps {
     let indegrees = indegree_counter(g);
     let queue: string[] = [];
     let result: string[] = [];
 
     g.add_step({
         step_idx: 0, additional_name: `Result`, additional_snd_name: `Indegrees: `,
-        additional: parse_additional(result), additional_snd: parse_additional(indegrees)
+        additional: result, additional_snd: indegrees
     })
 
     // enqueue vertices with 0 indegree
@@ -37,13 +36,13 @@ export default function topological_sort(g: DirectedGraph): Step[] {
 
     g.add_step({
         step_idx: 1, additional_name: `Result`, additional_snd_name: `Indegrees: `,
-        additional: parse_additional(result), additional_snd: parse_additional(indegrees)
+        additional: result, additional_snd: indegrees
     })
 
     while (queue.length) {
         g.add_step({
             step_idx: 4, additional_name: `Result`, additional_snd_name: `Indegrees: `,
-            additional: parse_additional(result), additional_snd: parse_additional(indegrees),
+            additional: result, additional_snd: indegrees,
             current_node: queue[0]
         })
         const vertice = queue.shift()!;
@@ -53,7 +52,7 @@ export default function topological_sort(g: DirectedGraph): Step[] {
 
         g.add_step({
             step_idx: 2, additional_name: `Result`, additional_snd_name: `Indegrees: `,
-            additional: parse_additional(result), additional_snd: parse_additional(indegrees),
+            additional: result, additional_snd: indegrees,
             current_node: vertice
         })
 
@@ -69,7 +68,7 @@ export default function topological_sort(g: DirectedGraph): Step[] {
 
         g.add_step({
             step_idx: 3, additional_name: `Result`, additional_snd_name: `Indegrees: `,
-            additional: parse_additional(result), additional_snd: parse_additional(indegrees),
+            additional: result, additional_snd: indegrees,
             edge_removal: true, source_node: vertice, edges: neighbours
         })
 
@@ -77,7 +76,7 @@ export default function topological_sort(g: DirectedGraph): Step[] {
 
     g.add_step({
         step_idx: 5, additional_name: `Result`, additional_snd_name: `Indegrees: `,
-        additional: parse_additional(result), additional_snd: parse_additional(indegrees)
+        additional: result, additional_snd: indegrees
     })
 
 

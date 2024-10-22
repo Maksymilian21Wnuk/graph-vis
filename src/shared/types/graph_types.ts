@@ -57,8 +57,10 @@ export type Step = {
     // if true edges from 'edges' array will be deleted
     edge_removal? : boolean;
     // colorize nodes for coloring algorithms
-    colorize_nodes? : ColorizeNodes;
+    colorize_nodes? : Map<string, string>;
 };
+
+export type Steps = Queue<Step>;
 
 // additional might be queue of node id
 // or it might be list of 
@@ -86,7 +88,7 @@ export type Message = {
 
 
 // type of visualization algorithm
-export type AlgorithmFunction = (g : DirectedGraph) => Step[];
+export type AlgorithmFunction = (g : DirectedGraph) => Steps;
 
 
 // algorithm requires: function, name of algorithm

@@ -1,14 +1,12 @@
-import { Step } from "../../../shared/types/graph_types";
+import { Steps } from "../../../shared/types/graph_types";
 import Graph from "../../../shared/models/graph/graph";
-import colorize_binary from "./utility/colorize_binary";
 import { Queue } from "queue-typescript";
-import { NodeColor } from "../../../shared/enumerations/enums";
 
 
 const BLUE : string = "#8fd9fb";
 const RED : string = "#5ce65c";
 
-export default function bipartite(g: Graph): Step[] {
+export default function bipartite(g: Graph): Steps {
     let visited = new Set<string>();
     // for color visualization
 
@@ -22,7 +20,7 @@ export default function bipartite(g: Graph): Step[] {
         additional_name: `Queue:`,
         additional: q, msg: ``, step_idx: 0,
         additional_snd_name: `Visited:`, additional_snd: visited,
-        colorize_nodes: colorize_binary(map_color)
+        colorize_nodes: map_color
     })
 
 
@@ -37,7 +35,7 @@ export default function bipartite(g: Graph): Step[] {
             step_idx: 1,
             additional: q, additional_name: `Queue:`,
             additional_snd_name: `Visited:`, additional_snd: visited,
-            colorize_nodes: colorize_binary(map_color),
+            colorize_nodes: map_color,
             current_node: node
         });
         visited.add(node);
@@ -49,7 +47,7 @@ export default function bipartite(g: Graph): Step[] {
             should_color_visited_edge : true,
             additional: q, additional_name: `Queue:`,
             additional_snd_name: `Visited:`, additional_snd: visited,
-            colorize_nodes: colorize_binary(map_color)
+            colorize_nodes: map_color
         })
 
         for (let neighbour of neighbours) {
@@ -62,7 +60,7 @@ export default function bipartite(g: Graph): Step[] {
                 if (map_color.get(neighbour) === node_color) {
                     g.add_step({
                         step_idx: 4,
-                        colorize_nodes: colorize_binary(map_color),
+                        colorize_nodes: map_color,
                         msg: `Graph not bipartite, ${neighbour} and ${node} have same color`
                     });
                     return g.get_steps();
@@ -74,14 +72,14 @@ export default function bipartite(g: Graph): Step[] {
             additional_name: `Queue:`,
             step_idx: 3,
             additional_snd_name: `Visited:`, additional_snd: visited,
-            colorize_nodes: colorize_binary(map_color)
+            colorize_nodes: map_color
         });
 
 
     }
     g.add_step({
         step_idx: 4,
-        colorize_nodes: colorize_binary(map_color),
+        colorize_nodes: map_color,
         msg: `Graph bipartite`
     })
     return g.get_steps();

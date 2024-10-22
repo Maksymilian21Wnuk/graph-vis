@@ -1,9 +1,9 @@
 import Graph from "../../../shared/models/graph/graph";
-import { Step } from "../../../shared/types/graph_types";
+import { Steps } from "../../../shared/types/graph_types";
 import { Queue } from "queue-typescript";
 
 
-export default function bfs(g: Graph): Step[] {
+export default function bfs(g: Graph): Steps {
     let visited = new Set<string>();
     g.add_step({ additional_name: `Queue:`, msg: ``, step_idx: 0 })
     let queue : Queue<string> = new Queue<string>(g.get_start_node());
