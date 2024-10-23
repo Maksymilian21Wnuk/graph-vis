@@ -15,7 +15,6 @@ import DirectedGraph from "../../shared/models/directed_graph/directed_graph";
 import requirements_guard from "./util/requirements_guard";
 import { Algorithm } from "../../shared/types/graph_types";
 import AlgorithmList from "./components/algorithm_list/algorithm_list";
-import parse_additional from "./algorithms/utility/parse_additional";
 import { Queue } from "queue-typescript";
 //import { Node, Edge } from "@xyflow/react";
 
@@ -46,10 +45,10 @@ export default function Visualisation() {
             setEdges(colorEdges(step, edges));
             // case when message exists
             setMessage({ msg: step.msg, 
-                additional: parse_additional(step.additional!), 
+                additional: step.additional_parsed,
                 additional_name: step.additional_name, 
                 step_idx: step.step_idx, 
-                additional_snd: parse_additional(step.additional_snd!), 
+                additional_snd: step.additional_snd_parsed, 
                 additional_snd_name: step.additional_snd_name });
 
         }

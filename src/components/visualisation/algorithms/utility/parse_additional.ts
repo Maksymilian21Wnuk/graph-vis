@@ -11,15 +11,17 @@ import { DisjointSetCustom } from "../../../../shared/models/disjoint_set_custom
 export default function parse_additional(additional: AdditionalType): Additional[] {
     // handle map for idk distances or edges
     let res: Additional[] = [];
-
+    console.log("parse");
     if (!additional){
         return res;
     }
 
     else if (additional instanceof Map) {
+        console.log("asdf");
         additional = new Map([...additional].sort((a, b) => a[1] - b[1]));
         additional.forEach((value: number, key: string) => {
             res.push({ id: key, value: String(value) });
+            console.log("asdf");
         })
     }
 

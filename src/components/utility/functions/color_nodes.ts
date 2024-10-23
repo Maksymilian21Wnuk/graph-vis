@@ -20,15 +20,20 @@ export default function colorNodes(step : Step, nodes : Node[]) : Node[]{
     nodes = change_to_visited(nodes, NodeColor.VISITED);
     // the property nodes gives nodes to change color
     let nodes_to_change : string[] = step.nodes!;
-
-    // if we want to colorize nodes, ignore coloring
-    // unvisited and visited
-    if (step.colorize_nodes) {
-        for (const colorize of step.colorize_nodes){
+/*
+for (const colorize of step.colorize_nodes){
             for (const node of colorize.nodes){
                 nodes = change_given_id(nodes, node, colorize.color, true);
             }
         }
+
+*/
+    // if we want to colorize nodes, ignore coloring
+    // unvisited and visited
+    if (step.colorize_nodes) {
+        step.colorize_nodes.forEach((color, node) => {
+            nodes = change_given_id(nodes, node, color, true);
+        });
         if (step.current_node){
             nodes = change_given_id(nodes, step.current_node, NodeColor.CURRENT, true);    
         }

@@ -1,4 +1,3 @@
-import { HELP_TXT } from "../../shared/constants";
 import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Legend from "../description/content/legend";

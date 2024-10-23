@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { faShareNodes, faHome, faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
+import { faShareNodes, faHome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { HelpPopup } from "../help/help_popup";
 

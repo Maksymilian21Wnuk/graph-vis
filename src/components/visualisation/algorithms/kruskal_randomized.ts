@@ -1,7 +1,6 @@
 import { DisjointSet } from "disjoint-set-ds/dist";
 import Graph from "../../../shared/models/graph/graph"
-import { Step } from "../../../shared/types/graph_types"
-import parse_additional from "./utility/parse_additional";
+import { Steps } from "../../../shared/types/graph_types"
 
 interface Edge {
     source : string;
@@ -9,7 +8,7 @@ interface Edge {
     value : number;
 }
 
-export default function kruskal_randomized(g : Graph) : Step[] {
+export default function kruskal_randomized(g : Graph) : Steps {
     let disjoint_set = new DisjointSet<string>();
     // array as object for type checking
     let edges : Edge[] = new Array<Edge>();
@@ -31,19 +30,19 @@ export default function kruskal_randomized(g : Graph) : Step[] {
             result.push(e);
             g.add_step({source_node : e.source, edges : [e.dest], nodes : [e.dest, e.source], should_color_visited: true,
                 step_idx: 1,
-                additional_name: "Sorted edges: ", additional: parse_additional(edges_additional)
+                additional_name: "Sorted edges: ", additional: edges_additional
             }
             );
         }
         else{
             g.add_step({nodes : [e.dest, e.source], 
                 step_idx: 2,
-                additional_name: "Creates cycle", additional: parse_additional(edges_additional),
+                additional_name: "Creates cycle", additional: edges_additional,
                 should_color_visited : true,
             });
             g.add_step({nodes : [e.dest, e.source], 
                 step_idx: 2,
-                additional_name: "Sorted edges: ", additional: parse_additional(edges_additional),
+                additional_name: "Sorted edges: ", additional: edges_additional,
                 should_color_visited : true,
                 edge_removal: true,
                 source_node: e.source,

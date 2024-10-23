@@ -25,6 +25,9 @@ export type AdditionalType = Map<string, number> | DisjointSetCustom | Set<strin
 
 export type ColorizeNodes = ColorizeNode[];
 
+type Color = string;
+type NodeId = string;
+
 export type Step = {
     // nodes to color, by default to orange,
     // since those are nodes being visited
@@ -39,8 +42,10 @@ export type Step = {
     // must be parsed by parse_additional
     // before adding to array of steps
     additional? : AdditionalType;
+    additional_parsed? : Additional[];
     // name of additional structure
     additional_snd_name? : string;
+    additional_snd_parsed? : Additional[];
     // secondary additionals
     additional_snd? : AdditionalType;
     additional_name? : string;
@@ -57,7 +62,8 @@ export type Step = {
     // if true edges from 'edges' array will be deleted
     edge_removal? : boolean;
     // colorize nodes for coloring algorithms
-    colorize_nodes? : Map<string, string>;
+    // key: color value: nodes to color given key
+    colorize_nodes? : Map<NodeId, Color>;
 };
 
 export type Steps = Queue<Step>;

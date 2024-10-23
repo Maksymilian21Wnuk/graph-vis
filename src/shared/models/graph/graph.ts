@@ -1,6 +1,7 @@
 import { Node, Edge } from "@xyflow/react";
-import { Step, Steps } from "../../types/graph_types";
+import { Additional, AdditionalType, PlainEdge, Step, Steps } from "../../types/graph_types";
 import { Queue } from "queue-typescript";
+import { DisjointSetCustom } from "../disjoint_set_custom/disjoint_set";
 
 interface GraphEdge {
     source : string;
@@ -58,7 +59,57 @@ export default class Graph{
         return this.edges.get(node) || [];
     }
 
+    private add_additional(additional : AdditionalType) : Additional[] {
+        let res : Additional[] = [];
+        if (!additional) {
+            return res;
+        }
+
+        else if (additional instanceof Queue) {
+            additional.toArray().forEach((element: string) => {
+                res.push({ id: element, value: "" })
+            });
+        }
+
+        else if (additional instanceof Map) {
+            additional = new Map([...additional].sort((a, b) => a[1] - b[1]));
+            additional.forEach((value: number, key: string) => {
+                res.push({ id: key, value: String(value) });
+            })
+        }
+        else if (additional instanceof DisjointSetCustom) {
+            additional.get_sets().forEach((value : string[], key : string) => {
+                res.push({id: key + `)`, value: value.join(" ")});
+            }
+        )
+        }
+    
+        // handle set, that is visited
+        else if (additional instanceof Set) {
+            additional.forEach((value: string) => {
+                res.push({ id: value, value: "" });
+            })
+        }
+        // handle stack
+        else if (Array.isArray(additional) && additional.every(a => typeof a === 'string')) {
+            additional.forEach((value: string) => {
+                res.push({ id: value, value: "" });
+            })
+        }
+    
+        // handle case of edge type
+        else if (Array.isArray(additional)) {
+            additional.forEach((edge: PlainEdge) => {
+                res.push({ id: `${edge.source}e${edge.dest}`, value: String(edge.value) });
+            })
+        }
+        return res;
+    }
+
     add_step(step : Step) : void {
+        step.additional_parsed = this.add_additional(step.additional!);
+        step.additional_snd_parsed = this.add_additional(step.additional_snd!);
+        step.colorize_nodes = new Map(step.colorize_nodes);
         this.steps.enqueue(step);
     }
 

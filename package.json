@@ -8,7 +8,11 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "jest"
+    "test": "jest",
+    "clean" : "rm -r dist node_modules",
+    "make_container" : "docker-compose up",
+    "stop_container" : "docker-compose stop"
+
   },
   "jest": {
     "collectCoverage": true,

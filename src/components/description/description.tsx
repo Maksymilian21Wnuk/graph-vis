@@ -6,8 +6,6 @@ import useStore from '../../store/store';
 import { useShallow } from 'zustand/shallow';
 import { NOT_SELECTED } from '../../shared/constants';
 import Content from './content/content';
-import Legend from './content/legend';
-
 
 
 const selector = (state: AppState) => ({
