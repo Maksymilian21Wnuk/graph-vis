@@ -30,8 +30,8 @@ for (const colorize of step.colorize_nodes){
 */
     // if we want to colorize nodes, ignore coloring
     // unvisited and visited
-    if (step.colorize_nodes) {
-        step.colorize_nodes.forEach((color, node) => {
+    if (step.colorize_nodes?.size !== 0) {
+        step.colorize_nodes!.forEach((color, node) => {
             nodes = change_given_id(nodes, node, color, true);
         });
         if (step.current_node){

@@ -50,7 +50,6 @@ export default function colorEdges(step: Step, edges: Edge[]): Edge[] {
         ids = parse_ids_undirected(src, edges_to_change);
     }
 
-    console.log(ids);
     for (const id of ids) {
         edges = change_given_id(edges, id, step.should_color_visited_edge);
     }

@@ -39,8 +39,6 @@ export type Step = {
     // edge source
     source_node? : string;
     // additional structure,
-    // must be parsed by parse_additional
-    // before adding to array of steps
     additional? : AdditionalType;
     additional_parsed? : Additional[];
     // name of additional structure
