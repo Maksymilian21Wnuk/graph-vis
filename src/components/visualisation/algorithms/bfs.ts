@@ -12,13 +12,22 @@ export default function bfs(g: Graph): Steps {
 
     while (queue.length > 0) {
         let node: string = queue.dequeue();
-        g.add_step({ nodes: [node], step_idx: 1, additional: queue, additional_name: `Queue:`, current_node: node, additional_snd_name: `Visited:`, additional_snd: visited });
+        g.add_step({ nodes: [node], 
+            step_idx: 1, 
+            additional: queue, additional_name: `Queue:`, 
+            current_node: node, additional_snd_name: `Visited:`, additional_snd: visited });
         
         visited.add(node);
         
         let neighbours = g.get_neighbours(node);
 
-        g.add_step({ edges: neighbours, source_node: node, nodes: neighbours, step_idx: 2, additional: queue, additional_name: `Queue:`, additional_snd_name: `Visited:`, additional_snd: visited })
+        g.add_step({ edges: neighbours, 
+            source_node: node, 
+            nodes: neighbours, 
+            step_idx: 2, 
+            additional: queue, additional_name: `Queue:`, 
+            additional_snd_name: `Visited:`, additional_snd: visited })
+
         for (let neighbour of neighbours) {
             if (!visited.has(neighbour)) {
                 queue.enqueue(neighbour);
