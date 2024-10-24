@@ -20,22 +20,26 @@ export default function InputSpawner({setNodes, setEdges, nodes, edges} : InputP
 
     const onInputChange = (e : any) => {
         setInputValue(e.target.value);
+        console.log("asdf")
     }
 
-    const onButtonClick = async () => {
-        const values = inputValue.split(" ").map((n : string) => parseInt(n));
-        setInputValue("")
-        for (const v of values){
-            if (isNaN(v)){
-                 alert("Not a number");
-                 return;
-            }
-        }
-        for (const n of values) {
-            await delay(300);
-            setNodes(position_node(nodes, n));
-        }        
+    const onButtonClick = () => {
+        const parsed_val = inputValue.split(" ");
+        const value = parseInt(parsed_val[0]);
 
+        if (isNaN(value)){
+            alert("Not a number");
+            return;   
+        }
+        setInputValue(parsed_val.splice(1).join(" "));
+
+        const new_tree = position_node(nodes, edges, value);
+
+        setNodes(new_tree.nodes);
+        setTimeout(() => {
+            reactFlow.fitView()   
+            setEdges(new_tree.edges);
+        });
     }
 
     return (
@@ -51,7 +55,7 @@ export default function InputSpawner({setNodes, setEdges, nodes, edges} : InputP
                 Add
             </button>
             <button className="btn"
-                    onClick={() => setNodes([])}>
+                    onClick={() => {setNodes([]), setEdges([])}}>
                 Clear
             </button>
         </div>

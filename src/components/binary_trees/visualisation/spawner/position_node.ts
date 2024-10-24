@@ -1,12 +1,17 @@
-import { nodeDefaultStyle } from "../../../../shared/constants";
+import { edgeDefaultStyle, nodeDefaultStyle } from "../../../../shared/constants";
 import { BinaryNode } from "../../models/binary_node";
-import calculate_position from "./calculate_pos";
+import calculate_position from "./calculate_position/calculate_pos";
 import { DIRECTION } from "../../../../shared/enumerations/enums";
+import { Edge } from "@xyflow/react";
 
 
+interface NewTree {
+    nodes : BinaryNode[];
+    edges : Edge[];
+}
 
 
-export default function position_node(nodes : BinaryNode[], value : number) : BinaryNode[] {
+export default function position_node(nodes : BinaryNode[], edges : Edge[], value : number) : NewTree {
     const id = String(value);
     if (nodes.length === 0){
         nodes = [{id:id, 
@@ -24,6 +29,7 @@ export default function position_node(nodes : BinaryNode[], value : number) : Bi
         let current : BinaryNode | undefined = nodes[0];
         let prev : BinaryNode | undefined = undefined;
         let direction : DIRECTION = DIRECTION.LEFT;
+        let depth = -1;
         while (current !== undefined){
             prev = current;
             if (current.value > value) {
@@ -34,9 +40,10 @@ export default function position_node(nodes : BinaryNode[], value : number) : Bi
                 current = current.right;
                 direction = DIRECTION.RIGHT;
             }
+            depth++;
         }
         const new_node = {id:id, 
-            position: calculate_position(prev?.position!, direction),
+            position: calculate_position(prev?.position!, direction, depth),
             data: {label:id}, 
             value: value, 
             style: nodeDefaultStyle.style,
@@ -52,10 +59,11 @@ export default function position_node(nodes : BinaryNode[], value : number) : Bi
         }
 
         const prev_id = prev!.id;
-
+        const new_id = prev!.value > value ? `${id}-${prev_id}` : `${prev_id}-${id}`
+        edges = [...edges, {source: prev_id, target: id, id: new_id, type:'straight', style: edgeDefaultStyle.style}];
         nodes = [...nodes.map((n : BinaryNode) => n.id === prev_id ? prev! : n), new_node];
     }
 
 
-    return nodes;
+    return {nodes, edges};
 }

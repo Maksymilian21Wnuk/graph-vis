@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 import { addEdge, Edge, OnConnect } from '@xyflow/react';
 import { BinaryNode } from '../models/binary_node';
-import { nodeDefaultStyle } from '../../../shared/constants';
 
 
 const initialEdges : Edge[] = [];
