@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import Button from "../../../../utility/atoms/button/button";
+import delay from "../../../../utility/functions/delay";
 
 interface ProgressButtonsProps {
     modifyMode: boolean;
@@ -20,10 +21,6 @@ export default function ProgressButtons({ setModifyMode, modifyMode, next_step, 
     const onReset = () => {
         setModifyMode(true);
         resetGraph();
-    }
-
-    function delay(ms: number) {
-        return new Promise(resolve => setTimeout(resolve, ms));
     }
 
     // ??? this is bad

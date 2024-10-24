@@ -1,18 +1,18 @@
 import { ReactFlowProvider } from "@xyflow/react";
-import BinaryTrees from "../components/binary_trees/binary_trees";
-import BinaryTreesSpawner from "../components/binary_trees/components/spawner/binary_spawner";
-import BinaryTreesDescription from "../components/binary_trees/components/description/binary_trees_description";
+import BinaryTreesMap from "../components/binary_trees/binary_trees";
+import BinaryTreesDescription from "../components/binary_trees/description/binary_trees_description";
+import BinaryTreesVisualisation from "../components/binary_trees/visualisation/binary_spawner";
 
 
 
 
 export default function BinaryTreesPage() {
     return (
-        <div className="min-h-page">
+        <div className="min-h-page flex justify-center p-5">
             <BinaryTreesDescription />
             <ReactFlowProvider>
-                <BinaryTrees />
-                <BinaryTreesSpawner />
+                <BinaryTreesMap />
+                <BinaryTreesVisualisation />
             </ReactFlowProvider>
         </div>
     )

@@ -22,3 +22,8 @@ export enum EdgeColor {
 export enum Value {
     NOT_SELECTED = -1,
 }
+
+export enum DIRECTION {
+    LEFT,
+    RIGHT
+}

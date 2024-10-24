@@ -5,25 +5,22 @@ import { useShallow } from "zustand/shallow";
 const selector = (state: BinaryTreeState) => ({
     nodes: state.nodes,
     edges: state.edges,
-    setNodes: state.setNodes,
-    setEdges: state.setEdges,
-    onConnect: state.onConnect,
+    onConnect: state.onConnect
 });
 
-export default function BinaryTrees() {
-    const {nodes, edges, setNodes, setEdges, onConnect} = useStore(useShallow(selector));
+export default function BinaryTreesMap() {
+    const { nodes, edges, onConnect } = useStore(useShallow(selector));
 
     return (
-        <div className="flex justify-center">
-            <div className="bg-white w-screen md:w-3/5 max-auto h-[400px] font-sans">
-                <ReactFlow
-                    nodes={nodes}
-                    edges={edges}
-                    draggable={false}
-                    snapToGrid={true}
-                    snapGrid={[15, 15]}>
-                </ReactFlow>
-            </div>
+        <div className="bg-white w-screen md:w-3/5 max-auto h-[400px] font-sans border border-black">
+            <ReactFlow
+                onConnect={onConnect}
+                nodes={nodes}
+                edges={edges}
+                draggable={false}
+                snapToGrid={true}
+                snapGrid={[15, 15]}>
+            </ReactFlow>
         </div>
     )
 }
