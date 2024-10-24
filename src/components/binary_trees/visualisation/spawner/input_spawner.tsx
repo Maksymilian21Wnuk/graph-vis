@@ -3,7 +3,7 @@ import { BinaryNode } from "../../models/binary_node";
 import position_node from "./position_node";
 import { Edge, useReactFlow } from "@xyflow/react";
 import delay from "../../../utility/functions/delay";
-
+import { Rect } from "@xyflow/react";
 
 interface InputProps {
     setNodes: (n : BinaryNode[]) => void;
@@ -27,6 +27,7 @@ export default function InputSpawner({setNodes, setEdges, nodes, edges} : InputP
         const parsed_val = inputValue.split(" ");
         const value = parseInt(parsed_val[0]);
 
+
         if (isNaN(value)){
             alert("Not a number");
             return;   
@@ -36,10 +37,11 @@ export default function InputSpawner({setNodes, setEdges, nodes, edges} : InputP
         const new_tree = position_node(nodes, edges, value);
 
         setNodes(new_tree.nodes);
-        setTimeout(() => {
-            reactFlow.fitView()   
-            setEdges(new_tree.edges);
-        });
+        setEdges(new_tree.edges);
+            
+        //const r1 : Rect = {width: 50, height: 50, x: 0, y: 0};
+        //const inter = reactFlow.isNodeIntersecting({id: String(value)}, r1)
+
     }
 
     return (
