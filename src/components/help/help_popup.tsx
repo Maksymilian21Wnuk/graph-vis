@@ -1,6 +1,6 @@
 import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Legend from "../description/content/legend";
+import Legend from "../graphs/description/content/legend";
 import Helper from "./icon_helper";
 
 export function HelpPopup() {
