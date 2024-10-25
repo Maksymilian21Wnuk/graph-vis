@@ -5,8 +5,11 @@ import {
     OnEdgesChange,
     OnConnect,
 } from '@xyflow/react';
-import { Message } from './graph_types';
-
+import { Message } from './visualisation_types';
+/*
+Props used for graph map spawning,
+includes state of storage, reducer types etc.
+*/ 
 
 export type Graph = {
     nodes: Node[];

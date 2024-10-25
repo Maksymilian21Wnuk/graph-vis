@@ -1,4 +1,4 @@
-import { GraphName } from "../../../../../../shared/types/interactive_types"
+import { GraphName } from "../../../../../../shared/types/graph_map_types"
 
 export const mockNames: GraphName[] = [
     {name : "Starting graph", description: "Graph that starts on first app run"},

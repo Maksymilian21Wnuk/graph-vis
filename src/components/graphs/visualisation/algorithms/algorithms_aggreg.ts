@@ -1,6 +1,6 @@
 import dfs from "./dfs";
 import bfs from "./bfs";
-import { Algorithm } from "../../../../shared/types/graph_types";
+import { Algorithm } from "../../../../shared/types/visualisation_types";
 import connectivity_check from "./connectivity";
 import dijkstra from "./dijkstra";
 import kruskal from "./kruskal";

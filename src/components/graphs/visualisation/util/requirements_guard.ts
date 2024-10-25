@@ -1,5 +1,5 @@
 import DirectedGraph from "../../../../shared/models/directed_graph/directed_graph";
-import { Algorithm } from "../../../../shared/types/graph_types";
+import { Algorithm } from "../../../../shared/types/visualisation_types";
 
 
 

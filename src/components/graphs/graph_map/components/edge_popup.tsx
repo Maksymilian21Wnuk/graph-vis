@@ -5,7 +5,7 @@
 
 export default function EdgePopup() {
     return (
-        <dialog id="help_modal" className="modal">
+        <dialog id="edge_modal" className="modal">
             <div className="modal-box text-black">
                 <h3 className="font-bold text-lg">Help</h3>
                 <p className="py-4">Change edge's weight: </p>

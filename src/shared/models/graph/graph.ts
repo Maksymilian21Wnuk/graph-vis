@@ -1,5 +1,5 @@
 import { Node, Edge } from "@xyflow/react";
-import { Additional, AdditionalType, PlainEdge, Step, Steps } from "../../types/graph_types";
+import { Additional, AdditionalType, PlainEdge, Step, Steps } from "../../types/visualisation_types";
 import { Queue } from "queue-typescript";
 import { DisjointSetCustom } from "../disjoint_set_custom/disjoint_set";
 

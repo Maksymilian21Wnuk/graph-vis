@@ -20,11 +20,6 @@ export default function Navbar() {
                             </Link>
                         </li>
                         <li>
-                            <Link className="text-xl font-bold p-4" to="/binarytrees">
-                                Binary Trees
-                            </Link>
-                        </li>
-                        <li>
                             <Link className="text-xl font-bold p-4" to="/concepts">
                                 Fundamental concepts
                             </Link>

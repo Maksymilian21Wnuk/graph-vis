@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Dropdown from '../../utility/atoms/dropdown/dropdown';
 import DescNames from '../../../shared/interfaces/desc_names.interface';
-import { AppState } from '../../../shared/types/interactive_types';
+import { AppState } from '../../../shared/types/graph_map_types';
 import useStore from '../store/store';
 import { useShallow } from 'zustand/shallow';
 import { NOT_SELECTED } from '../../../shared/constants'; 

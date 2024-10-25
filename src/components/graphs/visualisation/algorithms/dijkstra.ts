@@ -1,4 +1,4 @@
-import { Steps } from "../../../../shared/types/graph_types";
+import { Steps } from "../../../../shared/types/visualisation_types";
 import { FibonacciHeap, INode } from "@tyriar/fibonacci-heap";
 import WeightedGraph from "../../../../shared/models/weighted_graph/weighted_graph";
 

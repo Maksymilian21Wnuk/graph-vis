@@ -1,5 +1,5 @@
 import { useShallow } from "zustand/shallow";
-import { AppState } from "../../../../shared/types/interactive_types";
+import { AppState } from "../../../../shared/types/graph_map_types";
 import useStore from "../../store/store";
 import { step_text } from "../../visualisation/algorithms/algorithms_description/step_algorithms";
 

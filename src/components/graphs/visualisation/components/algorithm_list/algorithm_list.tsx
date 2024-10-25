@@ -1,7 +1,7 @@
 import { algos } from "../../algorithms/algorithms_aggreg";
-import { Algorithm } from "../../../../../shared/types/graph_types";
-import ListElement from "./element_list";
+import { Algorithm } from "../../../../../shared/types/visualisation_types";
 import { useState } from "react";
+import Elements from "./elements";
 
 interface DropdownProps {
     setSelectedValue: (n: number) => void;
@@ -14,14 +14,14 @@ export default function AlgorithmList({ setSelectedValue, setChosenFunction, res
     const [filterVal, setFilterVal] = useState("");
 
     const handleChange = (idx_chosen: number) => {
-        document.getElementById("navbar")?.scrollIntoView({behavior:'smooth'});
+        document.getElementById("navbar")?.scrollIntoView({ behavior: 'smooth' });
         setSelectedValue(idx_chosen);
         const a: Algorithm = algos[idx_chosen];
         setChosenFunction(a);
         resetGraph();
     }
 
-    const handleFilterChange = (e : React.ChangeEvent<HTMLInputElement>) => {
+    const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFilterVal(e.target.value);
     }
 
@@ -33,11 +33,7 @@ export default function AlgorithmList({ setSelectedValue, setChosenFunction, res
                 <input onChange={handleFilterChange} placeholder="filter" className="input border border-black"></input>
             </div>
             <div className="w-3/5 overflow-auto h-[400px]">
-                <ul>
-                    {algos.map((a: Algorithm, idx: number = 0) =>
-                        a.name.toLocaleLowerCase().includes(filterVal) ? <ListElement elem={a} onClick={handleChange} idx={idx} /> : null
-                    )}
-                </ul>
+                <Elements onClick={handleChange} algos={algos} filterVal={filterVal} />
             </div>
         </div>
     );

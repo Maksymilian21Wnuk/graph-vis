@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AppState } from "../../../../../shared/types/interactive_types";
+import { AppState } from "../../../../../shared/types/graph_map_types";
 import { mocked_graphs } from "./mock_data/mock_graph";
 import { mockNames } from "./mock_data/mock_names";
 import { useReactFlow } from "@xyflow/react";

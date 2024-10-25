@@ -1,6 +1,6 @@
-import { GraphName } from "../../../../shared/types/interactive_types";
+import { GraphName } from "../../../../shared/types/graph_map_types";
 import DescNames from "../../../../shared/interfaces/desc_names.interface";
-import { Algorithm } from "../../../../shared/types/graph_types";
+import { Algorithm } from "../../../../shared/types/visualisation_types";
 
 interface DropdownProps {
     selectedValue : number;

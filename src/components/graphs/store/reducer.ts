@@ -1,4 +1,4 @@
-import { GraphState, GraphAction } from "../../../shared/types/interactive_types";
+import { GraphState, GraphAction } from "../../../shared/types/graph_map_types";
 
 function reducer(state: GraphState, action: GraphAction): GraphState {
 

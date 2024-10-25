@@ -1,5 +1,5 @@
 import DirectedGraph from "../../../../shared/models/directed_graph/directed_graph";
-import { Steps } from "../../../../shared/types/graph_types";
+import { Steps } from "../../../../shared/types/visualisation_types";
 
 function indegree_counter(g: DirectedGraph): Map<string, number> {
     let indegrees = new Map<string, number>();

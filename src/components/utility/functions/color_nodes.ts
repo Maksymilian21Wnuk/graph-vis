@@ -1,5 +1,5 @@
 import { NodeColor } from "../../../shared/enumerations/enums";
-import { Step } from "../../../shared/types/graph_types"
+import { Step } from "../../../shared/types/visualisation_types"
 import { Node } from "@xyflow/react"
 
 

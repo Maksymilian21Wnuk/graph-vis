@@ -9,7 +9,7 @@ import {
 import '@xyflow/react/dist/style.css';
 import useStore from "../store/store";
 import reducer from "../store/reducer";
-import { AppState, GraphState } from "../../../shared/types/interactive_types";
+import { AppState, GraphState } from "../../../shared/types/graph_map_types";
 import { useShallow } from "zustand/shallow";
 import { Weight } from "../../../shared/enumerations/enums";
 import { ARROW_SVG_ID, NODE_MAX, NO_ARROW, nodeDefaultStyle } from "../../../shared/constants";
@@ -19,6 +19,7 @@ import Steps from "./components/steps/steps";
 import CustomControls from "./custom_controls/custom_controls";
 import CustomMarker from "./components/custom_edge/marker";
 import convert_to_undirected from "./functions/convert_to_undirected";
+import EdgePopup from "./components/edge_popup";
 
 const selector = (state: AppState) => ({
     nodes: state.nodes,
@@ -56,7 +57,6 @@ export default function GraphMap() {
     // looks weird, maybe to change
     function onNodeClick(_event: React.MouseEvent<Element, MouseEvent>, node: Node) {
         setModifyMode(true);
-        console.log(node);
         if (state.removeMode) {
             // add removed to min heap
             // decrement state of node count
@@ -139,6 +139,9 @@ export default function GraphMap() {
         if (state.removeMode) {
             setEdges(edges.filter((e: Edge) => e.id !== edge.id))
         }
+        else if (state.addMode && state.weighted) {
+            (document.getElementById('edge_modal') as HTMLDialogElement).showModal();
+        }
         else if (isDirected) {
             setEdges([...edges.filter((e: Edge) => e.id !== edge.id), {
                 id: String(edge.target) + "-" + String(edge.source), source: edge.target, target: edge.source, type: 'straight', label: edge.label,
@@ -203,6 +206,7 @@ export default function GraphMap() {
     return (
         <>
             <CustomMarker />
+            <EdgePopup />
             <div className="bg-white w-screen md:w-3/5 max-auto h-[400px] border-2 border-black font-sans">
                 <ReactFlow
                     nodes={nodes}

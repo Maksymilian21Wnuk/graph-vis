@@ -15,9 +15,9 @@ export function HelpPopup() {
             <dialog id="help_modal" className="modal">
                 <div className="modal-box text-black">
                     <h3 className="font-bold text-lg">Help</h3>
-                    <p className="py-4 text-sm">
+                    <div className="py-4 text-sm">
                         <Helper />
-                    </p>
+                    </div>
                     <Legend />
                     <div className="modal-action">
                         <form method="dialog">

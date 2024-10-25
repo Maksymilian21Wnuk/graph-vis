@@ -1,6 +1,6 @@
 import { DisjointSet } from "disjoint-set-ds/dist";
 import Graph from "../../../../shared/models/graph/graph"
-import { Steps } from "../../../../shared/types/graph_types"
+import { Steps } from "../../../../shared/types/visualisation_types"
 
 interface Edge {
     source : string;

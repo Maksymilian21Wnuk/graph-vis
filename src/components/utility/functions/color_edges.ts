@@ -1,5 +1,5 @@
 import { Edge } from "@xyflow/react";
-import { Step } from "../../../shared/types/graph_types";
+import { Step } from "../../../shared/types/visualisation_types";
 import { EdgeColor } from "../../../shared/enumerations/enums";
 import { ARROW_SVG_ID, INVISIBLE_ARROW, NO_ARROW } from "../../../shared/constants";
 

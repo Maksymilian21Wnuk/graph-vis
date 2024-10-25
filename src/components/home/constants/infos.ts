@@ -1,5 +1,4 @@
-import InfoFieldProps from "../../../shared/interfaces/info_field.interface";
-
+import InfoFieldProps from "../../../shared/interfaces/info_field.interface"
 
 
 

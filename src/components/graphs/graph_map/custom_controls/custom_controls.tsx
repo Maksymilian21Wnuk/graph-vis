@@ -1,7 +1,7 @@
 import { Controls, ControlButton } from "@xyflow/react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShareNodes, faDice, faX, faHand, faTrash, faFileExport, faToiletPaperSlash, faArrowRight, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { GraphAction } from "../../../../shared/types/interactive_types";
+import { GraphAction } from "../../../../shared/types/graph_map_types";
 import { useState } from "react";
 
 /*

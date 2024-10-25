@@ -5,7 +5,10 @@ import { Queue } from "queue-typescript";
 import DirectedGraph from "../models/directed_graph/directed_graph";
 import { DisjointSetCustom } from "../models/disjoint_set_custom/disjoint_set";
 /*
-Info about step structure
+Types used in visualisation and
+writing own algorithms,
+includes definition of step for algos,
+message, algorithm
 */
 
 

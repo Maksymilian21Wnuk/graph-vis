@@ -1,4 +1,4 @@
-import { Steps } from "../../../../shared/types/graph_types";
+import { Steps } from "../../../../shared/types/visualisation_types";
 import WeightedGraph from "../../../../shared/models/weighted_graph/weighted_graph";
 import { DisjointSetCustom } from "../../../../shared/models/disjoint_set_custom/disjoint_set";
 

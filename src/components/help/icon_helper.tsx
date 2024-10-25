@@ -25,8 +25,8 @@ export default function Helper() {
     return (
         <div>
             <ul>
-                {helper_data.map((helper : IconHelper) => 
-                    <li className="py-1"><FontAwesomeIcon icon={helper.icon}/> {helper.description}</li>
+                {helper_data.map((helper : IconHelper, key : number = 0) => 
+                    <li key={key} className="py-1"><FontAwesomeIcon icon={helper.icon}/> {helper.description}</li>
                 )}
             </ul>
         </div>

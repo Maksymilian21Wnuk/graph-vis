@@ -1,4 +1,4 @@
-import { Steps } from "../../../../shared/types/graph_types";
+import { Steps } from "../../../../shared/types/visualisation_types";
 import Graph from "../../../../shared/models/graph/graph";
 import { Queue } from "queue-typescript";
 
