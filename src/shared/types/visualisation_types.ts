@@ -4,6 +4,7 @@
 import { Queue } from "queue-typescript";
 import DirectedGraph from "../models/directed_graph/directed_graph";
 import { DisjointSetCustom } from "../models/disjoint_set_custom/disjoint_set";
+import { Edge, Node } from "@xyflow/react";
 /*
 Types used in visualisation and
 writing own algorithms,
@@ -67,7 +68,13 @@ export type Step = {
     colorize_nodes? : Map<NodeId, Color>;
 };
 
-export type Steps = Queue<Step>;
+export type PreviousStep = {
+    nodes: Node[];
+    edges: Edge[];
+    previous: PreviousStep | undefined;
+}
+
+export type Steps = Step[]
 
 // additional might be queue of node id
 // or it might be list of 

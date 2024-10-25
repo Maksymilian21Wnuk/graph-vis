@@ -5,6 +5,7 @@ import delay from "../../../../utility/functions/delay";
 interface ProgressButtonsProps {
     modifyMode: boolean;
     next_step: () => void;
+    prev_step: () => void;
     start: () => void;
     setModifyMode: (mode: boolean) => void;
     resetGraph: () => void;
@@ -14,7 +15,7 @@ interface ProgressButtonsProps {
 
 const ANIMATE_TIME = 600;
 
-export default function ProgressButtons({ setModifyMode, modifyMode, next_step, start, resetGraph, stepCount }: ProgressButtonsProps) {
+export default function ProgressButtons({ prev_step, setModifyMode, modifyMode, next_step, start, resetGraph, stepCount }: ProgressButtonsProps) {
 
     const [animating, setAnimating] = useState(false);
 
@@ -44,6 +45,7 @@ export default function ProgressButtons({ setModifyMode, modifyMode, next_step, 
                 (
                     <div className="grid grid-cols-3 pl-20">
                         <button className="btn" onClick={next_step} ref={btn_ref}>Next</button>
+                        <button className="btn" onClick={prev_step}>Prev</button>
                         <Button disabled={animating} onClick={onReset} text="Reset" />
                         <Button disabled={animating} onClick={onAnimate} text="Animate" />
                         {/*animating ? <Button onClick={onStop} text="Stop" /> : null*/}

@@ -12,13 +12,13 @@ export default class Graph{
     protected edges : Map<string, string[]>;
     protected nodes : string[];
     protected start_node : string;
-    protected steps : Queue<Step>;
+    protected steps : Steps =  []
 
     constructor(start_node_id? : string, nodes?: Node[], edges?: Edge[]){
         this.edges = new Map<string, string[]>();
         this.nodes = [];
         this.start_node = "1";
-        this.steps = new Queue<Step>();
+        this.steps = [];
 
         if (nodes && edges && start_node_id){
             this.edges = this.convert_flow(edges);
@@ -110,7 +110,7 @@ export default class Graph{
         step.additional_parsed = this.add_additional(step.additional!);
         step.additional_snd_parsed = this.add_additional(step.additional_snd!);
         step.colorize_nodes = new Map(step.colorize_nodes);
-        this.steps.enqueue(step);
+        this.steps.push(step);
     }
 
     get_steps() : Steps {
