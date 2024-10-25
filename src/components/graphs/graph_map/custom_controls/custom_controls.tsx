@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShareNodes, faDice, faX, faHand, faTrash, faFileExport, faToiletPaperSlash, faArrowRight, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { GraphAction } from "../../../../shared/types/graph_map_types";
 import { useState } from "react";
+import { ActionType } from "../../../../shared/enumerations/enums";
 
 /*
 file for setting custom controls
@@ -34,13 +35,13 @@ function AdditionalControls({ randomizeWeight, clearGraph, dispatch, noWeights, 
             <ControlButton title="Clear graph" onClick={clearGraph}>
                 <FontAwesomeIcon icon={faX} />
             </ControlButton>
-            <ControlButton title="Add mode" onClick={() => dispatch({ type: "MODE_ADD" })}>
+            <ControlButton title="Add mode" onClick={() => dispatch({ type: ActionType.MODE_ADD })}>
                 <FontAwesomeIcon icon={faShareNodes} />
             </ControlButton>
-            <ControlButton title="Choose mode" onClick={() => dispatch({ type: "MODE_CHOOSE" })}>
+            <ControlButton title="Choose mode" onClick={() => dispatch({ type: ActionType.MODE_CHOOSE })}>
                 <FontAwesomeIcon icon={faHand} />
             </ControlButton>
-            <ControlButton title="Remove mode" onClick={() => dispatch({ type: "MODE_REMOVE" })}>
+            <ControlButton title="Remove mode" onClick={() => dispatch({ type: ActionType.MODE_REMOVE })}>
                 <FontAwesomeIcon icon={faTrash} />
             </ControlButton>
             <ControlButton title="Remove weights" onClick={noWeights}>

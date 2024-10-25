@@ -1,5 +1,13 @@
 
 
+export enum ActionType {
+    MODE_ADD,
+    MODE_REMOVE,
+    MODE_CHOOSE,
+    SET_PAIR,
+    CHANGE_WEIGHTED,
+    CHANGE_EDGE,
+}
 
 export enum Weight {
     WEIGHTED = "1",

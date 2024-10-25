@@ -6,6 +6,7 @@ import {
     OnConnect,
 } from '@xyflow/react';
 import { Message } from './visualisation_types';
+import { ActionType } from '../enumerations/enums';
 /*
 Props used for graph map spawning,
 includes state of storage, reducer types etc.
@@ -40,6 +41,7 @@ export type GraphState = {
     first: number;
     connect: boolean;
     weighted: boolean;
+    edge_to_change : Edge;
 }
 
 export type Coordinates = {
@@ -48,7 +50,7 @@ export type Coordinates = {
 }
 
 export type GraphAction = {
-    type: string;
+    type: ActionType;
     payload?: any | Coordinates | boolean | number;
 }
 

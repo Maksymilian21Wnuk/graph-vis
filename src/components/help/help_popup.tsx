@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Legend from "../graphs/description/content/legend";
 import Helper from "./icon_helper";
 
+
+
 export function HelpPopup() {
     return (
         <>

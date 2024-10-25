@@ -12,7 +12,7 @@ import reducer from "../store/reducer";
 import { AppState, GraphState } from "../../../shared/types/graph_map_types";
 import { useShallow } from "zustand/shallow";
 import { Weight } from "../../../shared/enumerations/enums";
-import { ARROW_SVG_ID, NODE_MAX, NO_ARROW, nodeDefaultStyle } from "../../../shared/constants";
+import { ARROW_SVG_ID, NODE_MAX, NO_ARROW, nodeDefaultStyle, DEV } from "../../../shared/constants";
 import find_first_free from "./functions/find_first_free_index";
 import getRandomInt from "../../utility/functions/random_int";
 import Steps from "./components/steps/steps";
@@ -20,6 +20,7 @@ import CustomControls from "./custom_controls/custom_controls";
 import CustomMarker from "./components/custom_edge/marker";
 import convert_to_undirected from "./functions/convert_to_undirected";
 import EdgePopup from "./components/edge_popup";
+import { ActionType } from "../../../shared/enumerations/enums";
 
 const selector = (state: AppState) => ({
     nodes: state.nodes,
@@ -49,6 +50,7 @@ export default function GraphMap() {
         first: -1,
         connect: false,
         weighted: false,
+        edge_to_change: {id: "-1", source: "1", target: "2"},
     };
 
 
@@ -64,14 +66,11 @@ export default function GraphMap() {
             setEdges(edges.filter((e: Edge) => e.source !== node.id && e.target !== node.id));
         }
         else if (state.addMode) {
-            console.log(isDirected);
-
-
             if (state.connect) {
                 if (isDirected) {
                     const first: string = String(state.first);
                     if (first === "-1") {
-                        dispatch({ type: "SET_PAIR", payload: first });
+                        dispatch({ type: ActionType.SET_PAIR, payload: first });
                         return;
                     }
                     const scnd: string = node.id;
@@ -95,7 +94,7 @@ export default function GraphMap() {
                             style: { stroke: "black" }, markerEnd: ARROW_SVG_ID
                         }]);
                     }
-                    dispatch({ type: "SET_PAIR", payload: -1 });
+                    dispatch({type: ActionType.SET_PAIR, payload: -1 });
 
                 }
                 else {
@@ -111,7 +110,7 @@ export default function GraphMap() {
                     // this is for removing double edges
                     const id = `${first}-${scnd}`;
                     if (first === -1) {
-                        dispatch({ type: "SET_PAIR", payload: first });
+                        dispatch({ type: ActionType.SET_PAIR, payload: first });
                         return;
                     }
                     // handle same id's
@@ -125,11 +124,11 @@ export default function GraphMap() {
                         id: id, source: String(first), target: String(scnd), type: 'straight', label: new_label,
                         style: { stroke: "black" }, markerEnd: NO_ARROW
                     }]);
-                    dispatch({ type: "SET_PAIR", payload: -1 });
+                    dispatch({ type: ActionType.SET_PAIR, payload: -1 });
                 }
             }
             else {
-                dispatch({ type: "SET_PAIR", payload: parseInt(node.id) });
+                dispatch({ type: ActionType.SET_PAIR, payload: parseInt(node.id) });
             }
         }
     }
@@ -141,6 +140,7 @@ export default function GraphMap() {
         }
         else if (state.addMode && state.weighted) {
             (document.getElementById('edge_modal') as HTMLDialogElement).showModal();
+            dispatch({type: ActionType.CHANGE_EDGE, payload: edge});
         }
         else if (isDirected) {
             setEdges([...edges.filter((e: Edge) => e.id !== edge.id), {
@@ -153,7 +153,7 @@ export default function GraphMap() {
 
 
     function onPaneClick(_event: React.MouseEvent<Element, MouseEvent>): void {
-        console.log(edges);
+        DEV ? console.log(edges) : null;
         console.log(nodes);
         setModifyMode(true);
         if (state.addMode) {
@@ -169,7 +169,7 @@ export default function GraphMap() {
     const random_weight = () => {
         setModifyMode(true);
         setEdges(edges.map((e: Edge) => { return { ...e, label: String(getRandomInt(NODE_MAX)) } }));
-        dispatch({ type: 'CHANGE_WEIGHTED', payload: true });
+        dispatch({ type: ActionType.CHANGE_WEIGHTED, payload: true });
     };
 
     const clear = () => {
@@ -181,7 +181,7 @@ export default function GraphMap() {
     const no_weights = () => {
         setModifyMode(true);
         setEdges(edges.map((e: Edge) => { return { ...e, label: Weight.UNWEIGHTED } }));
-        dispatch({ type: 'CHANGE_WEIGHTED', payload: false });
+        dispatch({ type: ActionType.CHANGE_WEIGHTED, payload: false });
     }
 
     const export_graph = () => {
@@ -206,7 +206,7 @@ export default function GraphMap() {
     return (
         <>
             <CustomMarker />
-            <EdgePopup />
+            <EdgePopup edge_to_change={state.edge_to_change} updateEdge={reactFlow.updateEdge} />
             <div className="bg-white w-screen md:w-3/5 max-auto h-[400px] border-2 border-black font-sans">
                 <ReactFlow
                     nodes={nodes}

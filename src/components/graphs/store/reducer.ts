@@ -1,22 +1,23 @@
 import { GraphState, GraphAction } from "../../../shared/types/graph_map_types";
+import { ActionType } from "../../../shared/enumerations/enums";
 
 function reducer(state: GraphState, action: GraphAction): GraphState {
 
     switch (action.type) {
 
-        case "MODE_ADD": {
+        case ActionType.MODE_ADD: {
             return { ...state, addMode: true, removeMode: false };
         }
 
-        case "MODE_REMOVE": {
+        case ActionType.MODE_REMOVE: {
             return { ...state, addMode: false, removeMode: true };
         }
 
-        case "MODE_CHOOSE": {
+        case ActionType.MODE_CHOOSE: {
             return {...state, first: -1, connect: false, addMode: false, removeMode: false};
         }
 
-        case 'SET_PAIR': {
+        case ActionType.SET_PAIR: {
             if (state.first === -1) {
                 return { ...state, first: action.payload, connect: true };
             }
@@ -25,8 +26,12 @@ function reducer(state: GraphState, action: GraphAction): GraphState {
             }
         }
 
-        case 'CHANGE_WEIGHTED' : {
+        case ActionType.CHANGE_WEIGHTED : {
             return {...state, weighted: action.payload};
+        }
+
+        case ActionType.CHANGE_EDGE : {
+            return {...state, edge_to_change : action.payload }
         }
 
         default: {
