@@ -29,7 +29,7 @@ export default function position_node(nodes : BinaryNode[], edges : Edge[], valu
         let current : BinaryNode | undefined = nodes[0];
         let prev : BinaryNode | undefined = undefined;
         let direction : DIRECTION = DIRECTION.LEFT;
-        let depth = -1;
+        let depth : number = -1;
         while (current !== undefined){
             prev = current;
             if (current.value > value) {

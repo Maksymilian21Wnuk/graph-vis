@@ -15,12 +15,6 @@ export default function BinaryTreesMap() {
 
     const nodeChange = () => {
         reactFlow.fitView();
-        console.log(nodes[nodes.length - 1]);
-        const node_to_check = nodes[nodes.length - 1];
-        //const r1 : Rect = {width: 10, height: 10, x: node_to_check.position.x + 53, y: node_to_check.position.y + 53};
-        const r1 : Rect = {width: 10, height: 10, x: 1000, y: 1000};
-        const inter = reactFlow.isNodeIntersecting(node_to_check, r1)
-        console.log(inter);
     }
 
     return (

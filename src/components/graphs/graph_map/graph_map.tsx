@@ -56,6 +56,7 @@ export default function GraphMap() {
     // looks weird, maybe to change
     function onNodeClick(_event: React.MouseEvent<Element, MouseEvent>, node: Node) {
         setModifyMode(true);
+        console.log(node);
         if (state.removeMode) {
             // add removed to min heap
             // decrement state of node count
