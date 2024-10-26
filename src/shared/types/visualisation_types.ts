@@ -3,8 +3,11 @@
 
 import { Queue } from "queue-typescript";
 import DirectedGraph from "../models/directed_graph/directed_graph";
-import { DisjointSetCustom } from "../models/disjoint_set_custom/disjoint_set";
+import { DisjointSetCustom } from "../models/disjoint_set_custom/disjoint_set_custom";
 import { Edge, Node } from "@xyflow/react";
+import Graph from "../models/graph/graph";
+import WeightedGraph from "../models/weighted_graph/weighted_graph";
+import { TreeGraph } from "../models/tree_graph/tree_graph";
 /*
 Types used in visualisation and
 writing own algorithms,
@@ -102,16 +105,28 @@ export type Message = {
 
 
 // type of visualization algorithm
-export type AlgorithmFunction = (g : DirectedGraph) => Steps;
+export type DirectedFunction = (g : DirectedGraph) => Steps;
+export type GraphFunction = (g : Graph) => Steps;
+export type WeightedFunction = (g : WeightedGraph) => Steps;
+export type TreeFunction = (g : TreeGraph) => Steps;
 
+/*
+type Requirements = {
+    weights: boolean;
+    directed: boolean;
+    non_directed: boolean;
+    tree: boolean;
+}*/
 
 // algorithm requires: function, name of algorithm
 // or some guards
 export type Algorithm = {
-    foo : AlgorithmFunction;
+    foo : DirectedFunction | GraphFunction | WeightedFunction | TreeFunction;
     name : string;
     require_weights : boolean;
     require_directed : boolean;
     require_non_directed : boolean;
+    require_tree : boolean;
     description? : string;
+    dev? : boolean;
 };

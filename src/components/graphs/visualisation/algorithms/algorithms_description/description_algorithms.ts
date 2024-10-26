@@ -17,5 +17,15 @@ export const description_text : string[] = [
     `,
     `Dijkstra is an algorithm used in shortest path
     finding. It uses dynamic programming aproach to
-    calculate paths between starting node and...`
+    calculate paths between starting node and...`,
+    `Kruskal`,
+    `Kahn`,
+    `Bipartite`,
+    `If we are certain, that graph is unweighted tree,
+    we can find shortest paths to each vertice in O(V + E)
+    time using breadth first search. It starts
+    with choosing starting node and assigning to it distance equal to zero. 
+    During visiting node's neighbours, 
+    algorithm assigns to neighbours current node's
+    distance + 1.`
 ]

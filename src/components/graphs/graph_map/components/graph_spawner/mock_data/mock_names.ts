@@ -10,5 +10,8 @@ export const mockNames: GraphName[] = [
     {name: "Binary tree", description: "Binary tree"},
     {name: "Graph 42", description: "Good example for visualisation of dijkstra's algorithm"},
     {name: "K3,3 graph", description: "K3,3 graph"},
-    {name: "Bipartite example", description: "Bipartite graph"}
+    {name: "Bipartite example", description: "Bipartite graph"},
+    {name: "Negative edge example", description: "Dijkstra's algorithm won't work here"},
+    {name: "Directed graph", description: "Kahn example"},
 ]
+

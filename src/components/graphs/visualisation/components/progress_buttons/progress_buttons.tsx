@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import Button from "../../../../utility/atoms/button/button";
 import delay from "../../../../utility/functions/delay";
+import Slider from "../../../../utility/atoms/slider/slider";
 
 interface ProgressButtonsProps {
     modifyMode: boolean;
@@ -13,11 +14,10 @@ interface ProgressButtonsProps {
 }
 
 
-const ANIMATE_TIME = 600;
-
 export default function ProgressButtons({ prev_step, setModifyMode, modifyMode, next_step, start, resetGraph, stepCount }: ProgressButtonsProps) {
 
     const [animating, setAnimating] = useState(false);
+    const [sliderValue, setSliderValue] = useState<number | string>(500);
 
     const onReset = () => {
         setModifyMode(true);
@@ -27,15 +27,18 @@ export default function ProgressButtons({ prev_step, setModifyMode, modifyMode, 
     // ??? this is bad
     const onAnimate = async () => {
         setAnimating(true);
-        for (let i = 0; i <= stepCount; i++) {
+        for (let i = 0; i < stepCount; i++) {
             if (btn_ref.current) {
                 btn_ref.current.click();
-                await delay(ANIMATE_TIME);
+                await delay(sliderValue as number);
             }
         }
         setAnimating(false);
     }
 
+    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSliderValue(parseInt(event.target.value));
+    }
 
     const btn_ref = useRef<HTMLButtonElement | null>(null);
 
@@ -43,12 +46,18 @@ export default function ProgressButtons({ prev_step, setModifyMode, modifyMode, 
         <div className="flex justify-center pt-4 bg-white">
             {!modifyMode ?
                 (
-                    <div className="grid grid-cols-3 pl-20">
-                        <button className="btn" onClick={next_step} ref={btn_ref}>Next</button>
-                        <button className="btn" onClick={prev_step}>Prev</button>
-                        <Button disabled={animating} onClick={onReset} text="Reset" />
-                        <Button disabled={animating} onClick={onAnimate} text="Animate" />
-                        {/*animating ? <Button onClick={onStop} text="Stop" /> : null*/}
+                    <div className="flex">
+                        <div className="w-52">
+                            <Slider sliderValue={sliderValue} onChange={onChange}
+                                step="10" min={100} max="2000" disabled={animating} />
+                        </div>
+                        <div className="grid grid-cols-4 pl-32">
+                            <button className="btn" onClick={next_step} ref={btn_ref}>Next</button>
+                            <Button disabled={animating} onClick={prev_step} text="Prev" />
+                            <Button disabled={animating} onClick={onReset} text="Reset" />
+                            <Button disabled={animating} onClick={onAnimate} text="Animate" />
+                            {/*animating ? <Button onClick={onStop} text="Stop" /> : null*/}
+                        </div>
                     </div>
                 )
                 :

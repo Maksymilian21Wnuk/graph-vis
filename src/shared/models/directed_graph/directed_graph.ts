@@ -1,10 +1,9 @@
-import WeightedGraph from "../weighted_graph/weighted_graph";
 import { ARROW_SVG_ID } from "../../constants";
 import { Edge, Node } from "@xyflow/react";
+import { TreeGraph } from "../tree_graph/tree_graph";
 
 
-export default class DirectedGraph extends WeightedGraph {
-    private is_directed: boolean;
+export default class DirectedGraph extends TreeGraph {
 
     constructor(start_node_id?: string, nodes?: Node[], edges?: Edge[]) {
         super(start_node_id, nodes, edges);
@@ -27,7 +26,9 @@ export default class DirectedGraph extends WeightedGraph {
         }
     }
 
-    get_is_directed() : boolean {
-        return this.is_directed;
+
+    get_edge_count(): number {
+        const divider = this.is_directed ? 1 : 2;
+        return Array.from(this.edges.values()).reduce((sum, arr) => sum + arr.length, 0) / divider;
     }
 }

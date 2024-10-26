@@ -1,7 +1,7 @@
 import { useState } from "react"
 import Button from "../../../../../utility/atoms/button/button";
 import Input from "../../input";
-import Slider from "../slider";
+import Slider from "../../../../../utility/atoms/slider/slider";
 import randomizer from "./randomizer";
 import { AppState } from "../../../../../../shared/types/graph_map_types";
 import useStore from "../../../../store/store";
@@ -70,7 +70,7 @@ export default function RandomSpawner({ selectedValue }: RandomSpawnerProps) {
         return (
             <>
                 Edge probability:
-                <Slider onChange={onChange} sliderValue={sliderValue}/>
+                <Slider max="1" min={0} step="0.01" onChange={onChange} sliderValue={sliderValue}/>
                 <Input id={"nodeInput"} top_left_text="Node Count" input_change={input_change} input_value={nodeCount} />
                 <Button onClick={submitSpawn} text="Spawn"/>
             </>

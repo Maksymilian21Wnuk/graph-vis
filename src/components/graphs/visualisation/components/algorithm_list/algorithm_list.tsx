@@ -33,7 +33,9 @@ export default function AlgorithmList({ setSelectedValue, setChosenFunction, res
                 <input onChange={handleFilterChange} placeholder="filter" className="input border border-black"></input>
             </div>
             <div className="w-3/5 overflow-auto h-[400px]">
-                <Elements onClick={handleChange} algos={algos} filterVal={filterVal} />
+                <Elements onClick={handleChange} 
+                algos={import.meta.env.DEV ? algos : algos.filter((a : Algorithm) => !a.dev)} 
+                filterVal={filterVal} />
             </div>
         </div>
     );

@@ -1,7 +1,7 @@
 import { Node, Edge } from "@xyflow/react";
 import { Additional, AdditionalType, PlainEdge, Step, Steps } from "../../types/visualisation_types";
 import { Queue } from "queue-typescript";
-import { DisjointSetCustom } from "../disjoint_set_custom/disjoint_set";
+import { DisjointSetCustom } from "../disjoint_set_custom/disjoint_set_custom";
 
 interface GraphEdge {
     source : string;
@@ -12,7 +12,10 @@ export default class Graph{
     protected edges : Map<string, string[]>;
     protected nodes : string[];
     protected start_node : string;
-    protected steps : Steps =  []
+    protected steps : Steps =  [];
+    protected is_directed : boolean = false;
+    protected is_weighted : boolean = false;
+    protected is_tree : boolean = false;
 
     constructor(start_node_id? : string, nodes?: Node[], edges?: Edge[]){
         this.edges = new Map<string, string[]>();
@@ -117,16 +120,32 @@ export default class Graph{
         return this.steps;
     }
 
+    get_is_weighted() : boolean {
+        return this.is_weighted;
+    }
+
     get_node_count() : number {
         return this.nodes.length;
+    }
+
+    get_edge_count() : number { 
+        return Array.from(this.edges.values()).reduce((sum, arr) => sum + arr.length, 0) / 2;
     }
 
     get_start_node() : string {
         return this.start_node;
     }
 
+    get_is_directed() : boolean {
+        return this.is_directed;
+    }
+
     get_nodes() : string[] {
         return this.nodes;
+    }
+
+    get_is_tree() : boolean {
+        return this.is_tree;
     }
 
     get_edges() : Map<string, string[]> {

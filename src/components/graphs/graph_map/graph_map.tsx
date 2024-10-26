@@ -12,15 +12,17 @@ import reducer from "../store/reducer";
 import { AppState, GraphState } from "../../../shared/types/graph_map_types";
 import { useShallow } from "zustand/shallow";
 import { Weight } from "../../../shared/enumerations/enums";
-import { ARROW_SVG_ID, NODE_MAX, NO_ARROW, nodeDefaultStyle, DEV } from "../../../shared/constants";
+import { ARROW_SVG_ID, NODE_MAX, NO_ARROW, nodeDefaultStyle } from "../../../shared/constants";
 import find_first_free from "./functions/find_first_free_index";
 import getRandomInt from "../../utility/functions/random_int";
-import Steps from "./components/steps/steps";
 import CustomControls from "./custom_controls/custom_controls";
 import CustomMarker from "./components/custom_edge/marker";
 import convert_to_undirected from "./functions/convert_to_undirected";
 import EdgePopup from "./components/edge_popup";
 import { ActionType } from "../../../shared/enumerations/enums";
+import Additionals from "./components/additionals/additionals";
+import reset_edge_color from "../util/reset_edge_color";
+import reset_node_color from "../util/reset_node_color";
 
 const selector = (state: AppState) => ({
     nodes: state.nodes,
@@ -34,12 +36,14 @@ const selector = (state: AppState) => ({
     modifyMode: state.modifyMode,
     selectedValue: state.selectedValue,
     isDirected: state.isDirected,
-    setIsDirected: state.setIsDirected
+    setIsDirected: state.setIsDirected,
+    isWeighted: state.isWeighted,
+    setIsWeighted: state.setIsWeighted,
 });
 
 
 export default function GraphMap() {
-    const { nodes, edges, onNodesChange, onEdgesChange, setNodes, setEdges, message, setModifyMode, modifyMode, isDirected, setIsDirected } = useStore(useShallow(selector));
+    const { nodes, edges, onNodesChange, onEdgesChange, setNodes, setEdges, message, setModifyMode, modifyMode, isDirected, setIsDirected, isWeighted, setIsWeighted } = useStore(useShallow(selector));
 
     const reactFlow = useReactFlow();
 
@@ -49,7 +53,6 @@ export default function GraphMap() {
         addMode: false,
         first: -1,
         connect: false,
-        weighted: false,
         edge_to_change: {id: "-1", source: "1", target: "2"},
     };
 
@@ -79,7 +82,7 @@ export default function GraphMap() {
                     if (edges.some((e: Edge) => e.id === id) || first === scnd) {
                         return;
                     }
-                    const new_label: string = state.weighted ? String(getRandomInt(NODE_MAX)) : Weight.UNWEIGHTED;
+                    const new_label: string = isWeighted ? String(getRandomInt(NODE_MAX)) : Weight.UNWEIGHTED;
                     
                     if (edges.some((e : Edge) => e.id === prevent_two_arrows_id)){
                         console.log("two");
@@ -118,7 +121,7 @@ export default function GraphMap() {
                         return;
                     }
 
-                    const new_label: string = state.weighted ? String(getRandomInt(NODE_MAX)) : Weight.UNWEIGHTED;
+                    const new_label: string = isWeighted ? String(getRandomInt(NODE_MAX)) : Weight.UNWEIGHTED;
 
                     setEdges([...edges, {
                         id: id, source: String(first), target: String(scnd), type: 'straight', label: new_label,
@@ -138,7 +141,7 @@ export default function GraphMap() {
         if (state.removeMode) {
             setEdges(edges.filter((e: Edge) => e.id !== edge.id))
         }
-        else if (state.addMode && state.weighted) {
+        else if (state.addMode && isWeighted) {
             (document.getElementById('edge_modal') as HTMLDialogElement).showModal();
             dispatch({type: ActionType.CHANGE_EDGE, payload: edge});
         }
@@ -153,9 +156,11 @@ export default function GraphMap() {
 
 
     function onPaneClick(_event: React.MouseEvent<Element, MouseEvent>): void {
-        DEV ? console.log(edges) : null;
+        import.meta.env.DEV ? console.log(edges) : null;
         console.log(nodes);
         setModifyMode(true);
+        setEdges(reset_edge_color(edges));
+        setNodes(reset_node_color(nodes));
         if (state.addMode) {
             let xy: XYPosition = { x: _event.clientX, y: _event.clientY };
             xy = reactFlow.screenToFlowPosition(xy);
@@ -169,7 +174,7 @@ export default function GraphMap() {
     const random_weight = () => {
         setModifyMode(true);
         setEdges(edges.map((e: Edge) => { return { ...e, label: String(getRandomInt(NODE_MAX)) } }));
-        dispatch({ type: ActionType.CHANGE_WEIGHTED, payload: true });
+        setIsWeighted(true);
     };
 
     const clear = () => {
@@ -181,7 +186,7 @@ export default function GraphMap() {
     const no_weights = () => {
         setModifyMode(true);
         setEdges(edges.map((e: Edge) => { return { ...e, label: Weight.UNWEIGHTED } }));
-        dispatch({ type: ActionType.CHANGE_WEIGHTED, payload: false });
+        setIsWeighted(false);
     }
 
     const export_graph = () => {
@@ -207,7 +212,7 @@ export default function GraphMap() {
         <>
             <CustomMarker />
             <EdgePopup edge_to_change={state.edge_to_change} updateEdge={reactFlow.updateEdge} />
-            <div className="bg-white w-screen md:w-3/5 max-auto h-[400px] border-2 border-black font-sans">
+            <div className="bg-white w-screen md:w-3/5 max-auto md:h-[400px] border-2 border-black font-sans">
                 <ReactFlow
                     nodes={nodes}
                     edges={edges}
@@ -223,7 +228,7 @@ export default function GraphMap() {
                 </ReactFlow>
             </div>
             <div className="w-1/5">
-                <Steps additional_snd={message.additional_snd} additional_snd_name={message.additional_snd_name} step_idx={message.step_idx} msg={message.msg} additional={message.additional} additional_name={message.additional_name} modifyMode={modifyMode} />
+                <Additionals additional_snd={message.additional_snd} additional_snd_name={message.additional_snd_name} step_idx={message.step_idx} msg={message.msg} additional={message.additional} additional_name={message.additional_name} modifyMode={modifyMode} />
             </div>
         </>
     );

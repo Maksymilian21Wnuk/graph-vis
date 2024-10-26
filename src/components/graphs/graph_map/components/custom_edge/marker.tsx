@@ -3,7 +3,7 @@ import { EdgeColor } from "../../../../../shared/enumerations/enums";
 
 export default function CustomMarker() {
     return (
-        <svg style={{ position: "absolute", top: 0, left: 0 }}>
+        <svg style={{top: 0, left: 0, width: 0, height: 0 }}>
             <defs>
                 <marker
                     id="custom_arrow"

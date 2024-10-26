@@ -19,7 +19,7 @@ function AdditionalDisplay({ additional }: AdditionalProps) {
 }
 
 
-export default function Steps({msg, additional, additional_name, modifyMode, additional_snd, additional_snd_name }: Message) {
+export default function Additionals({msg, additional, additional_name, modifyMode, additional_snd, additional_snd_name }: Message) {
 
     return (additional_name || msg) && !modifyMode ? (
         <div className="grid grid-cols-2 mx-2 p-2">

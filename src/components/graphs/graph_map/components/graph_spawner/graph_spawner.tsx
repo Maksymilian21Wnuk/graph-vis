@@ -7,6 +7,8 @@ import RandomSpawner from "./random_spawner/random_spawner";
 import Dropdown from "../../../../utility/atoms/dropdown/dropdown";
 import useStore from "../../../store/store";
 import { useShallow } from "zustand/shallow";
+import check_weighted from "../../functions/check_weighted";
+import check_undirected from "../../functions/check_directed";
 
 
 const selector = (state: AppState) => ({
@@ -14,10 +16,11 @@ const selector = (state: AppState) => ({
     setEdges: state.setEdges,
     setModifyMode: state.setModifyMode,
     setIsDirected: state.setIsDirected,
+    setIsWeighted: state.setIsWeighted,
 });
 
 export default function GraphSpawner() {
-    const { setNodes, setEdges, setModifyMode, setIsDirected } = useStore(useShallow(selector));
+    const { setNodes, setEdges, setModifyMode, setIsDirected, setIsWeighted } = useStore(useShallow(selector));
 
     const [selectedValue, setSelectedValue] = useState(-1);
     const reactFlow = useReactFlow();
@@ -28,15 +31,24 @@ export default function GraphSpawner() {
 
     const onChange = (event: any) => {
         const chosen = mocked_graphs[event.target.value];
-        if (!chosen){
-            return;
-        }
         setSelectedValue(event.target.value)
         setEdges(chosen.edges);
         setNodes(chosen.nodes);
+        if (check_weighted(chosen.edges)){
+            setIsWeighted(true);
+        }
+        else{
+            setIsWeighted(false);
+        }
+        
+        if (check_undirected(chosen.edges)){
+            setIsDirected(false);
+        }
+        else{
+            setIsDirected(true);
+        }
         setTimeout(fit_view);
         setModifyMode(true);
-        setIsDirected(false);
     }
 
     return (

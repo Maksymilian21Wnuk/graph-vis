@@ -33,4 +33,9 @@ describe("Plain graph test", () => {
             ["2", ["1"]]
         ]))
     })
+    test('Edge length', () => {
+        // get nodes test
+        expect(g.get_edge_count())
+        .toStrictEqual(1);
+    })
 })

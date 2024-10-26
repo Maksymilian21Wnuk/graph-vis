@@ -11,6 +11,7 @@ const initialMessage : Message  = {msg : "", step_idx: -1};
 const initialModifyMode : boolean = true;
 const initialSelectedValue : number = NOT_SELECTED;
 const initialDirected : boolean  = false;
+const initialWeighted : boolean = false;
 
 // this is from documentation, appropriate way of storing graph data
 const useStore = create<AppState>((set, get) => ({
@@ -20,6 +21,7 @@ const useStore = create<AppState>((set, get) => ({
   modifyMode: initialModifyMode,
   selectedValue: initialSelectedValue,
   isDirected: initialDirected,
+  isWeighted: initialWeighted,
   onNodesChange: (changes) => {
     set({
       nodes: applyNodeChanges(changes, get().nodes),
@@ -52,6 +54,9 @@ const useStore = create<AppState>((set, get) => ({
   },
   setIsDirected: (isDirected) => {
     set({isDirected})
+  },
+  setIsWeighted: (isWeighted) => {
+    set({isWeighted})
   }
 }));
 

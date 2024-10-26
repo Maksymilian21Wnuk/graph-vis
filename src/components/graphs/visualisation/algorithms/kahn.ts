@@ -1,5 +1,6 @@
 import DirectedGraph from "../../../../shared/models/directed_graph/directed_graph";
 import { Steps } from "../../../../shared/types/visualisation_types";
+import { Queue } from "queue-typescript";
 
 function indegree_counter(g: DirectedGraph): Map<string, number> {
     let indegrees = new Map<string, number>();
@@ -21,7 +22,7 @@ function indegree_counter(g: DirectedGraph): Map<string, number> {
 
 export default function topological_sort(g: DirectedGraph): Steps {
     let indegrees = indegree_counter(g);
-    let queue: string[] = [];
+    let queue: Queue<string> = new Queue();
     let result: string[] = [];
 
     g.add_step({
@@ -31,7 +32,7 @@ export default function topological_sort(g: DirectedGraph): Steps {
 
     // enqueue vertices with 0 indegree
     indegrees.forEach((val, vertice) => {
-        val === 0 ? queue.push(vertice) : null
+        val === 0 ? queue.enqueue(vertice) : null
     })
 
     g.add_step({
@@ -40,29 +41,35 @@ export default function topological_sort(g: DirectedGraph): Steps {
     })
 
     while (queue.length) {
+
+        const vertice = queue.dequeue()!;
         g.add_step({
             step_idx: 4, additional_name: `Result`, additional_snd_name: `Indegrees: `,
             additional: result, additional_snd: indegrees,
-            current_node: queue[0]
+            current_node: vertice
         })
-        const vertice = queue.shift()!;
         // for visualisation's sake,
         // we dont want to display 0' nodes
         indegrees.delete(vertice);
 
+        result.push(vertice);
+        const neighbours = g.get_neighbours(vertice);
+
         g.add_step({
             step_idx: 2, additional_name: `Result`, additional_snd_name: `Indegrees: `,
             additional: result, additional_snd: indegrees,
-            current_node: vertice
+            current_node: vertice,
+            edges: neighbours,
+            source_node: vertice,
+            nodes: neighbours,
+            should_color_visited: true
         })
 
-        result.push(vertice);
-        const neighbours = g.get_neighbours(vertice);
         for (const nei of neighbours) {
             const new_val = indegrees.get(nei)! - 1;
             indegrees.set(nei, new_val);
             if (new_val === 0) {
-                queue.push(nei);
+                queue.enqueue(nei);
             }
         }
 

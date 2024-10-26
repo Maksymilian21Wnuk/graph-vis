@@ -6,7 +6,6 @@ import Footer from './components/footer/footer'
 import FundamentalConceptsPage from './components/fundamental_concepts/fundamental_concepts_page'
 
 
-
 function App() {
 
   return (

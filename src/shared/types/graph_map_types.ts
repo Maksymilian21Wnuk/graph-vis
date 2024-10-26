@@ -33,6 +33,8 @@ export type AppState = {
     setSelectedValue : (n : number) => void;
     isDirected : boolean;
     setIsDirected : (b : boolean) => void;
+    isWeighted : boolean;
+    setIsWeighted : (b : boolean) => void;
 };
 
 export type GraphState = {
@@ -40,7 +42,6 @@ export type GraphState = {
     addMode: boolean;
     first: number;
     connect: boolean;
-    weighted: boolean;
     edge_to_change : Edge;
 }
 

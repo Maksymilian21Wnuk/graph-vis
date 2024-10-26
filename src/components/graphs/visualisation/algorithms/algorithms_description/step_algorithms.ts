@@ -39,5 +39,12 @@ export const step_text: StepInterface[] = [
         `Visit adjacent nodes`,
         `Color adjacent nodes to a color different from current node`,
         `Terminate algorithm`
-    ]}
+    ]},
+    { steps: ["Initialize queue Q", 
+        "Extract node from Q", 
+        "Add unvisited neighbours to Q", 
+        "Update distances of neighbours using current vertex distance + 1", 
+        "Q is empty" ,
+        "Terminate"] },
+
 ]

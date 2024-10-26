@@ -7,8 +7,8 @@ import { AppState } from "../../../shared/types/graph_map_types";
 import { PreviousStep, Step, Steps } from "../../../shared/types/visualisation_types";
 import colorNodes from "../../utility/functions/color_nodes";
 import colorEdges from "../../utility/functions/color_edges";
-import reset_edge_color from "../../utility/functions/reset_edge_color";
-import reset_node_color from "../../utility/functions/reset_node_color";
+import reset_edge_color from "../util/reset_edge_color";
+import reset_node_color from "../util/reset_node_color";
 import ProgressButtons from "./components/progress_buttons/progress_buttons";
 import { NOT_SELECTED } from "../../../shared/constants";
 import DirectedGraph from "../../../shared/models/directed_graph/directed_graph";
@@ -129,7 +129,7 @@ export default function Visualisation() {
     return (
         <div className="">
             {selectedValue !== NOT_SELECTED ?
-                <ProgressButtons prev_step={prev_step} resetGraph={reset_graph} setModifyMode={setModifyMode} modifyMode={modifyMode} start={start} next_step={next_step} stepCount={steps.length} /> : null}
+                <ProgressButtons prev_step={prev_step} resetGraph={reset_graph} setModifyMode={setModifyMode} modifyMode={modifyMode} start={start} next_step={next_step} stepCount={steps.length - stepIdx} /> : null}
             <div className="flex flex-col items-center bg-white">
                 <h1 className="text-2xl font-bold py-4">{ selectedValue === NOT_SELECTED ? `Select algorithm...` : chosenFunction.name}</h1>
             </div>

@@ -26,10 +26,6 @@ function reducer(state: GraphState, action: GraphAction): GraphState {
             }
         }
 
-        case ActionType.CHANGE_WEIGHTED : {
-            return {...state, weighted: action.payload};
-        }
-
         case ActionType.CHANGE_EDGE : {
             return {...state, edge_to_change : action.payload }
         }
