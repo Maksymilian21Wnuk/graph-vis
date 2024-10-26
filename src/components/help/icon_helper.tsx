@@ -12,8 +12,8 @@ const helper_data : IconHelper[] = [
     {icon : faMinus, description: `Hide control panel`},
     {icon : faDice, description: `Assign random weights to graph`},
     {icon : faX, description: `Clear current graph`},
-    {icon : faShareNodes, description: `Add mode for adding nodes by clicking on panel or connecting edges 
-        by clicking two nodes`},
+    {icon : faShareNodes, description: `Add mode for adding nodes by clicking on panel, connecting edges 
+        by clicking two nodes or editing edge's weight by clicking on it`},
     {icon : faHand, description: `Drag mode for choosing or dragging nodes`},
     {icon : faTrash, description: `Remove mode for deleting nodes or edges`},
     {icon : faToiletPaperSlash, description: `Remove weights of graph`},

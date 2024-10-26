@@ -26,7 +26,7 @@ export default function AlgorithmList({ setSelectedValue, setChosenFunction, res
     }
 
     return (
-        <div className="flex flex-col items-center content-center pb-6">
+        <div className="flex flex-col items-center content-center pb-6 bg-sky-50">
             <div className="divider"></div>
             <div className="grid grid-cols-2 pb-4">
                 <h1 className="text-2xl font-bold">Algorithms</h1>

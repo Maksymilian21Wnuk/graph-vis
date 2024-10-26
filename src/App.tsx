@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import GraphVisualisationPage from './pages/graph_page'
 import HomePage from './pages/home_page'
 import Footer from './components/footer/footer'
-import FundamentalConceptsPage from './components/fundamental_concepts/fundamental_concepts_page'
+import FundamentalConceptsPage from './pages/fundamental_concepts_page'
 
 
 function App() {

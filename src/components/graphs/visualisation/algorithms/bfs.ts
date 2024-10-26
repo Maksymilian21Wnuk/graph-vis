@@ -5,9 +5,8 @@ import { Queue } from "queue-typescript";
 
 export default function bfs(g: Graph): Steps {
     let visited = new Set<string>();
-    g.add_step({ additional_name: `Queue:`, msg: ``, step_idx: 0 })
     let queue : Queue<string> = new Queue<string>(g.get_start_node());
-    g.add_step({ current_node: g.get_start_node(), additional_name: `Queue:`, additional: queue, msg: ``, step_idx: 1, additional_snd_name: `Visited:`, additional_snd: visited })
+    g.add_step({ additional_name: `Queue:`, additional: queue, msg: ``, step_idx: 0,  })
 
 
     while (queue.length > 0) {

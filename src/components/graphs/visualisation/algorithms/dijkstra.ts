@@ -20,7 +20,13 @@ export default function dijkstra(g: WeightedGraph): Steps {
             iNodes.set(node, heap.insert(Infinity, node));
         }
     }
-    g.add_step({step_idx: 1, current_node: g.get_start_node()});
+    g.add_step({step_idx: 1, current_node: g.get_start_node(), additional: distances, additional_name: "Distances"});
+
+    g.add_step({
+        nodes: g.get_neighbours(g.get_start_node())!, should_color_visited : true,
+        additional: distances, additional_name: "Distances:",
+        edges: g.get_neighbours(g.get_start_node())!, source_node: g.get_start_node(), step_idx: 2, current_node: g.get_start_node()
+    });
 
     while (!heap.isEmpty()) {
         const v: INode<number, string> = heap.extractMinimum()!;

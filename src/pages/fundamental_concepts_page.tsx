@@ -1,5 +1,4 @@
-import Concepts from "./concepts/concepts";
-
+import Concepts from "../components/fundamental_concepts/concepts"
 
 
 export default function FundamentalConceptsPage() {
@@ -10,7 +9,6 @@ export default function FundamentalConceptsPage() {
                     Essential concepts to understand graph algorithms
                 </h1>
             {/*<img src="../../public/p1.png" />*/}
-            <div className="divider"></div>
                 <Concepts />
             </div>
         </div>

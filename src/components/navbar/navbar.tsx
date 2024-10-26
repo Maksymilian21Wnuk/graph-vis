@@ -10,7 +10,7 @@ export default function Navbar() {
                 <div className="flex justify-between py-4">
                     <li>
                         <Link className="text-xl font-bold p-4" to="/">
-                            <FontAwesomeIcon icon={faShareNodes} />  {"GraphViz" + ( import.meta.env.DEV ? " DEV" : "")}
+                            <FontAwesomeIcon icon={faShareNodes} />  {"GraphVisual" + ( import.meta.env.DEV ? " DEV" : "")}
                         </Link>
                     </li>
                     <div className="flex space-x-10">

@@ -27,7 +27,14 @@ export default {
       appear: 'appear 0.5s ease-in-out',
       disappear: 'disappear 2s ease-in-out',
       redColorChange: 'redColorChange 0.5s forwards ease-in-out',
-    }
+    },
+    /*
+    colors: {
+      'main-color' : '#f1ede8',
+      'secondary-color' : '#e8f1ed',
+      'third-color' : '#ede8f1',
+      'white' : '#ffffff'
+    }*/
   },
   plugins: [
     require('daisyui'),

@@ -14,14 +14,12 @@ function sort_edges(edges : Edge[]) : Edge[] {
 }
 
 
-
 export default function kruskal(g : WeightedGraph) : Steps{
     // initialization of disjoint set O(V)
     let disjoint_set = new DisjointSetCustom(g.get_nodes());
     // array as object for type checking
     let edges : Edge[] = new Array<Edge>();
     
-    g.add_step({step_idx: 0})
     for (const node of g.get_nodes()){
         // initialization of array of edge values
         // important for sorting value array
@@ -35,9 +33,6 @@ export default function kruskal(g : WeightedGraph) : Steps{
     }
 
     // sort edges nlogn
-    g.add_step({step_idx: -1, additional_name: "Edges: ", 
-        additional: edges
-    })
     edges = sort_edges(edges);
     g.add_step({step_idx: 0, additional_name: "Sorted edges: ", additional: edges})
 
