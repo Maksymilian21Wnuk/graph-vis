@@ -1,43 +1,42 @@
+import { Queue } from "queue-typescript";
 import Graph from "../../../../shared/models/graph/graph";
 import { Steps } from "../../../../shared/types/visualisation_types";
 
 
 
 // copied from bfs
-export default function connectivity_check(g : Graph) : Steps {
-    let current_node_count = 0;
-
+export default function connectivity_check(g: Graph): Steps {
     let visited = new Set<string>();
-    g.add_step({ additional_name: `Queue:`, msg: ``, step_idx: 0 })
-    let queue: string[] = [g.get_start_node()];
-    g.add_step({ current_node : g.get_start_node(), additional_name: `Queue:`, additional: queue, msg: ``, step_idx: 1 })
+    let queue = new Queue<string>(g.get_start_node());
+    g.add_step({ additional_name: `Queue:`, step_idx: 0, additional: queue })
     // to change
 
     while (queue.length > 0) {
-        // type assertion
-        let node: string = queue.shift()!;
-        // idea: return node that is currently being visited
-        // also may return queue as msg
+        let node: string = queue.dequeue();
 
-        g.add_step({ nodes: [node], step_idx: 1, additional: queue, additional_name: `Queue`, current_node: node });
+        g.add_step({ nodes: [node], step_idx: 1, additional: queue, additional_name: `Queue:`, current_node: node, additional_snd: visited, additional_snd_name: `Visited:` });
         visited.add(node);
         let neighbours = g.get_neighbours(node);
-        g.add_step({ edges: neighbours, source_node: node, nodes: neighbours, step_idx: 2, additional: queue, additional_name: `Queue` })
         for (let neighbour of neighbours) {
             if (!visited.has(neighbour)) {
-                queue.push(neighbour);
+                queue.enqueue(neighbour);
                 visited.add(neighbour);
             }
         }
-        g.add_step({ additional: queue, additional_name: `Queue:`, step_idx: 3 });
-
-
+        g.add_step({ edges: neighbours, source_node: node, nodes: neighbours, step_idx: 2, additional: queue, additional_name: `Queue:`, additional_snd: visited, additional_snd_name: `Visited:` })
+        g.add_step({ additional: queue, additional_name: `Queue:`, step_idx: 3, additional_snd: visited, additional_snd_name: `Visited:` });
     }
-    if (current_node_count != g.get_node_count()){
-        g.add_step({msg : `Graph is not connected, achieves ${current_node_count} of ${g.get_node_count()} nodes`, step_idx : 5});
+
+    g.add_step({
+        additional_name: "Visited:", additional_snd_name: "Graph's nodes:", step_idx: 5,
+        additional: visited, additional_snd: g.get_nodes()
+    })
+    console.log(g.get_nodes())
+    if (visited.size != g.get_node_count()) {
+        g.add_step({ msg: `Graph is not connected, visited ${visited.size} of ${g.get_node_count()} nodes`, step_idx: 6 });
     }
-    else{
-        g.add_step({msg : `Graph is connected`, step_idx : 5});
+    else {
+        g.add_step({ msg: `Graph is connected`, step_idx: 6 });
     }
 
     return g.get_steps();

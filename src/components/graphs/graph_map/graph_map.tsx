@@ -155,6 +155,8 @@ export default function GraphMap() {
 
     function onPaneClick(_event: React.MouseEvent<Element, MouseEvent>): void {
         import.meta.env.DEV ? console.log(edges) : null;
+        import.meta.env.DEV ? console.log(nodes) : null;
+
         reset_graph();
         if (state.addMode) {
             let xy: XYPosition = { x: _event.clientX, y: _event.clientY };

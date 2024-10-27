@@ -23,8 +23,8 @@ export default function GraphSpawner() {
     const { setNodes, setEdges, setModifyMode, setIsDirected, setIsWeighted } = useStore(useShallow(selector));
 
     const [selectedValue, setSelectedValue] = useState(-1);
-    const [graphPresets, setGraphPresets] = useState(mocked_graphs);
-    const [graphNames, setGraphNames] = useState(mocked_names);
+    const [graphPresets] = useState(mocked_graphs);
+    const [graphNames] = useState(mocked_names);
     const reactFlow = useReactFlow();
 
     const fit_view = () => {

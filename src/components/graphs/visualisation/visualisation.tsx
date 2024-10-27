@@ -106,6 +106,7 @@ export default function Visualisation() {
         setEdges(reset_edge_color(edges));
         // gets currently clicked node in order to start algo in this node (case of node starting algo)
         const currentClicked: string = get_currently_clicked(nodes);
+        console.log(currentClicked)
         let graph = new DirectedGraph(currentClicked, nodes, edges);
 
         // requirements checking for functions

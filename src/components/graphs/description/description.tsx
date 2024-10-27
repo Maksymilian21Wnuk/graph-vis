@@ -21,7 +21,6 @@ const desc_names_dev: DescNames[] = [
 const desc_names: DescNames[] = [
     { name: "Steps" },
     { name: "Description" },
-    { name: "Code" }
 ]
 
 

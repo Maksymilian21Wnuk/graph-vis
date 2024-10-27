@@ -47,9 +47,9 @@ function AdditionalControls({ randomizeWeight, clearGraph, dispatch, noWeights, 
             <ControlButton title="Remove weights" onClick={noWeights}>
                 <FontAwesomeIcon icon={faToiletPaperSlash} />
             </ControlButton>
-            <ControlButton title="Export graph to python representation" onClick={exportGraph}>
+            {import.meta.env.DEV ? (<ControlButton title="Export graph to python representation" onClick={exportGraph}>
                 <FontAwesomeIcon icon={faFileExport} />
-            </ControlButton>
+            </ControlButton>) : null}
             <ControlButton title="Set directed graph" onClick={setIsDirected}>
                 <FontAwesomeIcon icon={faArrowRight} />
             </ControlButton>

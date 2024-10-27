@@ -10,7 +10,7 @@ export const step_text: StepInterface[] = [
     //dfs
     { steps: ["Select start node", "Move to the first unvisited node", "Terminate"] },
     // connection check
-    { steps: ["Initialize counter c=0 and queue Q", "Add start node to Q", "Extract Q", "Add unvisited to Q", "Increment counter by 1", "Repeat 2 step if Q is not empty", "Terminate"] },
+    { steps: ["Initialize queue Q", "Extract node from Q", "Add unvisited neighbours to Q", "Repeat 2 step if Q is not empty", "Q is empty", "Check size of visited set and graph's size", "Terminate"] },
     // dijkstra
     {
         steps: ["Select start node",
