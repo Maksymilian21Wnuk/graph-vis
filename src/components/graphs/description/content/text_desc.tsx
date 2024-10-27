@@ -12,7 +12,7 @@ export default function TextDesc({selectedValue} : TextDescProps) {
         return "you must write description steps text";
     }
     return (
-        <div className='animate-appear m-3'>
+        <div className='animate-appear m-3 h-72'>
             <div className="font-bold py-2">
                 Short description
             </div>

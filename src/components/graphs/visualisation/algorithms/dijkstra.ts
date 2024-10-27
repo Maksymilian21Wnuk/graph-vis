@@ -22,46 +22,51 @@ export default function dijkstra(g: WeightedGraph): Steps {
     }
     g.add_step({step_idx: 1, current_node: g.get_start_node(), additional: distances, additional_name: "Distances"});
 
-    g.add_step({
-        nodes: g.get_neighbours(g.get_start_node())!, should_color_visited : true,
-        additional: distances, additional_name: "Distances:",
-        edges: g.get_neighbours(g.get_start_node())!, source_node: g.get_start_node(), step_idx: 2, current_node: g.get_start_node()
-    });
 
     while (!heap.isEmpty()) {
         const v: INode<number, string> = heap.extractMinimum()!;
+
+        g.add_step({
+            nodes: g.get_neighbours(v.value!), should_color_visited : true,
+            additional: distances, additional_name: "Distances:",
+            edges: g.get_neighbours(v.value!), source_node: v.value!, step_idx: 2, current_node: v.value
+        });
 
         if (visited.has(v.value!)) {
             continue;
         }
 
-        g.add_step({
-            additional: distances, additional_name: "Distances:",
-            step_idx: 4, current_node: v.value!
-        });
 
         visited.add(v.value!);
         const neigbours = g.get_neighbours(v.value!);
-
-
 
         for (const neighbour of neigbours) {
             if (visited.has(neighbour)) {
                 continue;
             }
             const new_dist = distances.get(v.value!)! + g.get_weight(v.value!, neighbour)!;
-            if (new_dist < distances.get(neighbour)!) {
+            const old_dist = distances.get(neighbour)!;
+            if (new_dist < old_dist) {
                 distances.set(neighbour, new_dist);
                 heap.decreaseKey(iNodes.get(neighbour)!, new_dist);
+
+                g.add_step({
+                    nodes: [neighbour], should_color_visited: true, should_color_visited_edge: true,
+                    additional: distances, additional_name: "Distances:",
+                    edges: [neighbour], source_node: v.value!, step_idx: 3, current_node: v.value!,
+                    additional_snd_name: `Updating ${neighbour} :`,
+                    // example of explicitly parsing additionals
+                    additional_snd_parsed: [{id: `Old:`, value: `${old_dist === Infinity ? "∞" : old_dist}`}, {id: `New: `, value: `${new_dist}`}]
+                });
             }
         }
 
-        g.add_step({
-            nodes: neigbours, should_color_visited: true,
-            additional: distances, additional_name: "Distances:",
-            edges: g.get_neighbours(v.value!)!, source_node: v.value!, step_idx: 3, current_node: v.value!
-        });
 
+        g.add_step({
+            additional: distances, additional_name: "Distances:",
+            step_idx: 4, current_node: heap.findMinimum()?.value!,
+            additional_snd: visited, additional_snd_name: `Visited: `
+        });
 
 
     }

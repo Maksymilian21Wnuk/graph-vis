@@ -60,12 +60,12 @@ export default function tree_path_find(g: TreeGraph): Steps {
 
     }
     g.add_step({
-        step_idx: 4, additional: queue,
-        additional_name: `Queue:`, additional_snd_name: `Visited:`, additional_snd: visited
+        step_idx: 4, additional: distances,
+        additional_name: `Distances: `
     })
     g.add_step({
-        step_idx: 5, additional: queue,
-        additional_name: `Queue:`, additional_snd_name: `Visited:`, additional_snd: visited
+        step_idx: 5, additional: distances,
+        additional_name: `Distances: `
     });
     return g.get_steps();
 }

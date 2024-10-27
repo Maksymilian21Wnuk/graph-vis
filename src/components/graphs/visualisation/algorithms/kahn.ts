@@ -41,12 +41,12 @@ export default function topological_sort(g: DirectedGraph): Steps {
     })
 
     while (queue.length) {
-        g.add_step({
-            step_idx: 4, additional_name: `Queue`, additional_snd_name: `Indegrees: `,
-            additional: queue, additional_snd: indegrees,
-            current_node: queue.front
-        })
         const vertice = queue.dequeue()!;
+        g.add_step({
+            step_idx: 2, additional_name: `Queue`, additional_snd_name: `Result: `,
+            additional: queue, additional_snd: result,
+            current_node: vertice
+        })
 
         // for visualisation's sake,
         // we dont want to display 0' nodes
@@ -56,7 +56,7 @@ export default function topological_sort(g: DirectedGraph): Steps {
         const neighbours = g.get_neighbours(vertice);
 
         g.add_step({
-            step_idx: 2, additional_name: `Queue`, additional_snd_name: `Indegrees: `,
+            step_idx: 3, additional_name: `Queue`, additional_snd_name: `Indegrees: `,
             additional: queue, additional_snd: indegrees,
             current_node: vertice,
             edges: neighbours,
@@ -74,16 +74,16 @@ export default function topological_sort(g: DirectedGraph): Steps {
         }
 
         g.add_step({
-            step_idx: 3, additional_name: `Result`, additional_snd_name: `Indegrees: `,
-            additional: result, additional_snd: indegrees,
+            step_idx: 3, additional_name: `Queue`, additional_snd_name: `Indegrees: `,
+            additional: queue, additional_snd: indegrees,
             edge_removal: true, source_node: vertice, edges: neighbours
         })
 
     }
 
     g.add_step({
-        step_idx: 5, additional_name: `Result`, additional_snd_name: `Indegrees: `,
-        additional: result, additional_snd: indegrees
+        step_idx: 4, additional_name: `Result`,
+        additional: result
     })
 
 

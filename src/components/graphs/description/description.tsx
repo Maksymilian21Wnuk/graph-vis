@@ -40,7 +40,7 @@ export default function Description() {
                         <div className='flex-row'>
                             <Dropdown selectedValue={desc} obj={import.meta.env.DEV ? desc_names_dev : desc_names} handleChange={onChange} />
                         </div>
-                        <div>
+                        <div className=''>
                             <Content desc={desc} selectedValue={algo_selected} />
                         </div>
                     </div>) : null}

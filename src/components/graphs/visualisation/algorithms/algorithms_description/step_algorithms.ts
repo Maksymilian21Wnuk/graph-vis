@@ -15,7 +15,7 @@ export const step_text: StepInterface[] = [
     {
         steps: ["Select start node",
             "Set distances to all nodes to ∞",
-            "Find distances to neighbours", 
+            "Check distances to neighbours", 
             "If one of distances is shorter, update distances", 
             "Pick shortest path unvisited neighbour and repeat from 3", 
             "Every visited, terminate"]
@@ -30,8 +30,7 @@ export const step_text: StepInterface[] = [
     { steps: ["Initialize indegree values for vertices", 
         "Add to queue vertices with indegree == 0", 
         "Extract from queue vertice and add to result",
-        "Decrement from neighbours their value",
-        "Choose next vertice with indegree == 0",
+        "Decrement from neighbours their value, if value is 0 add to queue",
         "Queue empty, terminate algorithm"]},
     { steps: [
         `Select start node and color it to blue`,

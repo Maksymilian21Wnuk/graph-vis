@@ -8,7 +8,6 @@ export interface ConceptData {
 export const data: ConceptData[] = [
     {
         title: "Graph",
-
         desc: "Data structure, in which points are connected by edges."
     },
     {
@@ -37,15 +36,19 @@ export const data: ConceptData[] = [
     },
     {
         title: "Connected graph",
-        desc: "Graph where each pair of nodes is connected by edge."
+        desc: "Graph where each pair of nodes is connected by edge. There exists a path between every node."
+    },
+    {
+        title: `Disconnected graph`,
+        desc: `Graph where exists a pair of nodes without a path.`
     },
     {
         title: "Minimum spanning tree",
         desc: "Edges that form tree from weighted graph, in which the weights are smallest."
     },
     {
-        title: "Disjoint set",
-        desc: "Data structure used in finding if vertices form cycle"
+        title: "Disjoint-set or Union-find",
+        desc: "Data structure used in finding, if vertices form cycle."
     },
     {
         title: "Queue",
@@ -62,5 +65,23 @@ export const data: ConceptData[] = [
     {
         title: "Bipartite graph",
         desc: `Graph whose vertices can be divided into two groups, such that 
-    no edge exists between two vertices in same set`}
+    no edge exists between two vertices in same set`},
+    {
+        title: "Topological sorting",
+        desc: `Directed graph sorting, that orders vertices such that 
+        if there is connection from u to v, u comes first in ordering.
+        For example, such sorting is used in solving dependencies of software,
+        where installing program is dependant on another program.`
+    },
+    {
+        title: `Fibonacci heap`,
+        desc: `Data structure implementing priority queue operations.
+        Used in Dijkstra's algorithm for constant time decrease key operation,
+        when new distance is shorter than previous one.`
+    },
+    {
+        title: `Decrease key operation`,
+        desc: `Operation on priority queue that decreases value of given key,
+        without changing correct order of priority queue.`
+    }
 ]

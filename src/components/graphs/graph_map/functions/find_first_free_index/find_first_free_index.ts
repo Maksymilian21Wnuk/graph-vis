@@ -6,7 +6,7 @@ first free label of node
 available, that is for nodes on map: 1,2, 4,5 should
 return 3
 */
-export function find_first_free_index(idx_arr: number[]): string {
+function find_first_free_index(idx_arr: number[]): string {
     if (idx_arr.length == 0) {
         return "1";
     }

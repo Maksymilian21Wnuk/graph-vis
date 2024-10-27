@@ -13,7 +13,7 @@ import { AppState, GraphState } from "../../../shared/types/graph_map_types";
 import { useShallow } from "zustand/shallow";
 import { Weight } from "../../../shared/enumerations/enums";
 import { ARROW_SVG_ID, NODE_MAX, NO_ARROW, nodeDefaultStyle } from "../../../shared/constants";
-import find_first_free from "./functions/find_first_free_index";
+import find_first_free from "./functions/find_first_free_index/find_first_free_index";
 import getRandomInt from "../../utility/functions/random_int";
 import CustomControls from "./custom_controls/custom_controls";
 import CustomMarker from "./components/custom_edge/marker";
@@ -23,6 +23,7 @@ import { ActionType } from "../../../shared/enumerations/enums";
 import Additionals from "./components/additionals/additionals";
 import reset_edge_color from "../util/reset_edge_color";
 import reset_node_color from "../util/reset_node_color";
+import make_edge_directed from "./functions/make_edge_directed";
 
 const selector = (state: AppState) => ({
     nodes: state.nodes,
@@ -138,7 +139,7 @@ export default function GraphMap() {
     }
 
     function onEdgeClick(_event: React.MouseEvent<Element, MouseEvent>, edge: Edge): void {
-        setModifyMode(true);
+        reset_graph();
         if (state.removeMode) {
             setEdges(edges.filter((e: Edge) => e.id !== edge.id))
         }
@@ -211,7 +212,7 @@ export default function GraphMap() {
         }
         // give arrows to edges
         else {
-            setEdges(reset_edge_color(edges.map((e: Edge) => { return { ...e, markerEnd: ARROW_SVG_ID } })));
+            setEdges(reset_edge_color(edges.map((e: Edge) => make_edge_directed(e))));
             setIsDirected(true);
         }
     }

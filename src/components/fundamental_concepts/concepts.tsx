@@ -17,7 +17,7 @@ export default function Concepts() {
                 {data.map((d: ConceptData, i: number = 0) =>
                     d.title.toLocaleLowerCase().includes(filterVal) ? 
                     (<li className="list-none" key={i++}>
-                        <div className="h-72 border-4 rounded-md m-2 p-2 bg-gray-50 hover:bg-gray-100">
+                        <div className="border-4 rounded-md m-2 p-2 bg-gray-50 hover:bg-gray-100">
                             <div className="font-semibold">
                                 {d.title}
                             </div>
