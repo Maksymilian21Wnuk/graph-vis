@@ -61,6 +61,9 @@ export default function GraphMap() {
     // looks weird, maybe to change
     function onNodeClick(_event: React.MouseEvent<Element, MouseEvent>, node: Node) {
         reset_graph();
+        
+        import.meta.env.DEV ? console.log(nodes) : null;
+
         if (state.removeMode) {
             // add removed to min heap
             // decrement state of node count
@@ -182,8 +185,10 @@ export default function GraphMap() {
 
     const reset_graph = () => {
         setModifyMode(true);
-        setEdges(reset_edge_color(edges));
-        setNodes(reset_node_color(nodes));
+        if (!modifyMode){
+            setEdges(reset_edge_color(edges));
+            setNodes(reset_node_color(nodes));
+        }
     }
 
     const no_weights = () => {
