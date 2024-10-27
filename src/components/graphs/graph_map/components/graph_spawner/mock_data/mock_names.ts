@@ -1,6 +1,6 @@
 import { GraphName } from "../../../../../../shared/types/graph_map_types"
 
-export const mockNames: GraphName[] = [
+export const mocked_names: GraphName[] = [
     {name : "Starting graph", description: "Graph that starts on first app run"},
     {name: "Basic tree", description: "A basic tree with 3 nodes"},
     {name: "Star", description: "A star graph with 4 nodes"},

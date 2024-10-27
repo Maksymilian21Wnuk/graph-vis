@@ -13,11 +13,11 @@ export default function Concepts() {
         <>
             <input onChange={handleFilterChange} placeholder="search" className="input border border-black"></input>
             <div className="divider"></div>
-            <div className="grid grid-cols-4 text-xl">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 text-xl">
                 {data.map((d: ConceptData, i: number = 0) =>
                     d.title.toLocaleLowerCase().includes(filterVal) ? 
                     (<li className="list-none" key={i++}>
-                        <div className="h-72 border-4 rounded-md border-sky-300 m-2 p-2 bg-blue-50 hover:bg-sky-100">
+                        <div className="h-72 border-4 rounded-md m-2 p-2 bg-gray-50 hover:bg-gray-100">
                             <div className="font-semibold">
                                 {d.title}
                             </div>

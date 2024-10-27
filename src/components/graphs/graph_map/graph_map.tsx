@@ -47,7 +47,6 @@ export default function GraphMap() {
 
     const reactFlow = useReactFlow();
 
-    // todo: make addMode by default so that removal is only chosen by clicking
     const initialState: GraphState = {
         removeMode: false,
         addMode: false,
@@ -61,12 +60,12 @@ export default function GraphMap() {
 
     // looks weird, maybe to change
     function onNodeClick(_event: React.MouseEvent<Element, MouseEvent>, node: Node) {
-        setModifyMode(true);
+        reset_graph();
         if (state.removeMode) {
             // add removed to min heap
             // decrement state of node count
-            setNodes(nodes.filter((n: Node) => n.id !== node.id));
-            setEdges(edges.filter((e: Edge) => e.source !== node.id && e.target !== node.id));
+            setNodes(reset_node_color(nodes.filter((n: Node) => n.id !== node.id)));
+            setEdges(reset_edge_color(edges.filter((e: Edge) => e.source !== node.id && e.target !== node.id)));
         }
         else if (state.addMode) {
             if (state.connect) {
@@ -85,14 +84,13 @@ export default function GraphMap() {
                     const new_label: string = isWeighted ? String(getRandomInt(NODE_MAX)) : Weight.UNWEIGHTED;
                     
                     if (edges.some((e : Edge) => e.id === prevent_two_arrows_id)){
-                        console.log("two");
-                        setEdges([...edges.filter((e : Edge) => e.id !== prevent_two_arrows_id), {
+                        setEdges([...reset_edge_color(edges.filter((e : Edge) => e.id !== prevent_two_arrows_id)), {
                             id: id, source: first, target: scnd, type: 'straight', label: new_label,
                             style: { stroke: "black" }, markerEnd: ARROW_SVG_ID
                         }]);
                     }
                     else{
-                        setEdges([...edges, {
+                        setEdges([...reset_edge_color(edges), {
                             id: id, source: first, target: scnd, type: 'straight', label: new_label,
                             style: { stroke: "black" }, markerEnd: ARROW_SVG_ID
                         }]);
@@ -123,7 +121,7 @@ export default function GraphMap() {
 
                     const new_label: string = isWeighted ? String(getRandomInt(NODE_MAX)) : Weight.UNWEIGHTED;
 
-                    setEdges([...edges, {
+                    setEdges([...reset_edge_color(edges), {
                         id: id, source: String(first), target: String(scnd), type: 'straight', label: new_label,
                         style: { stroke: "black" }, markerEnd: NO_ARROW
                     }]);
@@ -157,16 +155,13 @@ export default function GraphMap() {
 
     function onPaneClick(_event: React.MouseEvent<Element, MouseEvent>): void {
         import.meta.env.DEV ? console.log(edges) : null;
-        console.log(nodes);
-        setModifyMode(true);
-        setEdges(reset_edge_color(edges));
-        setNodes(reset_node_color(nodes));
+        reset_graph();
         if (state.addMode) {
             let xy: XYPosition = { x: _event.clientX, y: _event.clientY };
             xy = reactFlow.screenToFlowPosition(xy);
             const first_free: string = find_first_free(nodes);
             const new_node = { id: first_free, position: { x: xy.x - 25, y: xy.y - 25 }, data: { label: first_free }, ...nodeDefaultStyle };
-            setNodes([...nodes, new_node]);
+            setNodes([...reset_node_color(nodes), new_node]);
         }
     }
 
@@ -183,6 +178,12 @@ export default function GraphMap() {
         setModifyMode(true);
     }
 
+    const reset_graph = () => {
+        setModifyMode(true);
+        setEdges(reset_edge_color(edges));
+        setNodes(reset_node_color(nodes));
+    }
+
     const no_weights = () => {
         setModifyMode(true);
         setEdges(edges.map((e: Edge) => { return { ...e, label: Weight.UNWEIGHTED } }));
@@ -195,15 +196,15 @@ export default function GraphMap() {
     }
 
     const set_directed = () => {
-        setModifyMode(true);
+        reset_graph()
         if (isDirected) {
             // remove arrows holding invariant
-            setEdges(convert_to_undirected(edges));
+            setEdges(convert_to_undirected(reset_edge_color(edges)));
             setIsDirected(false);
         }
         // give arrows to edges
         else {
-            setEdges(edges.map((e: Edge) => { return { ...e, markerEnd: ARROW_SVG_ID } }));
+            setEdges(reset_edge_color(edges.map((e: Edge) => { return { ...e, markerEnd: ARROW_SVG_ID } })));
             setIsDirected(true);
         }
     }

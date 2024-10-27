@@ -43,7 +43,7 @@ export const step_text: StepInterface[] = [
     { steps: ["Initialize queue Q", 
         "Extract node from Q", 
         "Add unvisited neighbours to Q", 
-        "Update distances of neighbours using current vertex distance + 1", 
+        "Update distances of neighbours using current vertex distance + neighbour's edge weight", 
         "Q is empty" ,
         "Terminate"] },
 

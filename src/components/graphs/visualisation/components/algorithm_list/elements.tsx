@@ -14,7 +14,7 @@ export default function Elements({ onClick, algos, filterVal }: ElementsProps) {
             {algos.map((a: Algorithm, idx: number = 0) => {
                 if (a.name.toLocaleLowerCase().includes(filterVal)) {
                     return (
-                        <li key={idx} onClick={() => onClick(idx)} className="grid grid-cols-3 gap-x-10 cursor-pointer hover:bg-sky-200 rounded-xl border-2 mb-2 bg-sky-100">
+                        <li key={idx} onClick={() => onClick(idx)} className="grid grid-cols-3 gap-x-10 cursor-pointer rounded-xl border-2 mb-2 bg-white hover:bg-gray-100">
                             <div className="font-bold border-r-2 p-5">
                                 {a.name}
                             </div>

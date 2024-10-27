@@ -1,9 +1,4 @@
-import { Node, Edge } from "@xyflow/react";
-
-interface Graph {
-    nodes: Node[];
-    edges: Edge[];
-}
+import { Graph } from "../../../../../../shared/types/graph_map_types";
 
 
 export const mocked_graphs: Graph[] = [
