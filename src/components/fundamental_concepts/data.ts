@@ -1,5 +1,3 @@
-
-
 export interface ConceptData {
     title: string;
     desc: string;
@@ -52,7 +50,7 @@ export const data: ConceptData[] = [
     },
     {
         title: "Queue",
-        desc: "Data structure in which oldest element is removed first"
+        desc: "Data structure in which oldest element is removed first. Perfect example of queue usage in algorithm is breadth first search."
     },
     {
         title: "Stack",
@@ -83,5 +81,23 @@ export const data: ConceptData[] = [
         title: `Decrease key operation`,
         desc: `Operation on priority queue that decreases value of given key,
         without changing correct order of priority queue.`
-    }
+    },
+
+   {
+        title: `Concept`,
+        desc: `Concept test` 
+   },
+
+   {
+        title: `concept`,
+        desc: `test` 
+   },
+   {
+        title: `asdf`,
+        desc: `asdf`
+   },
+   {
+        title: `asdf`,
+        desc: `asdf`
+   },
 ]

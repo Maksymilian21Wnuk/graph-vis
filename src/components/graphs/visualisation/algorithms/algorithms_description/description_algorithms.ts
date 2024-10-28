@@ -17,10 +17,9 @@ export const description_text: DescriptionTextInterface[] = [
         space: `O(V)`,
     },
     {
-        text: `Here will be some description about
-    graph algorithm number 0 that is bfs
-    bla bla bla bla sdfadfs fasdfas
-    lorem ipsum.
+        text: `Select starting node, add it to stack and visited nodes.
+        Next step of algorithms pops node from stack and adds to stack unvisited neighbours, as
+        long as stack is not empty.
     `,
         time: `O(V+E)`,
         space: `O(V)`
@@ -61,7 +60,10 @@ export const description_text: DescriptionTextInterface[] = [
         space: `O(V)`
     },
     {
-        text: `Bipartite`,
+        text: `In bipartite check, we select starting node and color it 0.
+        Upon visiting neighbours, we color them to different color from current node.
+        If any of visited neighbours has the same color, graph is not bipartite. Else
+        we run algorithm until whole graph is colored.`,
         time: `O(V+E)`,
         space: `O(V)`
     },
@@ -76,5 +78,5 @@ export const description_text: DescriptionTextInterface[] = [
     weight and current node's distance`,
         time: `O(V+E)`,
         space: `O(V)`
-    }
+    },
 ]
