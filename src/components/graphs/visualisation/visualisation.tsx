@@ -1,7 +1,7 @@
 import { useShallow } from "zustand/shallow";
 import useStore from "../store/store";
 import { useState } from "react";
-import { algos } from "./algorithms/algorithms_aggreg";
+import { algos } from "../../../algorithms/algorithms_aggreg";
 import get_currently_clicked from "../../utility/functions/get_currently_clicked";
 import { AppState } from "../../../shared/types/graph_map_types";
 import { PreviousStep, Step, Steps } from "../../../shared/types/visualisation_types";

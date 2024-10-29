@@ -1,6 +1,6 @@
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { code_text } from "../../visualisation/algorithms/algorithms_description/code_algorithms";
+import { code_text } from "../../../../algorithms/algorithms_description/code_algorithms";
 
 interface CodeDescProps {
     selectedValue: number;

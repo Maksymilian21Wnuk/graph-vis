@@ -1,6 +1,6 @@
 import { ARROW_SVG_ID } from "../../constants";
 import { Edge, Node } from "@xyflow/react";
-import { TreeGraph } from "../tree_graph/tree_graph";
+import TreeGraph from "../tree_graph/tree_graph";
 
 
 export default class DirectedGraph extends TreeGraph {

@@ -1,9 +1,13 @@
 
-ALGO_PATH = "../src/components/graphs/visualisation/algorithms/"
-ALGORITHMS_AGGREG_PATH = "../src/components/graphs/visualisation/algorithms/algorithms_aggreg.ts"
+ALGO_PATH = "../src/algorithms/"
+ALGORITHMS_AGGREG_PATH = "../src/algorithms/algorithms_aggreg.ts"
 
+GRAPH = {"path" : "/graph/grah", "type" : "Graph"}
+WEIGHTED = {"path" : "/weighted_graph/weighted_graph", "type": "WeightedGraph"}
+DIRECTED = {"path" : "/directed_graph/directed_graph", "type": "DirectedGraph"}
+TREE = {"path" : "/tree_graph/tree_graph", "type": "TreeGraph"}
 
-def parse_algorithm(foo_name, **kwargs) :
+def parse_algorithm(foo_name, undirected, weights, directed, tree) :
     
     NEW_ALGO_PATH = ALGO_PATH + foo_name + ".ts"
 
@@ -15,10 +19,19 @@ def parse_algorithm(foo_name, **kwargs) :
     with open(ALGORITHMS_AGGREG_PATH, "w") as new:
         new.write(new_str + old_data)
     
+    if (tree):
+        chosen = TREE
+    elif(directed):
+        chosen = DIRECTED
+    elif(weights):
+        chosen = WEIGHTED
+    else:
+        chosen = GRAPH
     
+    assert(chosen != None)
     
     with open(NEW_ALGO_PATH, "a") as new_algo :
-        new_algo.write("import Graph from \"../../../../shared/models/graph/graph\";\n")
-        new_algo.write("import { Steps } from \"../../../../shared/types/visualisation_types\";\n")
-        new_algo.write("export default function {}(g : Graph): Steps{}\n\n\n\n".format(foo_name, "{"))
+        new_algo.write("import {} from \"../shared/models{}\";\n".format(chosen["type"], chosen["path"]))
+        new_algo.write("import { Steps } from \"../shared/types/visualisation_types\";\n\n\n")
+        new_algo.write("export default function {}(g : {}): Steps{}\n\n".format(foo_name, chosen["type"] ,"{"))
         new_algo.write("\n    return g.get_steps();\n}")

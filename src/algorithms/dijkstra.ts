@@ -1,6 +1,6 @@
-import { Steps } from "../../../../shared/types/visualisation_types";
+import { Steps } from "../shared/types/visualisation_types";
 import { FibonacciHeap, INode } from "@tyriar/fibonacci-heap";
-import WeightedGraph from "../../../../shared/models/weighted_graph/weighted_graph";
+import WeightedGraph from "../shared/models/weighted_graph/weighted_graph";
 
 export default function dijkstra(g: WeightedGraph): Steps {
     let visited = new Set<string>();

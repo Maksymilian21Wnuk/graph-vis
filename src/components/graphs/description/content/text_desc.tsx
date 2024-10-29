@@ -1,4 +1,4 @@
-import { description_text } from "../../visualisation/algorithms/algorithms_description/description_algorithms";
+import { description_text } from '../../../../algorithms/algorithms_description/description_algorithms';
 import 'katex/dist/katex.min.css';
 import Latex from "react-latex-next";
 interface TextDescProps {

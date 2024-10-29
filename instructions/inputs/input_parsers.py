@@ -1,5 +1,4 @@
-from input_wrapper import input_wrapper
-
+from inputs.input_wrapper import input_wrapper
 
 
 def get_bool(text) :

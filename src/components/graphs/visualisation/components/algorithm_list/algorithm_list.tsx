@@ -1,4 +1,4 @@
-import { algos } from "../../algorithms/algorithms_aggreg";
+import { algos } from "../../../../../algorithms/algorithms_aggreg";
 import { Algorithm } from "../../../../../shared/types/visualisation_types";
 import { useState } from "react";
 import Elements from "./elements";

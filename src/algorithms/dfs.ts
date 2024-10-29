@@ -1,5 +1,5 @@
-import Graph from "../../../../shared/models/graph/graph";
-import { Steps } from "../../../../shared/types/visualisation_types";
+import Graph from "../shared/models/graph/graph";
+import { Steps } from "../shared/types/visualisation_types";
 
 
 export default function dfs(g: Graph): Steps {

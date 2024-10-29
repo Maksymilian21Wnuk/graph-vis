@@ -1,5 +1,5 @@
-import DirectedGraph from "../../../../shared/models/directed_graph/directed_graph";
-import { Steps } from "../../../../shared/types/visualisation_types";
+import DirectedGraph from "../shared/models/directed_graph/directed_graph";
+import { Steps } from "../shared/types/visualisation_types";
 import { Queue } from "queue-typescript";
 
 function indegree_counter(g: DirectedGraph): Map<string, number> {

@@ -1,7 +1,7 @@
 import { useShallow } from "zustand/shallow";
 import { AppState } from "../../../../shared/types/graph_map_types";
 import useStore from "../../store/store";
-import { step_text } from "../../visualisation/algorithms/algorithms_description/step_algorithms";
+import { step_text } from "../../../../algorithms/algorithms_description/step_algorithms";
 
 interface StepDescProps {
     selectedValue : number;
