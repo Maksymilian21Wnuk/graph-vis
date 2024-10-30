@@ -9,6 +9,8 @@ import useStore from "../../../store/store";
 import { useShallow } from "zustand/shallow";
 import check_weighted from "../../functions/check_weighted";
 import check_undirected from "../../functions/check_directed";
+import Button from "../../../../utility/atoms/button/button";
+import SpawnerModal from "./spawner_modal/spawner_modal";
 
 
 const selector = (state: AppState) => ({
@@ -53,10 +55,15 @@ export default function GraphSpawner() {
         setModifyMode(true);
     }
 
+    const onClick = () => {
+        (document.getElementById('spawner_modal') as HTMLDialogElement).showModal();
+    }
+
     return (
         <div className="flex flex-col px-5 py-2 justify-center items-center col">
             <div>
-                <Dropdown selectedValue={selectedValue} handleChange={onChange} obj={graphNames} />
+                <Button onClick={onClick} text="Graphs" style="w-72" />
+                <SpawnerModal graph_names={graphNames} />
             </div>
             <div className="flex flex-col">
                 <RandomSpawner selectedValue={selectedValue} />

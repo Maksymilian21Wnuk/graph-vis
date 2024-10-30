@@ -67,5 +67,4 @@ export type GraphButtonsProps = {
 
 export type GraphName = {
     name: string;
-    description: string;
 }
