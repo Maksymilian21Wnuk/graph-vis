@@ -1,16 +1,27 @@
+import { useState } from "react";
 import { GraphName } from "../../../../../../shared/types/graph_map_types"
 
 
 interface SpawnerModalInterface {
     graph_names: GraphName[];
-    setIdx: (idx : number) => void;
+    onClose: (idx : number) => void;
+    setShowRandom: (b : boolean) => void;
 }
 
 
-export default function SpawnerModal({ graph_names, setIdx }: SpawnerModalInterface) {
+export default function SpawnerModal({ graph_names, onClose, setShowRandom }: SpawnerModalInterface) {
 
-    const onClick = (event : any) => {
-        setIdx(event);
+    const [localIdx, setLocalIdx] = useState(0);
+
+
+    const onClick = () => {
+        if (localIdx === -1) {
+            setShowRandom(true);
+        }
+        else{
+            onClose(localIdx);
+            setShowRandom(false);
+        }
     }
 
     return (
@@ -21,15 +32,16 @@ export default function SpawnerModal({ graph_names, setIdx }: SpawnerModalInterf
                         Choose graph to spawn
                     </h1>
                     <ul className="">
-                        {graph_names.map((n: GraphName, idx : number = 0) =>
-                            <li onClick={onClick} className="py-1 hover:bg-gray-200">
+                        {graph_names.map((n: GraphName, idx : number = -1) =>
+                            <li onClick={() => setLocalIdx(idx++)} className="py-1 border-2 hover:bg-gray-200 cursor-pointer">
+                                {n.name}
                             </li>
                         )}
                     </ul>
                 </div>
                 <div className="modal-action">
                     <form method="dialog">
-                        <button className="btn">Spawn</button>
+                        <button onClick={onClick} className="btn">Spawn</button>
                     </form>
                 </div>
             </div>

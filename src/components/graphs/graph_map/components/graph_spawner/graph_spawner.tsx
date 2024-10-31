@@ -4,7 +4,6 @@ import { mocked_graphs } from "./mock_data/mock_graph";
 import { mocked_names } from "./mock_data/mock_names";
 import { useReactFlow } from "@xyflow/react";
 import RandomSpawner from "./random_spawner/random_spawner";
-import Dropdown from "../../../../utility/atoms/dropdown/dropdown";
 import useStore from "../../../store/store";
 import { useShallow } from "zustand/shallow";
 import check_weighted from "../../functions/check_weighted";
@@ -24,18 +23,17 @@ const selector = (state: AppState) => ({
 export default function GraphSpawner() {
     const { setNodes, setEdges, setModifyMode, setIsDirected, setIsWeighted } = useStore(useShallow(selector));
 
-    const [selectedValue, setSelectedValue] = useState(-1);
     const [graphPresets] = useState(mocked_graphs);
     const [graphNames] = useState(mocked_names);
+    const [showRandom, setShowRandom] = useState(false);
     const reactFlow = useReactFlow();
 
     const fit_view = () => {
         reactFlow.fitView();
     }    
 
-    const onChange = (event: any) => {
-        const chosen = graphPresets[event.target.value];
-        setSelectedValue(event.target.value)
+    const changeGraph = (idx : number) : void => {
+        const chosen = graphPresets[idx];
         setEdges(chosen.edges);
         setNodes(chosen.nodes);
         if (check_weighted(chosen.edges)){
@@ -63,10 +61,10 @@ export default function GraphSpawner() {
         <div className="flex flex-col px-5 py-2 justify-center items-center col">
             <div>
                 <Button onClick={onClick} text="Graphs" style="w-72" />
-                <SpawnerModal graph_names={graphNames} />
+                <SpawnerModal setShowRandom={setShowRandom} onClose={changeGraph} graph_names={graphNames} />
             </div>
             <div className="flex flex-col">
-                <RandomSpawner selectedValue={selectedValue} />
+                {showRandom ? <RandomSpawner /> : null}
             </div>
         </div>
     );

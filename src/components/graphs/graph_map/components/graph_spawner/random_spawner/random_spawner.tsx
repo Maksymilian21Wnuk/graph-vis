@@ -9,12 +9,6 @@ import { useShallow } from "zustand/shallow";
 import { useReactFlow } from "@xyflow/react";
 
 
-
-interface RandomSpawnerProps {
-    selectedValue: number;
-}
-
-const RANDOM_GRAPH_NUM = 5;
 const MAX_LIMIT = 20;
 
 const selector = (state: AppState) => ({
@@ -23,8 +17,8 @@ const selector = (state: AppState) => ({
 });
 
 
-export default function RandomSpawner({ selectedValue }: RandomSpawnerProps) {
-    const {setNodes, setEdges} = useStore(useShallow(selector));
+export default function RandomSpawner() {
+    const { setNodes, setEdges } = useStore(useShallow(selector));
     const [sliderValue, setSliderValue] = useState<string | number>(0.5);
     const [nodeCount, setNodeCount] = useState<string | number>(10);
     const reactFlow = useReactFlow();
@@ -34,8 +28,8 @@ export default function RandomSpawner({ selectedValue }: RandomSpawnerProps) {
     }
 
     const submitSpawn = (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-        if (typeof(sliderValue) === "number" && typeof(nodeCount) === "number" && nodeCount < MAX_LIMIT){
-            const {edges, nodes} = randomizer(sliderValue, nodeCount);
+        if (typeof (sliderValue) === "number" && typeof (nodeCount) === "number" && nodeCount < MAX_LIMIT) {
+            const { edges, nodes } = randomizer(sliderValue, nodeCount);
             setNodes(nodes);
             setEdges(edges);
             setTimeout(() => reactFlow.fitView());
@@ -43,7 +37,7 @@ export default function RandomSpawner({ selectedValue }: RandomSpawnerProps) {
         else if (nodeCount as number >= MAX_LIMIT) {
             alert("Too many nodes");
         }
-        else{
+        else {
             alert("Error");
         }
     }
@@ -66,18 +60,15 @@ export default function RandomSpawner({ selectedValue }: RandomSpawnerProps) {
 
     // if user selected random option, give him form for 
     // generating random graph
-    if (selectedValue == RANDOM_GRAPH_NUM) {
-        return (
-            <>
-                Edge probability:
-                <Slider max="1" min={0} step="0.01" onChange={onChange} sliderValue={sliderValue}/>
-                <Input id={"nodeInput"} top_left_text="Node Count" input_change={input_change} input_value={nodeCount} />
-                <Button onClick={submitSpawn} text="Spawn"/>
-            </>
-        )
-    }
-    else {
-        return null;
-    }
+
+    return (
+        <>
+            Edge probability:
+            <Slider max="1" min={0} step="0.01" onChange={onChange} sliderValue={sliderValue} />
+            <Input id={"nodeInput"} top_left_text="Node Count" input_change={input_change} input_value={nodeCount} />
+            <Button onClick={submitSpawn} text="Spawn" />
+        </>
+    )
+
 
 }
