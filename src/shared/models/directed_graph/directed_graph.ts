@@ -1,14 +1,14 @@
 import { ARROW_SVG_ID } from "../../constants";
 import { Edge, Node } from "@xyflow/react";
-import TreeGraph from "../tree_graph/tree_graph";
+import WeightedGraph from "../weighted_graph/weighted_graph";
 
 
-export default class DirectedGraph extends TreeGraph {
+export default class DirectedGraph extends WeightedGraph {
 
     constructor(start_node_id?: string, nodes?: Node[], edges?: Edge[]) {
         super(start_node_id, nodes, edges);
         this.is_directed = edges?.every((e : Edge) => e.markerEnd === ARROW_SVG_ID)!;
-
+        console.log("directed")
         // if fulfils the requirements of being directed
         // remove previously created neigbours and create new 
         // neighbour representation 

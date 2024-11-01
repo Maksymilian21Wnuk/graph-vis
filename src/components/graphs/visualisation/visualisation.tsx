@@ -4,17 +4,18 @@ import { useState } from "react";
 import { algos } from "../../../algorithms/algorithms_aggreg";
 import get_currently_clicked from "../../utility/functions/get_currently_clicked";
 import { AppState } from "../../../shared/types/graph_map_types";
-import { PreviousStep, Step, Steps } from "../../../shared/types/visualisation_types";
+import { GraphAbstract, Guard, PreviousStep, Step, Steps } from "../../../shared/types/visualisation_types";
 import colorNodes from "../../utility/functions/color_nodes";
 import colorEdges from "../../utility/functions/color_edges";
 import reset_edge_color from "../util/reset_edge_color";
 import reset_node_color from "../util/reset_node_color";
 import ProgressButtons from "./components/progress_buttons/progress_buttons";
 import { NOT_SELECTED } from "../../../shared/constants";
-import DirectedGraph from "../../../shared/models/directed_graph/directed_graph";
 import requirements_guard from "./util/requirements_guard";
 import { Algorithm } from "../../../shared/types/visualisation_types";
 import AlgorithmList from "./components/algorithm_list/algorithm_list";
+import graph_director from "./util/graph_director";
+import steps_director from "./util/steps_director";
 //import { Node, Edge } from "@xyflow/react";
 
 const selector = (state: AppState) => ({
@@ -106,15 +107,16 @@ export default function Visualisation() {
         setEdges(reset_edge_color(edges));
         // gets currently clicked node in order to start algo in this node (case of node starting algo)
         const currentClicked: string = get_currently_clicked(nodes);
-        console.log(currentClicked)
-        let graph = new DirectedGraph(currentClicked, nodes, edges);
 
+        const guard : Guard = {tree: chosenFunction.require_tree, directed: chosenFunction.require_directed, undirected: chosenFunction.require_non_directed, weighted: chosenFunction.require_weights};
+        const graph : GraphAbstract = graph_director(guard, currentClicked, nodes, edges);
+
+        const foo = chosenFunction.foo
         // requirements checking for functions
         if (requirements_guard(chosenFunction, graph)) {
             setModifyMode(false);
             setPrevStep(undefined);
-            // run chosen algo on given graph
-            const new_steps: Steps = chosenFunction.foo(graph);
+            const new_steps : Steps = steps_director(graph, foo);
             setSteps(new_steps);
             setStepIdx(0);
         }

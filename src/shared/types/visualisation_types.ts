@@ -7,7 +7,7 @@ import { DisjointSetCustom } from "../models/disjoint_set_custom/disjoint_set_cu
 import { Edge, Node } from "@xyflow/react";
 import Graph from "../models/graph/graph";
 import WeightedGraph from "../models/weighted_graph/weighted_graph";
-import { TreeGraph } from "../models/tree_graph/tree_graph";
+import TreeGraph from "../models/tree_graph/tree_graph";
 /*
 Types used in visualisation and
 writing own algorithms,
@@ -109,6 +109,16 @@ export type DirectedFunction = (g : DirectedGraph) => Steps;
 export type GraphFunction = (g : Graph) => Steps;
 export type WeightedFunction = (g : WeightedGraph) => Steps;
 export type TreeFunction = (g : TreeGraph) => Steps;
+
+export type Guard = {
+    weighted : boolean;
+    directed : boolean;
+    undirected : boolean;
+    tree : boolean;
+}
+
+export type GraphAbstract = Graph | DirectedGraph | WeightedGraph | TreeGraph;
+export type GraphFunctionAbstract = GraphFunction | DirectedFunction | TreeFunction | WeightedFunction;
 
 /*
 type Requirements = {

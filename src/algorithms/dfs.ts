@@ -1,8 +1,8 @@
-import Graph from "../shared/models/graph/graph";
+import DirectedGraph from "../shared/models/directed_graph/directed_graph";
 import { Steps } from "../shared/types/visualisation_types";
 
 
-export default function dfs(g: Graph): Steps {
+export default function dfs(g: DirectedGraph): Steps {
     let visited = new Set<string>();
     let stack : string[] = [];
     const start_node = g.get_start_node();

@@ -1,9 +1,9 @@
-import Graph from "../shared/models/graph/graph";
+import DirectedGraph from "../shared/models/directed_graph/directed_graph";
 import { Steps } from "../shared/types/visualisation_types";
 import { Queue } from "queue-typescript";
 
 
-export default function bfs(g: Graph): Steps {
+export default function bfs(g: DirectedGraph): Steps {
     let visited = new Set<string>();
     let queue : Queue<string> = new Queue<string>(g.get_start_node());
     g.add_step({ additional_name: `Queue:`, additional: queue, msg: ``, step_idx: 0,  })
