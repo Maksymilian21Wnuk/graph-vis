@@ -22,10 +22,9 @@ export default class DirectedGraph extends TreeGraph {
                     this.edges.set(edge.source, [edge.target]);
                 }
             }
-
+    
         }
     }
-
 
     get_edge_count(): number {
         const divider = this.is_directed ? 1 : 2;

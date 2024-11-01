@@ -1,4 +1,4 @@
-import { TreeGraph } from "../shared/models/tree_graph/tree_graph";
+import TreeGraph from "../shared/models/tree_graph/tree_graph";
 import { Steps } from "../shared/types/visualisation_types";
 import { Queue } from "queue-typescript";
 

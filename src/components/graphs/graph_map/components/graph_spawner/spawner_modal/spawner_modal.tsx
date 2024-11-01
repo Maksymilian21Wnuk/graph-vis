@@ -16,8 +16,7 @@ export default function SpawnerModal({ graph_names, onClose, setShowRandom }: Sp
 
     const onClick = () => {
         if (localIdx === -1) {
-            setShowRandom(true);
-        }
+            setShowRandom(true);        }
         else{
             onClose(localIdx);
             setShowRandom(false);
@@ -33,7 +32,7 @@ export default function SpawnerModal({ graph_names, onClose, setShowRandom }: Sp
                     </h1>
                     <ul className="">
                         {graph_names.map((n: GraphName, idx : number = -1) =>
-                            <li onClick={() => setLocalIdx(idx++)} className="py-1 border-2 hover:bg-gray-200 cursor-pointer">
+                            <li onClick={() => setLocalIdx(idx++)} className="py-1 border-2 hover:bg-gray-200 cursor-pointer active:bg-red-500">
                                 {n.name}
                             </li>
                         )}

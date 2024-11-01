@@ -44,8 +44,10 @@ export default function dijkstra(g: WeightedGraph): Steps {
             if (visited.has(neighbour)) {
                 continue;
             }
+
             const new_dist = distances.get(v.value!)! + g.get_weight(v.value!, neighbour)!;
             const old_dist = distances.get(neighbour)!;
+
             if (new_dist < old_dist) {
                 distances.set(neighbour, new_dist);
                 heap.decreaseKey(iNodes.get(neighbour)!, new_dist);
