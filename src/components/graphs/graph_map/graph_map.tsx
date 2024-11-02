@@ -157,13 +157,13 @@ export default function GraphMap() {
     }
 
 
-    function onPaneClick(_event: React.MouseEvent<Element, MouseEvent>): void {
+    function onPaneClick(event: React.MouseEvent<Element, MouseEvent>): void {
         import.meta.env.DEV ? console.log(edges) : null;
         import.meta.env.DEV ? console.log(nodes) : null;
 
         reset_graph();
         if (state.addMode) {
-            let xy: XYPosition = { x: _event.clientX, y: _event.clientY };
+            let xy: XYPosition = { x: event.clientX, y: event.clientY };
             xy = reactFlow.screenToFlowPosition(xy);
             const first_free: string = find_first_free(nodes);
             const new_node = { id: first_free, position: { x: xy.x - 25, y: xy.y - 25 }, data: { label: first_free }, ...nodeDefaultStyle };
@@ -184,13 +184,6 @@ export default function GraphMap() {
         setModifyMode(true);
     }
 
-    const reset_graph = () => {
-        setModifyMode(true);
-        if (!modifyMode){
-            setEdges(reset_edge_color(edges));
-            setNodes(reset_node_color(nodes));
-        }
-    }
 
     const no_weights = () => {
         setModifyMode(true);
@@ -207,6 +200,7 @@ export default function GraphMap() {
         reset_graph()
         if (isDirected) {
             // remove arrows holding invariant
+            console.log(convert_to_undirected(edges))
             setEdges(convert_to_undirected(reset_edge_color(edges)));
             setIsDirected(false);
         }
@@ -214,6 +208,14 @@ export default function GraphMap() {
         else {
             setEdges(reset_edge_color(edges.map((e: Edge) => make_edge_directed(e))));
             setIsDirected(true);
+        }
+    }
+
+    const reset_graph = () => {
+        setModifyMode(true);
+        if (!modifyMode){
+            setEdges(reset_edge_color(edges));
+            setNodes(reset_node_color(nodes));
         }
     }
 

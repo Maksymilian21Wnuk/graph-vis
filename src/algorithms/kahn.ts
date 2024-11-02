@@ -37,7 +37,8 @@ export default function topological_sort(g: DirectedGraph): Steps {
 
     g.add_step({
         step_idx: 1, additional_name: `Queue`, additional_snd_name: `Indegrees: `,
-        additional: queue, additional_snd: indegrees
+        additional: queue, additional_snd: indegrees,
+        nodes: queue.toArray()
     })
 
     while (queue.length) {

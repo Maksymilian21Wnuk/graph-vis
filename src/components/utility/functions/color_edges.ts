@@ -48,6 +48,7 @@ export default function colorEdges(step: Step, edges: Edge[]): Edge[] {
     }
     else{
         ids = parse_ids_undirected(src, edges_to_change);
+        console.log(ids)
     }
 
     for (const id of ids) {

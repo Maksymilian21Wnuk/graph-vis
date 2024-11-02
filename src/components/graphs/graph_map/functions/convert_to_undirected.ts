@@ -13,7 +13,7 @@ import {  NO_ARROW } from "../../../../shared/constants";
 export default function convert_to_undirected(edges : Edge[]) : Edge[]{
     return edges.map((e : Edge) => {
         // holds invariant, just remove svg
-        if (e.source < e.target) {
+        if (parseInt(e.source) < parseInt(e.target)) {
             return {
                 ...e,
                 markerEnd: NO_ARROW
@@ -24,7 +24,7 @@ export default function convert_to_undirected(edges : Edge[]) : Edge[]{
         else {
             return {
                 ...e, 
-                id : String(e.target) + "-" + String(e.source), 
+                id : e.target + "-" + e.source, 
                 markerEnd: NO_ARROW,
                 source: e.target,
                 target: e.source

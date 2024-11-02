@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { AppState } from "../../../../../shared/types/graph_map_types";
-import { mocked_graphs } from "./mock_data/mock_graph";
-import { mocked_names } from "./mock_data/mock_names";
+import { graph_preset } from "./preset/graph_preset";
 import { useReactFlow } from "@xyflow/react";
 import RandomSpawner from "./random_spawner/random_spawner";
 import useStore from "../../../store/store";
@@ -10,7 +9,7 @@ import check_weighted from "../../functions/check_weighted";
 import check_undirected from "../../functions/check_directed";
 import Button from "../../../../utility/atoms/button/button";
 import SpawnerModal from "./spawner_modal/spawner_modal";
-
+import storage_get_graphs from "./functions/storage_get_graphs";
 
 const selector = (state: AppState) => ({
     setNodes: state.setNodes,
@@ -18,35 +17,47 @@ const selector = (state: AppState) => ({
     setModifyMode: state.setModifyMode,
     setIsDirected: state.setIsDirected,
     setIsWeighted: state.setIsWeighted,
+    edges: state.edges,
+    nodes: state.nodes
 });
 
 export default function GraphSpawner() {
-    const { setNodes, setEdges, setModifyMode, setIsDirected, setIsWeighted } = useStore(useShallow(selector));
+    const { setNodes, setEdges, setModifyMode, setIsDirected, setIsWeighted, nodes, edges } = useStore(useShallow(selector));
 
-    const [graphPresets] = useState(mocked_graphs);
-    const [graphNames] = useState(mocked_names);
+    const [graphPresets, setGraphPresets] = useState([...graph_preset, ...storage_get_graphs()]);
     const [showRandom, setShowRandom] = useState(false);
     const reactFlow = useReactFlow();
+    const [graphName, setGraphName] = useState("");
+
+
+    const handleSubmit = (e : FormEvent) => {
+        e.preventDefault();
+        localStorage.setItem(graphName, JSON.stringify({ nodes: nodes, edges: edges }));
+        setGraphPresets([...graphPresets, {name: graphName, nodes: nodes, edges: edges }])
+        setGraphName("");
+    }
 
     const fit_view = () => {
         reactFlow.fitView();
-    }    
+    }
 
-    const changeGraph = (idx : number) : void => {
+    const changeGraph = (idx: number): void => {
         const chosen = graphPresets[idx];
+        console.log(idx)
         setEdges(chosen.edges);
         setNodes(chosen.nodes);
-        if (check_weighted(chosen.edges)){
+        // additional checks for state change
+        if (check_weighted(chosen.edges)) {
             setIsWeighted(true);
         }
-        else{
+        else {
             setIsWeighted(false);
         }
-        
-        if (check_undirected(chosen.edges)){
+
+        if (check_undirected(chosen.edges)) {
             setIsDirected(false);
         }
-        else{
+        else {
             setIsDirected(true);
         }
         setTimeout(fit_view);
@@ -58,10 +69,18 @@ export default function GraphSpawner() {
     }
 
     return (
-        <div className="flex flex-col px-5 py-2 justify-center items-center col">
-            <div>
+        <div className="flex flex-col px-5 py-2 justify-center items-center">
+            <div className="pl-36">
                 <Button onClick={onClick} text="Graphs" style="w-72" />
-                <SpawnerModal setShowRandom={setShowRandom} onClose={changeGraph} graph_names={graphNames} />
+                <form onSubmit={handleSubmit}>
+                    <input className="input border-2 border-black"
+                            type="text"
+                            value={graphName}
+                            onChange={(e) => setGraphName(e.target.value)}
+                            placeholder="Graph name..."/>
+                    <button className="btn" type="submit">Save</button>
+                </form>
+                <SpawnerModal setShowRandom={setShowRandom} onClose={changeGraph} graph_names={graphPresets} />
             </div>
             <div className="flex flex-col">
                 {showRandom ? <RandomSpawner /> : null}

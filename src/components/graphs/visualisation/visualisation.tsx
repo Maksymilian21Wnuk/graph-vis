@@ -109,7 +109,7 @@ export default function Visualisation() {
         const currentClicked: string = get_currently_clicked(nodes);
 
         const guard : Guard = {tree: chosenFunction.require_tree, directed: chosenFunction.require_directed, undirected: chosenFunction.require_non_directed, weighted: chosenFunction.require_weights};
-        const graph : GraphAbstract = graph_director(guard, currentClicked, nodes, edges);
+        const graph : GraphAbstract = graph_director(guard, currentClicked, nodes, edges)!;
 
         const foo = chosenFunction.foo
         // requirements checking for functions

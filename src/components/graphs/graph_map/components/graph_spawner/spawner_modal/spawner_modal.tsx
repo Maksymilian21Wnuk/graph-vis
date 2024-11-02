@@ -4,8 +4,8 @@ import { GraphName } from "../../../../../../shared/types/graph_map_types"
 
 interface SpawnerModalInterface {
     graph_names: GraphName[];
-    onClose: (idx : number) => void;
-    setShowRandom: (b : boolean) => void;
+    onClose: (idx: number) => void;
+    setShowRandom: (b: boolean) => void;
 }
 
 
@@ -13,11 +13,12 @@ export default function SpawnerModal({ graph_names, onClose, setShowRandom }: Sp
 
     const [localIdx, setLocalIdx] = useState(0);
 
-
     const onClick = () => {
-        if (localIdx === -1) {
-            setShowRandom(true);        }
-        else{
+        if (localIdx === 0) {
+            setShowRandom(true);
+            onClose(localIdx)
+        }
+        else {
             onClose(localIdx);
             setShowRandom(false);
         }
@@ -31,8 +32,8 @@ export default function SpawnerModal({ graph_names, onClose, setShowRandom }: Sp
                         Choose graph to spawn
                     </h1>
                     <ul className="">
-                        {graph_names.map((n: GraphName, idx : number = -1) =>
-                            <li onClick={() => setLocalIdx(idx++)} className="py-1 border-2 hover:bg-gray-200 cursor-pointer active:bg-red-500">
+                        {graph_names.map((n: GraphName, idx: number) =>
+                            <li key={idx} onClick={() => { setLocalIdx(idx); console.log(idx) }} className="py-1 border-2 hover:bg-gray-200 cursor-pointer active:bg-red-500">
                                 {n.name}
                             </li>
                         )}
@@ -41,6 +42,7 @@ export default function SpawnerModal({ graph_names, onClose, setShowRandom }: Sp
                 <div className="modal-action">
                     <form method="dialog">
                         <button onClick={onClick} className="btn">Spawn</button>
+                        <button className="btn">Close</button>
                     </form>
                 </div>
             </div>

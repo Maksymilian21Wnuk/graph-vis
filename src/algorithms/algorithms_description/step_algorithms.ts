@@ -59,4 +59,5 @@ export const step_text: StepInterface[] = [
             "Q is empty",
             "Terminate"]
     },
+
 ]

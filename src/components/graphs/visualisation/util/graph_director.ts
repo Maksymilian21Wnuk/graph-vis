@@ -7,8 +7,11 @@ import { Edge, Node } from "@xyflow/react";
 
 
 
-export default function graph_director(guard : Guard, currentClicked : string, nodes : Node[], edges : Edge[]) : GraphAbstract {
-    if (guard.directed || !guard.undirected){
+export default function graph_director(guard : Guard, currentClicked : string, nodes : Node[], edges : Edge[]) : GraphAbstract | null {
+    if (guard.directed && guard.undirected || guard.directed && guard.tree) {
+        return null;
+    }
+    else if (guard.directed || !(guard.undirected || guard.tree)){
         return new DirectedGraph(currentClicked, nodes, edges);
     }
     else if (guard.tree){
