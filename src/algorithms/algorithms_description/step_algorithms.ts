@@ -60,4 +60,15 @@ export const step_text: StepInterface[] = [
             "Terminate"]
     },
 
+//Steps fortarjan
+{
+     steps:["step 1",
+            "todo",
+            "todo"
+]},
+//Steps forkosaraju
+{
+     steps:["step1",
+            "todo"
+]},
 ]

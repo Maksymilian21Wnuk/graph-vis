@@ -10,7 +10,7 @@ def steps_parser(name):
         steps.append(step)
         step = get_text_allow_empty("Next step: ")  
     if (len(steps) != 0) :
-        parsed_steps = "//Steps for" + name + "\n{\n     steps:[\"" + "\",\n            \"".join(steps) + "\"\n]},"  
+        parsed_steps = "//Steps for " + name + "\n{\n     steps:[\"" + "\",\n            \"".join(steps) + "\"\n]},"  
         return parsed_steps
     else:
         print("empty steps")

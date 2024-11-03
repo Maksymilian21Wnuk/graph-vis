@@ -14,7 +14,7 @@ def input_wrapper(text, **kwargs) :
             print("Boolean value must be y or n")
             exit(0)
         else:
-            return "true" if val == "y" or val == "yes" else "false"
+            return True if val == "y" or val == "yes" else False
     else: 
         if (require_non_string or allow_empty) :
              return val

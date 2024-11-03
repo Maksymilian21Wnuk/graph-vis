@@ -1,3 +1,5 @@
+import kosaraju from "./kosaraju"
+import tarjan from "./tarjan"
 import dfs from "./dfs";
 import bfs from "./bfs";
 import { Algorithm } from "../shared/types/visualisation_types";
@@ -18,4 +20,6 @@ export const algos : Algorithm[] = [
     { description:`Sort graph topologically`, foo : topological_sort, name: "Kahn's topological sort", require_weights: false, require_directed: true, require_non_directed: false, require_tree: false},
     { description:`Check if given graph is bipartite`, foo : bipartite, name: "Biparte Graph check", require_weights: false, require_directed: false, require_non_directed: true, require_tree: false},
     { description:`Find paths in tree using BFS`, foo : tree_path_find, name: "Tree's shortest paths", require_weights: false, require_directed: false, require_non_directed: true, require_tree: true},
+    {description: "Finding strongly connected components of a directed graph", foo: tarjan, name: "Tarjan's Algorithm", require_weights: false, require_directed: true, require_non_directed: false, require_tree: false}, 
+    {description: "Finding strongly connected components (SCC) of a directed graph.", foo: kosaraju, name: "Kosaraju's Algorithm", require_weights: false, require_directed: true, require_non_directed: false, require_tree: false}, 
 ]

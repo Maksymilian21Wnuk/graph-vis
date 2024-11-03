@@ -79,4 +79,16 @@ export const description_text: DescriptionTextInterface[] = [
         time: `O(V+E)`,
         space: `O(V)`
     },
+//Description for tarjan
+{
+text:"desc",
+time: "o",
+space: "o"
+},
+//Description for kosaraju
+{
+text:"this will be done later",
+time: "O(V+E)",
+space: "O(V+E)"
+},
 ]

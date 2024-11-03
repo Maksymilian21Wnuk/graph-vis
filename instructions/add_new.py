@@ -3,6 +3,7 @@ from parse_algorithm import parse_algorithm
 import inputs.input_parsers as inputs
 from steps_parser import steps_parser
 from description_parser import description_parser
+import os
 
 STEPS_PATH = "../src/algorithms/algorithms_description/step_algorithms.ts"
 DESCRIPTIONS_PATH = "../src/algorithms/algorithms_description/description_algorithms.ts"
@@ -20,6 +21,10 @@ def append_to_file(file_name, parsed) :
 def prepend_to_file(file_name, parsed) :
     pass
 
+
+def parse_bool(b) : 
+    return "true" if b == True else "false"
+
 def main():
     TITLE = "Pick option to add"
     options = ["Add new algorithm to visualisation", "Add concept to essential concepts page", "Quit"]
@@ -30,7 +35,8 @@ def main():
 
     match chosen_value: 
         case 0 :
-                print("Adding algorithm: ")
+                os.system('clear')
+                print("Adding algorithm\n Ctrl + C to leave \n ")
                 
                 name = inputs.get_text("Enter algorithm's name that will be displayed on page: ")
                 description = inputs.get_text("Enter description of algorithm: ")
@@ -43,15 +49,16 @@ def main():
                 parsed_steps = steps_parser(foo_name)
                 parsed_description = description_parser(foo_name)
 
-                parsed_algo = "description: {}, foo: {}, name: {}, require_weights: {}, require_directed: {}, require_non_directed: {}, require_tree: {}".format(description, foo_name, name, weights, directed, undirected, tree)
+                parsed_algo = "description: {}, foo: {}, name: {}, require_weights: {}, require_directed: {}, require_non_directed: {}, require_tree: {}".format(description, foo_name, name, parse_bool(weights), parse_bool(directed), parse_bool(undirected), parse_bool(tree))
                 
                 parsed_algo = "    {" + parsed_algo + "}, "
+
+                parse_algorithm(foo_name, undirected, weights, directed, tree)
                 
                 append_to_file(ALGORITHMS_PATH, parsed_algo)
                 append_to_file(STEPS_PATH, parsed_steps)
                 append_to_file(DESCRIPTIONS_PATH, parsed_description)
                 
-                parse_algorithm(foo_name, undirected, weights, directed, tree)
         case 1 : 
             
             title = inputs.get_text("Enter title: ")
