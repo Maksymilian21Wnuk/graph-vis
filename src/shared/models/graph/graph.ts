@@ -10,9 +10,6 @@ export default class Graph{
     protected nodes : string[];
     protected start_node : string;
     protected steps : Steps =  [];
-    protected is_directed : boolean = false;
-    protected is_weighted : boolean = false;
-    protected is_tree : boolean = false;
 
     constructor(nodes?: Node[], edges?: Edge[]){
         this.edges = new Map<string, string[]>();
@@ -113,9 +110,6 @@ export default class Graph{
         return this.steps;
     }
 
-    get_is_weighted() : boolean {
-        return this.is_weighted;
-    }
 
     get_node_count() : number {
         return this.nodes.length;
@@ -129,17 +123,11 @@ export default class Graph{
         return this.start_node;
     }
 
-    get_is_directed() : boolean {
-        return this.is_directed;
-    }
 
     get_nodes() : string[] {
         return this.nodes;
     }
 
-    get_is_tree() : boolean {
-        return this.is_tree;
-    }
 
     get_edges() : Map<string, string[]> {
         return this.edges;

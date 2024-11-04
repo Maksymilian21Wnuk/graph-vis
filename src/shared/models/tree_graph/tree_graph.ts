@@ -5,6 +5,7 @@ import { Node, Edge } from "@xyflow/react";
 
 
 export default class TreeGraph extends WeightedGraph {
+    protected is_tree : boolean;
 
     constructor(nodes?: Node[], edges?: Edge[]) {
         super(nodes, edges);
@@ -34,6 +35,10 @@ export default class TreeGraph extends WeightedGraph {
         }
 
         return !this.dfs_cycle(this.get_start_node(), null, new Set<string>());
+    }
+
+    get_is_tree() {
+        return this.is_tree;
     }
 
 }

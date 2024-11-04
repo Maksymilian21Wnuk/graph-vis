@@ -5,6 +5,7 @@ import { Weight } from "../../enumerations/enums";
 
 export default class WeightedGraph extends Graph {
     protected weights?: Map<string, Map<string, number>>;
+    protected is_weighted : boolean;
 
     constructor(nodes?: Node[], edges?: Edge[]) {
         super(nodes, edges);
@@ -51,6 +52,10 @@ export default class WeightedGraph extends Graph {
         else{
             return 1;
         }
+    }
+
+    get_is_weighted() {
+        return this.is_weighted;
     }
 
 }

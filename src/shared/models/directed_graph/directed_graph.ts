@@ -4,6 +4,7 @@ import { ARROW_SVG_ID } from "../../constants";
 
 
 export default class DirectedGraph extends WeightedGraph {
+    protected is_directed : boolean;
 
     constructor(nodes?: Node[], edges?: Edge[]) {
         super(nodes, edges);
@@ -28,5 +29,9 @@ export default class DirectedGraph extends WeightedGraph {
     get_edge_count(): number {
         const divider = this.is_directed ? 1 : 2;
         return Array.from(this.edges.values()).reduce((sum, arr) => sum + arr.length, 0) / divider;
+    }
+
+    get_is_directed() : boolean {
+        return this.is_directed;
     }
 }

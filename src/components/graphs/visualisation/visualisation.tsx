@@ -27,10 +27,12 @@ const selector = (state: AppState) => ({
     modifyMode: state.modifyMode,
     selectedValue: state.selectedValue,
     setSelectedValue: state.setSelectedValue,
+    directed: state.isDirected,
 });
 
 export default function Visualisation() {
-    const { nodes, edges, setNodes, setEdges, setMessage, setModifyMode, modifyMode, selectedValue, setSelectedValue } = useStore(useShallow(selector));
+    const { nodes, edges, setNodes, setEdges, setMessage, setModifyMode,
+        modifyMode, selectedValue, setSelectedValue, directed } = useStore(useShallow(selector));
 
     const [chosenFunction, setChosenFunction] = useState<Algorithm>(algos[0]);
     const [steps, setSteps] = useState<Steps>([]);
@@ -49,14 +51,16 @@ export default function Visualisation() {
             const new_edges = colorEdges(step, edges);
             setNodes(new_nodes);
             setEdges(new_edges);
-            setPrevStep({previous: prevStep, nodes: new_nodes, edges: new_edges});
+            setPrevStep({ previous: prevStep, nodes: new_nodes, edges: new_edges });
             // case when message exists
-            setMessage({ msg: step.msg, 
+            setMessage({
+                msg: step.msg,
                 additional: step.additional_parsed,
-                additional_name: step.additional_name, 
-                step_idx: step.step_idx, 
-                additional_snd: step.additional_snd_parsed, 
-                additional_snd_name: step.additional_snd_name });
+                additional_name: step.additional_name,
+                step_idx: step.step_idx,
+                additional_snd: step.additional_snd_parsed,
+                additional_snd_name: step.additional_snd_name
+            });
 
         }
         // case when algorithm finished execution
@@ -76,22 +80,24 @@ export default function Visualisation() {
         if (step) {
             setFirstPrev(false);
             setStepIdx(stepIdx - value);
-            if (firstPrev){
+            if (firstPrev) {
                 setNodes(prevStep?.previous?.nodes!);
-                setEdges(prevStep?.previous?.edges!);    
+                setEdges(prevStep?.previous?.edges!);
             }
-            else{
+            else {
                 setNodes(prevStep?.nodes!);
-                setEdges(prevStep?.edges!);    
+                setEdges(prevStep?.edges!);
             }
             setPrevStep(prevStep?.previous);
             // case when message exists
-            setMessage({ msg: step.msg, 
+            setMessage({
+                msg: step.msg,
                 additional: step.additional_parsed,
-                additional_name: step.additional_name, 
-                step_idx: step.step_idx, 
-                additional_snd: step.additional_snd_parsed, 
-                additional_snd_name: step.additional_snd_name });
+                additional_name: step.additional_name,
+                step_idx: step.step_idx,
+                additional_snd: step.additional_snd_parsed,
+                additional_snd_name: step.additional_snd_name
+            });
 
         }
 
@@ -106,15 +112,15 @@ export default function Visualisation() {
         setEdges(reset_edge_color(edges));
         // gets currently clicked node in order to start algo in this node (case of node starting algo)
 
-        const guard : Guard = {tree: chosenFunction.require_tree, directed: chosenFunction.require_directed, undirected: chosenFunction.require_non_directed, weighted: chosenFunction.require_weights};
-        const graph : GraphAbstract = graph_director(guard, nodes, edges)!;
+        const guard: Guard = { tree: chosenFunction.require_tree, directed: chosenFunction.require_directed, undirected: chosenFunction.require_non_directed, weighted: chosenFunction.require_weights };
+        const graph: GraphAbstract = graph_director(guard, nodes, edges)!;
 
         const foo = chosenFunction.foo
         // requirements checking for functions
-        if (requirements_guard(guard, graph)) {
+        if (requirements_guard(guard, graph, directed)) {
             setModifyMode(false);
             setPrevStep(undefined);
-            const new_steps : Steps = steps_director(graph, foo);
+            const new_steps: Steps = steps_director(graph, foo);
             console.log(new_steps)
             setSteps(new_steps);
             setStepIdx(0);
@@ -133,7 +139,7 @@ export default function Visualisation() {
             {selectedValue !== NOT_SELECTED ?
                 <ProgressButtons prev_step={prev_step} resetGraph={reset_graph} setModifyMode={setModifyMode} modifyMode={modifyMode} start={start} next_step={next_step} stepCount={steps.length - stepIdx} /> : null}
             <div className="flex flex-col items-center bg-white">
-                <h1 className="text-2xl font-bold py-4">{ selectedValue === NOT_SELECTED ? `Select algorithm...` : chosenFunction.name}</h1>
+                <h1 className="text-2xl font-bold py-4">{selectedValue === NOT_SELECTED ? `Select algorithm...` : chosenFunction.name}</h1>
             </div>
             <AlgorithmList resetGraph={reset_graph} setSelectedValue={setSelectedValue} setChosenFunction={setChosenFunction} />
         </div>
