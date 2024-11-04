@@ -28,7 +28,7 @@ export default function bipartite(g: Graph): Steps {
 
     while (q.length > 0) {
         let node: string = q.dequeue();
-        current_color = current_color === BLUE ? RED : BLUE;
+        current_color = map_color.get_color(node);
 
         g.add_step({
             step_idx: 1,
@@ -52,7 +52,7 @@ export default function bipartite(g: Graph): Steps {
             if (!visited.has(neighbour)) {
                 q.enqueue(neighbour);
                 visited.add(neighbour);
-                map_color.set_color(neighbour, current_color);
+                map_color.set_color(neighbour, current_color === BLUE ? RED : BLUE);
             }
             else {
                 if (map_color.get_color(neighbour) === map_color.get_color(node)) {

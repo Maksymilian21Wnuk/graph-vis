@@ -25,7 +25,7 @@ export default function colorNodes(step : Step, nodes : Node[]) : Node[]{
     // unvisited and visited
     if (step.colorize_nodes !== undefined) {
         step.colorize_nodes?.get_colors_map().forEach((color, node) => {
-            nodes = change_given_id(nodes, node, color, true);
+            nodes = change_given_id(nodes, node, color[1], true);
         });
         if (step.current_node){
             nodes = change_given_id(nodes, step.current_node, NodeColor.CURRENT, true);    

@@ -1,7 +1,15 @@
 
 
 type NodeId = string;
-type Color = string;
+
+/**
+ * Pair that holds number, which 
+ * is abstraction to color
+ * in graph algorithms, and string
+ * which is used for proper visualisation
+ * in page
+ */
+type Color = [number, string];
 
 /**
  * Class for algorithms
@@ -11,9 +19,9 @@ type Color = string;
  */
 
 export default class Colors {
-    private colors_preset : Color[] = ["#8fd9fb", "#5ce65c"];
+    private colors_preset : Color[] = [[0, "#8fd9fb"], [1, "#5ce65c"]];
     private color_map : Map<NodeId, Color>;
-    private error_color : Color = "black";
+    private error_color : Color = [-1, "black"];
     
     /**
 
@@ -48,8 +56,8 @@ export default class Colors {
      * @param id id of node
      * @returns current color string representation
      */
-    get_color(id : NodeId) : Color {
-        return this.color_map.get(id)!;
+    get_color(id : NodeId) : number {
+        return this.color_map.get(id)![0];
     }
 
     /**

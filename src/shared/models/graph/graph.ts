@@ -5,6 +5,11 @@ import { DisjointSetCustom } from "../disjoint_set_custom/disjoint_set_custom";
 import get_currently_clicked from "../../../components/utility/functions/get_currently_clicked";
 
 
+/**
+ * Plain graph model for visualisation,
+ * provides API for writing algorithms
+ */
+
 export default class Graph{
     protected edges : Map<string, string[]>;
     protected nodes : string[];
@@ -24,8 +29,11 @@ export default class Graph{
         }
     }
 
-    // function for converting react flow representation
-    // to graph grepresentation
+    /**
+     * 
+     * @param edges react flow's edge representation
+     * @returns plain graph's edge representation
+     */
     protected convert_flow(edges : Edge[]) : Map<string, string[]>{
         let neighbours = new Map<string, string[]>();
         for (const edge of edges){
@@ -47,7 +55,11 @@ export default class Graph{
         return neighbours;
     
     }
-
+    /**
+     * Get neighbours of node
+     * @param node node id
+     * @returns id's of node's neighbours
+     */
     get_neighbours(node : string) : string[]{
         return this.edges.get(node) || [];
     }
@@ -98,7 +110,10 @@ export default class Graph{
         }
         return res;
     }
-
+    /**
+     * Add steps to algorithm's visualisation
+     * @param step step of algorithm to be visualised on view
+     */
     add_step(step : Step) : void {
         step.additional_parsed =  step.additional_parsed ? step.additional_parsed : this.add_additional(step.additional!);
         step.additional_snd_parsed = step.additional_snd_parsed ? step.additional_snd_parsed :this.add_additional(step.additional_snd!);
@@ -106,6 +121,10 @@ export default class Graph{
         this.steps.push(step);
     }
 
+    /**
+     * 
+     * @returns steps after algorithm's execution
+     */
     get_steps() : Steps {
         return this.steps;
     }
@@ -127,7 +146,6 @@ export default class Graph{
     get_nodes() : string[] {
         return this.nodes;
     }
-
 
     get_edges() : Map<string, string[]> {
         return this.edges;
