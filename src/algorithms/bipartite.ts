@@ -1,10 +1,11 @@
 import { Steps } from "../shared/types/visualisation_types";
 import Graph from "../shared/models/graph/graph";
 import { Queue } from "queue-typescript";
+import Colors from "../shared/models/colors/colors";
 
 
-const BLUE : string = "#8fd9fb";
-const RED : string = "#5ce65c";
+const BLUE = 0;
+const RED = 1;
 
 export default function bipartite(g: Graph): Steps {
     let visited = new Set<string>();
@@ -13,8 +14,10 @@ export default function bipartite(g: Graph): Steps {
     let q : Queue<string> = new Queue<string>(g.get_start_node());
 
     // map color, let 0 be blue and 1 red
-    let map_color = new Map<string, string>();
-    map_color.set(g.get_start_node(), BLUE);
+    let map_color = new Colors();
+    map_color.set_color(g.get_start_node(), BLUE);
+
+    let current_color = BLUE;
 
     g.add_step({
         additional_name: `Queue:`,
@@ -26,10 +29,7 @@ export default function bipartite(g: Graph): Steps {
 
     while (q.length > 0) {
         let node: string = q.dequeue();
-        const node_color = map_color.get(node);
-
-        // idea: return node that is currently being visited
-        // also may return queue as msg
+        current_color = current_color === BLUE ? RED : BLUE;
 
         g.add_step({
             step_idx: 1,
@@ -54,10 +54,10 @@ export default function bipartite(g: Graph): Steps {
             if (!visited.has(neighbour)) {
                 q.enqueue(neighbour);
                 visited.add(neighbour);
-                map_color.set(neighbour, node_color === BLUE ? RED : BLUE);
+                map_color.set_color(neighbour, current_color);
             }
             else {
-                if (map_color.get(neighbour) === node_color) {
+                if (map_color.get_color(neighbour) === map_color.get_color(node)) {
                     g.add_step({
                         step_idx: 4,
                         colorize_nodes: map_color,

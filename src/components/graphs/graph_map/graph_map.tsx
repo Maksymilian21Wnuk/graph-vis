@@ -160,6 +160,7 @@ export default function GraphMap() {
     function onPaneClick(event: React.MouseEvent<Element, MouseEvent>): void {
         import.meta.env.DEV ? console.log(edges) : null;
         import.meta.env.DEV ? console.log(nodes) : null;
+        import.meta.env.DEV ? console.log("DBG: ", isDirected, isWeighted) : null;
 
         reset_graph();
         if (state.addMode) {

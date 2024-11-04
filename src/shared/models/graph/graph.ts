@@ -2,7 +2,6 @@ import { Node, Edge } from "@xyflow/react";
 import { Additional, AdditionalType, PlainEdge, Step, Steps } from "../../types/visualisation_types";
 import { Queue } from "queue-typescript";
 import { DisjointSetCustom } from "../disjoint_set_custom/disjoint_set_custom";
-import { ARROW_SVG_ID } from "../../constants";
 
 interface GraphEdge {
     source : string;
@@ -23,7 +22,6 @@ export default class Graph{
         this.nodes = [];
         this.start_node = "1";
         this.steps = [];
-        this.is_directed = edges?.every((e : Edge) => e.markerEnd === ARROW_SVG_ID)!;
 
         if (nodes && edges && start_node_id){
             this.edges = this.convert_flow(edges);
@@ -114,7 +112,7 @@ export default class Graph{
     add_step(step : Step) : void {
         step.additional_parsed =  step.additional_parsed ? step.additional_parsed : this.add_additional(step.additional!);
         step.additional_snd_parsed = step.additional_snd_parsed ? step.additional_snd_parsed :this.add_additional(step.additional_snd!);
-        step.colorize_nodes = new Map(step.colorize_nodes);
+        step.colorize_nodes = step.colorize_nodes?.clone();
         this.steps.push(step);
     }
 

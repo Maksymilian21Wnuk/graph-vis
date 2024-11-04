@@ -10,6 +10,8 @@ import check_undirected from "../../functions/check_directed";
 import Button from "../../../../utility/atoms/button/button";
 import SpawnerModal from "./spawner_modal/spawner_modal";
 import storage_get_graphs from "./functions/storage_get_graphs";
+import reset_node_color from "../../../util/reset_node_color";
+import reset_edge_color from "../../../util/reset_edge_color";
 
 const selector = (state: AppState) => ({
     setNodes: state.setNodes,
@@ -32,8 +34,10 @@ export default function GraphSpawner() {
 
     const handleSubmit = (e : FormEvent) => {
         e.preventDefault();
-        localStorage.setItem(graphName, JSON.stringify({ nodes: nodes, edges: edges }));
-        setGraphPresets([...graphPresets, {name: graphName, nodes: nodes, edges: edges }])
+        const nodes_to_save = reset_node_color(nodes);
+        const edges_to_save = reset_edge_color(edges);
+        localStorage.setItem(graphName, JSON.stringify({ nodes: nodes_to_save, edges: edges_to_save }));
+        setGraphPresets([...graphPresets, {name: graphName, nodes: nodes_to_save, edges: edges_to_save }])
         setGraphName("");
     }
 

@@ -8,6 +8,7 @@ import { Edge, Node } from "@xyflow/react";
 import Graph from "../models/graph/graph";
 import WeightedGraph from "../models/weighted_graph/weighted_graph";
 import TreeGraph from "../models/tree_graph/tree_graph";
+import Colors from "../models/colors/colors";
 /*
 Types used in visualisation and
 writing own algorithms,
@@ -20,6 +21,7 @@ export type ColorizeNode = {
     color: string;
     nodes : string[];
 }
+
 export type PlainEdge = {
     source: string;
     dest: string;
@@ -31,9 +33,6 @@ type Stack = string[];
 export type AdditionalType = Map<string, number> | DisjointSetCustom | Set<string> | Queue<string> | Stack | Array<PlainEdge>;
 
 export type ColorizeNodes = ColorizeNode[];
-
-type Color = string;
-type NodeId = string;
 
 export type Step = {
     // nodes to color, by default to orange,
@@ -68,7 +67,7 @@ export type Step = {
     edge_removal? : boolean;
     // colorize nodes for coloring algorithms
     // key: color value: nodes to color given key
-    colorize_nodes? : Map<NodeId, Color>;
+    colorize_nodes? : Colors;
 };
 
 export type PreviousStep = {
