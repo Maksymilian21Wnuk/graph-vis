@@ -3,37 +3,68 @@
 type NodeId = string;
 type Color = string;
 
+/**
+ * Class for algorithms
+ * that needs vertice coloring
+ * Colors currently supports 10 colors, in case of coloring vertices for
+ * more than 10 colors, next vertices will be colored black
+ */
 
 export default class Colors {
     private colors_preset : Color[] = ["#8fd9fb", "#5ce65c"];
     private color_map : Map<NodeId, Color>;
-    private error_color : Color = "pink";
+    private error_color : Color = "black";
     
-    constructor(color_map? : Map<NodeId, Color>) {
+    /**
+
+     * @param color_map additional argument for previously initiated map color
+     * @param colors_preset colors preset for extending current colors preset
+     */
+    constructor(color_map? : Map<NodeId, Color>, colors_preset? : Color[]) {
         this.color_map = new Map<NodeId, Color>();
         if (color_map) {
-            this.color_map = color_map;
+            this.color_map = new Map(color_map);
+        }
+        if (colors_preset){
+            this.colors_preset = colors_preset;
         }
     }
-
-    set_color(id : NodeId, idx : number) : void {
-        if (idx > this.colors_preset.length || idx < 0) {
+    /**
+     * 
+     * @param id id of node
+     * @param color color usually indicated by number in algorithm
+     */
+    set_color(id : NodeId, color : number) : void {
+        if (color > this.colors_preset.length || color < 0) {
             this.color_map.set(id, this.error_color);
         }
         else{
-            this.color_map.set(id, this.colors_preset[idx]);
+            this.color_map.set(id, this.colors_preset[color]);
         }
     }
 
+    /**
+     * getter for color of given id
+     * @param id id of node
+     * @returns current color string representation
+     */
     get_color(id : NodeId) : Color {
         return this.color_map.get(id)!;
     }
 
+    /**
+     * get map of colors
+     * @returns map which key is node id and value color
+     */
     get_colors_map() : Map<NodeId, Color> {
         return this.color_map;
     }
 
+    /**
+     * cloning method for Colors class
+     * @returns new cloned Colors instance
+     */
     clone() : Colors {
-        return new Colors(this.color_map);
+        return new Colors(new Map(this.color_map));
     }
 }

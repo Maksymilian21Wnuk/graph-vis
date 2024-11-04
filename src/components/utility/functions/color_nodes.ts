@@ -23,7 +23,7 @@ export default function colorNodes(step : Step, nodes : Node[]) : Node[]{
 
     // if we want to colorize nodes, ignore coloring
     // unvisited and visited
-    if (step.colorize_nodes !== null) {
+    if (step.colorize_nodes !== undefined) {
         step.colorize_nodes?.get_colors_map().forEach((color, node) => {
             nodes = change_given_id(nodes, node, color, true);
         });

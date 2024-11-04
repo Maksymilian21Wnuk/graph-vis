@@ -7,21 +7,21 @@ import { Edge, Node } from "@xyflow/react";
 
 
 
-export default function graph_director(guard : Guard, currentClicked : string, nodes : Node[], edges : Edge[]) : GraphAbstract | null {
+export default function graph_director(guard : Guard, nodes : Node[], edges : Edge[]) : GraphAbstract | null {
     if (guard.directed && guard.undirected || guard.directed && guard.tree) {
         return null;
     }
     else if (guard.directed || !(guard.undirected || guard.tree)){
-        return new DirectedGraph(currentClicked, nodes, edges);
+        return new DirectedGraph(nodes, edges);
     }
     else if (guard.tree){
-        return new TreeGraph(currentClicked, nodes, edges);
+        return new TreeGraph(nodes, edges);
     }
     else if (guard.weighted) {
-        return new WeightedGraph(currentClicked, nodes, edges);
+        return new WeightedGraph(nodes, edges);
     }
     else {
-        return new Graph(currentClicked, nodes, edges);
+        return new Graph(nodes, edges);
     }
 
 }

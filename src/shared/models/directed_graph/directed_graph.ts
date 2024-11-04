@@ -5,8 +5,8 @@ import { ARROW_SVG_ID } from "../../constants";
 
 export default class DirectedGraph extends WeightedGraph {
 
-    constructor(start_node_id?: string, nodes?: Node[], edges?: Edge[]) {
-        super(start_node_id, nodes, edges);
+    constructor(nodes?: Node[], edges?: Edge[]) {
+        super(nodes, edges);
         this.is_directed = edges?.every((e : Edge) => e.markerEnd === ARROW_SVG_ID)!;
         // if fulfils the requirements of being directed
         // remove previously created neigbours and create new 

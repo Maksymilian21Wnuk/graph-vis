@@ -2,7 +2,6 @@ import { useShallow } from "zustand/shallow";
 import useStore from "../store/store";
 import { useState } from "react";
 import { algos } from "../../../algorithms/algorithms_aggreg";
-import get_currently_clicked from "../../utility/functions/get_currently_clicked";
 import { AppState } from "../../../shared/types/graph_map_types";
 import { GraphAbstract, Guard, PreviousStep, Step, Steps } from "../../../shared/types/visualisation_types";
 import colorNodes from "../../utility/functions/color_nodes";
@@ -106,17 +105,17 @@ export default function Visualisation() {
         setNodes(reset_node_color(nodes));
         setEdges(reset_edge_color(edges));
         // gets currently clicked node in order to start algo in this node (case of node starting algo)
-        const currentClicked: string = get_currently_clicked(nodes);
 
         const guard : Guard = {tree: chosenFunction.require_tree, directed: chosenFunction.require_directed, undirected: chosenFunction.require_non_directed, weighted: chosenFunction.require_weights};
-        const graph : GraphAbstract = graph_director(guard, currentClicked, nodes, edges)!;
+        const graph : GraphAbstract = graph_director(guard, nodes, edges)!;
 
         const foo = chosenFunction.foo
         // requirements checking for functions
-        if (requirements_guard(chosenFunction, graph)) {
+        if (requirements_guard(guard, graph)) {
             setModifyMode(false);
             setPrevStep(undefined);
             const new_steps : Steps = steps_director(graph, foo);
+            console.log(new_steps)
             setSteps(new_steps);
             setStepIdx(0);
         }

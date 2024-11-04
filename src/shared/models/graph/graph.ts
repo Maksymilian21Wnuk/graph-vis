@@ -2,11 +2,8 @@ import { Node, Edge } from "@xyflow/react";
 import { Additional, AdditionalType, PlainEdge, Step, Steps } from "../../types/visualisation_types";
 import { Queue } from "queue-typescript";
 import { DisjointSetCustom } from "../disjoint_set_custom/disjoint_set_custom";
+import get_currently_clicked from "../../../components/utility/functions/get_currently_clicked";
 
-interface GraphEdge {
-    source : string;
-    dest : string;
-}
 
 export default class Graph{
     protected edges : Map<string, string[]>;
@@ -17,16 +14,16 @@ export default class Graph{
     protected is_weighted : boolean = false;
     protected is_tree : boolean = false;
 
-    constructor(start_node_id? : string, nodes?: Node[], edges?: Edge[]){
+    constructor(nodes?: Node[], edges?: Edge[]){
         this.edges = new Map<string, string[]>();
         this.nodes = [];
         this.start_node = "1";
         this.steps = [];
 
-        if (nodes && edges && start_node_id){
+        if (nodes && edges){
             this.edges = this.convert_flow(edges);
             this.nodes = nodes.map((node : Node) => node.id);
-            this.start_node = nodes?.find((n : Node) => n.id = start_node_id)!.id;
+            this.start_node = get_currently_clicked(nodes);
         }
     }
 
@@ -52,10 +49,6 @@ export default class Graph{
     
         return neighbours;
     
-    }
-
-    create_edge(v1 : string, v2 : string) : GraphEdge {
-        return parseInt(v1) > parseInt(v2) ? {source : v1, dest : v2} : {source : v2, dest : v1};
     }
 
     get_neighbours(node : string) : string[]{
