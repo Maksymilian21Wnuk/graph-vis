@@ -20,13 +20,13 @@ interface CustomControlsProps {
     clearGraph: () => void;
     dispatch: React.Dispatch<GraphAction>;
     noWeights: () => void;
-    exportGraph: () => void;
     setIsDirected: () => void;
+    showStructurePopup: () => void;
 }
 
 
 
-function AdditionalControls({ randomizeWeight, clearGraph, dispatch, noWeights, exportGraph, setIsDirected }: CustomControlsProps) {
+function AdditionalControls({ randomizeWeight, clearGraph, dispatch, noWeights, setIsDirected, showStructurePopup }: CustomControlsProps) {
     return (
         <>
             <ControlButton title="Randomize weights" onClick={randomizeWeight}>
@@ -47,16 +47,16 @@ function AdditionalControls({ randomizeWeight, clearGraph, dispatch, noWeights, 
             <ControlButton title="Remove weights" onClick={noWeights}>
                 <FontAwesomeIcon icon={faToiletPaperSlash} />
             </ControlButton>
-            {import.meta.env.DEV ? (<ControlButton title="Export graph to python representation" onClick={exportGraph}>
+            <ControlButton title="Show structure of graph" onClick={showStructurePopup}>
                 <FontAwesomeIcon icon={faFileExport} />
-            </ControlButton>) : null}
+            </ControlButton>
             <ControlButton title="Set directed graph" onClick={setIsDirected}>
                 <FontAwesomeIcon icon={faArrowRight} />
             </ControlButton>
         </>)
 }
 
-export default function CustomControls({ exportGraph, randomizeWeight, clearGraph, dispatch, noWeights, setIsDirected }: CustomControlsProps) {
+export default function CustomControls({randomizeWeight, clearGraph, dispatch, noWeights, setIsDirected, showStructurePopup }: CustomControlsProps) {
     const [hidden, setHidden] = useState(false);
 
     const onHiddenClick = () => {
@@ -70,9 +70,9 @@ export default function CustomControls({ exportGraph, randomizeWeight, clearGrap
             </ControlButton>
             {hidden ?
                 null :
-                <AdditionalControls randomizeWeight={randomizeWeight} exportGraph={exportGraph}
+                <AdditionalControls randomizeWeight={randomizeWeight}
                     clearGraph={clearGraph} dispatch={dispatch}
-                    noWeights={noWeights} setIsDirected={setIsDirected} />}
+                    noWeights={noWeights} setIsDirected={setIsDirected} showStructurePopup={showStructurePopup} />}
         </Controls>
     )
 }

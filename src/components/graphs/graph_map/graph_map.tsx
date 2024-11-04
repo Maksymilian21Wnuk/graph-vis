@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 import {
     ReactFlow,
     Node,
@@ -24,6 +24,7 @@ import Additionals from "./components/additionals/additionals";
 import reset_edge_color from "../util/reset_edge_color";
 import reset_node_color from "../util/reset_node_color";
 import make_edge_directed from "./functions/make_edge_directed";
+import StructurePopup from "./components/structure_popup/structure_popup";
 
 const selector = (state: AppState) => ({
     nodes: state.nodes,
@@ -58,6 +59,7 @@ export default function GraphMap() {
 
 
     const [state, dispatch] = useReducer(reducer, initialState);
+    const [showStructure, setShowStructure] = useState(false);
 
     // looks weird, maybe to change
     function onNodeClick(_event: React.MouseEvent<Element, MouseEvent>, node: Node) {
@@ -191,11 +193,12 @@ export default function GraphMap() {
         setEdges(edges.map((e: Edge) => { return { ...e, label: Weight.UNWEIGHTED } }));
         setIsWeighted(false);
     }
-
+    /*
     const export_graph = () => {
         navigator.clipboard.writeText("{nodes: " + JSON.stringify(nodes) + ",\n" + "edges: " + JSON.stringify(edges) + "}");
         alert("Graph exported");
     }
+        */
 
     const set_directed = () => {
         reset_graph()
@@ -220,10 +223,19 @@ export default function GraphMap() {
         }
     }
 
+    const show_structure_popup = () => {
+        setShowStructure(true);
+    }
+
+    const hide_structure_popup = () => {
+        setShowStructure(false);
+    }
+
     return (
         <>
             <CustomMarker />
             <EdgePopup edge_to_change={state.edge_to_change} updateEdge={reactFlow.updateEdge} />
+            {showStructure ? <StructurePopup hideStructure={hide_structure_popup} edges={edges} nodes={nodes} /> : null}
             <div className="bg-white w-screen md:w-3/5 max-auto md:h-[400px] border-2 border-black font-sans">
                 <ReactFlow
                     nodes={nodes}
@@ -236,7 +248,7 @@ export default function GraphMap() {
                     onInit={() => reactFlow.fitView()}
                     onPaneClick={onPaneClick}
                     snapGrid={[15, 15]}>
-                    <CustomControls setIsDirected={set_directed} exportGraph={export_graph} noWeights={no_weights} dispatch={dispatch} clearGraph={clear} randomizeWeight={random_weight} />
+                    <CustomControls setIsDirected={set_directed} noWeights={no_weights} dispatch={dispatch} clearGraph={clear} randomizeWeight={random_weight} showStructurePopup={show_structure_popup} />
                 </ReactFlow>
             </div>
             <div className="w-1/5">

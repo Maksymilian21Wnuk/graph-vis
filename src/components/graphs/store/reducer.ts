@@ -30,6 +30,7 @@ function reducer(state: GraphState, action: GraphAction): GraphState {
             return {...state, edge_to_change : action.payload }
         }
 
+
         default: {
             return state;
         }
