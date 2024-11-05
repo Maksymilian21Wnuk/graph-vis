@@ -104,4 +104,12 @@ export const data: ConceptData[] = [
         title: `asdf`,
         desc: `asdf`
    },
+   {
+        title: "Transpose graph",
+        desc: "Change of directions of graph's edges, so that arrows are reversed. Example: transpose (u,v) is now edge (v,u)."
+   },
+   {
+        title: "SCC (Strongly Connected Components)",
+        desc: "Components of directed graph, in which there is path between each node in component."
+   },
 ]

@@ -11,9 +11,12 @@ const weighted_edges: Edge[] = [{ id: "1-2", source: "1", target: "2", label: 42
 const directed_edges: Edge[] = [{ id: "1-2", source: "1", target: "2", label: 42, markerEnd: ARROW_SVG_ID }];
 
 
-const not_weighted: DirectedGraph = new DirectedGraph("1", nodes, non_weighted_edges);
-const weighted: DirectedGraph = new DirectedGraph("1", nodes, weighted_edges);
-const directed: DirectedGraph = new DirectedGraph("1", nodes, directed_edges);
+const not_weighted: DirectedGraph = new DirectedGraph(nodes, non_weighted_edges);
+const weighted: DirectedGraph = new DirectedGraph(nodes, weighted_edges);
+const directed: DirectedGraph = new DirectedGraph(nodes, directed_edges);
+let directed_transposed : DirectedGraph = new DirectedGraph(nodes, directed_edges);
+directed_transposed.transpose()
+
 
 describe("Weighted graph test", () => {
     test("Should not be directed", () => {
@@ -24,6 +27,11 @@ describe("Weighted graph test", () => {
         expect(directed.get_is_directed())
             .toBe(true);
     });
+
+    test("Should be transposed", () => {
+        expect(directed_transposed.get_neighbours("2"))
+            .toBe(["1"])
+    })
 
 
 })

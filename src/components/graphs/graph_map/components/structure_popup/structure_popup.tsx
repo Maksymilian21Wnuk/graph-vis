@@ -19,7 +19,7 @@ export default function StructurePopup({edges, nodes, hideStructure} : Structure
 
     return (
         <dialog id="structure_modal" className="modal" open>
-            <div className="modal-box text-black">
+            <div className="modal-box text-black hover:opacity-25">
                 <h1 className="h1-custom"> Graph representation </h1>
 
                 <div className="grid grid-cols-3">

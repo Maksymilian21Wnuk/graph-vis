@@ -4,9 +4,6 @@ import { Queue } from "queue-typescript";
 import Colors from "../shared/models/colors/colors";
 
 
-const BLUE = 0;
-const RED = 1;
-
 export default function bipartite(g: Graph): Steps {
     let visited = new Set<string>();
     // for color visualization
@@ -15,6 +12,11 @@ export default function bipartite(g: Graph): Steps {
 
     // map color, let 0 be blue and 1 red
     let map_color = new Colors();
+
+    const BLUE = map_color.next_color();
+    const RED = map_color.next_color();
+
+
     map_color.set_color(g.get_start_node(), BLUE);
 
     let current_color = BLUE;

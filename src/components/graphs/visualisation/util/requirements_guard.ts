@@ -52,7 +52,11 @@ export default function requirements_guard(guard: Guard, graph: Graph | TreeGrap
         }
         return weight_check(guard, graph);
     }
-    else {
-        return true;
+    else if (graph instanceof Graph) {
+        if (directed){
+            alert("Graph cannot be directed");
+            return false;
+        }
     }
+    return true;
 }

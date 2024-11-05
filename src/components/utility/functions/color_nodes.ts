@@ -1,6 +1,7 @@
 import { NodeColor } from "../../../shared/enumerations/enums";
 import { Step } from "../../../shared/types/visualisation_types"
 import { Node } from "@xyflow/react"
+import reset_node_color from "../../graphs/util/reset_node_color";
 
 
 // spec: given id of nodes color only those nodes
@@ -17,6 +18,10 @@ function change_to_visited(nodes : Node[], color : string) : Node[] {
 
 // simple for, wanted to make code more readable
 export default function colorNodes(step : Step, nodes : Node[]) : Node[]{
+    if (step.clear) {
+        return reset_node_color(nodes);
+    }
+
     nodes = change_to_visited(nodes, NodeColor.VISITED);
     // the property nodes gives nodes to change color
     let nodes_to_change : string[] = step.nodes!;

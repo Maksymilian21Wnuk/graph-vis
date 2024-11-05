@@ -11,6 +11,12 @@ type NodeId = string;
  */
 type Color = [number, string];
 
+const INITIAL_COLORS : Color[] = [[0, "#8fd9fb"], [1, "#5ce65c"], 
+            [2, "#f28b82"], [3, "#fdd663"], 
+            [4, "#a77de8"], [5, "#ffb3ba"], 
+            [6, "#ffcccb"], [7, "#c3e88d"], 
+            [8, "#74b9ff"], [9, "#ff7675"]];
+
 /**
  * Class for algorithms
  * that needs vertice coloring
@@ -19,10 +25,10 @@ type Color = [number, string];
  */
 
 export default class Colors {
-    private colors_preset : Color[] = [[0, "#8fd9fb"], [1, "#5ce65c"]];
+    private colors_preset : Color[] = INITIAL_COLORS;
     private color_map : Map<NodeId, Color>;
     private error_color : Color = [-1, "black"];
-    
+    private generator : Generator<number, undefined, number>;
     /**
 
      * @param color_map additional argument for previously initiated map color
@@ -30,6 +36,7 @@ export default class Colors {
      */
     constructor(color_map? : Map<NodeId, Color>, colors_preset? : Color[]) {
         this.color_map = new Map<NodeId, Color>();
+        this.generator = this.colors_generator();
         if (color_map) {
             this.color_map = new Map(color_map);
         }
@@ -74,5 +81,16 @@ export default class Colors {
      */
     clone() : Colors {
         return new Colors(new Map(this.color_map));
+    }
+
+    private *colors_generator() : Generator<number, undefined, number> {
+        for (let i = 0; i < this.colors_preset.length; i++) {
+            yield this.colors_preset[i][0];
+        }
+        yield this.error_color[0];
+    }
+
+    next_color() : number {
+        return this.generator.next().value!;
     }
 }

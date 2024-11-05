@@ -34,4 +34,33 @@ export default class DirectedGraph extends WeightedGraph {
     get_is_directed() : boolean {
         return this.is_directed;
     }
+
+    /**
+     * TODO? or not useful?
+     * Method transposing graph
+     * (reversed order of arrows of given directed graph)
+     * if graph is not directed, it does not change graph,
+     * else it transposes graph
+     * @returns transposed representation of directed graph
+     */
+    transpose() : void {
+        if (!this.is_directed) {
+            return;
+        }
+        else {
+            let new_edges = new Map<string, string[]>();
+            this.nodes.forEach((n : string) => {
+                for (let nei of this.get_neighbours(n)) {
+                    if (!new_edges.has(nei)) {
+                        new_edges.set(nei, [n]);
+                    }
+                    else {
+                        new_edges.set(nei, [...new_edges.get(nei)!, n])
+                    }
+                }
+            }
+            )
+            this.edges = new_edges;
+        }
+    }
 }

@@ -34,6 +34,9 @@ export type AdditionalType = Map<string, number> | DisjointSetCustom | Set<strin
 
 export type ColorizeNodes = ColorizeNode[];
 
+/**
+ * 
+ */
 export type Step = {
     // nodes to color, by default to orange,
     // since those are nodes being visited
@@ -68,6 +71,8 @@ export type Step = {
     // colorize nodes for coloring algorithms
     // key: color value: nodes to color given key
     colorize_nodes? : Colors;
+    // clears graph
+    clear? : boolean;
 };
 
 export type PreviousStep = {

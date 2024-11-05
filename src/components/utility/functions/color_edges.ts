@@ -2,6 +2,7 @@ import { Edge } from "@xyflow/react";
 import { Step } from "../../../shared/types/visualisation_types";
 import { EdgeColor } from "../../../shared/enumerations/enums";
 import { ARROW_SVG_ID, INVISIBLE_ARROW, NO_ARROW } from "../../../shared/constants";
+import reset_edge_color from "../../graphs/util/reset_edge_color";
 
 
 // changes to given color
@@ -33,6 +34,9 @@ function parse_ids_undirected(source: string, neighbours: string[]): string[] {
 
 // step spec: edges is neighbours, source is neigbours' src
 export default function colorEdges(step: Step, edges: Edge[]): Edge[] {
+    if (step.clear) {
+        return reset_edge_color(edges);
+    }
     edges = change_to_visited(edges);
     
     const edges_to_change: string[] = step.edges!;
