@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import { AppState } from "../../../../../shared/types/graph_map_types";
 import { graph_preset } from "./preset/graph_preset";
 import { useReactFlow } from "@xyflow/react";
@@ -10,9 +10,7 @@ import check_undirected from "../../functions/check_directed";
 import Button from "../../../../utility/atoms/button/button";
 import SpawnerModal from "./spawner_modal/spawner_modal";
 import storage_get_graphs from "./functions/local_get_graphs";
-import reset_node_color from "../../../util/reset_node_color";
-import reset_edge_color from "../../../util/reset_edge_color";
-import storage_exists from "./functions/local_exists";
+import GraphSave from "./graph_save/graph_save";
 
 const selector = (state: AppState) => ({
     setNodes: state.setNodes,
@@ -38,30 +36,7 @@ export default function GraphSpawner() {
     const [graphPresets, setGraphPresets] = useState([...graph_preset, ...storage_get_graphs()]);
     const [showRandom, setShowRandom] = useState(false);
     const reactFlow = useReactFlow();
-    const [graphName, setGraphName] = useState("");
 
-
-    const handleSubmit = (e: FormEvent) => {
-        e.preventDefault();
-        if (graphName === "") {
-            alert("Graph name must not be empty")
-        }
-        else {
-            const nodes_to_save = reset_node_color(nodes);
-            const edges_to_save = reset_edge_color(edges);
-            setGraphName("");
-            // check if name exists
-            if (storage_exists(graphName)) {
-                setGraphPresets([...graphPresets.filter(g => g.name !== graphName), { name: graphName, nodes: nodes_to_save, edges: edges_to_save }])
-            }
-            else{
-                setGraphPresets([...graphPresets, { name: graphName, nodes: nodes_to_save, edges: edges_to_save }])
-
-            }
-            localStorage.setItem(graphName, JSON.stringify({ nodes: nodes_to_save, edges: edges_to_save }));
-        }
-
-    }
 
     const fit_view = () => {
         reactFlow.fitView();
@@ -104,14 +79,7 @@ export default function GraphSpawner() {
         <div className="flex flex-col px-5 py-2 justify-center items-center">
             <div className="pl-36">
                 <Button onClick={onClick} text="Graphs" style="w-72" />
-                <form onSubmit={handleSubmit}>
-                    <input className="input border-2 border-black"
-                        type="text"
-                        value={graphName}
-                        onChange={(e) => setGraphName(e.target.value)}
-                        placeholder="Graph name..." />
-                    <button className="btn" type="submit">Save</button>
-                </form>
+                <GraphSave nodes={nodes} edges={edges} graphPresets={graphPresets} setGraphPresets={setGraphPresets} />
                 <SpawnerModal setShowRandom={setShowRandom} onClose={changeGraph} graph_names={graphPresets} onRemove={onRemove} />
             </div>
             <div className="flex flex-col">

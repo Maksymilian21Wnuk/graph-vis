@@ -45,6 +45,7 @@ export default function RandomSpawner() {
     const input_change = (event: React.ChangeEvent<HTMLInputElement>) => {
         const count: string = event.target.value;
         if (count === "") {
+            alert("Node number must be greater than 0")
             setNodeCount("");
         }
         else {

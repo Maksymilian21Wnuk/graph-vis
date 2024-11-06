@@ -144,3 +144,7 @@ export type Algorithm = {
     description? : string;
     dev? : boolean;
 };
+
+export interface StructureInterface {
+    graph : DirectedGraph;
+}

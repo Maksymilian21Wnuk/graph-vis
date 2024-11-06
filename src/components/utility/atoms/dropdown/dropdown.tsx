@@ -9,11 +9,12 @@ interface DropdownProps {
     text? : string;
 }
 
-// atom component for making 
-// responsive dropdown interface
-// onchange changes value
-// accepts object of property name which is displayed in field
-// optional text is for initial text
+/**
+ * Component for making dropdown returning
+ * index of selected option
+ * @param param0 
+ * @returns dropdown atom
+ */
 export default function Dropdown({selectedValue, handleChange, obj, text} : DropdownProps) {
     return (
         <select className="select select-bordered w-full max-w-xs"
