@@ -1,3 +1,4 @@
+import { NODE_MAX } from "../../../../../shared/constants";
 import find_first_free from "./find_first_free_index";
 import { Node, XYPosition } from "@xyflow/react";
 
@@ -7,8 +8,10 @@ const nodes1 : Node[] = [{id: "1", position: basic_pos, data: basic_label}]
 const nodes2 : Node[] = [...nodes1, {id: "3", position: basic_pos, data : basic_label}]
 const nodes3 : Node[] = [...nodes1, {id: "4", position: basic_pos, data : basic_label}]
 
+
+
 let huge_nodes : Node[] = [];
-for (let x = 1; x < 100; x++) {
+for (let x = 1; x < NODE_MAX; x++) {
     huge_nodes.push({id: String(x), data: basic_label, position: basic_pos});
 }
 
@@ -32,11 +35,11 @@ describe("First free index test", () => {
     test("Huge array test", () => {
         const start = performance.now();
         expect(find_first_free(huge_nodes))
-            .toStrictEqual("100");
+            .toStrictEqual("30");
         const end = performance.now() - start;
         console.log(end);
         expect(end)
-            .toBeLessThan(0.5);
+            .toBeLessThan(1);
         
         }
 

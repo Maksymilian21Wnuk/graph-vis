@@ -12,18 +12,18 @@ import reducer from "../store/reducer";
 import { AppState, GraphState } from "../../../shared/types/graph_map_types";
 import { useShallow } from "zustand/shallow";
 import { Weight } from "../../../shared/enumerations/enums";
-import { ARROW_SVG_ID, NODE_MAX, NO_ARROW, nodeDefaultStyle } from "../../../shared/constants";
+import { ARROW_SVG_ID, NODE_MAX, NO_ARROW, NO_WEIGHT, nodeDefaultStyle } from "../../../shared/constants";
 import find_first_free from "./functions/find_first_free_index/find_first_free_index";
 import getRandomInt from "../../utility/functions/random_int";
 import CustomControls from "./custom_controls/custom_controls";
 import CustomMarker from "./components/custom_edge/marker";
-import convert_to_undirected from "./functions/convert_to_undirected";
+import convert_to_undirected from "./functions/convert_to_undirected/convert_to_undirected";
 import EdgePopup from "./components/edge_popup";
 import { ActionType } from "../../../shared/enumerations/enums";
 import Additionals from "./components/additionals/additionals";
 import reset_edge_color from "../util/reset_edge_color";
 import reset_node_color from "../util/reset_node_color";
-import make_edge_directed from "./functions/make_edge_directed";
+import make_edge_directed from "./functions/make_edge_directed/make_edge_directed";
 import StructurePopup from "./components/structure_popup/structure_popup";
 
 const selector = (state: AppState) => ({
@@ -87,7 +87,7 @@ export default function GraphMap() {
                     if (edges.some((e: Edge) => e.id === id) || first === scnd) {
                         return;
                     }
-                    const new_label: string = isWeighted ? String(getRandomInt(NODE_MAX)) : Weight.UNWEIGHTED;
+                    const new_label: string = isWeighted ? String(getRandomInt(NODE_MAX)) : NO_WEIGHT;
                     
                     if (edges.some((e : Edge) => e.id === prevent_two_arrows_id)){
                         setEdges([...reset_edge_color(edges.filter((e : Edge) => e.id !== prevent_two_arrows_id)), {

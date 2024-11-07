@@ -1,18 +1,25 @@
 import { DisjointSet } from "disjoint-set-ds/dist";
 
-/*
-extending class for
-making set easier and easier
-display of sets in current forest
-*/
+
+
+/**
+ * Disjoint set extension
+ * for making union find easier
+ * and hiding implementation of
+ * displaying showing sets
+ */
 export class DisjointSetCustom extends DisjointSet<string> {
     private nodes : string[];
 
     constructor(nodes : string[]){
         super();
+        if (nodes.length === 0) {
+            throw new RangeError("Nodes list must not be 0")
+        }
         this.nodes = nodes;
-        nodes.map((node : string) =>
+        nodes.map((node : string) =>{
             this.makeSet(node)
+        }
         )
     }
 

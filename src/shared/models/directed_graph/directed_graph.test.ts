@@ -19,7 +19,7 @@ directed_transposed.transpose()
 
 
 describe("Weighted graph test", () => {
-    test("Should not be directed", () => {
+    test("Should not be directed", () => {  
         expect(weighted.get_is_directed() || not_weighted.get_is_directed())
             .toBe(false);
     });
@@ -30,7 +30,7 @@ describe("Weighted graph test", () => {
 
     test("Should be transposed", () => {
         expect(directed_transposed.get_neighbours("2"))
-            .toBe(["1"])
+            .toStrictEqual(["1"])
     })
 
 

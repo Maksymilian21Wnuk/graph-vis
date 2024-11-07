@@ -8,8 +8,8 @@ let non_weighted_edges: Edge[] = [{ id: "1-2", source: "1", target: "2", label: 
 let weighted_edges: Edge[] = [{ id: "1-2", source: "1", target: "2", label: 42 }];
 
 
-let not_weighted: WeightedGraph = new WeightedGraph("1", nodes, non_weighted_edges);
-let weighted: WeightedGraph = new WeightedGraph("1", nodes, weighted_edges);
+let not_weighted: WeightedGraph = new WeightedGraph(nodes, non_weighted_edges);
+let weighted: WeightedGraph = new WeightedGraph(nodes, weighted_edges);
 
 
 describe("Weighted graph test", () => {

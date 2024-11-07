@@ -5,8 +5,8 @@ import { useReactFlow } from "@xyflow/react";
 import RandomSpawner from "./random_spawner/random_spawner";
 import useStore from "../../../store/store";
 import { useShallow } from "zustand/shallow";
-import check_weighted from "../../functions/check_weighted";
-import check_undirected from "../../functions/check_directed";
+import check_undirected from "../../functions/check_undirected/check_undirected";
+import check_weighted from "../../functions/check_weighted/check_weighted";
 import Button from "../../../../utility/atoms/button/button";
 import SpawnerModal from "./spawner_modal/spawner_modal";
 import storage_get_graphs from "./functions/local_get_graphs";
@@ -76,13 +76,13 @@ export default function GraphSpawner() {
     }
 
     return (
-        <div className="flex flex-col px-5 py-2 justify-center items-center">
-            <div className="pl-36">
-                <Button onClick={onClick} text="Graphs" style="w-72" />
+        <div className="px-5 py-2">
+            <div className="pl-36 flex flex-row items-center justify-center">
+                <Button onClick={onClick} text="Graphs" style="w-72 m-2" />
                 <GraphSave nodes={nodes} edges={edges} graphPresets={graphPresets} setGraphPresets={setGraphPresets} />
                 <SpawnerModal setShowRandom={setShowRandom} onClose={changeGraph} graph_names={graphPresets} onRemove={onRemove} />
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col items-center justify-center">
                 {showRandom ? <RandomSpawner /> : null}
             </div>
         </div>

@@ -42,12 +42,12 @@ export default function GraphSave({nodes, edges, graphPresets, setGraphPresets} 
 
     return (
         <form onSubmit={handleSubmit}>
-            <input className="input border-2 border-black"
+            <input className="input border-2 border-black m-2"
                 type="text"
                 value={graphName}
                 onChange={(e) => setGraphName(e.target.value)}
                 placeholder="Graph name..." />
-            <button className="btn" type="submit">Save</button>
+            <button className="btn bg-lime-200 hover:bg-lime-300" type="submit">Save to storage</button>
         </form>
     )
 }

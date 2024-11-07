@@ -12,11 +12,11 @@ export default function MatrixRepresentation({graph} : StructureInterface) {
     return (
         <div>
             <ul>
-                {matrix.map((x : number[]) => 
-                    <li className="">
+                {matrix.map((x : number[], idx) => 
+                    <li key={idx} className="">
                         <ul className="flex flex-row">
-                            {x.map((n : number) =>
-                                <li className="border p-1 w-7 h-8">
+                            {x.map((n : number, idx) =>
+                                <li key={idx} className="border p-1 w-7 h-8">
                                     {n}
                                 </li>
                             ) }

@@ -37,7 +37,7 @@ export default function StructurePopup({ edges, nodes, hideStructure }: Structur
                     <h1 className="h1-custom col-span-4">
                         Graph representation
                     </h1>
-                    <p className="border-2 py-5 w-fit"
+                    <p className="border-2 p-5 rounded-2xl w-fit font-bold bg-lime-200"
                         onMouseOver={opacityChange}
                         onMouseOut={opacityClear}>
                         Hide

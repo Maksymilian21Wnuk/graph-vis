@@ -5,7 +5,7 @@ import { Node, Edge } from "@xyflow/react";
 let nodes: Node[] = [{ id: "1", data: { "label": "1" }, position: { x: 1, y: 2 } }, { id: "2", data: { "label": "2" }, position: { x: 1, y: 2 } }];
 let edges: Edge[] = [{ id: "1-2", source: "1", target: "2" }];
 
-let g: Graph = new Graph("1", nodes, edges);
+let g: Graph = new Graph(nodes, edges);
 
 
 

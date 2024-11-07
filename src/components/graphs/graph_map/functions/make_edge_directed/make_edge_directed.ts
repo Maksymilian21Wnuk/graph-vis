@@ -1,6 +1,6 @@
 import { Edge } from "@xyflow/react";
-import coin_flip from "../../util/coin_flip";
-import { ARROW_SVG_ID } from "../../../../shared/constants";
+import coin_flip from "../../../util/coin_flip";
+import { ARROW_SVG_ID } from "../../../../../shared/constants";
 
 /*
 Function for making directions random,

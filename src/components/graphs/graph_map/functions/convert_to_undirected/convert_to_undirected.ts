@@ -1,5 +1,5 @@
 import { Edge } from "@xyflow/react";
-import {  NO_ARROW } from "../../../../shared/constants";
+import { NO_ARROW } from "../../../../../shared/constants";
 
 /*
     this is used for conversion

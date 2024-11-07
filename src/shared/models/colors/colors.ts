@@ -29,6 +29,8 @@ export default class Colors {
     private color_map : Map<NodeId, Color>;
     private error_color : Color = [-1, "black"];
     private generator : Generator<number, undefined, number>;
+    public length = INITIAL_COLORS.length;
+    static ERROR_ID = -1;
     /**
 
      * @param color_map additional argument for previously initiated map color
@@ -42,6 +44,7 @@ export default class Colors {
         }
         if (colors_preset){
             this.colors_preset = colors_preset;
+            this.length = colors_preset.length;
         }
     }
     /**
@@ -64,7 +67,12 @@ export default class Colors {
      * @returns current color string representation
      */
     get_color(id : NodeId) : number {
-        return this.color_map.get(id)![0];
+        if (this.color_map.get(id)){
+            return this.color_map.get(id)![0];
+        }
+        else{
+            return Colors.ERROR_ID;
+        }
     }
 
     /**

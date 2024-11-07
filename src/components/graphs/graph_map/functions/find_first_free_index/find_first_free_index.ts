@@ -1,27 +1,33 @@
 import { Node } from "@xyflow/react";
+import { NODE_MAX } from "../../../../../shared/constants";
 
-/*
-Function for finding
-first free label of node
-available, that is for nodes on map: 1,2, 4,5 should
-return 3
-*/
+/**
+ *
+ * Function for finding
+ * first free label of node
+ * Modification of bucket sort
+ * @param idx_arr array of currently held indexes on map
+ * @returns first free number label
+ */
+
 function find_first_free_index(idx_arr: number[]): string {
     if (idx_arr.length == 0) {
         return "1";
     }
     else {
-        const sorted_arr : number[] = idx_arr.sort((n1, n2) => n1 - n2);
-        let first: number = 1;
-        for (let idx of sorted_arr) {
-            if (idx == first) {
-                first += 1;
-            }
-            else if (idx > first) {
-                return String(first);
+        let sorted_arr : boolean[] = Array(NODE_MAX + 1).fill(false);
+
+        for (let idx = 0; idx < idx_arr.length; idx++) {
+            sorted_arr[idx_arr[idx]] = true; 
+        }
+
+        for (let idx = 1; idx < sorted_arr.length; idx++) {
+            if (!sorted_arr[idx]){
+                return String(idx);
             }
         }
-        return String(first);
+        return "1"
+
     }
 }
 
