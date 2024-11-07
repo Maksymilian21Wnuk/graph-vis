@@ -2,52 +2,35 @@ import DirectedGraph from "../shared/models/directed_graph/directed_graph";
 import { Steps } from "../shared/types/visualisation_types";
 
 
-export default function dfs(g: DirectedGraph): Steps {
-    let visited = new Set<string>();
-    let stack : string[] = [];
-    const start_node = g.get_start_node();
-    
-    stack.push(start_node);
-    visited.add(start_node);
-
-    g.add_step({step_idx: 0,
-        additional: stack, additional_name: `Stack:`,
-        additional_snd: visited, additional_snd_name: `Visited:`,
-        current_node: start_node
-     })
-
-    while (stack.length !== 0) {
-        const current = stack.pop()!;
-        g.add_step({ step_idx: 1,
-            additional: stack, additional_name: `Stack:`,
-            additional_snd: visited, additional_snd_name: `Visited:`,
-            current_node: current
-        })
-
-        for (const neighbour of g.get_neighbours(current)) {
-            if (!visited.has(neighbour)){
-                stack.push(neighbour);
-                visited.add(neighbour);
-                g.add_step({ step_idx: 2,
-                    additional: stack, additional_name: `Stack:`,
-                    additional_snd: visited, additional_snd_name: `Visited:`,
-                    current_node: current,
-                    nodes: [neighbour],
-                    edges: [neighbour],
-                    source_node: current
-                })
+function dfs_recursive(vertice: string, parent: string, visited: Set<string>, g: DirectedGraph) {
+    if (visited.has(vertice)) {
+        return;
+    }
+    else {
+        visited.add(vertice);
+        g.add_step({
+            current_node: vertice,
+            additional: visited, additional_name: "Visited nodes:",
+            edges: [vertice], source_node: parent, step_idx: 1
+        });
+        for (const nei of g.get_neighbours(vertice)) {
+            if (nei !== parent) {
+                dfs_recursive(nei, vertice, visited, g);
+                g.add_step({
+                    current_node: vertice,
+                    additional: visited, additional_name: "Visited nodes:", step_idx: 2
+                });
             }
         }
-        g.add_step({ step_idx: 3,
-            additional: stack, additional_name: `Stack:`,
-            additional_snd: visited, additional_snd_name: `Visited:`
-        })
+
     }
+}
 
-    g.add_step({
-        step_idx: 4
-    })
-
+export default function dfs(g: DirectedGraph): Steps {
+    var visited = new Set<string>();
+    g.add_step({ current_node: g.get_start_node(), step_idx: 0 });
+    dfs_recursive(g.get_start_node(), "-1", visited, g);
+    g.add_step({ step_idx: 3 });
     return g.get_steps();
 }
 

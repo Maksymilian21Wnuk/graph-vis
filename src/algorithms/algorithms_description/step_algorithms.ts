@@ -9,11 +9,12 @@ export const step_text: StepInterface[] = [
     { steps: ["Initialize queue Q", "Extract node from Q", "Add unvisited neighbours to Q", "Repeat from 2, if Q is not empty", "Q is empty", "Terminate"] },
     //dfs
     {
-        steps: ["Add start node to Stack and mark it as visited",
-            "Pop node from stack",
-            "Add unvisited neighbours to stack",
-            "Continue while stack is not empty",
-            "Terminate"]
+        steps: [
+            "Start",
+            "Go to unvisited neighbour",
+            "Go back if no visited",
+            "Terminate"
+        ]
     },
     // connection check
     { steps: ["Initialize queue Q", "Extract node from Q", "Add unvisited neighbours to Q", "Repeat 2 step if Q is not empty", "Q is empty", "Check size of visited set and graph's size", "Terminate"] },
