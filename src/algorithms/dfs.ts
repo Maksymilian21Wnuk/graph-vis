@@ -22,16 +22,30 @@ function dfs_recursive(vertice: string, parent: string, visited: Set<string>, g:
                 });
             }
         }
-
+ 
     }
 }
+
+// is this required? maybe some other way
+function dfs_duplicate_removal(steps : Steps) : Steps {
+    let s : Steps = [];
+    for (let i = 0; i < steps.length - 1; i++) {
+        if (steps[i].current_node === steps[i + 1].current_node) {
+            continue
+        }
+        s.push(steps[i]);
+    }
+
+    return s;
+}
+
 
 export default function dfs(g: DirectedGraph): Steps {
     var visited = new Set<string>();
     g.add_step({ current_node: g.get_start_node(), step_idx: 0 });
     dfs_recursive(g.get_start_node(), "-1", visited, g);
-    g.add_step({ step_idx: 3 });
-    return g.get_steps();
+    g.add_step({ step_idx: 3 });    
+    return dfs_duplicate_removal(g.get_steps());
 }
 
 
