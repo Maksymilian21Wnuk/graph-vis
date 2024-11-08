@@ -36,12 +36,10 @@ export default class DirectedGraph extends WeightedGraph {
     }
 
     /**
-     * TODO? or not useful?
      * Method transposing graph
      * (reversed order of arrows of given directed graph)
      * if graph is not directed, it does not change graph,
      * else it transposes graph
-     * @returns transposed representation of directed graph
      */
     transpose() : void {
         if (!this.is_directed) {

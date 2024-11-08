@@ -129,6 +129,14 @@ export default class Graph{
         return this.steps;
     }
 
+    /**
+     * this should be removed
+     * @param steps steps to set
+     */
+    set_steps(steps : Steps) : void {
+        this.steps = steps;
+    }
+
 
     get_node_count() : number {
         return this.nodes.length;

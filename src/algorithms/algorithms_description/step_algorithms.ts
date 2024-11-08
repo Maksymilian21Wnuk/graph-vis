@@ -61,19 +61,20 @@ export const step_text: StepInterface[] = [
             "Terminate"]
     },
 
-//Steps for tarjan
-{
-     steps:["step 1",
+    //Steps for tarjan
+    {
+        steps: ["step 1",
             "todo",
             "todo"
-]},
-//Steps for kosaraju
-{
-     steps:["Perform DFS from starting node, but each time adding to stack add to second stack",
-            "Pop from stack node",
-            "If has unvisited neighbours, add to second stack and dfs's stack",
-            "Run DFS again, this time on transposed graph",
-            "Do smth", 
+        ]
+    },
+    //Steps for kosaraju
+    {
+        steps: ["Start",
+            "Go to unvisited neighbour",
+            "Exhausted neighbours, add to kosaraju-stack",
+            "Go back",
             "Terminate"
-]},
+        ]
+    },
 ]

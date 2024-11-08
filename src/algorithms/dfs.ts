@@ -28,8 +28,8 @@ function dfs_recursive(vertice: string, parent: string, visited: Set<string>, g:
 
 // is this required? maybe some other way
 function dfs_duplicate_removal(steps : Steps) : Steps {
-    let s : Steps = [];
-    for (let i = 0; i < steps.length - 1; i++) {
+    let s : Steps = [steps[0]];
+    for (let i = 1; i < steps.length - 1; i++) {
         if (steps[i].current_node === steps[i + 1].current_node) {
             continue
         }
