@@ -5,10 +5,10 @@ from steps_parser import steps_parser
 from description_parser import description_parser
 import os
 
-STEPS_PATH = "../src/algorithms/algorithms_description/step_algorithms.ts"
-DESCRIPTIONS_PATH = "../src/algorithms/algorithms_description/description_algorithms.ts"
-CONCEPTS_PATH = "../src/components/fundamental_concepts/data.ts"
-ALGORITHMS_PATH = "../src/algorithms/algorithms_aggreg.ts"
+STEPS_PATH = "../../src/algorithms/algorithms_description/step_algorithms.ts"
+DESCRIPTIONS_PATH = "../../src/algorithms/algorithms_description/description_algorithms.ts"
+CONCEPTS_PATH = "../../src/components/fundamental_concepts/data.ts"
+ALGORITHMS_PATH = "../../src/algorithms/algorithms_aggreg.ts"
 
 def append_to_file(file_name, parsed) :
         with open(file_name, "r") as file :

@@ -1,8 +1,6 @@
 # Interactive graph algorithms visualisation
 
 
-<!-- TABLE OF CONTENT -->
-
 <summary>Table of Contents</summary>
 <ol>
     <li>
@@ -15,7 +13,6 @@
         <a href="#structure">Structure</a>
     </li>
 </ol>
-<!-- ABOUT -->
 
 ## About 
 Interactive graph algorithms visualisation is an app created in 

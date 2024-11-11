@@ -1,6 +1,6 @@
 
-ALGO_PATH = "../src/algorithms/"
-ALGORITHMS_AGGREG_PATH = "../src/algorithms/algorithms_aggreg.ts"
+ALGO_PATH = "../../src/algorithms/"
+ALGORITHMS_AGGREG_PATH = "../../src/algorithms/algorithms_aggreg.ts"
 
 GRAPH = {"path" : "/graph/grah", "type" : "Graph"}
 WEIGHTED = {"path" : "/weighted_graph/weighted_graph", "type": "WeightedGraph"}

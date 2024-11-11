@@ -52,13 +52,26 @@ export type Step = {
     /** Message displayed on top of additionals on page, keep it as short and simple as possible */
     msg?: string;
 
-    /** */
+    /** Member of type AdditionalType for visualisation additional structures, 
+     * it takes for example Queue, Map or DisjointSetCustom */
     additional?: AdditionalType;
-    additional_parsed?: Additional[];
-    additional_snd_name?: string;
-    additional_snd_parsed?: Additional[];
+
+    /** Member of type AdditionalType, displayed next to additional.
+     * For displaying second additional structure.
+     */
     additional_snd?: AdditionalType;
+
+    /** Name displayed over first additional */
     additional_name?: string;
+
+    /** Name displayed over second additional */
+    additional_snd_name?: string;
+
+    /** If user wants to pre-parse additional, he can pass array of objects of type additional */
+    additional_parsed?: Additional[];
+
+    /** If user wants to pre-parse second additional, he can pass array of objects of type additional */
+    additional_snd_parsed?: Additional[];
 
     /** If true, it will color nodes that were previously visited to orange,
      * by default it's false, since in most algorithms we will not check already
