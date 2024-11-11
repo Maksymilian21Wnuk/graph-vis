@@ -41,12 +41,11 @@ export default function kruskal(g : WeightedGraph) : Steps{
     let edges_additional : Edge[] = Array.from(edges);
 
     for (const e of edges) {
-        disjoint_set.get_sets();
         // if not in same set append to result and make union
         if (disjoint_set.find(e.source) != disjoint_set.find(e.dest)){
             disjoint_set.union(e.source, e.dest);
             result.push(e);
-            g.add_step({source_node : e.source, edges : [e.dest], nodes : [e.dest, e.source], should_color_visited: true,
+            g.add_step({source_node : e.source, dest_nodes : [e.dest], nodes : [e.dest, e.source], should_color_visited: true,
                 step_idx: 1,
                 additional_name: "Edges: ", additional: edges_additional,
                 additional_snd_name: `Sets`, additional_snd: disjoint_set
@@ -58,7 +57,7 @@ export default function kruskal(g : WeightedGraph) : Steps{
                 step_idx: 2,
                 additional_name: "Creates cycle", additional: edges_additional,
                 should_color_visited : true,
-                edges: [e.dest],
+                dest_nodes: [e.dest],
                 source_node: e.source,
                 additional_snd_name: `Sets`, additional_snd: disjoint_set
             });
@@ -68,7 +67,7 @@ export default function kruskal(g : WeightedGraph) : Steps{
                 should_color_visited : true,
                 edge_removal: true,
                 source_node: e.source,
-                edges: [e.dest],
+                dest_nodes: [e.dest],
                 additional_snd_name: `Sets`, additional_snd: disjoint_set
             });
         }

@@ -9,8 +9,8 @@ import get_currently_clicked from "../../../components/utility/functions/get_cur
  * Plain graph model for visualisation,
  * provides API for writing algorithms
  */
-
 export default class Graph{
+
     protected edges : Map<string, string[]>;
     protected nodes : string[];
     protected start_node : string;
@@ -122,7 +122,7 @@ export default class Graph{
     }
 
     /**
-     * 
+     * Get steps
      * @returns steps after algorithm's execution
      */
     get_steps() : Steps {
@@ -137,24 +137,44 @@ export default class Graph{
         this.steps = steps;
     }
 
-
+    /**
+     * 
+     * @returns Node count of graph
+     */
     get_node_count() : number {
         return this.nodes.length;
     }
 
+    /**
+     * 
+     * @returns Edge count of graph
+     */
     get_edge_count() : number { 
         return Array.from(this.edges.values()).reduce((sum, arr) => sum + arr.length, 0) / 2;
     }
-
+    /**
+     * Start node is currently clicked node
+     * in react flow's representation
+     * @returns Start node of graph
+     */
     get_start_node() : string {
         return this.start_node;
     }
 
-
+    /**
+     * Method for getting
+     * node list of graph
+     * @returns nodes list of graph
+     */
     get_nodes() : string[] {
         return this.nodes;
     }
-
+    /**
+     * Method for getting map which
+     * for key nodeId returns list of
+     * nodes adjacent to it (neighbours)
+     * @returns edges of graph
+     */
     get_edges() : Map<string, string[]> {
         return this.edges;
     }

@@ -3,7 +3,9 @@ import { Node, Edge } from "@xyflow/react";
 
 
 
-
+/**
+ * Graph model for tree
+ */
 export default class TreeGraph extends WeightedGraph {
     protected is_tree : boolean;
 

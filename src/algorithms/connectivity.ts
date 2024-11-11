@@ -23,7 +23,7 @@ export default function connectivity_check(g: Graph): Steps {
                 visited.add(neighbour);
             }
         }
-        g.add_step({ edges: neighbours, source_node: node, nodes: neighbours, step_idx: 2, additional: queue, additional_name: `Queue:`, additional_snd: visited, additional_snd_name: `Visited:` })
+        g.add_step({ dest_nodes: neighbours, source_node: node, nodes: neighbours, step_idx: 2, additional: queue, additional_name: `Queue:`, additional_snd: visited, additional_snd_name: `Visited:` })
         g.add_step({ additional: queue, additional_name: `Queue:`, step_idx: 3, additional_snd: visited, additional_snd_name: `Visited:` });
     }
 

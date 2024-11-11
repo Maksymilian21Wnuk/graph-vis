@@ -29,7 +29,7 @@ export default function dijkstra(g: WeightedGraph): Steps {
         g.add_step({
             nodes: g.get_neighbours(v.value!), should_color_visited : true,
             additional: distances, additional_name: "Distances:",
-            edges: g.get_neighbours(v.value!), source_node: v.value!, step_idx: 2, current_node: v.value
+            dest_nodes: g.get_neighbours(v.value!), source_node: v.value!, step_idx: 2, current_node: v.value
         });
 
         if (visited.has(v.value!)) {
@@ -55,7 +55,7 @@ export default function dijkstra(g: WeightedGraph): Steps {
                 g.add_step({
                     nodes: [neighbour], should_color_visited: true, should_color_visited_edge: true,
                     additional: distances, additional_name: "Distances:",
-                    edges: [neighbour], source_node: v.value!, step_idx: 3, current_node: v.value!,
+                    dest_nodes: [neighbour], source_node: v.value!, step_idx: 3, current_node: v.value!,
                     additional_snd_name: `Updating ${neighbour} :`,
                     // example of explicitly parsing additionals
                     additional_snd_parsed: [{id: `Old:`, value: `${old_dist === Infinity ? "∞" : old_dist}`}, {id: `New: `, value: `${new_dist}`}]

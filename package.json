@@ -11,7 +11,8 @@
     "test": "jest",
     "clean": "rm -r dist node_modules",
     "make_container": "docker-compose up",
-    "stop_container": "docker-compose stop"
+    "stop_container": "docker-compose stop",
+    "generate-docs": "npx typedoc --entryPointStrategy expand --entryPoints ./src --out docs --includeVersion true --excludePrivate true --excludeExternals true"
   },
   "jest": {
     "collectCoverage": true,
@@ -75,6 +76,7 @@
     "postcss": "^8.4.45",
     "tailwindcss": "^3.4.11",
     "ts-jest": "^29.2.5",
+    "typedoc": "^0.26.11",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.1"

@@ -11,7 +11,7 @@ function dfs_recursive(vertice: string, parent: string, visited: Set<string>, g:
         g.add_step({
             current_node: vertice,
             additional: visited, additional_name: "Visited nodes:",
-            edges: [vertice], source_node: parent, step_idx: 1
+            dest_nodes: [vertice], source_node: parent, step_idx: 1
         });
         for (const nei of g.get_neighbours(vertice)) {
             if (nei !== parent) {

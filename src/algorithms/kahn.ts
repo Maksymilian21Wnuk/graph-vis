@@ -60,7 +60,7 @@ export default function topological_sort(g: DirectedGraph): Steps {
             step_idx: 3, additional_name: `Queue`, additional_snd_name: `Indegrees: `,
             additional: queue, additional_snd: indegrees,
             current_node: vertice,
-            edges: neighbours,
+            dest_nodes: neighbours,
             source_node: vertice,
             nodes: neighbours,
             should_color_visited: true
@@ -77,7 +77,7 @@ export default function topological_sort(g: DirectedGraph): Steps {
         g.add_step({
             step_idx: 3, additional_name: `Queue`, additional_snd_name: `Indegrees: `,
             additional: queue, additional_snd: indegrees,
-            edge_removal: true, source_node: vertice, edges: neighbours
+            edge_removal: true, source_node: vertice, dest_nodes: neighbours
         })
 
     }

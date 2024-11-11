@@ -81,14 +81,19 @@ export default function Visualisation() {
             setFirstPrev(false);
             setStepIdx(stepIdx - value);
             if (firstPrev) {
-                setNodes(prevStep?.previous?.nodes!);
-                setEdges(prevStep?.previous?.edges!);
+                if (prevStep && prevStep.previous){
+                    setNodes(prevStep?.previous?.nodes!);
+                    setEdges(prevStep?.previous?.edges!);
+                    setPrevStep(prevStep?.previous?.previous);
+                }
             }
             else {
-                setNodes(prevStep?.nodes!);
-                setEdges(prevStep?.edges!);
+                if (prevStep){
+                    setNodes(prevStep?.nodes!);
+                    setEdges(prevStep?.edges!);
+                    setPrevStep(prevStep?.previous);
+                }
             }
-            setPrevStep(prevStep?.previous);
             // case when message exists
             setMessage({
                 msg: step.msg,
@@ -121,7 +126,7 @@ export default function Visualisation() {
             setModifyMode(false);
             setPrevStep(undefined);
             const new_steps: Steps = steps_director(graph, foo);
-            console.log(new_steps)
+            import.meta.env.DEV ? console.log(new_steps) : null;
             setSteps(new_steps);
             setStepIdx(0);
         }

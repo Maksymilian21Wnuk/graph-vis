@@ -39,7 +39,7 @@ export default function colorEdges(step: Step, edges: Edge[]): Edge[] {
     }
     edges = change_to_visited(edges);
     
-    const edges_to_change: string[] = step.edges!;
+    const edges_to_change: string[] = step.dest_nodes!;
     const src: string = step.source_node!;
     if (!edges_to_change || !src) {
         return edges;

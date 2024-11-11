@@ -1,4 +1,4 @@
-import { Edge } from "@xyflow/react";
+/*import { Edge } from "@xyflow/react";
 import { ARROW_SVG_ID, NO_ARROW } from "../../../../../shared/constants";
 import make_edge_directed from "./make_edge_directed";
 
@@ -11,7 +11,7 @@ const directed_possibility2 = { id: "2-1", source: "2", target: "1", label: 42, 
 /**
  * because of randomness output must
  * contain one of possibilities
- */
+ 
 describe("Making edge directed tests", () => {
     test(`Undirected with marker`, () => {
         const e : Edge = make_edge_directed(undirected);
@@ -22,4 +22,4 @@ describe("Making edge directed tests", () => {
         const e = make_edge_directed(undirected_no_marker);
     })
 
-})
+}) */

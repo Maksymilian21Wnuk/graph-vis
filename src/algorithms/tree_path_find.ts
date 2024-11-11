@@ -32,7 +32,7 @@ export default function tree_path_find(g: TreeGraph): Steps {
         let neighbours = g.get_neighbours(node);
 
         g.add_step({
-            edges: neighbours,
+            dest_nodes: neighbours,
             source_node: node,
             nodes: neighbours,
             step_idx: 2,

@@ -4,7 +4,9 @@ import { Weight } from "../../enumerations/enums";
 
 
 export default class WeightedGraph extends Graph {
+    // weights of graph
     protected weights?: Map<string, Map<string, number>>;
+    // boolean for checking if graph is weighted
     protected is_weighted : boolean;
 
     constructor(nodes?: Node[], edges?: Edge[]) {
@@ -43,8 +45,12 @@ export default class WeightedGraph extends Graph {
         return weights;
     }
 
-    // gets weight, according to representation of
-    // edge id source is lower than dest
+    /**
+     * Get weight of given edge
+     * @param source source node id
+     * @param destination destination node id
+     * @returns weight of edge source-node
+     */
     get_weight(source : string, destination : string) : number | undefined{
         if (this.is_weighted){
             return this.weights?.get(source)?.get(destination);
@@ -53,7 +59,10 @@ export default class WeightedGraph extends Graph {
             return 1;
         }
     }
-
+    /**
+     * Method for checking if graph is weighted
+     * @returns true if weighted else false
+     */
     get_is_weighted() {
         return this.is_weighted;
     }

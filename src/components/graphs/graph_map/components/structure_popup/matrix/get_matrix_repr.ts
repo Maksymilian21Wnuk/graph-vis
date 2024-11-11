@@ -14,9 +14,10 @@ export default function get_matrix_repr(graph : DirectedGraph) : number[][] {
         matrix[x + 1][0] = parseInt(nodes[x]);
         matrix[0][x + 1] = parseInt(nodes[x]);
     }
+    /*
     for (let n of nodes) {
         
-    }
+    }*/
 
     return matrix
 }

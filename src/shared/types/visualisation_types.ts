@@ -17,11 +17,6 @@ message, algorithm
 */
 
 
-export type ColorizeNode = {
-    color: string;
-    nodes : string[];
-}
-
 export type PlainEdge = {
     source: string;
     dest: string;
@@ -32,47 +27,59 @@ type Stack = string[];
 
 export type AdditionalType = Map<string, number> | DisjointSetCustom | Set<string> | Queue<string> | Stack | Array<PlainEdge>;
 
-export type ColorizeNodes = ColorizeNode[];
 
 /**
- * 
+ * Represents the singular step for algorithms visualisation.
+ * Steps are added in algorithms using g.add_step() method.
+ * @property {number} step_idx - asdf
  */
 export type Step = {
-    // nodes to color, by default to orange,
-    // since those are nodes being visited
-    nodes? : string[];
-    // edges destination, array of id's as strings
-    edges? : string[];
-    // message displayed to the right
-    msg? : string;
-    // edge source
-    source_node? : string;
-    // additional structure,
-    additional? : AdditionalType;
-    additional_parsed? : Additional[];
-    // name of additional structure
-    additional_snd_name? : string;
-    additional_snd_parsed? : Additional[];
-    // secondary additionals
-    additional_snd? : AdditionalType;
-    additional_name? : string;
-    // should visited be colored again? because visited
-    // are by default not colored, for example in bfs
-    // wouldnt make much sense
-    should_color_visited? : boolean;
-    should_color_visited_edge? : boolean;
-    // index of current step
-    step_idx : number;
-    // current node if needs being colored
-    current_node? : string;
-    // sometimes instead of coloring we want to remove some edges,
-    // if true edges from 'edges' array will be deleted
-    edge_removal? : boolean;
-    // colorize nodes for coloring algorithms
-    // key: color value: nodes to color given key
-    colorize_nodes? : Colors;
-    // clears graph
-    clear? : boolean;
+    /** Index of step currently highlighted in visualisation */
+    step_idx: number;
+
+    /** Current node in visualisation. By default it colors node to red. */
+    current_node?: string;
+
+    /** Array of nodes currently being visited. This is colored by default to orange. */
+    nodes?: string[];
+
+    /** Source node, from which edges are colored */
+    source_node?: string;
+
+    /** Destination array of nodes, to which edges are colored */
+    dest_nodes?: string[];
+
+    /** Message displayed on top of additionals on page, keep it as short and simple as possible */
+    msg?: string;
+
+    /** */
+    additional?: AdditionalType;
+    additional_parsed?: Additional[];
+    additional_snd_name?: string;
+    additional_snd_parsed?: Additional[];
+    additional_snd?: AdditionalType;
+    additional_name?: string;
+
+    /** If true, it will color nodes that were previously visited to orange,
+     * by default it's false, since in most algorithms we will not check already
+     * visited nodes
+     */
+    should_color_visited?: boolean;
+
+    /** If true, will color already visited edges to orange. By default false.*/
+    should_color_visited_edge?: boolean;
+
+    /** If true, in this step the edges (that is source and dest nodes) will be considered
+     * as edges to remove. Those will be removed from graph panel.
+     */
+    edge_removal?: boolean;
+
+    colorize_nodes?: Colors;
+
+    /** If true, this step will reset graph's colors. This makes sense
+     * in, for example, algorithms that require 2 dfs (kosaraju).
+     */
+    clear?: boolean;
 };
 
 export type PreviousStep = {
@@ -83,42 +90,38 @@ export type PreviousStep = {
 
 export type Steps = Step[]
 
-// additional might be queue of node id
-// or it might be list of 
-// for example distances ( dijkstra )
-
 export type Additional = {
-    id : string;
-    value : string;
+    id: string;
+    value: string;
 }
 
 export type Message = {
-    msg? : string;
+    msg?: string;
     // first additional showing on right side...
-    additional? : Additional[];
+    additional?: Additional[];
     // name of additional 
-    additional_name? : string;
+    additional_name?: string;
     // ... and second
-    additional_snd? : Additional[];
-    additional_snd_name? : string;
-    modifyMode? : boolean;
+    additional_snd?: Additional[];
+    additional_snd_name?: string;
+    modifyMode?: boolean;
     // must be explicitly given
     // for coloring the current step
-    step_idx : number;
+    step_idx: number;
 };
 
 
 // type of visualization algorithm
-export type DirectedFunction = (g : DirectedGraph) => Steps;
-export type GraphFunction = (g : Graph) => Steps;
-export type WeightedFunction = (g : WeightedGraph) => Steps;
-export type TreeFunction = (g : TreeGraph) => Steps;
+export type DirectedFunction = (g: DirectedGraph) => Steps;
+export type GraphFunction = (g: Graph) => Steps;
+export type WeightedFunction = (g: WeightedGraph) => Steps;
+export type TreeFunction = (g: TreeGraph) => Steps;
 
 export type Guard = {
-    weighted : boolean;
-    directed : boolean;
-    undirected : boolean;
-    tree : boolean;
+    weighted: boolean;
+    directed: boolean;
+    undirected: boolean;
+    tree: boolean;
 }
 
 export type GraphAbstract = Graph | DirectedGraph | WeightedGraph | TreeGraph;
@@ -135,16 +138,16 @@ type Requirements = {
 // algorithm requires: function, name of algorithm
 // or some guards
 export type Algorithm = {
-    foo : DirectedFunction | GraphFunction | WeightedFunction | TreeFunction;
-    name : string;
-    require_weights : boolean;
-    require_directed : boolean;
-    require_non_directed : boolean;
-    require_tree : boolean;
-    description? : string;
-    dev? : boolean;
+    foo: DirectedFunction | GraphFunction | WeightedFunction | TreeFunction;
+    name: string;
+    require_weights: boolean;
+    require_directed: boolean;
+    require_non_directed: boolean;
+    require_tree: boolean;
+    description?: string;
+    dev?: boolean;
 };
 
-export interface StructureInterface {
-    graph : DirectedGraph;
+export type StructureInterface = {
+    graph: DirectedGraph;
 }

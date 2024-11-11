@@ -44,7 +44,7 @@ export default function bipartite(g: Graph): Steps {
         let neighbours = g.get_neighbours(node);
 
         g.add_step({
-            edges: neighbours, source_node: node, step_idx: 2,
+            dest_nodes: neighbours, source_node: node, step_idx: 2,
             should_color_visited_edge : true,
             additional: q, additional_name: `Queue:`,
             additional_snd_name: `Visited:`, additional_snd: visited,

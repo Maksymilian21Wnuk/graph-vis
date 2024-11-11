@@ -2,8 +2,15 @@ import { Edge, Node } from "@xyflow/react";
 import WeightedGraph from "../weighted_graph/weighted_graph";
 import { ARROW_SVG_ID } from "../../constants";
 
-
+/**
+ * Directed graph representation.
+ * It may not be necessarily directed, for example,
+ * algorithm that runs for directed and undirected graphs.
+ * It will not construct directed graph if flow's representation is
+ * not directed.
+ */
 export default class DirectedGraph extends WeightedGraph {
+    // direction boolean
     protected is_directed : boolean;
 
     constructor(nodes?: Node[], edges?: Edge[]) {
@@ -30,7 +37,10 @@ export default class DirectedGraph extends WeightedGraph {
         const divider = this.is_directed ? 1 : 2;
         return Array.from(this.edges.values()).reduce((sum, arr) => sum + arr.length, 0) / divider;
     }
-
+    /**
+     * Method for checking if graph is directed
+     * @returns true if directed else false
+     */
     get_is_directed() : boolean {
         return this.is_directed;
     }
