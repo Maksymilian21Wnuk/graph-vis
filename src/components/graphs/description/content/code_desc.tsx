@@ -4,18 +4,23 @@ import { code_text } from "../../../../algorithms/algorithms_description/code_al
 
 interface CodeDescProps {
     selectedValue: number;
+    hideCodeDesc : () => void;
 }
 
 
-export default function CodeDesc({ selectedValue }: CodeDescProps) {
-    if (!code_text[selectedValue]) {
-        return "you must add code text";
-    }
+export default function CodeDesc({ selectedValue, hideCodeDesc }: CodeDescProps) {
     return (
-        <div className="animate-appear">
-            <SyntaxHighlighter language="python" style={docco} showLineNumbers wrapLines>
-                {code_text[selectedValue]}
-            </SyntaxHighlighter>
-        </div>
+        <dialog id="code_modal" className="modal" open>
+            <div className="modal-box text-black">
+                <SyntaxHighlighter language="python" style={docco} showLineNumbers wrapLines>
+                    {code_text[selectedValue]}
+                </SyntaxHighlighter>
+                <div className="modal-action">
+                    <form method="dialog">
+                        <button className="btn" onClick={hideCodeDesc}>Close</button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
     )
 }

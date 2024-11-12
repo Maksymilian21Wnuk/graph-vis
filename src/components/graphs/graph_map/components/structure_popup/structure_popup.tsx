@@ -1,6 +1,6 @@
 import { Edge, Node } from "@xyflow/react";
 import DirectedGraph from "../../../../../shared/models/directed_graph/directed_graph";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import Representation from "./representation/representation";
 
 
@@ -15,7 +15,7 @@ interface StructurePopupInterface {
 
 export default function StructurePopup({ edges, nodes, hideStructure }: StructurePopupInterface) {
 
-    const [graph] = useState(new DirectedGraph(nodes, edges));
+    const graph = new DirectedGraph(nodes, edges);
     const modalRef = useRef<HTMLDivElement | null>(null);
 
     const opacityChange = () => {
