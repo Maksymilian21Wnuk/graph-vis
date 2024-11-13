@@ -1,10 +1,9 @@
 import TextDesc from "./text_desc";
 import StepDesc from "./step_desc";
-import CodeDesc from "./code_desc";
 
 interface ContentProps {
     desc : number;
-    selectedValue : number;
+    selectedValue : string;
 }
 
 export default function Content({desc, selectedValue} : ContentProps) {
@@ -16,8 +15,6 @@ export default function Content({desc, selectedValue} : ContentProps) {
             return <StepDesc selectedValue={selectedValue} />
         case 1:
             return <TextDesc selectedValue={selectedValue} />
-        case 2:
-            return <CodeDesc selectedValue={selectedValue} />
         default:
             return (
                 <div>

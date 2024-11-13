@@ -1,9 +1,7 @@
 import { useShallow } from "zustand/shallow";
 import { AppState } from "../../../../shared/types/graph_map_types";
 import useStore from "../../store/store";
-import json_getter from "../../store/json_getter";
-import { JsonFileAction } from "../../../../shared/enumerations/enums";
-import { StepInterface } from "../../../../algorithms/algorithms_description/json_interfaces";
+import JsonGetter from "../../store/json_getter";
 
 interface StepDescProps {
     selectedValue : string;
@@ -18,7 +16,12 @@ const selector = (state: AppState) => ({
 export default function StepDesc({selectedValue} : StepDescProps) {
     const {message, modifyMode} = useStore(useShallow(selector));
 
-    const step_text = json_getter(JsonFileAction.Steps, selectedValue) as StepInterface;
+    const step_text = JsonGetter.getSteps(selectedValue);
+
+    if (!step_text) {
+        console.log(`Error when reading ${selectedValue}, 
+            make sure it exists or name fits to algorithm's file name.` )
+    }
 
     return (
         <div className='animate-appear py-2 flex flex-col items-center'>

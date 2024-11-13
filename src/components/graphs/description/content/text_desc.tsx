@@ -1,12 +1,12 @@
-import { description_text } from '../../../../algorithms/algorithms_description/description_algorithms';
 import 'katex/dist/katex.min.css';
 import Latex from "react-latex-next";
+import JsonGetter from '../../store/json_getter';
 interface TextDescProps {
-    selectedValue : number;
+    selectedValue : string;
 }
 
 export default function TextDesc({selectedValue} : TextDescProps) {
-    const selectedText = description_text[selectedValue];
+    const selectedText = JsonGetter.getDescription(selectedValue);
 
     if (!selectedText) {
         return "you must write description steps text";

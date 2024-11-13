@@ -4,7 +4,6 @@ import DescNames from '../../../shared/interfaces/desc_names.interface';
 import { AppState } from '../../../shared/types/graph_map_types';
 import useStore from '../store/store';
 import { useShallow } from 'zustand/shallow';
-import { NOT_SELECTED } from '../../../shared/constants';
 import Content from './content/content';
 import Button from '../../utility/atoms/button/button';
 import CodeDesc from './content/code_desc';
@@ -37,7 +36,7 @@ export default function Description() {
     return (
         <>
             <div className="animate-appear w-1/5">
-                {algo_selected !== NOT_SELECTED ? (
+                {algo_selected !== "" ? (
                     <div className="flex flex-col justify-center items-center">
                         <div className='flex-row'>
                             <Dropdown selectedValue={desc} obj={import.meta.env.DEV ? desc_names_dev : desc_names} handleChange={onChange} />

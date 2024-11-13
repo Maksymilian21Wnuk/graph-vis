@@ -9,11 +9,11 @@ import reset_edge_color from "../util/reset_edge_color";
 import reset_node_color from "../util/reset_node_color";
 import ProgressButtons from "./components/progress_buttons/progress_buttons";
 import requirements_guard from "./util/requirements_guard";
-import { Algorithm } from "../../../shared/types/visualisation_types";
 import AlgorithmList from "./components/algorithm_list/algorithm_list";
 import graph_director from "./util/graph_director";
 import steps_director from "./util/steps_director";
 import { AggregationInterface } from "../../../algorithms/algorithms_description/json_interfaces";
+import JsonGetter from "../store/json_getter";
 //import { Node, Edge } from "@xyflow/react";
 
 const selector = (state: AppState) => ({
@@ -33,7 +33,7 @@ export default function Visualisation() {
     const { nodes, edges, setNodes, setEdges, setMessage, setModifyMode,
         modifyMode, selectedValue, setSelectedValue, directed } = useStore(useShallow(selector));
 
-    const [chosenFunction, setChosenFunction] = useState<AggregationInterface>(algos[0]);
+    const [chosenFunction, setChosenFunction] = useState<AggregationInterface | undefined>();
     const [steps, setSteps] = useState<Steps>([]);
     const [stepIdx, setStepIdx] = useState(-1);
     const [prevStep, setPrevStep] = useState<PreviousStep | undefined>(undefined);
@@ -114,12 +114,16 @@ export default function Visualisation() {
         setMessage({ msg: 'Starting Algorithm', step_idx: -1 });
         setNodes(reset_node_color(nodes));
         setEdges(reset_edge_color(edges));
-        // gets currently clicked node in order to start algo in this node (case of node starting algo)
+
+        // correct?
+        if (!chosenFunction){
+            throw new Error("Chosen function is undefined in: visualisation.tsx")
+        }
 
         const guard: Guard = { tree: chosenFunction.require_tree, directed: chosenFunction.require_directed, undirected: chosenFunction.require_non_directed, weighted: chosenFunction.require_weights };
         const graph: GraphAbstract = graph_director(guard, nodes, edges)!;
 
-        const foo = chosenFunction.foo
+        const foo = JsonGetter.parseAlgorithm(chosenFunction);
         // requirements checking for functions
         if (requirements_guard(guard, graph, directed)) {
             setModifyMode(false);
@@ -145,7 +149,7 @@ export default function Visualisation() {
             {selectedValue !== "" ?
                 <ProgressButtons prev_step={prev_step} resetGraph={reset_graph} setModifyMode={setModifyMode} modifyMode={modifyMode} start={start} next_step={next_step} stepCount={steps.length - stepIdx} /> : null}
             <div className="flex flex-col items-center bg-white">
-                <h1 className="text-2xl font-bold py-4">{selectedValue === "" ? `Select algorithm...` : chosenFunction.name}</h1>
+                <h1 className="text-2xl font-bold py-4">{selectedValue === "" ? `Select algorithm...` : chosenFunction!.title}</h1>
             </div>
             <AlgorithmList resetGraph={reset_graph} setSelectedValue={setSelectedValue} setChosenFunction={setChosenFunction} />
         </div>

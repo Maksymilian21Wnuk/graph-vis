@@ -16,7 +16,7 @@ export default function Elements({ onClick, algos, filterVal }: ElementsProps) {
                     return (
                         <li key={idx} onClick={() => onClick(a.name)} className="grid grid-cols-3 gap-x-10 cursor-pointer rounded-xl border-2 mb-2 bg-white hover:bg-gray-100">
                             <div className="font-bold border-r-2 p-5">
-                                {a.name}
+                                {a.title}
                             </div>
                             <div className="col-span-2 p-5">
                                 {a.description ? a.description : "No description provided, provide it lorem ipsum"}

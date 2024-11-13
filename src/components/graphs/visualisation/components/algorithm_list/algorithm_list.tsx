@@ -1,9 +1,6 @@
-import { Algorithm } from "../../../../../shared/types/visualisation_types";
 import { useState } from "react";
 import Elements from "./elements";
-import json_getter from "../../../store/json_getter";
-import { JsonFileAction } from "../../../../../shared/enumerations/enums";
-import { AggregationInterface } from "../../../../../algorithms/algorithms_description/json_interfaces";
+import JsonGetter from "../../../store/json_getter";
 
 interface DropdownProps {
     setSelectedValue: (n: string) => void;
@@ -18,8 +15,7 @@ export default function AlgorithmList({ setSelectedValue, setChosenFunction, res
     const handleChange = (chosen : string) => {
         document.getElementById("navbar")?.scrollIntoView({ behavior: 'smooth' });
         setSelectedValue(chosen);
-        const a: Algorithm = algos[idx_chosen];
-        setChosenFunction(a);
+        setChosenFunction(JsonGetter.getAggregation(chosen));
         resetGraph();
     }
 
@@ -35,7 +31,7 @@ export default function AlgorithmList({ setSelectedValue, setChosenFunction, res
             </div>
             <div className="w-3/5 overflow-auto h-[400px]">
                 <Elements onClick={handleChange} 
-                algos={json_getter(JsonFileAction.Aggregation) as AggregationInterface[]} 
+                algos={JsonGetter.getAggregationFull()} 
                 filterVal={filterVal} />
             </div>
         </div>
