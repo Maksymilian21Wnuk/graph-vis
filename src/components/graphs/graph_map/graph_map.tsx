@@ -117,6 +117,11 @@ export default function GraphMap() {
         import.meta.env.DEV ? console.log(nodes) : null;
         import.meta.env.DEV ? console.log("DBG: ", isDirected, isWeighted) : null;
 
+        if (nodes.length >= NODE_MAX) {
+            alert("Can't spawn node, too many nodes on viewport");
+            return;
+        }
+
         reset_graph();
         if (state.addMode) {
             let xy: XYPosition = { x: event.clientX, y: event.clientY };
@@ -199,7 +204,7 @@ export default function GraphMap() {
                     onInit={onFitView}
                     onPaneClick={onPaneClick}
                     snapGrid={[15, 15]}>
-                    <CustomControls onDownload={() => onDownload(nodes)} onFitView={onFitView} setIsDirected={set_directed} noWeights={no_weights} dispatch={dispatch} clearGraph={clear} randomizeWeight={random_weight} showStructurePopup={show_structure_popup} />
+                    <CustomControls onDownload={() => onDownload(nodes, reactFlow)} onFitView={onFitView} setIsDirected={set_directed} noWeights={no_weights} dispatch={dispatch} clearGraph={clear} randomizeWeight={random_weight} showStructurePopup={show_structure_popup} />
                 </ReactFlow>
             </div>
             <div className="w-1/5">

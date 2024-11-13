@@ -30,7 +30,11 @@ function find_first_free_index(idx_arr: number[]): string {
 
     }
 }
-
+/**
+ * Finds first free available id for new node spawn
+ * @param nodes current nodes
+ * @returns index of available free idx
+ */
 export default function find_first_free(nodes: Node[]): string {
     return find_first_free_index(nodes.map((n: Node) => parseInt(n.id)));
 }

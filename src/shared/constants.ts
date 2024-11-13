@@ -27,13 +27,13 @@ const TITLES : string[] = ["Description", "Step-by-step", "Pseudocode"]
 const NOT_SELECTED : number = -1;
 const WIDTH : number = 700
 const HEIGHT : number = 500
+/** Maximum count of node on viewport */
 const NODE_MAX : number = 30
 const PORTRAIT_MIN_WIDTH = 600
-const MAX_NODE_COUNT = 50;
-const MAX_RANDOM_NODE_COUNT = 30;
 // number of presets hardcoded
 const PRESETS_COUNT = 6;
 const INFINITY_ASCII = "∞";
+const DOWNLOAD_COUNTER_NAME = 'download-counter'
 
 
-export {INFINITY_ASCII, NO_WEIGHT, PRESETS_COUNT, MAX_NODE_COUNT, PORTRAIT_MIN_WIDTH, RED_ARROW_SVG, INVISIBLE_ARROW, VISITED_ARROW_SVG ,NO_ARROW, WIDTH, HEIGHT, NODE_MAX, nodeDefaultStyle, edgeDefaultStyle, NOT_SELECTED, TITLES, ARROW_SVG_ID}
+export {DOWNLOAD_COUNTER_NAME, INFINITY_ASCII, NO_WEIGHT, PRESETS_COUNT, PORTRAIT_MIN_WIDTH, RED_ARROW_SVG, INVISIBLE_ARROW, VISITED_ARROW_SVG ,NO_ARROW, WIDTH, HEIGHT, NODE_MAX, nodeDefaultStyle, edgeDefaultStyle, NOT_SELECTED, TITLES, ARROW_SVG_ID}

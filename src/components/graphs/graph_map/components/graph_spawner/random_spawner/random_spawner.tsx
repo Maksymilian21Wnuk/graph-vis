@@ -7,7 +7,7 @@ import { AppState } from "../../../../../../shared/types/graph_map_types";
 import useStore from "../../../../store/store";
 import { useShallow } from "zustand/shallow";
 import { useReactFlow } from "@xyflow/react";
-import { MAX_NODE_COUNT } from "../../../../../../shared/constants";
+import { NODE_MAX } from "../../../../../../shared/constants";
 
 
 
@@ -30,7 +30,7 @@ export default function RandomSpawner() {
     }
 
     const submitSpawn = (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-        if (typeof (sliderValue) === "number" && typeof (nodeCount) === "number" && nodeCount < MAX_NODE_COUNT) {
+        if (typeof (sliderValue) === "number" && typeof (nodeCount) === "number" && nodeCount <= NODE_MAX) {
             const { edges, nodes } = randomizer(sliderValue, nodeCount);
             setIsDirected(false);
             setIsWeighted(false);
@@ -38,11 +38,12 @@ export default function RandomSpawner() {
             setEdges(edges);
             setTimeout(() => reactFlow.fitView());
         }
-        else if (nodeCount as number >= MAX_NODE_COUNT) {
+        else if (nodeCount as number > NODE_MAX) {
+            console.log(NODE_MAX, import.meta.env.DEV)
             alert("Too many nodes");
         }
         else {
-            alert("Error");
+            alert("Unhandled error");
         }
     }
 
