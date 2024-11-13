@@ -1,7 +1,6 @@
 import { useShallow } from "zustand/shallow";
 import useStore from "../store/store";
 import { useState } from "react";
-import { algos } from "../../../algorithms/algorithms_aggreg";
 import { AppState } from "../../../shared/types/graph_map_types";
 import { GraphAbstract, Guard, PreviousStep, Step, Steps } from "../../../shared/types/visualisation_types";
 import colorNodes from "../../utility/functions/color_nodes";
@@ -9,12 +8,12 @@ import colorEdges from "../../utility/functions/color_edges";
 import reset_edge_color from "../util/reset_edge_color";
 import reset_node_color from "../util/reset_node_color";
 import ProgressButtons from "./components/progress_buttons/progress_buttons";
-import { NOT_SELECTED } from "../../../shared/constants";
 import requirements_guard from "./util/requirements_guard";
 import { Algorithm } from "../../../shared/types/visualisation_types";
 import AlgorithmList from "./components/algorithm_list/algorithm_list";
 import graph_director from "./util/graph_director";
 import steps_director from "./util/steps_director";
+import { AggregationInterface } from "../../../algorithms/algorithms_description/json_interfaces";
 //import { Node, Edge } from "@xyflow/react";
 
 const selector = (state: AppState) => ({
@@ -34,7 +33,7 @@ export default function Visualisation() {
     const { nodes, edges, setNodes, setEdges, setMessage, setModifyMode,
         modifyMode, selectedValue, setSelectedValue, directed } = useStore(useShallow(selector));
 
-    const [chosenFunction, setChosenFunction] = useState<Algorithm>(algos[0]);
+    const [chosenFunction, setChosenFunction] = useState<AggregationInterface>(algos[0]);
     const [steps, setSteps] = useState<Steps>([]);
     const [stepIdx, setStepIdx] = useState(-1);
     const [prevStep, setPrevStep] = useState<PreviousStep | undefined>(undefined);
@@ -143,10 +142,10 @@ export default function Visualisation() {
     // if user didnt choose algorithm, do not show progress buttons
     return (
         <div className="">
-            {selectedValue !== NOT_SELECTED ?
+            {selectedValue !== "" ?
                 <ProgressButtons prev_step={prev_step} resetGraph={reset_graph} setModifyMode={setModifyMode} modifyMode={modifyMode} start={start} next_step={next_step} stepCount={steps.length - stepIdx} /> : null}
             <div className="flex flex-col items-center bg-white">
-                <h1 className="text-2xl font-bold py-4">{selectedValue === NOT_SELECTED ? `Select algorithm...` : chosenFunction.name}</h1>
+                <h1 className="text-2xl font-bold py-4">{selectedValue === "" ? `Select algorithm...` : chosenFunction.name}</h1>
             </div>
             <AlgorithmList resetGraph={reset_graph} setSelectedValue={setSelectedValue} setChosenFunction={setChosenFunction} />
         </div>

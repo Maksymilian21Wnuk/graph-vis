@@ -33,8 +33,8 @@ export type AppState = {
     setMessage: (msg : Message) => void;
     modifyMode: boolean;
     setModifyMode : (mode : boolean) => void;
-    selectedValue : number;
-    setSelectedValue : (n : number) => void;
+    selectedValue : string;
+    setSelectedValue : (n : string) => void;
     isDirected : boolean;
     setIsDirected : (b : boolean) => void;
     isWeighted : boolean;

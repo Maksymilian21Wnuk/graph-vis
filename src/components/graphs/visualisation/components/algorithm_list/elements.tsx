@@ -1,9 +1,9 @@
-import { Algorithm } from "../../../../../shared/types/visualisation_types";
+import { AggregationInterface } from "../../../../../algorithms/algorithms_description/json_interfaces";
 
 
 interface ElementsProps {
     onClick: (event: any) => void;
-    algos: Algorithm[];
+    algos: AggregationInterface[];
     filterVal: string;
 }
 
@@ -11,10 +11,10 @@ interface ElementsProps {
 export default function Elements({ onClick, algos, filterVal }: ElementsProps) {
     return (
         <ul>
-            {algos.map((a: Algorithm, idx: number = 0) => {
+            {algos.map((a: AggregationInterface, idx: number = 0) => {
                 if (a.name.toLocaleLowerCase().includes(filterVal)) {
                     return (
-                        <li key={idx} onClick={() => onClick(idx)} className="grid grid-cols-3 gap-x-10 cursor-pointer rounded-xl border-2 mb-2 bg-white hover:bg-gray-100">
+                        <li key={idx} onClick={() => onClick(a.name)} className="grid grid-cols-3 gap-x-10 cursor-pointer rounded-xl border-2 mb-2 bg-white hover:bg-gray-100">
                             <div className="font-bold border-r-2 p-5">
                                 {a.name}
                             </div>

@@ -63,3 +63,14 @@ export enum DIRECTION {
     LEFT,
     RIGHT
 }
+
+/**
+ * json actions for getting
+ * static data for algorithms
+ */
+export enum JsonFileAction {
+    Steps,
+    Code,
+    Aggregation,
+    Description
+}

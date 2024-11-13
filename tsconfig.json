@@ -8,6 +8,7 @@
     "baseUrl": "./src",
     "jsx": "react-jsx",
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     
   },
 }

@@ -20,7 +20,7 @@ function indegree_counter(g: DirectedGraph): Map<string, number> {
     return indegrees;
 }
 
-export default function topological_sort(g: DirectedGraph): Steps {
+export default function kahn(g: DirectedGraph): Steps {
     let indegrees = indegree_counter(g);
     let queue: Queue<string> = new Queue();
     let result: string[] = [];

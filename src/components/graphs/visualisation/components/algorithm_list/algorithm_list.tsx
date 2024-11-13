@@ -1,10 +1,12 @@
-import { algos } from "../../../../../algorithms/algorithms_aggreg";
 import { Algorithm } from "../../../../../shared/types/visualisation_types";
 import { useState } from "react";
 import Elements from "./elements";
+import json_getter from "../../../store/json_getter";
+import { JsonFileAction } from "../../../../../shared/enumerations/enums";
+import { AggregationInterface } from "../../../../../algorithms/algorithms_description/json_interfaces";
 
 interface DropdownProps {
-    setSelectedValue: (n: number) => void;
+    setSelectedValue: (n: string) => void;
     setChosenFunction: React.Dispatch<React.SetStateAction<any>>;
     resetGraph: () => void;
 };
@@ -13,9 +15,9 @@ interface DropdownProps {
 export default function AlgorithmList({ setSelectedValue, setChosenFunction, resetGraph }: DropdownProps) {
     const [filterVal, setFilterVal] = useState("");
 
-    const handleChange = (idx_chosen: number) => {
+    const handleChange = (chosen : string) => {
         document.getElementById("navbar")?.scrollIntoView({ behavior: 'smooth' });
-        setSelectedValue(idx_chosen);
+        setSelectedValue(chosen);
         const a: Algorithm = algos[idx_chosen];
         setChosenFunction(a);
         resetGraph();
@@ -33,7 +35,7 @@ export default function AlgorithmList({ setSelectedValue, setChosenFunction, res
             </div>
             <div className="w-3/5 overflow-auto h-[400px]">
                 <Elements onClick={handleChange} 
-                algos={import.meta.env.DEV ? algos : algos.filter((a : Algorithm) => !a.dev)} 
+                algos={json_getter(JsonFileAction.Aggregation) as AggregationInterface[]} 
                 filterVal={filterVal} />
             </div>
         </div>
