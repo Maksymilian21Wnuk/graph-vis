@@ -24,6 +24,7 @@ export default function GraphSave({nodes, edges, graphPresets, setGraphPresets} 
             alert("Graph name must not be empty")
         }
         else {
+            alert(`Graph saved as ${graphName}`);
             const nodes_to_save = reset_node_color(nodes);
             const edges_to_save = reset_edge_color(edges);
             setGraphName("");

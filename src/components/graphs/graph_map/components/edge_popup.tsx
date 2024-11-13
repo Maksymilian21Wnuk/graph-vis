@@ -15,8 +15,8 @@ export default function EdgePopup({updateEdge, edge_to_change} : EdgePopupInterf
     const [inputVal, setInputVal] = useState("");
 
     const onClick = () => {
-        if (inputVal === ""){
-            updateEdge(edge_to_change.id, {label: "0"});
+        if (inputVal === "" || isNaN(parseInt(inputVal))){
+            alert("Value must be number")
         }
         else{
             updateEdge(edge_to_change.id, {label: inputVal});
@@ -32,10 +32,11 @@ export default function EdgePopup({updateEdge, edge_to_change} : EdgePopupInterf
         <dialog id="edge_modal" className="modal">
             <div className="modal-box text-black">
                 <p className="py-4">Weight: </p>
-                <input type="text" onChange={onChange} className="input border border-black"></input>
+                <input value={inputVal} type="text" onChange={onChange} className="input border border-black"></input>
                 <div className="modal-action">
                     <form method="dialog">
                         <button onClick={onClick} className="btn">Set</button>
+                        <button className="btn">Exit</button>
                     </form>
                 </div>
             </div>

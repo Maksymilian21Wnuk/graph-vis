@@ -52,11 +52,24 @@ export default class WeightedGraph extends Graph {
      * @returns weight of edge source-node
      */
     get_weight(source : string, destination : string) : number | undefined{
+        // weights case
         if (this.is_weighted){
-            return this.weights?.get(source)?.get(destination);
+            const w : number | undefined = this.weights?.get(source)?.get(destination);
+            if (w !== undefined) {
+                return w;
+            }
+            else {
+                return Infinity;
+            }
         }
-        else{
-            return 1;
+        // no weights case
+        else {
+            if (this.edges.get(source)?.includes(destination)) {
+                return 1;
+            }
+            else{
+                return 0;
+            }
         }
     }
     /**

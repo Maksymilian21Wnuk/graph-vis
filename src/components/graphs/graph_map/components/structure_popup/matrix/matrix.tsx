@@ -1,4 +1,5 @@
 import { StructureInterface } from "../../../../../../shared/types/visualisation_types"
+import infinity_parser from "../../../../../utility/functions/inf_parser";
 import get_matrix_repr from "./get_matrix_repr"
 
 
@@ -17,7 +18,7 @@ export default function MatrixRepresentation({graph} : StructureInterface) {
                         <ul className="flex flex-row">
                             {x.map((n : number, idx) =>
                                 <li key={idx} className="border p-1 w-7 h-8">
-                                    {n}
+                                    {infinity_parser(n)}
                                 </li>
                             ) }
                         </ul>

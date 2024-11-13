@@ -127,6 +127,8 @@ export default function Visualisation() {
             setPrevStep(undefined);
             const new_steps: Steps = steps_director(graph, foo);
             import.meta.env.DEV ? console.log(new_steps) : null;
+            import.meta.env.DEV ? console.log(graph) : null;
+
             setSteps(new_steps);
             setStepIdx(0);
         }

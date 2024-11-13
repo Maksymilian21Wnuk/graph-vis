@@ -29,7 +29,18 @@ export default class DirectedGraph extends WeightedGraph {
                     this.edges.set(edge.source, [edge.target]);
                 }
             }
-    
+        }
+
+        if (edges && this.is_weighted && this.is_directed) {
+            this.weights = new Map<string, Map<string, number>>();
+            for (const edge of edges) {
+                const [src, dest] = [edge.source, edge.target];
+                if (!this.weights.has(src)){
+                    this.weights.set(src, new Map());
+                }
+                const value : number = parseInt(String(edge.label));
+                this.weights.get(src)?.set(dest, value);
+            }
         }
     }
 
