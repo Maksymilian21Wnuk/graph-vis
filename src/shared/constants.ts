@@ -30,6 +30,8 @@ const HEIGHT : number = 500
 const NODE_MAX : number = 30
 const PORTRAIT_MIN_WIDTH = 600
 const MAX_NODE_COUNT = 50;
+const MAX_RANDOM_NODE_COUNT = 30;
+// number of presets hardcoded
 const PRESETS_COUNT = 6;
 const INFINITY_ASCII = "∞";
 

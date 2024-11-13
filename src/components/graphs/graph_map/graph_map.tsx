@@ -4,7 +4,7 @@ import {
     Node,
     Edge,
     useReactFlow,
-    XYPosition,
+    XYPosition
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import useStore from "../store/store";
@@ -12,7 +12,7 @@ import reducer from "../store/reducer";
 import { AppState, GraphState } from "../../../shared/types/graph_map_types";
 import { useShallow } from "zustand/shallow";
 import { Weight } from "../../../shared/enumerations/enums";
-import { ARROW_SVG_ID, NODE_MAX, NO_ARROW, NO_WEIGHT, nodeDefaultStyle } from "../../../shared/constants";
+import { ARROW_SVG_ID, NODE_MAX, nodeDefaultStyle } from "../../../shared/constants";
 import find_first_free from "./functions/find_first_free_index/find_first_free_index";
 import getRandomInt from "../../utility/functions/random_int";
 import CustomControls from "./custom_controls/custom_controls";
@@ -25,6 +25,8 @@ import reset_edge_color from "../util/reset_edge_color";
 import reset_node_color from "../util/reset_node_color";
 import make_edge_directed from "./functions/make_edge_directed/make_edge_directed";
 import StructurePopup from "./components/structure_popup/structure_popup";
+import handle_connection from "./functions/handle_connection/handle_connection";
+import onDownload from "./functions/on_download/on_download";
 
 const selector = (state: AppState) => ({
     nodes: state.nodes,
@@ -54,7 +56,7 @@ export default function GraphMap() {
         addMode: false,
         first: -1,
         connect: false,
-        edge_to_change: {id: "-1", source: "1", target: "2"},
+        edge_to_change: { id: "-1", source: "1", target: "2" },
     };
 
 
@@ -64,79 +66,30 @@ export default function GraphMap() {
     // looks weird, maybe to change
     function onNodeClick(_event: React.MouseEvent<Element, MouseEvent>, node: Node) {
         reset_graph();
-        
+
         import.meta.env.DEV ? console.log(nodes) : null;
 
         if (state.removeMode) {
-            // add removed to min heap
-            // decrement state of node count
             setNodes(reset_node_color(nodes.filter((n: Node) => n.id !== node.id)));
             setEdges(reset_edge_color(edges.filter((e: Edge) => e.source !== node.id && e.target !== node.id)));
         }
         else if (state.addMode) {
             if (state.connect) {
-                if (isDirected) {
-                    const first: string = String(state.first);
-                    if (first === "-1") {
-                        dispatch({ type: ActionType.SET_PAIR, payload: first });
-                        return;
-                    }
-                    const scnd: string = node.id;
-                    const id: string = `${first}-${scnd}`;
-                    const prevent_two_arrows_id : string = `${scnd}-${first}`;
-                    if (edges.some((e: Edge) => e.id === id) || first === scnd) {
-                        return;
-                    }
-                    const new_label: string = isWeighted ? String(getRandomInt(NODE_MAX)) : NO_WEIGHT;
-                    
-                    if (edges.some((e : Edge) => e.id === prevent_two_arrows_id)){
-                        setEdges([...reset_edge_color(edges.filter((e : Edge) => e.id !== prevent_two_arrows_id)), {
-                            id: id, source: first, target: scnd, type: 'straight', label: new_label,
-                            style: { stroke: "black" }, markerEnd: ARROW_SVG_ID
-                        }]);
-                    }
-                    else{
-                        setEdges([...reset_edge_color(edges), {
-                            id: id, source: first, target: scnd, type: 'straight', label: new_label,
-                            style: { stroke: "black" }, markerEnd: ARROW_SVG_ID
-                        }]);
-                    }
-                    dispatch({type: ActionType.SET_PAIR, payload: -1 });
-
+                const new_edges = handle_connection(isDirected, state.first, node.id, dispatch, isWeighted, edges);
+                if (new_edges === null) {
+                    return;
                 }
-                else {
-                    // holding invariant
-                    let first: number = state.first;
-                    let scnd: number = parseInt(node.id);
-
-                    if (first > scnd) {
-                        const tmp: number = first;
-                        first = scnd;
-                        scnd = tmp;
-                    }
-                    // this is for removing double edges
-                    const id = `${first}-${scnd}`;
-                    if (first === -1) {
-                        dispatch({ type: ActionType.SET_PAIR, payload: first });
-                        return;
-                    }
-                    // handle same id's
-                    if (edges.some((e: Edge) => e.id === id) || first === scnd) {
-                        return;
-                    }
-
-                    const new_label: string = isWeighted ? String(getRandomInt(NODE_MAX)) : Weight.UNWEIGHTED;
-
-                    setEdges([...reset_edge_color(edges), {
-                        id: id, source: String(first), target: String(scnd), type: 'straight', label: new_label,
-                        style: { stroke: "black" }, markerEnd: NO_ARROW
-                    }]);
-                    dispatch({ type: ActionType.SET_PAIR, payload: -1 });
-                }
+                setEdges(new_edges);
+                dispatch({ type: ActionType.SET_PAIR, payload: -1 });
             }
+            // handle click of first node, do not connect now
+            // next click will connect them
             else {
                 dispatch({ type: ActionType.SET_PAIR, payload: parseInt(node.id) });
             }
+        }
+        else {
+            return;
         }
     }
 
@@ -147,7 +100,7 @@ export default function GraphMap() {
         }
         else if (state.addMode && isWeighted) {
             (document.getElementById('edge_modal') as HTMLDialogElement).showModal();
-            dispatch({type: ActionType.CHANGE_EDGE, payload: edge});
+            dispatch({ type: ActionType.CHANGE_EDGE, payload: edge });
         }
         else if (isDirected) {
             setEdges([...edges.filter((e: Edge) => e.id !== edge.id), {
@@ -193,12 +146,6 @@ export default function GraphMap() {
         setEdges(edges.map((e: Edge) => { return { ...e, label: Weight.UNWEIGHTED } }));
         setIsWeighted(false);
     }
-    /*
-    const export_graph = () => {
-        navigator.clipboard.writeText("{nodes: " + JSON.stringify(nodes) + ",\n" + "edges: " + JSON.stringify(edges) + "}");
-        alert("Graph exported");
-    }
-        */
 
     const set_directed = () => {
         reset_graph()
@@ -217,7 +164,7 @@ export default function GraphMap() {
 
     const reset_graph = () => {
         setModifyMode(true);
-        if (!modifyMode){
+        if (!modifyMode) {
             setEdges(reset_edge_color(edges));
             setNodes(reset_node_color(nodes));
         }
@@ -229,6 +176,10 @@ export default function GraphMap() {
 
     const hide_structure_popup = () => {
         setShowStructure(false);
+    }
+
+    const onFitView = () => {
+        reactFlow.fitView();
     }
 
     return (
@@ -245,10 +196,10 @@ export default function GraphMap() {
                     onEdgeClick={onEdgeClick}
                     onNodeClick={onNodeClick}
                     snapToGrid={true}
-                    onInit={() => reactFlow.fitView()}
+                    onInit={onFitView}
                     onPaneClick={onPaneClick}
                     snapGrid={[15, 15]}>
-                    <CustomControls setIsDirected={set_directed} noWeights={no_weights} dispatch={dispatch} clearGraph={clear} randomizeWeight={random_weight} showStructurePopup={show_structure_popup} />
+                    <CustomControls onDownload={() => onDownload(nodes)} onFitView={onFitView} setIsDirected={set_directed} noWeights={no_weights} dispatch={dispatch} clearGraph={clear} randomizeWeight={random_weight} showStructurePopup={show_structure_popup} />
                 </ReactFlow>
             </div>
             <div className="w-1/5">

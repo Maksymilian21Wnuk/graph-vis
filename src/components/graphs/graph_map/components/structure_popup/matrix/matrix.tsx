@@ -17,7 +17,7 @@ export default function MatrixRepresentation({graph} : StructureInterface) {
                     <li key={idx} className="">
                         <ul className="flex flex-row">
                             {x.map((n : number, idx) =>
-                                <li key={idx} className="border p-1 w-7 h-8">
+                                <li key={idx} className="border p-1 w-7 h-8 hover:bg-gray-100">
                                     {infinity_parser(n)}
                                 </li>
                             ) }

@@ -7,18 +7,20 @@ import { AppState } from "../../../../../../shared/types/graph_map_types";
 import useStore from "../../../../store/store";
 import { useShallow } from "zustand/shallow";
 import { useReactFlow } from "@xyflow/react";
+import { MAX_NODE_COUNT } from "../../../../../../shared/constants";
 
 
-const MAX_LIMIT = 20;
 
 const selector = (state: AppState) => ({
     setNodes: state.setNodes,
     setEdges: state.setEdges,
+    setIsDirected: state.setIsDirected,
+    setIsWeighted: state.setIsWeighted,
 });
 
 
 export default function RandomSpawner() {
-    const { setNodes, setEdges } = useStore(useShallow(selector));
+    const { setNodes, setEdges, setIsDirected, setIsWeighted } = useStore(useShallow(selector));
     const [sliderValue, setSliderValue] = useState<string | number>(0.5);
     const [nodeCount, setNodeCount] = useState<string | number>(10);
     const reactFlow = useReactFlow();
@@ -28,13 +30,15 @@ export default function RandomSpawner() {
     }
 
     const submitSpawn = (_event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-        if (typeof (sliderValue) === "number" && typeof (nodeCount) === "number" && nodeCount < MAX_LIMIT) {
+        if (typeof (sliderValue) === "number" && typeof (nodeCount) === "number" && nodeCount < MAX_NODE_COUNT) {
             const { edges, nodes } = randomizer(sliderValue, nodeCount);
+            setIsDirected(false);
+            setIsWeighted(false);
             setNodes(nodes);
             setEdges(edges);
             setTimeout(() => reactFlow.fitView());
         }
-        else if (nodeCount as number >= MAX_LIMIT) {
+        else if (nodeCount as number >= MAX_NODE_COUNT) {
             alert("Too many nodes");
         }
         else {
