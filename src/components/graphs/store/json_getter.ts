@@ -15,6 +15,7 @@ import { GraphFunctionAbstract } from "../../../shared/types/visualisation_types
 export default class JsonGetter {
 
     static getSteps(name : string) : StepInterface {
+        console.log("Steps call")
         return (steps as StepInterface[]).find((x : StepInterface ) => x.name === name)!;
     }
 
@@ -23,6 +24,7 @@ export default class JsonGetter {
     }
 
     static getDescription(name : string) : DescriptionInterface {
+        console.log("desc call")
         return (description as DescriptionInterface[]).find((x : DescriptionInterface ) => x.name === name)!;
     }
     
@@ -31,6 +33,7 @@ export default class JsonGetter {
     }
 
     static getAggregationFull() : AggregationInterface[] {
+        console.log("aggreg call")
         return aggreg as AggregationInterface[];
     }
 

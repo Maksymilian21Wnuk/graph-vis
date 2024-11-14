@@ -21,6 +21,7 @@ export type GraphPreset = Graph & {
     name : string;
 }
 
+
 export type AppState = {
     nodes: Node[];
     edges: Edge[];

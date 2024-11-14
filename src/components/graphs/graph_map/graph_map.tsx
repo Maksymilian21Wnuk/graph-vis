@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from "react";
+import React, { useReducer } from "react";
 import {
     ReactFlow,
     Node,
@@ -24,9 +24,10 @@ import Additionals from "./components/additionals/additionals";
 import reset_edge_color from "../util/reset_edge_color";
 import reset_node_color from "../util/reset_node_color";
 import make_edge_directed from "./functions/make_edge_directed/make_edge_directed";
-import StructurePopup from "./components/structure_popup/structure_popup";
 import handle_connection from "./functions/handle_connection/handle_connection";
 import onDownload from "./functions/on_download/on_download";
+import Representation from "./components/structure_popup/representation/representation";
+import DirectedGraph from "../../../shared/models/directed_graph/directed_graph";
 
 const selector = (state: AppState) => ({
     nodes: state.nodes,
@@ -61,7 +62,6 @@ export default function GraphMap() {
 
 
     const [state, dispatch] = useReducer(reducer, initialState);
-    const [showStructure, setShowStructure] = useState(false);
 
     // looks weird, maybe to change
     function onNodeClick(_event: React.MouseEvent<Element, MouseEvent>, node: Node) {
@@ -175,23 +175,16 @@ export default function GraphMap() {
         }
     }
 
-    const show_structure_popup = () => {
-        setShowStructure(true);
-    }
-
-    const hide_structure_popup = () => {
-        setShowStructure(false);
-    }
 
     const onFitView = () => {
         reactFlow.fitView();
     }
 
+
     return (
         <>
             <CustomMarker />
             <EdgePopup edge_to_change={state.edge_to_change} updateEdge={reactFlow.updateEdge} />
-            {showStructure ? <StructurePopup hideStructure={hide_structure_popup} edges={edges} nodes={nodes} /> : null}
             <div className="bg-white w-screen md:w-3/5 max-auto md:h-[400px] border-2 border-black font-sans">
                 <ReactFlow
                     nodes={nodes}
@@ -204,10 +197,16 @@ export default function GraphMap() {
                     onInit={onFitView}
                     onPaneClick={onPaneClick}
                     snapGrid={[15, 15]}>
-                    <CustomControls onDownload={() => onDownload(nodes, reactFlow)} onFitView={onFitView} setIsDirected={set_directed} noWeights={no_weights} dispatch={dispatch} clearGraph={clear} randomizeWeight={random_weight} showStructurePopup={show_structure_popup} />
+                    <CustomControls onDownload={() => onDownload(nodes, reactFlow)} onFitView={onFitView} setIsDirected={set_directed} noWeights={no_weights} dispatch={dispatch} clearGraph={clear} randomizeWeight={random_weight} />
                 </ReactFlow>
             </div>
             <div className="w-1/5">
+                {modifyMode ?
+                    <div className="p-4">
+                    <Representation graph={new DirectedGraph(nodes, edges)} />
+                    </div>
+                    : null}
+
                 <Additionals additional_snd={message.additional_snd} additional_snd_name={message.additional_snd_name} step_idx={message.step_idx} msg={message.msg} additional={message.additional} additional_name={message.additional_name} modifyMode={modifyMode} />
             </div>
         </>

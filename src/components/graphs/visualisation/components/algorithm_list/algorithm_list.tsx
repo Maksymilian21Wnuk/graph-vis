@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Elements from "./elements";
 import JsonGetter from "../../../store/json_getter";
 
@@ -11,6 +11,10 @@ interface DropdownProps {
 
 export default function AlgorithmList({ setSelectedValue, setChosenFunction, resetGraph }: DropdownProps) {
     const [filterVal, setFilterVal] = useState("");
+
+    const algorithm_list = useMemo(() => {
+        return JsonGetter.getAggregationFull();
+    }, [])
 
     const handleChange = (chosen : string) => {
         document.getElementById("navbar")?.scrollIntoView({ behavior: 'smooth' });
@@ -31,7 +35,7 @@ export default function AlgorithmList({ setSelectedValue, setChosenFunction, res
             </div>
             <div className="w-3/5 overflow-auto h-[400px]">
                 <Elements onClick={handleChange} 
-                algos={JsonGetter.getAggregationFull()} 
+                algos={algorithm_list} 
                 filterVal={filterVal} />
             </div>
         </div>

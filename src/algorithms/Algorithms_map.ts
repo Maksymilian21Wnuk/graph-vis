@@ -8,12 +8,14 @@ import kosaraju from "./kosaraju";
 import kruskal from "./kruskal";
 import tarjan from "./tarjan";
 import { GraphFunctionAbstract } from "../shared/types/visualisation_types";
+import tree_path_find from "./tree_path_find";
 
 export const AlgorithmsMap = new Map<string, GraphFunctionAbstract> ([
     ["bfs", bfs],
     ["dfs", dfs],
     ["bipartite", bipartite],
     ["connectivity_check", connectivity_check],
+    ["tree_path_find", tree_path_find],
     ["dijkstra", dijkstra],
     ["kahn", kahn],
     ["kosaraju", kosaraju],

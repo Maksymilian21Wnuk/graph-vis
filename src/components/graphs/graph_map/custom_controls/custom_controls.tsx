@@ -1,6 +1,6 @@
 import { Controls, ControlButton } from "@xyflow/react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDownload, faShareNodes, faDice, faX, faHand, faTrash, faFileExport, faToiletPaperSlash, faArrowRight, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faDownload, faShareNodes, faDice, faX, faHand, faTrash, faToiletPaperSlash, faArrowRight, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { GraphAction } from "../../../../shared/types/graph_map_types";
 import { useState } from "react";
 import { ActionType } from "../../../../shared/enumerations/enums";
@@ -25,13 +25,12 @@ interface AdditionalControls {
     dispatch: React.Dispatch<GraphAction>;
     noWeights: () => void;
     setIsDirected: () => void;
-    showStructurePopup: () => void;
     onDownload: () => void;
 }
 
 
 
-function AdditionalControls({ onDownload, randomizeWeight, clearGraph, dispatch, noWeights, setIsDirected, showStructurePopup }: AdditionalControls) {
+function AdditionalControls({ onDownload, randomizeWeight, clearGraph, dispatch, noWeights, setIsDirected }: AdditionalControls) {
     return (
         <>
             <ControlButton title="Randomize weights" onClick={randomizeWeight}>
@@ -52,9 +51,6 @@ function AdditionalControls({ onDownload, randomizeWeight, clearGraph, dispatch,
             <ControlButton title="Remove weights" onClick={noWeights}>
                 <FontAwesomeIcon icon={faToiletPaperSlash} />
             </ControlButton>
-            <ControlButton title="Show structure of graph" onClick={showStructurePopup}>
-                <FontAwesomeIcon icon={faFileExport} />
-            </ControlButton>
             <ControlButton title="Set directed graph" onClick={setIsDirected}>
                 <FontAwesomeIcon icon={faArrowRight} />
             </ControlButton>
@@ -64,7 +60,7 @@ function AdditionalControls({ onDownload, randomizeWeight, clearGraph, dispatch,
         </>)
 }
 
-export default function CustomControls({ onDownload, onFitView, randomizeWeight, clearGraph, dispatch, noWeights, setIsDirected, showStructurePopup }: CustomControlsProps) {
+export default function CustomControls({ onDownload, onFitView, randomizeWeight, clearGraph, dispatch, noWeights, setIsDirected }: CustomControlsProps) {
     const [hidden, setHidden] = useState(false);
 
     const onHiddenClick = () => {
@@ -80,7 +76,7 @@ export default function CustomControls({ onDownload, onFitView, randomizeWeight,
                 null :
                 <AdditionalControls onDownload={onDownload} randomizeWeight={randomizeWeight}
                     clearGraph={clearGraph} dispatch={dispatch}
-                    noWeights={noWeights} setIsDirected={setIsDirected} showStructurePopup={showStructurePopup} />}
+                    noWeights={noWeights} setIsDirected={setIsDirected} />}
         </Controls>
     )
 }

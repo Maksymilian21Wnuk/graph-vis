@@ -24,7 +24,7 @@ const VISITED_ARROW_SVG = "yellow_arrow"
 const NO_ARROW = ""
 const NO_WEIGHT = ""
 const TITLES : string[] = ["Description", "Step-by-step", "Pseudocode"]
-const NOT_SELECTED : number = -1;
+const NOT_SELECTED : string = "";
 const WIDTH : number = 700
 const HEIGHT : number = 500
 /** Maximum count of node on viewport */
@@ -33,7 +33,7 @@ const PORTRAIT_MIN_WIDTH = 600
 // number of presets hardcoded
 const PRESETS_COUNT = 6;
 const INFINITY_ASCII = "∞";
-const DOWNLOAD_COUNTER_NAME = 'download-counter'
+const DOWNLOAD_COUNTER_NAME : string = 'download-counter'
 
 
 export {DOWNLOAD_COUNTER_NAME, INFINITY_ASCII, NO_WEIGHT, PRESETS_COUNT, PORTRAIT_MIN_WIDTH, RED_ARROW_SVG, INVISIBLE_ARROW, VISITED_ARROW_SVG ,NO_ARROW, WIDTH, HEIGHT, NODE_MAX, nodeDefaultStyle, edgeDefaultStyle, NOT_SELECTED, TITLES, ARROW_SVG_ID}

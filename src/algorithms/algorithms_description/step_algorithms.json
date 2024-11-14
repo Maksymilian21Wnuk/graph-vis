@@ -20,7 +20,7 @@
         ]
     },
     {
-        "name": "connectivity",
+        "name": "connectivity_check",
         "steps": [
             "Initialize queue Q",
             "Extract node from Q",

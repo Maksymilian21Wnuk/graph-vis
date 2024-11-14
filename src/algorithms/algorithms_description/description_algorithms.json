@@ -12,7 +12,7 @@
         "space": "O(V)"
     },
     {
-        "name": "connectivity",
+        "name": "connectivity_check",
         "text": "Connectivity check performs breadth first search on given graph. Upon visiting all nodes of graph, it checks if number of visited nodes is same as number of graph's nodes. If it's not equal, the graph is not connected.",
         "time": "O(V+E)",
         "space": "O(V)"

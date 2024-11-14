@@ -14,6 +14,7 @@ import graph_director from "./util/graph_director";
 import steps_director from "./util/steps_director";
 import { AggregationInterface } from "../../../algorithms/algorithms_description/json_interfaces";
 import JsonGetter from "../store/json_getter";
+import { NOT_SELECTED } from "../../../shared/constants";
 //import { Node, Edge } from "@xyflow/react";
 
 const selector = (state: AppState) => ({
@@ -33,7 +34,7 @@ export default function Visualisation() {
     const { nodes, edges, setNodes, setEdges, setMessage, setModifyMode,
         modifyMode, selectedValue, setSelectedValue, directed } = useStore(useShallow(selector));
 
-    const [chosenFunction, setChosenFunction] = useState<AggregationInterface | undefined>();
+    const [chosenFunction, setChosenFunction] = useState<AggregationInterface>(JsonGetter.getAggregation('bfs'));
     const [steps, setSteps] = useState<Steps>([]);
     const [stepIdx, setStepIdx] = useState(-1);
     const [prevStep, setPrevStep] = useState<PreviousStep | undefined>(undefined);
@@ -115,11 +116,6 @@ export default function Visualisation() {
         setNodes(reset_node_color(nodes));
         setEdges(reset_edge_color(edges));
 
-        // correct?
-        if (!chosenFunction){
-            throw new Error("Chosen function is undefined in: visualisation.tsx")
-        }
-
         const guard: Guard = { tree: chosenFunction.require_tree, directed: chosenFunction.require_directed, undirected: chosenFunction.require_non_directed, weighted: chosenFunction.require_weights };
         const graph: GraphAbstract = graph_director(guard, nodes, edges)!;
 
@@ -146,10 +142,10 @@ export default function Visualisation() {
     // if user didnt choose algorithm, do not show progress buttons
     return (
         <div className="">
-            {selectedValue !== "" ?
+            {selectedValue !== NOT_SELECTED ?
                 <ProgressButtons prev_step={prev_step} resetGraph={reset_graph} setModifyMode={setModifyMode} modifyMode={modifyMode} start={start} next_step={next_step} stepCount={steps.length - stepIdx} /> : null}
             <div className="flex flex-col items-center bg-white">
-                <h1 className="text-2xl font-bold py-4">{selectedValue === "" ? `Select algorithm...` : chosenFunction!.title}</h1>
+                <h1 className="text-2xl font-bold py-4">{selectedValue === NOT_SELECTED ? `Select algorithm...` : chosenFunction!.title}</h1>
             </div>
             <AlgorithmList resetGraph={reset_graph} setSelectedValue={setSelectedValue} setChosenFunction={setChosenFunction} />
         </div>

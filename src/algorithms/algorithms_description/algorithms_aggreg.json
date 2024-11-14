@@ -19,7 +19,7 @@
     },
     { 
         "description": "Check if given undirected graph is connected", 
-        "name": "connectivity", 
+        "name": "connectivity_check", 
         "title": "Connectivity check", 
         "require_weights": false, 
         "require_directed": false, 

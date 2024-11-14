@@ -1,12 +1,13 @@
-import 'katex/dist/katex.min.css';
-import Latex from "react-latex-next";
 import JsonGetter from '../../store/json_getter';
+import { useMemo } from 'react';
 interface TextDescProps {
     selectedValue : string;
 }
 
 export default function TextDesc({selectedValue} : TextDescProps) {
-    const selectedText = JsonGetter.getDescription(selectedValue);
+    const selectedText = useMemo(() => {
+        return JsonGetter.getDescription(selectedValue);
+    }, [selectedValue])
 
     if (!selectedText) {
         return "you must write description steps text";
@@ -24,14 +25,10 @@ export default function TextDesc({selectedValue} : TextDescProps) {
                 Complexity
                 </div>
                 <div>
-                <Latex>
-                    {`Time: $ ${selectedText.time} $`}
-                </Latex>
+                    {`Time: ${selectedText.time}`}
                 </div>
                 <div>
-                <Latex>
-                    {`Space: $ ${selectedText.space} $`}
-                </Latex>
+                    {`Space: ${selectedText.space}`}
                 </div>
             </div>
 
