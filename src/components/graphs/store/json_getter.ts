@@ -10,7 +10,8 @@ import { GraphFunctionAbstract } from "../../../shared/types/visualisation_types
  * Json getter class with static methods for
  * getting json data for steps, descriptions or code.
  * It also implements a way of parsing function name to
- * it's functional representation.
+ * it's functional representation. Main reason for this - hide implementation
+ * of getting json parsed.
  */
 export default class JsonGetter {
 

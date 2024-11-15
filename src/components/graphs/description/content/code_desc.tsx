@@ -13,7 +13,16 @@ export default function CodeDesc({ selectedValue, hideCodeDesc }: CodeDescProps)
         <dialog id="code_modal" className="modal" open>
             <div className="modal-box text-black">
                 <SyntaxHighlighter language="python" style={docco} showLineNumbers wrapLines>
-                    {JsonGetter.getCode(selectedValue).steps}
+                    {    `def bfs(g):
+    visited = set({});
+    let queue = [g.start_node];
+    while (queue.length > 0):
+        let node = queue.shift();
+        if (!visited.has(node))
+            visited.add(node);
+            neighbours = g.get_neighbours(node);
+            for (neighbour in neighbours)
+                queue.push(neighbour)`}
                 </SyntaxHighlighter>
                 <div className="modal-action">
                     <form method="dialog">

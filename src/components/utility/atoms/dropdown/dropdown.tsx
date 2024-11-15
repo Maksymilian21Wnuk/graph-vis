@@ -4,7 +4,7 @@ import { Algorithm } from "../../../../shared/types/visualisation_types";
 
 interface DropdownProps {
     selectedValue : number;
-    handleChange : (event : any) => void;
+    handleChange : (event : React.ChangeEvent<HTMLSelectElement>) => void;
     obj : Algorithm[] | GraphName[] | DescNames[];
     text? : string;
 }

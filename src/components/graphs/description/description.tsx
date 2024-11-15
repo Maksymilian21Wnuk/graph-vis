@@ -29,8 +29,8 @@ export default function Description() {
     const { algo_selected } = useStore(useShallow(selector));
     const [showCode, setShowCode] = useState(false);
 
-    const onChange = (event: any) => {
-        setDesc(event.target.value);
+    const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setDesc(parseInt(event.target.value));
     }
 
     return (
