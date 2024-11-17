@@ -71,15 +71,6 @@
         "require_tree": true
     },
     { 
-        "description": "Finding strongly connected components of a directed graph", 
-        "name": "tarjan", 
-        "title": "Tarjan's Algorithm", 
-        "require_weights": false, 
-        "require_directed": true, 
-        "require_non_directed": false, 
-        "require_tree": false
-    },
-    { 
         "description": "Finding strongly connected components (SCC) of a directed graph.", 
         "name": "kosaraju", 
         "title": "Kosaraju's Algorithm", 

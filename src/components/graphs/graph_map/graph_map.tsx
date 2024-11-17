@@ -26,7 +26,7 @@ import reset_node_color from "../util/reset_node_color";
 import make_edge_directed from "./functions/make_edge_directed/make_edge_directed";
 import handle_connection from "./functions/handle_connection/handle_connection";
 import onDownload from "./functions/on_download/on_download";
-import Representation from "./components/structure_popup/representation/representation";
+import Representation from "./components/structure/representation/representation";
 import DirectedGraph from "../../../shared/models/directed_graph/directed_graph";
 
 const selector = (state: AppState) => ({
@@ -185,7 +185,7 @@ export default function GraphMap() {
         <>
             <CustomMarker />
             <EdgePopup edge_to_change={state.edge_to_change} updateEdge={reactFlow.updateEdge} />
-            <div className="bg-white w-screen md:w-3/5 max-auto md:h-[400px] border-2 border-black font-sans">
+            <div className="bg-white w-screen md:w-3/5 max-auto md:h-[300px] lg:h-[400px] border-2 border-black font-sans">
                 <ReactFlow
                     nodes={nodes}
                     edges={edges}
@@ -202,7 +202,7 @@ export default function GraphMap() {
             </div>
             <div className="w-1/5">
                 {modifyMode ?
-                    <div className="p-4">
+                    <div className="px-4">
                     <Representation graph={new DirectedGraph(nodes, edges)} />
                     </div>
                     : null}

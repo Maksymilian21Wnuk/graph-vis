@@ -43,7 +43,7 @@ export default function ProgressButtons({ prev_step, setModifyMode, modifyMode, 
     const btn_ref = useRef<HTMLButtonElement | null>(null);
 
     return (
-        <div className="flex justify-center pt-4 bg-white">
+        <div className="flex justify-center pt-1 lg:pt-4 bg-white">
             {!modifyMode ?
                 (
                     <div className="flex">

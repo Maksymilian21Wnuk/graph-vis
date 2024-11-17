@@ -84,14 +84,6 @@
         ]
     },
     {
-        "name": "tarjan",
-        "steps": [
-            "step 1",
-            "todo",
-            "todo"
-        ]
-    },
-    {
         "name": "kosaraju",
         "steps": [
             "Start",

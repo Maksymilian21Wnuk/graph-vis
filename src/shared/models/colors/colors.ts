@@ -12,7 +12,7 @@ type NodeId = string;
 type Color = [number, string];
 
 const INITIAL_COLORS : Color[] = [[0, "#8fd9fb"], [1, "#5ce65c"], 
-            [2, "#f28b82"], [3, "#fab3ba"], 
+            [2, "#f28b82"], [3, "#dabcff"], 
             [4, "#a77de8"], [5, "#ffb3ba"], 
             [6, "#ffcccb"], [7, "#c3e88d"], 
             [8, "#74b9ff"], [9, "#ff7675"]];

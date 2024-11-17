@@ -25,7 +25,6 @@ export default class JsonGetter {
     }
 
     static getDescription(name : string) : DescriptionInterface {
-        console.log("desc call")
         return (description as DescriptionInterface[]).find((x : DescriptionInterface ) => x.name === name)!;
     }
     

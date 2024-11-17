@@ -48,12 +48,6 @@
         "space": "O(V)"
     },
     {
-        "name": "tarjan",
-        "text": "desc",
-        "time": "o",
-        "space": "o"
-    },
-    {
         "name": "kosaraju",
         "text": "this will be done later",
         "time": "O(V+E)",

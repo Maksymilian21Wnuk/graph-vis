@@ -4,6 +4,7 @@ import GraphVisualisationPage from './pages/graph_page'
 import HomePage from './pages/home_page'
 import Footer from './components/footer/footer'
 import FundamentalConceptsPage from './pages/fundamental_concepts_page'
+import AlgorithmAddPage from './pages/algorithm_add_page'
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route path="/graphs" element={<GraphVisualisationPage/>}/>
           <Route path="/" element={<HomePage/>}/>
           <Route path="/concepts" element={<FundamentalConceptsPage/>}/>
+          <Route path="/add" element={<AlgorithmAddPage />} />
         </Routes>
         <Footer />
     </div>

@@ -78,7 +78,7 @@ export default function GraphSpawner() {
     return (
         <div className="px-5 py-2">
             <div className="pl-36 flex flex-row items-center justify-center">
-                <Button onClick={onClick} text="Graphs" style="w-72 m-2" />
+                <Button onClick={onClick} text="Graphs" style="w-36 lg:w-72 m-2" />
                 <GraphSave nodes={nodes} edges={edges} graphPresets={graphPresets} setGraphPresets={setGraphPresets} />
                 <SpawnerModal setShowRandom={setShowRandom} onClose={changeGraph} graph_names={graphPresets} onRemove={onRemove} />
             </div>

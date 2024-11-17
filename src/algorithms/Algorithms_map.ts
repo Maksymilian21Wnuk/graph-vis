@@ -6,7 +6,6 @@ import dijkstra from "./dijkstra";
 import kahn from "./kahn";
 import kosaraju from "./kosaraju";
 import kruskal from "./kruskal";
-import tarjan from "./tarjan";
 import { GraphFunctionAbstract } from "../shared/types/visualisation_types";
 import tree_path_find from "./tree_path_find";
 
@@ -20,5 +19,4 @@ export const AlgorithmsMap = new Map<string, GraphFunctionAbstract> ([
     ["kahn", kahn],
     ["kosaraju", kosaraju],
     ["kruskal", kruskal],
-    ["tarjan", tarjan]
 ])
