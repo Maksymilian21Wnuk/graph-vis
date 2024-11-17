@@ -47,13 +47,14 @@ export default function ProgressButtons({ prev_step, setModifyMode, modifyMode, 
             {!modifyMode ?
                 (
                     <div className="flex">
-                        <div className="w-52">
+                        <div className="">
+
+                        </div>
+                        <div className="grid grid-cols-5 gap-2">
                             <Slider sliderValue={sliderValue} onChange={onChange}
                                 step="10" min={100} max="2000" disabled={animating} />
-                        </div>
-                        <div className="grid grid-cols-4 pl-32 gap-2">
-                            <button className="btn bg-lime-200 hover:bg-lime-300" onClick={next_step} ref={btn_ref}>Next</button>
                             <Button disabled={animating} onClick={prev_step} text="Prev" />
+                            <button className="btn bg-lime-200 hover:bg-lime-300" onClick={next_step} ref={btn_ref}>Next</button>
                             <Button disabled={animating} onClick={onReset} text="Reset" />
                             <Button disabled={animating} onClick={onAnimate} text="Animate" />
                             {/*animating ? <Button onClick={onStop} text="Stop" /> : null*/}

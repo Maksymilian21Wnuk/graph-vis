@@ -10,8 +10,8 @@ interface AdditionalProps {
 function AdditionalDisplay({ additional }: AdditionalProps) {
 
     return (
-        <div className="overflow-y-auto h-[400px] absolute">
-            <ul>
+        <div className="h-full overflow-auto">
+            <ul className="overflow-auto h-[200px] lg:h-[335px]">
                 {additional.map((additional: Additional) => <li key={additional.id} className="animate-appear border-2 m-1 px-3 py-1 w-fit border-black">{additional.id}   {additional.value === String(Infinity) ? "∞" : additional.value}</li>)}
             </ul>
         </div>

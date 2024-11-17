@@ -31,7 +31,7 @@ export default function AlgorithmList({ setSelectedValue, setChosenFunction, res
                 <h1 className="text-2xl font-bold">Algorithms</h1>
                 <input onChange={handleFilterChange} placeholder="filter" className="input border border-black"></input>
             </div>
-            <div className="w-3/5 overflow-auto h-[400px]">
+            <div className="lg:w-3/5 overflow-auto h-[400px]">
                 <Elements onClick={handleChange} 
                 algos={algorithm_list} 
                 filterVal={filterVal} />
