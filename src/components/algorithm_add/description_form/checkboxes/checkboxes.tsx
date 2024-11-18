@@ -1,42 +1,24 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import CheckboxAtom from "./checkbox_atom"
 import { faQuestion } from "@fortawesome/free-solid-svg-icons"
-import { CheckboxInputInterface, CheckboxValuesInterface } from "../input_interface"
-import { useState } from "react"
-import guard_checkbox from "./guard_checkbox"
-import { CheckboxInputName } from "../input_types"
+import { CheckboxInputInterface, RequirementsInterface } from "../util/input_interface"
 
 
+interface CheckboxesGroupInterface {
+    checkboxes: CheckboxInputInterface[];
+    requirements: RequirementsInterface;
+    handleCheckbox: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
 
-const checkboxes: CheckboxInputInterface[] = [
-    { name: "require_directed", title: "Directed" },
-    { name: "require_weights", title: "Weighted" },
-    { name: "require_non_directed", title: "Undirected" },
-    { name: "require_tree", title: "Tree" }
-]
-
-export default function CheckBoxes() {
-    const [selections, setSelections] = useState<CheckboxValuesInterface>(
-        {
-            require_directed: false,
-            require_non_directed: false,
-            require_weights: false,
-            require_tree: false
-        }
-    );
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, checked } = e.target;
-        setSelections(guard_checkbox(name as CheckboxInputName, checked, selections));
-    }
+export default function CheckBoxes({ checkboxes, requirements, handleCheckbox}: CheckboxesGroupInterface) {
 
     return (
-        <li key="checkbox" className="grid grid-cols-9">
-            <div className="p-5 bg-slate-200 col-span-8">
+        <li key="checkbox" className="bg-slate-200 grid grid-cols-9">
+            <div className="p-5 col-span-8">
                 <ul className="flex flex-row justify-between items-center">
                     {checkboxes.map((c: CheckboxInputInterface) =>
-                        <CheckboxAtom info={c} value={selections[c.name]} onChange={handleChange} />
+                        <CheckboxAtom info={c} value={requirements[c.name]} onChange={handleCheckbox} />
                     )}
                 </ul>
             </div>

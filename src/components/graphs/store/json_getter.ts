@@ -33,7 +33,6 @@ export default class JsonGetter {
     }
 
     static getAggregationFull() : AggregationInterface[] {
-        console.log("aggreg call")
         return aggreg as AggregationInterface[];
     }
 

@@ -15,26 +15,30 @@ export interface FormInputInterface {
 
 export interface OutputInterface {
     title: string;
-    foo_name: string;
-    short_info: string;
+    name: string;
+    text: string;
     time: string;
     space: string;
-    desc: string;
+    description: string;
     steps: string;
     code: string;
 }
 
-export interface OutputInterfaceJSON extends Omit<OutputInterface, "steps" | "code"> {
-    steps: string[];
-    code: string[]
-}
-
-export interface CheckboxValuesInterface {
+export interface RequirementsInterface {
     require_directed: boolean;
     require_non_directed: boolean;
     require_weights: boolean;
     require_tree: boolean;
 }
+
+export interface OutputInterfaceJSON extends Omit<OutputInterface, "steps" | "code"> {
+    steps: string[];
+    code: string[];
+    requirements : RequirementsInterface
+}
+
+
+
 
 export interface CheckboxInputInterface {
     title: string;

@@ -1,4 +1,4 @@
-import { FormCheckboxInterface } from "../input_interface"
+import { FormCheckboxInterface } from "../util/input_interface"
 
 
 

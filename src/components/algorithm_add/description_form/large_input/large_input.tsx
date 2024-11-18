@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FormInputInterface } from "../input_interface";
+import { FormInputInterface } from "../util/input_interface";
 import { faQuestion } from "@fortawesome/free-solid-svg-icons";
 
 
