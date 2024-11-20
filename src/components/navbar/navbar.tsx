@@ -2,14 +2,14 @@ import { Link } from "react-router-dom";
 import { faShareNodes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { HelpPopup } from "../help/help_popup";
-import { useState } from "react";
 
 export default function Navbar() {
+    /*
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
-    }
+    }*/
 
 
     return (
@@ -29,7 +29,7 @@ export default function Navbar() {
                         </li>
                         {import.meta.env.DEV ?
                             <li>
-                                <Link className="text-xl font-bold p-4" to="/add">
+                                <Link className="text-xl font-bold p-4" to="/developer">
                                     Developer
                                 </Link>
                             </li> : null
@@ -60,7 +60,7 @@ export default function Navbar() {
                                 </li>
                                 {import.meta.env.DEV ?
                                     <li>
-                                        <Link className="text-xl font-bold p-4" to="/add">
+                                        <Link className="text-xl font-bold p-4" to="/developer">
                                             Developer
                                         </Link>
                                     </li> : null

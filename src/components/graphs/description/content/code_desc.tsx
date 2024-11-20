@@ -1,5 +1,6 @@
-import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
+import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/light";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import python from 'react-syntax-highlighter/dist/esm/languages/hljs/python'
 import JsonGetter from "../../store/json_getter";
 import { useMemo } from "react";
 
@@ -8,6 +9,8 @@ interface CodeDescProps {
     hideCodeDesc: () => void;
 }
 
+// optimization !!
+SyntaxHighlighter.registerLanguage("python", python);
 
 export default function CodeDesc({ selectedValue, hideCodeDesc }: CodeDescProps) {
     const code_text : string[] = useMemo(() => {

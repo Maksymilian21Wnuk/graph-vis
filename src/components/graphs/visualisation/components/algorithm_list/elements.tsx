@@ -39,7 +39,7 @@ export default function Elements({ onClick, algos, filterVal }: ElementsProps) {
         <ul>
             {showModal ? <DescriptionPopup title={title!} chosen={chosen!} onHide={onHide} /> : null}
             {algos.map((a: AggregationInterfaceNamed, idx: number = 0) => {
-                if (a.name.toLocaleLowerCase().includes(filterVal)) {
+                if (a.title.toLocaleLowerCase().includes(filterVal)) {
                     return (
                         <li key={idx}
                             onClick={() => onClick(a.name)}

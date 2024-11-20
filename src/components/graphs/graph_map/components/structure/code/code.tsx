@@ -1,12 +1,13 @@
 import { StructureInterface } from "../../../../../../shared/types/visualisation_types";
 import Button from "../../../../../utility/atoms/button/button";
 import code_parser from "./code_parser";
-import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
+import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/light";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import python from 'react-syntax-highlighter/dist/esm/languages/hljs/python'
 
 
-
-
+// optimization !!
+SyntaxHighlighter.registerLanguage("python", python);
 
 
 export default function CodeRepresentation({ graph }: StructureInterface) {

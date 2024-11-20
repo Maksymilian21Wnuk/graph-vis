@@ -23,15 +23,15 @@
         ],
         "code": [
             "def bfs(g):",
-            " visited = set({});",
-            " let queue = [g.start_node];",
-            " while (queue.length > 0):",
-            " let node = queue.shift();",
-            " if (!visited.has(node))",
-            " visited.add(node);",
-            " neighbours = g.get_neighbours(node);",
-            " for (neighbour in neighbours)",
-            " queue.push(neighbour)"
+            "   visited = set({});",
+            "   queue = [g.arbitrary_node()];",
+            "   while (queue.length > 0):",
+            "       node = queue.shift()",
+            "       if (!visited.has(node)):",
+            "           visited.add(node)",
+            "           neighbours = g.get_neighbours(node)",
+            "           for (neighbour in neighbours):",
+            "               queue.push(neighbour)"
         ]
     },
     "dfs": {
@@ -56,15 +56,15 @@
         },
         "code": [
             "def bfs(g):",
-            " visited = set({});",
-            " let queue = [g.start_node];",
-            " while (queue.length > 0):",
-            " let node = queue.shift();",
-            " if (!visited.has(node))",
-            " visited.add(node);",
-            " neighbours = g.get_neighbours(node);",
-            " for (neighbour in neighbours)",
-            " queue.push(neighbour)"
+            "   visited = set({});",
+            "   queue = [g.arbitrary_node()];",
+            "   while (queue.length > 0):",
+            "       node = queue.shift()",
+            "       if (!visited.has(node)):",
+            "           visited.add(node)",
+            "           neighbours = g.get_neighbours(node)",
+            "           for (neighbour in neighbours):",
+            "               queue.push(neighbour)"
         ]
     },
     "connectivity_check": {
@@ -87,15 +87,15 @@
         ],
         "code": [
             "def bfs(g):",
-            " visited = set({});",
-            " let queue = [g.start_node];",
-            " while (queue.length > 0):",
-            " let node = queue.shift();",
-            " if (!visited.has(node))",
-            " visited.add(node);",
-            " neighbours = g.get_neighbours(node);",
-            " for (neighbour in neighbours)",
-            " queue.push(neighbour)"
+            "   visited = set({});",
+            "   queue = [g.arbitrary_node()];",
+            "   while (queue.length > 0):",
+            "       node = queue.shift()",
+            "       if (!visited.has(node)):",
+            "           visited.add(node)",
+            "           neighbours = g.get_neighbours(node)",
+            "           for (neighbour in neighbours):",
+            "               queue.push(neighbour)"
         ],
         "description": {
             "text": "Connectivity check performs breadth first search on given graph. Upon visiting all nodes of graph, it checks if number of visited nodes is same as number of graph's nodes. If it's not equal, the graph is not connected.",
@@ -114,15 +114,15 @@
         },
         "code": [
             "def bfs(g):",
-            " visited = set({});",
-            " let queue = [g.start_node];",
-            " while (queue.length > 0):",
-            " let node = queue.shift();",
-            " if (!visited.has(node))",
-            " visited.add(node);",
-            " neighbours = g.get_neighbours(node);",
-            " for (neighbour in neighbours)",
-            " queue.push(neighbour)"
+            "   visited = set({});",
+            "   queue = [g.arbitrary_node()];",
+            "   while (queue.length > 0):",
+            "       node = queue.shift()",
+            "       if (!visited.has(node)):",
+            "           visited.add(node)",
+            "           neighbours = g.get_neighbours(node)",
+            "           for (neighbour in neighbours):",
+            "               queue.push(neighbour)"
         ],
         "steps": [
             "Select start node",
@@ -154,15 +154,15 @@
         },
         "code": [
             "def bfs(g):",
-            " visited = set({});",
-            " let queue = [g.start_node];",
-            " while (queue.length > 0):",
-            " let node = queue.shift();",
-            " if (!visited.has(node))",
-            " visited.add(node);",
-            " neighbours = g.get_neighbours(node);",
-            " for (neighbour in neighbours)",
-            " queue.push(neighbour)"
+            "   visited = set({});",
+            "   queue = [g.arbitrary_node()];",
+            "   while (queue.length > 0):",
+            "       node = queue.shift()",
+            "       if (!visited.has(node)):",
+            "           visited.add(node)",
+            "           neighbours = g.get_neighbours(node)",
+            "           for (neighbour in neighbours):",
+            "               queue.push(neighbour)"
         ],
         "steps": [
             "Sort edges in increasing order",
@@ -183,15 +183,15 @@
         },
         "code": [
             "def bfs(g):",
-            " visited = set({});",
-            " let queue = [g.start_node];",
-            " while (queue.length > 0):",
-            " let node = queue.shift();",
-            " if (!visited.has(node))",
-            " visited.add(node);",
-            " neighbours = g.get_neighbours(node);",
-            " for (neighbour in neighbours)",
-            " queue.push(neighbour)"
+            "   visited = set({});",
+            "   queue = [g.arbitrary_node()];",
+            "   while (queue.length > 0):",
+            "       node = queue.shift()",
+            "       if (!visited.has(node)):",
+            "           visited.add(node)",
+            "           neighbours = g.get_neighbours(node)",
+            "           for (neighbour in neighbours):",
+            "               queue.push(neighbour)"
         ],
         "steps": [
             "Initialize indegree values for vertices",
@@ -229,15 +229,15 @@
         ],
         "code": [
             "def bfs(g):",
-            " visited = set({});",
-            " let queue = [g.start_node];",
-            " while (queue.length > 0):",
-            " let node = queue.shift();",
-            " if (!visited.has(node))",
-            " visited.add(node);",
-            " neighbours = g.get_neighbours(node);",
-            " for (neighbour in neighbours)",
-            " queue.push(neighbour)"
+            "   visited = set({});",
+            "   queue = [g.arbitrary_node()];",
+            "   while (queue.length > 0):",
+            "       node = queue.shift()",
+            "       if (!visited.has(node)):",
+            "           visited.add(node)",
+            "           neighbours = g.get_neighbours(node)",
+            "           for (neighbour in neighbours):",
+            "               queue.push(neighbour)"
         ]
     },
     "tree_path_find": {
@@ -256,15 +256,15 @@
         },
         "code": [
             "def bfs(g):",
-            " visited = set({});",
-            " let queue = [g.start_node];",
-            " while (queue.length > 0):",
-            " let node = queue.shift();",
-            " if (!visited.has(node))",
-            " visited.add(node);",
-            " neighbours = g.get_neighbours(node);",
-            " for (neighbour in neighbours)",
-            " queue.push(neighbour)"
+            "   visited = set({});",
+            "   queue = [g.arbitrary_node()];",
+            "   while (queue.length > 0):",
+            "       node = queue.shift()",
+            "       if (!visited.has(node)):",
+            "           visited.add(node)",
+            "           neighbours = g.get_neighbours(node)",
+            "           for (neighbour in neighbours):",
+            "               queue.push(neighbour)"
         ],
         "steps": [
             "Initialize queue Q",
@@ -286,18 +286,18 @@
         },
         "code": [
             "def bfs(g):",
-            " visited = set({});",
-            " let queue = [g.start_node];",
-            " while (queue.length > 0):",
-            " let node = queue.shift();",
-            " if (!visited.has(node))",
-            " visited.add(node);",
-            " neighbours = g.get_neighbours(node);",
-            " for (neighbour in neighbours)",
-            " queue.push(neighbour)"
+            "   visited = set({});",
+            "   queue = [g.arbitrary_node()];",
+            "   while (queue.length > 0):",
+            "       node = queue.shift()",
+            "       if (!visited.has(node)):",
+            "           visited.add(node)",
+            "           neighbours = g.get_neighbours(node)",
+            "           for (neighbour in neighbours):",
+            "               queue.push(neighbour)"
         ],
         "description": {
-            "text": "this will be done later",
+            "text": "Kosraju algorithm finds strongly connected components of graph (SCC). It runs two DFS, first ",
             "time": "O(V+E)",
             "space": "O(V+E)"
         },
@@ -308,6 +308,26 @@
             "Go back",
             "Terminate"
         ]
+    },
+    "asdf": {
+        "aggregation": {
+            "description": "asdf",
+            "title": "asdf",
+            "require_weights": true,
+            "require_directed": false,
+            "require_non_directed": false,
+            "require_tree": false
+        },
+        "description": {
+            "text": "asdf",
+            "space": "fasd",
+            "time": "asdf"
+        },
+        "steps": [
+            "asdf"
+        ],
+        "code": [
+            "asdf"
+        ]
     }
-    ,"asdf":{"aggregation":{"description":"asdf","title":"asdf","require_weights":true,"require_directed":false,"require_non_directed":false,"require_tree":false},"description":{"text":"asdf","space":"fasd","time":"asdf"},"steps":["asdf"],"code":["asdf"]}
 }

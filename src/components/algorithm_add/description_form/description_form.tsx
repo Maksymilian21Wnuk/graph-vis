@@ -65,7 +65,7 @@ export default function DescriptionForm({setTemplateJson} : DescriptionFormInter
         setRequirements(guard_checkbox(name as CheckboxInputName, checked, requirements));
     }
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setOutput(
             {

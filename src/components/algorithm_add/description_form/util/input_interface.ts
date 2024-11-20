@@ -9,7 +9,7 @@ export interface InputInterface {
 export interface FormInputInterface {
     input_info: InputInterface;
     bg?: number;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void;
     value: string | string[];
 }
 

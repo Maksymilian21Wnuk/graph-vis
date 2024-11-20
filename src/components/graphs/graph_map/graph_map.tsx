@@ -12,7 +12,7 @@ import reducer from "../store/reducer";
 import { AppState, GraphState } from "../../../shared/types/graph_map_types";
 import { useShallow } from "zustand/shallow";
 import { Weight } from "../../../shared/enumerations/enums";
-import { ARROW_SVG_ID, NODE_MAX, nodeDefaultStyle } from "../../../shared/constants";
+import { ARROW_SVG_ID, MIN_ZOOM, NODE_MAX, nodeDefaultStyle } from "../../../shared/constants";
 import find_first_free from "./functions/find_first_free_index/find_first_free_index";
 import getRandomInt from "../../utility/functions/random_int";
 import CustomControls from "./custom_controls/custom_controls";
@@ -196,6 +196,7 @@ export default function GraphMap() {
                     snapToGrid={true}
                     onInit={onFitView}
                     onPaneClick={onPaneClick}
+                    minZoom={MIN_ZOOM}
                     snapGrid={[15, 15]}>
                     <CustomControls onDownload={() => onDownload(nodes, reactFlow)} onFitView={onFitView} setIsDirected={set_directed} noWeights={no_weights} dispatch={dispatch} clearGraph={clear} randomizeWeight={random_weight} />
                 </ReactFlow>
