@@ -4,6 +4,7 @@ export interface InputInterface {
     title: string;
     name: InputName;
     desc: string;
+    placeholder? : string;
 }
 
 export interface FormInputInterface {

@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { faShareNodes } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShareNodes } from "@fortawesome/free-solid-svg-icons/faShareNodes";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome/";
 import { HelpPopup } from "../help/help_popup";
+import { faBars } from "@fortawesome/free-solid-svg-icons/faBars";
 
 export default function Navbar() {
     /*
@@ -48,11 +49,10 @@ export default function Navbar() {
 
                     <li>
                         <div className="dropdown">
-                            <div tabIndex={0} role="button" className="btn m-1">Menu</div>
+                            <div tabIndex={0} role="button" className="btn btn-sm bg-white border-white">
+                                <FontAwesomeIcon icon={faBars} />
+                            </div>
                             <ul tabIndex={0} className="text-black dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-                                <li className="pr-10">
-                                    <HelpPopup />
-                                </li>
                                 <li>
                                     <Link className="text-xl font-bold p-4" to="/graphs">
                                         Graphs

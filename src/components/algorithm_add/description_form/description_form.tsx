@@ -18,12 +18,12 @@ const one_line_info: InputInterface[] = [
 ]
 
 const large_info: InputInterface[] = [
-    { title: "Detailed description", desc: "Detailed description of algorithm", name: "description" },
-    { title: "Steps of algorithm", desc: "Algorithm's steps separated by endline", name: "steps" },
+    { title: "Detailed description", desc: "Detailed description of algorithm", name: "description", placeholder: `This algorithm does something. It starts from visiting...` },
+    { title: "Steps of algorithm", desc: "Algorithm's steps separated by endline", name: "steps", placeholder: `Get arbitrary node\nVisit its neighbours\nIf neighbour visited...\nTerminate`},
 ]
 
 const code_info: InputInterface[] = [
-    { title: "Code", desc: "Code representation of algorithm visualised. It should be written in python, since it's widely used.", name: "code" },
+    { title: "Code", desc: "Code representation of algorithm visualised. It should be written in python, since it's widely used.", name: "code", placeholder: "def algorithm(g):" },
 ]
 
 const checkboxes: CheckboxInputInterface[] = [
@@ -101,7 +101,7 @@ export default function DescriptionForm({setTemplateJson} : DescriptionFormInter
                             <LargeInput input_info={info} bg={(idx + 1) % 2} onChange={handleChange} value={output[info.name]} />
                         )}
                         {code_info.map((info: InputInterface, idx: number) =>
-                            <CodeInput input_info={info} bg={idx % 2} onChange={handleChange} value={output[info.name]} />
+                            <CodeInput input_info={info} bg={(idx + 1) % 2} onChange={handleChange} value={output[info.name]} />
                         )}
                         <CheckBoxes checkboxes={checkboxes} handleCheckbox={handleCheckbox} requirements={requirements} />
                     </ul>

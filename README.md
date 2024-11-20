@@ -1,32 +1,61 @@
 # Interactive graph algorithms visualisation
 
 
-<summary>Table of Contents</summary>
-<ol>
-    <li>
-        <a href="#about-the-project">About The Project</a>
-    </li>
-    <li>
-        <a href="#start-project">Starting Application</a>
-    </li>
-    <li>
-        <a href="#structure">Structure</a>
-    </li>
-</ol>
+# Table of contents
+1. [About](#about)
+2. [Starting application](#starting-application)
+    1. [Docker](#docker)
+    2. [Npm](#npm)
+3. [Functionality](#functionality)
+    1. [Interactive part](#interactive-part)
+    2. [Visualisation](#visualisation)
+        1. [Steps](#steps)
+        2. [Writing algorithms](#writing-algorithms)
+4. [Implementation](#implementation)
 
-## About 
+## About <a name="about"></a>
 Interactive graph algorithms visualisation is an app created in 
-react with typescript that aims to......
-## Starting Application
+react with typescript, that aims to provide a simple way of implementing visualisations performed on user created graphs. The graphs are created in an application's interface, and currently allows user to create various graphs with properties such as edges' directions or weights.
 
-blablabla
 
-## Functionality
+## Starting application <a name="starting-application"></a>
+
+Clone in git cli and go to repo:
+```bash
+git clone https://github.com/Maksymilian21Wnuk/GraphVisual.git && cd GraphVisual
+```
+### Docker <a name="docker"></a>
+1. Run command when in repo folder:
+```bash
+docker compose up
+```
+2. Go to localhost:3000 in browser.
+3. You may stop docker compose with Ctrl+C
+or
+```bash
+docker compose down
+```
+### Npm <a name="npm"></a>
+1. When in repo folder run:
+```bash
+npm run dev
+```
+2. Go to localhost:3000 in browser or when in cli
+use o+Enter.
+3. When in repo folder run:
+```bash
+npm run build
+npm run preview
+```
+4. Go to localhost:4173 in browser or when in cli
+use o+Enter.
+
+## Functionality <a name="functionality"></a>
 
 This is divided into two main parts,
 interactive which corresponds to graph creation, and visualisation that is more about how algorithms are visualised on given graph.
 
-### Interactive part
+### Interactive part <a name="interactive-part"></a>
 
 1. Graph Panel:
     1. Spawning nodes on panel click, maintaining correct labeling of node.
@@ -38,7 +67,7 @@ interactive which corresponds to graph creation, and visualisation that is more 
     6. Clearing graph by removing all nodes and edges.
     7. Assigning specific weight on edge click.
 
-2. Graph representation popup:
+2. Graph structure representation:
     1. Adjacency list representation.
     2. Matrix representation.
     3. Representation of graph's structure in python with copying it to clipboard.
@@ -63,9 +92,9 @@ interactive which corresponds to graph creation, and visualisation that is more 
         2. Finding concept by name using search input.
         3. Appending new concepts by using script from instructions folder.
 
-### Visualisation
+### Visualisation <a name="visualisation"></a>
 
-### Steps
+### Steps <a name="steps"></a>
 1. Steps are being visualised as colorings on graph's panel.
 2. On right side of page, there are visualised structures used in algorithm. In this program, I call them additionals. Currently supported additionals: 
     - Queue\<string\> 
@@ -79,7 +108,7 @@ interactive which corresponds to graph creation, and visualisation that is more 
 6. Progression of visualisation may also be animated by clicking 'Animate' button. User have also an ability of changing speed of animation using slider to the left of buttons.
 7. Visualisation can be finished by clicking 'Reset' button.
 
-### Writing algorithms
+### Writing algorithms <a name="writing algorithms"></a>
 1. Every new writen algorithm requires 4 things, those are:
     1. Text representation of steps
     2. Description with complexity
@@ -93,9 +122,3 @@ interactive which corresponds to graph creation, and visualisation that is more 
             - undirected requirement
             - tree requirement
     4. Typescript function that implements visualisation of algorithm. Function's name must be same as the one provided in metadata.
-2. Each of those 4 things have their placement in src folder, but for making things simple, there is a script for creating that data. Find it in instructions folder. For more details on that, check the writing_algorithms.pdf file in instructions folder.
-
-3. After running instructions script, you must implement the algorithm you want to visualise. There will be created a file in folder
-```
-/src/algorithms/"NAME_YOU_PROVIDED".ts
-```

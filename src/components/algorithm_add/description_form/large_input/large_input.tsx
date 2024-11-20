@@ -17,6 +17,7 @@ export default function LargeInput({input_info, bg, onChange, value} : FormInput
                         id={input_info.name}
                         name={input_info.name}
                         value={value}
+                        placeholder={input_info.placeholder ? input_info.placeholder : ""}
                         className="textarea h-72 lg:text-xl col-span-6"></textarea>
                     <div className="tooltip col-span-1" data-tip={input_info.desc}>
                         <button className="p-5 ml-5 bg-white rounded-3xl hover:bg-slate-100">

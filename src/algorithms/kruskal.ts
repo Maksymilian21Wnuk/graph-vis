@@ -48,7 +48,7 @@ export default function kruskal(g : WeightedGraph) : Steps{
             g.add_step({source_node : e.source, dest_nodes : [e.dest], nodes : [e.dest, e.source], should_color_visited: true,
                 step_idx: 1,
                 additional_name: "Edges: ", additional: edges_additional,
-                additional_snd_name: `Sets`, additional_snd: disjoint_set
+                additional_snd_name: `Disjoint sets: `, additional_snd: disjoint_set
             }
             );
         }
@@ -59,7 +59,7 @@ export default function kruskal(g : WeightedGraph) : Steps{
                 should_color_visited : true,
                 dest_nodes: [e.dest],
                 source_node: e.source,
-                additional_snd_name: `Sets`, additional_snd: disjoint_set
+                additional_snd_name: `Disjoint sets: `, additional_snd: disjoint_set
             });
             g.add_step({nodes : [e.dest, e.source], 
                 step_idx: 2,
@@ -68,7 +68,7 @@ export default function kruskal(g : WeightedGraph) : Steps{
                 edge_removal: true,
                 source_node: e.source,
                 dest_nodes: [e.dest],
-                additional_snd_name: `Sets`, additional_snd: disjoint_set
+                additional_snd_name: `Disjoint sets: `, additional_snd: disjoint_set
             });
         }
         edges_additional.shift();

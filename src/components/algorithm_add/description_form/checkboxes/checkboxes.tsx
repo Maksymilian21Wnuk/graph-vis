@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import CheckboxAtom from "./checkbox_atom"
-import { faQuestion } from "@fortawesome/free-solid-svg-icons"
+import { faQuestion } from "@fortawesome/free-solid-svg-icons/faQuestion"
 import { CheckboxInputInterface, RequirementsInterface } from "../util/input_interface"
 
 
@@ -14,7 +14,7 @@ interface CheckboxesGroupInterface {
 export default function CheckBoxes({ checkboxes, requirements, handleCheckbox}: CheckboxesGroupInterface) {
 
     return (
-        <li key="checkbox" className="bg-slate-200 grid grid-cols-9">
+        <li key="checkbox" className="bg-slate-100 grid grid-cols-9">
             <div className="p-5 col-span-8">
                 <ul className="flex flex-row justify-between items-center">
                     {checkboxes.map((c: CheckboxInputInterface) =>

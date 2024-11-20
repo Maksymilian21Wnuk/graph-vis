@@ -22,7 +22,7 @@ export default function Description() {
                 {algo_selected !== "" ? (
                     <div className="flex flex-col justify-center items-center">
                         <div className='flex flex-col items-center'>
-                            <Button onClick={() => setShowCode(true)} text="See the code" style="" />
+                            {import.meta.env.DEV ? <Button onClick={() => setShowCode(true)} text="See the code" style="" /> : null}
                             <StepDesc selectedValue={algo_selected} />
                             {showCode ?
                                 <CodeDesc selectedValue={algo_selected} hideCodeDesc={() => setShowCode(false)} />

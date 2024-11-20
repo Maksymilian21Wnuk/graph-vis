@@ -166,7 +166,7 @@
         ],
         "steps": [
             "Sort edges in increasing order",
-            "Pick smallest edge",
+            "Pick smallest edge and add it to disjoint set",
             "If edge creates cycle, repeat 2",
             "Sorted array is empty",
             "Mst found"
@@ -307,27 +307,6 @@
             "Exhausted neighbours, add to kosaraju-stack",
             "Go back",
             "Terminate"
-        ]
-    },
-    "asdf": {
-        "aggregation": {
-            "description": "asdf",
-            "title": "asdf",
-            "require_weights": true,
-            "require_directed": false,
-            "require_non_directed": false,
-            "require_tree": false
-        },
-        "description": {
-            "text": "asdf",
-            "space": "fasd",
-            "time": "asdf"
-        },
-        "steps": [
-            "asdf"
-        ],
-        "code": [
-            "asdf"
         ]
     }
 }
