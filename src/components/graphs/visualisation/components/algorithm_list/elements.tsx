@@ -56,7 +56,7 @@ export default function Elements({ onClick, algos, filterVal }: ElementsProps) {
                                 {a.description ? a.description : "No description provided, provide it lorem ipsum"}
                             </div>
 
-                            <div className="col-span-2 p-5">
+                            <div className="col-span-2 py-4">
                                 {hovered === idx ? (
                                     <button className="font-bold bg-slate-300 hover:bg-slate-400 p-5 rounded-md text-black" onClick={() => onShowPopup(a.name, a.title)}>
                                         Description
