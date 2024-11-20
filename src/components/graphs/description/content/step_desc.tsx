@@ -30,7 +30,7 @@ export default function StepDesc({selectedValue} : StepDescProps) {
     return (
         <div className='animate-appear py-2 flex flex-col items-center h-full overflow-auto'>
             <ol type='1' className='list-decimal list-inside text-sm lg:text-lg overflow-auto h-[200px] lg:h-[360px]'>
-                {step_text.steps.map((step: string, key: number = 1) =>
+                {step_text.map((step: string, key: number = 1) =>
                     <li className=
                     {message.step_idx === -1 ? 'pl-2' : (message.step_idx != key || modifyMode ? 'pl-2' : 'rounded-md pl-2 animate-redColorChange font-bold')}
                      key={`step-` + key++}>{step}</li>

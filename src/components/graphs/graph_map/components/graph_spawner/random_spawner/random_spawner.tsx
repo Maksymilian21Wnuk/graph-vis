@@ -68,12 +68,12 @@ export default function RandomSpawner() {
     // generating random graph
 
     return (
-        <>
-            Edge probability:
+        <div className="">
+            <label>Edge probability</label>
             <Slider max="1" min={0} step="0.01" onChange={onChange} sliderValue={sliderValue} />
             <Input id={"nodeInput"} top_left_text="Node Count" input_change={input_change} input_value={nodeCount} />
             <Button onClick={submitSpawn} text="Spawn" />
-        </>
+        </div>
     )
 
 

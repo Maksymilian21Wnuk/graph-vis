@@ -1,10 +1,6 @@
 import { GraphFunctionAbstract } from "../../shared/types/visualisation_types";
 
-interface RequiredInterface {
-    name : string;
-}
-
-export interface AggregationInterface extends RequiredInterface {
+export interface AggregationInterface {
     description: string,
     title : string,
     require_weights : boolean,
@@ -13,16 +9,37 @@ export interface AggregationInterface extends RequiredInterface {
     require_tree : boolean
 }
 
-export interface ParsedAggregationInterface extends AggregationInterface {
-    algorithm : GraphFunctionAbstract;
+export interface AggregationInterfaceNamed extends AggregationInterface {
+    name: string; 
 }
 
-export interface DescriptionInterface extends RequiredInterface {
+export interface DescriptionInterface {
     text: string,
     space: string,
     time: string
 }
 
-export interface StepInterface extends RequiredInterface {
-    steps: string[]
+export interface ParsedAggregationInterface extends AggregationInterface {
+    algorithm : GraphFunctionAbstract;
 }
+
+export interface JsonValues {
+    aggregation : AggregationInterface;
+    description: DescriptionInterface;
+    code: string[];
+    steps : string[]
+}
+/**
+ * representation of json
+ * key is variable
+ */
+export interface JsonRepresentation {
+    [key : string] : JsonValues;
+}
+
+export enum JsonFields {
+    Aggregation = "aggregation",
+    Steps = "steps",
+    Description = "description",
+    Code = "code"
+} 

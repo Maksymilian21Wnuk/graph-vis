@@ -38,8 +38,6 @@ export interface OutputInterfaceJSON extends Omit<OutputInterface, "steps" | "co
 }
 
 
-
-
 export interface CheckboxInputInterface {
     title: string;
     name: CheckboxInputName;

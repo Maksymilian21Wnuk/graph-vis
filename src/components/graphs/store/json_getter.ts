@@ -1,9 +1,8 @@
-import aggreg from "../../../algorithms/algorithms_description/algorithms_aggreg.json"
-import description from "../../../algorithms/algorithms_description/description_algorithms.json"
-import steps from "../../../algorithms/algorithms_description/step_algorithms.json"
-import { StepInterface, AggregationInterface, DescriptionInterface } from "../../../algorithms/algorithms_description/json_interfaces";
+import { AggregationInterfaceNamed, DescriptionInterface, JsonRepresentation, JsonFields} from "../../../algorithms/algorithms_description/json_interfaces";
 import { AlgorithmsMap } from "../../../algorithms/Algorithms_map";
 import { GraphFunctionAbstract } from "../../../shared/types/visualisation_types";
+import _description from "../../../algorithms/algorithms_description/description.json"
+
 
 
 /**
@@ -14,29 +13,33 @@ import { GraphFunctionAbstract } from "../../../shared/types/visualisation_types
  * of getting json parsed.
  */
 export default class JsonGetter {
+    static description = _description as JsonRepresentation;
 
-    static getSteps(name : string) : StepInterface {
-        console.log("Steps call")
-        return (steps as StepInterface[]).find((x : StepInterface ) => x.name === name)!;
+    static getSteps(name : string) : string[] {
+        return JsonGetter.description[name][JsonFields.Steps];
     }
 
-    static getCode(name : string) : StepInterface {
-        return (steps as StepInterface[]).find((x : StepInterface ) => x.name === name)!;
+    static getCode(name : string) : string[] {
+        return JsonGetter.description[name][JsonFields.Code];
     }
 
     static getDescription(name : string) : DescriptionInterface {
-        return (description as DescriptionInterface[]).find((x : DescriptionInterface ) => x.name === name)!;
+        return JsonGetter.description[name][JsonFields.Description];
     }
     
-    static getAggregation(name : string) : AggregationInterface {
-        return (aggreg as AggregationInterface[]).find((x : AggregationInterface ) => x.name === name)!;
+    static getAggregation(name : string) : AggregationInterfaceNamed {
+        return {...JsonGetter.description[name][JsonFields.Aggregation], name: name};
     }
 
-    static getAggregationFull() : AggregationInterface[] {
-        return aggreg as AggregationInterface[];
+    static getAggregationFull() : AggregationInterfaceNamed[] {
+        let agg : AggregationInterfaceNamed[] = [];
+        for (let key in JsonGetter.description){
+            agg.push({...JsonGetter.description[key][JsonFields.Aggregation], name: key})
+        }
+        return agg;
     }
 
-    static parseAlgorithm(a : AggregationInterface) : GraphFunctionAbstract {
+    static parseAlgorithm(a : AggregationInterfaceNamed) : GraphFunctionAbstract {
         return AlgorithmsMap.get(a.name)!;
     }
 

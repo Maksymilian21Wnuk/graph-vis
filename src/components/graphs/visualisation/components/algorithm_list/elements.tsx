@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { AggregationInterface } from "../../../../../algorithms/algorithms_description/json_interfaces";
+import { AggregationInterfaceNamed } from "../../../../../algorithms/algorithms_description/json_interfaces";
 import DescriptionPopup from "./description_popup";
 
 
 interface ElementsProps {
     onClick: (event: any) => void;
-    algos: AggregationInterface[];
+    algos: AggregationInterfaceNamed[];
     filterVal: string;
 }
 
@@ -38,7 +38,7 @@ export default function Elements({ onClick, algos, filterVal }: ElementsProps) {
     return (
         <ul>
             {showModal ? <DescriptionPopup title={title!} chosen={chosen!} onHide={onHide} /> : null}
-            {algos.map((a: AggregationInterface, idx: number = 0) => {
+            {algos.map((a: AggregationInterfaceNamed, idx: number = 0) => {
                 if (a.name.toLocaleLowerCase().includes(filterVal)) {
                     return (
                         <li key={idx}

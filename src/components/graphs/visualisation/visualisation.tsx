@@ -11,8 +11,8 @@ import ProgressButtons from "./components/progress_buttons/progress_buttons";
 import requirements_guard from "./util/requirements_guard";
 import AlgorithmList from "./components/algorithm_list/algorithm_list";
 import graph_director from "./util/graph_director";
-import steps_director from "./util/steps_director";
-import { AggregationInterface } from "../../../algorithms/algorithms_description/json_interfaces";
+import steps_evaluator from "./util/steps_evaluator";
+import { AggregationInterfaceNamed } from "../../../algorithms/algorithms_description/json_interfaces";
 import JsonGetter from "../store/json_getter";
 import { NOT_SELECTED } from "../../../shared/constants";
 //import { Node, Edge } from "@xyflow/react";
@@ -34,7 +34,7 @@ export default function Visualisation() {
     const { nodes, edges, setNodes, setEdges, setMessage, setModifyMode,
         modifyMode, selectedValue, setSelectedValue, directed } = useStore(useShallow(selector));
 
-    const [chosenFunction, setChosenFunction] = useState<AggregationInterface>(JsonGetter.getAggregation('bfs'));
+    const [chosenFunction, setChosenFunction] = useState<AggregationInterfaceNamed>(JsonGetter.getAggregation('bfs'));
     const [steps, setSteps] = useState<Steps>([]);
     const [stepIdx, setStepIdx] = useState(-1);
     const [prevStep, setPrevStep] = useState<PreviousStep | undefined>(undefined);
@@ -81,14 +81,14 @@ export default function Visualisation() {
             setFirstPrev(false);
             setStepIdx(stepIdx - value);
             if (firstPrev) {
-                if (prevStep && prevStep.previous){
+                if (prevStep && prevStep.previous) {
                     setNodes(prevStep?.previous?.nodes!);
                     setEdges(prevStep?.previous?.edges!);
                     setPrevStep(prevStep?.previous?.previous);
                 }
             }
             else {
-                if (prevStep){
+                if (prevStep) {
                     setNodes(prevStep?.nodes!);
                     setEdges(prevStep?.edges!);
                     setPrevStep(prevStep?.previous);
@@ -122,14 +122,23 @@ export default function Visualisation() {
         const foo = JsonGetter.parseAlgorithm(chosenFunction);
         // requirements checking for functions
         if (requirements_guard(guard, graph, directed)) {
-            setModifyMode(false);
             setPrevStep(undefined);
-            const new_steps: Steps = steps_director(graph, foo);
-            import.meta.env.DEV ? console.log(new_steps) : null;
-            import.meta.env.DEV ? console.log(graph) : null;
 
-            setSteps(new_steps);
-            setStepIdx(0);
+            try {
+                const new_steps: Steps = steps_evaluator(graph, foo);
+                setModifyMode(false);
+                setSteps(new_steps);
+                setStepIdx(0);
+            }
+            // is this correct? but works
+            catch (error) {
+                if (error instanceof TypeError) {
+                    setModifyMode(true);
+                    setSteps([]);
+                    alert("ERROR, the function might not be implemented in source code!")
+                }
+            }
+
         }
     }
 

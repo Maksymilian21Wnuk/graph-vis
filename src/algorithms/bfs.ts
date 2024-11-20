@@ -20,7 +20,7 @@ export default function bfs(g: DirectedGraph): Steps {
         
         let neighbours = g.get_neighbours(node);
 
-        g.add_step({ dest_nodes: neighbours, 
+        g.add_step({ dest_nodes: neighbours, msg:"asd",
             source_node: node, 
             nodes: neighbours, 
             step_idx: 2, 

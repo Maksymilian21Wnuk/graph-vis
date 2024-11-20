@@ -1,6 +1,7 @@
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import JsonGetter from "../../store/json_getter";
+import { useMemo } from "react";
 
 interface CodeDescProps {
     selectedValue: string;
@@ -9,22 +10,16 @@ interface CodeDescProps {
 
 
 export default function CodeDesc({ selectedValue, hideCodeDesc }: CodeDescProps) {
+    const code_text : string[] = useMemo(() => {
+        return JsonGetter.getCode(selectedValue);
+    }, [selectedValue])
+
+    console.log(code_text)
     return (
         <dialog id="code_modal" className="modal gray-out" open>
             <div className="modal-box w-11/12 max-w-2xl">
                 <SyntaxHighlighter language="python" style={docco} showLineNumbers>
-                    {
-`def bfs(g):
-    visited = set({});
-    let queue = [g.start_node];
-    while (queue.length > 0):
-        let node = queue.shift();
-        if (!visited.has(node))
-            visited.add(node);
-            neighbours = g.get_neighbours(node);
-            for (neighbour in neighbours)
-                queue.push(neighbour)`
-}
+                    {code_text.join("\n")}
                 </SyntaxHighlighter>
                 <div className="modal-action">
                     <form method="dialog">

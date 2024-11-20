@@ -23,9 +23,9 @@ export default function Additionals({msg, additional, additional_name, modifyMod
 
     return (additional_name || msg) && !modifyMode ? (
         <div className="grid grid-cols-2 mx-2 p-2">
-            {msg ? <div> {msg} </div> : null}
+            {msg ? <div className="absolute font-bold"> {msg} </div> : null}
             <div>
-                <div className="">
+                <div className="text-xs lg:text-2xl">
                     {additional_name ? additional_name : null}
                 </div>
                 <div className="py-6">
@@ -34,10 +34,10 @@ export default function Additionals({msg, additional, additional_name, modifyMod
             </div>
 
             <div>
-                <div className="">
+                <div className="text-xs lg:text-2xl">
                     {additional_snd_name ? additional_snd_name : null}
                 </div>
-                <div className="py-6">
+                <div className="py-6 ">
                     {additional_snd ? <AdditionalDisplay additional={additional_snd} /> : null}
                 </div>
             </div>
