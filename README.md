@@ -36,13 +36,13 @@ or
 docker compose down
 ```
 ### Npm <a name="npm"></a>
-1. When in repo folder run:
+1. When in repo folder run in cli for dev build:
 ```bash
 npm run dev
 ```
 2. Go to localhost:3000 in browser or when in cli
 use o+Enter.
-3. When in repo folder run:
+3. For prod build:
 ```bash
 npm run build
 npm run preview
@@ -109,16 +109,19 @@ interactive which corresponds to graph creation, and visualisation that is more 
 7. Visualisation can be finished by clicking 'Reset' button.
 
 ### Writing algorithms <a name="writing algorithms"></a>
-1. Every new writen algorithm requires 4 things, those are:
+1. Before writing actual visualisation algorithm,
+it needs to have some metadata filled in:
     1. Text representation of steps
     2. Description with complexity
-    3. Metadata describing algorithm, that is:
-        - name displayed on algorithm's list
-        - name of typescript's function
-        - description displayed on algorithm's list
-        - booleans that describe requirements of function:
-            - weight requirement
-            - direction requirement
-            - undirected requirement
-            - tree requirement
-    4. Typescript function that implements visualisation of algorithm. Function's name must be same as the one provided in metadata.
+    3. Pseudocode representation
+    3. Metadata of algorithm
+
+The template for metadata filling is available at Developer
+route in application. It ensures that user fills valid data.
+
+2. The template generates .json entry, which must be pasted into description.json file in src/algorithms/algorithms_description file and mapping of function's string name to function implemented. From this step algorithm only requires implementation.
+
+
+
+
+## Implementation <a name="implementation"></a>

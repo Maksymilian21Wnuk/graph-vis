@@ -74,7 +74,7 @@ export default function kruskal(g : WeightedGraph) : Steps{
         edges_additional.shift();
     }
     g.add_step({step_idx: 3})
-    g.add_step({step_idx: 4})
+    g.add_step({step_idx: 4, msg: "Algorithm terminated"})
 
     return g.get_steps();
 }

@@ -3,11 +3,14 @@ import AdditionalDisplay from "./additional_display";
 
 
 
-export default function Additionals({msg, additional, additional_name, modifyMode, additional_snd, additional_snd_name }: Message) {
+export default function Additionals({ msg, additional, additional_name, modifyMode, additional_snd, additional_snd_name }: Message) {
 
     return (additional_name || msg) && !modifyMode ? (
         <div className="grid grid-cols-2 mx-2 p-2">
-            {msg ? <div className="absolute font-bold"> {msg} </div> : null}
+            {msg ?
+                <div className="font-bold text-xl col-span-2"> 
+                    {msg}
+                </div> : null}
             <div>
                 <div className="text-xs lg:text-xl">
                     {additional_name ? additional_name : null}
