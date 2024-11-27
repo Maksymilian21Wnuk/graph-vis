@@ -10,7 +10,7 @@ export default function submit_json_parse(out : OutputInterface, requirements : 
     return {
         [out.name] : {
             aggregation : {
-                description: out.description,
+                description: out.text,
                 title: out.title,
                 require_weights: requirements.require_weights,
                 require_directed: requirements.require_directed,
@@ -18,7 +18,7 @@ export default function submit_json_parse(out : OutputInterface, requirements : 
                 require_tree: requirements.require_tree
             },
             description : {
-                text: out.text,
+                text: out.description,
                 space: out.space,
                 time: out.time
             },

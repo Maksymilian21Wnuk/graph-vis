@@ -19,9 +19,16 @@ export default function DescriptionPopup({ chosen, title, onHide }: DescriptionP
                     <h1 className="h1-custom">
                         {title}
                     </h1>
-                    <div>
+                    <div className="p-2">
                         {desc.text}
                     </div>
+                    <div className="p-1">
+                        Time: {desc.time}
+                    </div>
+                    <div className="p-1">
+                        Space: {desc.space}
+                    </div>
+
 
                 </div>
                 <div className="modal-action">

@@ -8,6 +8,7 @@ import submit_json_parse from "./util/submit_json_parse";
 import CheckBoxes from "./checkboxes/checkboxes";
 import guard_checkbox from "./checkboxes/guard_checkbox";
 import { CheckboxInputName } from "./util/input_types";
+import { JsonRepresentation } from "../../../algorithms/algorithms_description/json_interfaces";
 
 const one_line_info: InputInterface[] = [
     { title: "Algorithm name", desc: "This will be displayed algorithm name", name: "title" },
@@ -35,21 +36,50 @@ const checkboxes: CheckboxInputInterface[] = [
 
 
 interface DescriptionFormInterface {
-    setTemplateJson: (s : string) => void;
+    setTemplateJson: (s : JsonRepresentation) => void;
 }
 
-export default function DescriptionForm({setTemplateJson} : DescriptionFormInterface) {
+const initialOutput : OutputInterface = {
+    title: "",
+    name: "",
+    text: "",
+    time: "",
+    space: "",
+    description: "",
+    steps: "",
+    code: "",
+}
 
-    const [output, setOutput] = useState<OutputInterface>({
-        title: "",
-        name: "",
-        text: "",
-        time: "",
-        space: "",
-        description: "",
-        steps: "",
-        code: "",
-    })
+const exampleOutput : OutputInterface = {
+    title: "Breadth first search",
+    name: "bfs",
+    text: "Graph traversal with queue structure",
+    time: "O(V+E)",
+    space: "O(V)",
+    description: "Breadth first search is an algorithm used for traversing graph, by visiting adjacent neighbours and adding them to queue. Next step of algorithm extracts from queue and repeats previous step, as long as queue is not empty",
+    steps: `Initialize queue Q
+Extract node from Q
+Add unvisited neighbours to Q
+Repeat from 2, if Q is not empty
+Q is empty
+Terminate`,
+    code: `def bfs(g)
+visited = set({})
+queue = Queue(g.arbitrary_node())
+while (queue.length > 0):
+    node = queue.pop()
+    if (!visited.has(node)):
+        visited.add(node)
+        neighbours = g.get_neighbours(node)
+        for (neighbour in neighbours)
+            queue.push(neighbour) `,
+}
+
+
+export default function DescriptionForm({setTemplateJson} : DescriptionFormInterface) {
+    const [showExample, setExampleShow] = useState(false);
+
+    const [output, setOutput] = useState<OutputInterface>(initialOutput);
 
     const [requirements, setRequirements] = useState<RequirementsInterface>(
         {
@@ -80,7 +110,7 @@ export default function DescriptionForm({setTemplateJson} : DescriptionFormInter
         e.preventDefault();
         const guard_res = submit_guard(output);
         if (guard_res.pass) {
-            const res = JSON.stringify(submit_json_parse(output, requirements));
+            const res = submit_json_parse(output, requirements);
             setTemplateJson(res);
         }
         else {
@@ -88,9 +118,25 @@ export default function DescriptionForm({setTemplateJson} : DescriptionFormInter
         }
     }
 
+    const onExampleShow = () => {
+        if (showExample){
+            setExampleShow(false);
+            setOutput(initialOutput);
+        }
+        else{
+            setExampleShow(true);
+            setOutput(exampleOutput)
+        }
+    }
+
     return (
         <div className="bg-gray-200 m-5 lg:text-xl rounded-md">
-            <h1 className="h1-custom"> Step 1: Template generation </h1>
+            <div className="grid grid-cols-3">
+                <h1 className="h1-custom col-span-2"> Step 1: Template generation </h1>
+                <button className="btn m-2" onClick={onExampleShow}>
+                    { showExample ? "Hide example" : "See example"}
+                </button>
+            </div>
             <div className="bg-white">
                 <form onSubmit={onSubmit}>
                     <ul>
@@ -105,7 +151,7 @@ export default function DescriptionForm({setTemplateJson} : DescriptionFormInter
                         )}
                         <CheckBoxes checkboxes={checkboxes} handleCheckbox={handleCheckbox} requirements={requirements} />
                     </ul>
-                    <button className="btn btn-lg m-2" type="submit">Get template</button>
+                    <button className="btn btn-lg m-2" type="submit">Generate Template</button>
                 </form>
             </div>
         </div>
