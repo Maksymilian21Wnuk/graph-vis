@@ -1,12 +1,22 @@
 import { GraphFunctionAbstract } from "../../shared/types/visualisation_types";
 
-export interface AggregationInterface {
-    description: string,
-    title : string,
+
+/**
+ * guards interface representation
+ * for requirements of graph
+ */
+export interface GuardsInterface {
     require_weights : boolean,
     require_directed : boolean,
     require_non_directed : boolean,
-    require_tree : boolean
+    require_tree : boolean, 
+}
+/**
+ * aggregation representation interface
+ */
+export interface AggregationInterface extends GuardsInterface{
+    description: string,
+    title : string,
 }
 
 export interface AggregationInterfaceNamed extends AggregationInterface {

@@ -35,9 +35,6 @@ const checkboxes: CheckboxInputInterface[] = [
 ]
 
 
-interface DescriptionFormInterface {
-    setTemplateJson: (s : JsonRepresentation) => void;
-}
 
 const initialOutput : OutputInterface = {
     title: "",
@@ -75,6 +72,9 @@ while (queue.length > 0):
             queue.push(neighbour) `,
 }
 
+interface DescriptionFormInterface {
+    setTemplateJson : (repr : JsonRepresentation) => void
+}
 
 export default function DescriptionForm({setTemplateJson} : DescriptionFormInterface) {
     const [showExample, setExampleShow] = useState(false);
@@ -132,7 +132,7 @@ export default function DescriptionForm({setTemplateJson} : DescriptionFormInter
     return (
         <div className="bg-gray-200 m-5 lg:text-xl rounded-md">
             <div className="grid grid-cols-3">
-                <h1 className="h1-custom col-span-2"> Step 1: Template generation </h1>
+                <h1 className="h1-custom col-span-2"> Step 2: Template generation </h1>
                 <button className="btn m-2" onClick={onExampleShow}>
                     { showExample ? "Hide example" : "See example"}
                 </button>
