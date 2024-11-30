@@ -1,4 +1,4 @@
-import { AggregationInterface } from "../../../../../algorithms/algorithms_description/json_interfaces";
+import { AggregationInterface } from "../../../../../../algorithms/algorithms_description/json_interfaces";
 
 
 
@@ -14,8 +14,9 @@ export type GraphType = "DirectedGraph" | "Graph" | "WeightedGraph" | "TreeGraph
  * @returns type of graph
  */
 export default function graph_type_parser(agg : AggregationInterface) : GraphType {
-    // cascade-style
-    if (agg.require_directed) {
+    // cascade
+    // directed or not specified directed, we assume that it works for both
+    if (agg.require_directed || !(agg.require_directed || agg.require_non_directed)) {
         return "DirectedGraph";
     }
     else if (agg.require_tree) {

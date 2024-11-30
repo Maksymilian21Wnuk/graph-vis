@@ -73,7 +73,7 @@ while (queue.length > 0):
 }
 
 interface DescriptionFormInterface {
-    setTemplateJson : (repr : JsonRepresentation) => void
+    setTemplateJson : (repr : JsonRepresentation | null) => void
 }
 
 export default function DescriptionForm({setTemplateJson} : DescriptionFormInterface) {
@@ -114,6 +114,7 @@ export default function DescriptionForm({setTemplateJson} : DescriptionFormInter
             setTemplateJson(res);
         }
         else {
+            setTemplateJson(null)
             alert(guard_res.text!);
         }
     }

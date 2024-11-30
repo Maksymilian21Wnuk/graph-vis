@@ -1,6 +1,6 @@
 import { JsonRepresentation } from "../../../../../algorithms/algorithms_description/json_interfaces";
 import Button from "../../../../utility/atoms/button/button";
-import graph_type_parser, { GraphType } from "../functions/graph_type_parser";
+import graph_type_parser, { GraphType } from "../functions/graph_type_parser/graph_type_parser";
 
 
 

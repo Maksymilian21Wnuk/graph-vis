@@ -16,9 +16,14 @@ export default function submit_guard(output : OutputInterface) : GuardMessage {
         return {text: `Empty val in field: ${find_res}`, pass: false};
     }
 
-    if (output.name.indexOf(' ') >= 0){
-        return {text: "Function contains space", pass: false}
+    else if (output.name.indexOf(' ') >= 0){
+        return {text: "Function contains space", pass: false};
     }
 
-    return {pass: true};
+    else if (output.name.match(/\d+/) !== null) {
+        return {text: "Function name contains number", pass: false};
+    }
+    else {
+        return {pass: true};
+    }
 }
