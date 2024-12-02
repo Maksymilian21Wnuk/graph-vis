@@ -111,7 +111,11 @@ export default function Visualisation() {
     /* function for starting algorithm execution
     it basically initialize the graph with
     currently placed nodes and edges on the graph map*/
-    function start() {
+    function start() {{}
+        if (nodes.length === 0 && edges.length === 0) { 
+            alert("Graph is empty, populate it");
+            return;
+        } 
         setMessage({ msg: 'Starting Algorithm', step_idx: -1 });
         setNodes(reset_node_color(nodes));
         setEdges(reset_edge_color(edges));
@@ -130,7 +134,6 @@ export default function Visualisation() {
                 setSteps(new_steps);
                 setStepIdx(0);
             }
-            // is this correct? but works
             catch (error) {
                 if (error instanceof TypeError) {
                     setModifyMode(true);

@@ -31,6 +31,8 @@ interface AdditionalControls {
 
 
 function AdditionalControls({ onDownload, randomizeWeight, clearGraph, dispatch, noWeights, setIsDirected }: AdditionalControls) {
+    const [currentMode, setCurrentMode] = useState(ActionType.MODE_CHOOSE);
+
     return (
         <>
             <ControlButton title="Randomize weights" onClick={randomizeWeight}>
@@ -39,13 +41,31 @@ function AdditionalControls({ onDownload, randomizeWeight, clearGraph, dispatch,
             <ControlButton title="Clear graph" onClick={clearGraph}>
                 <FontAwesomeIcon icon={faX} />
             </ControlButton>
-            <ControlButton title="Add mode" onClick={() => dispatch({ type: ActionType.MODE_ADD })}>
+            <ControlButton
+                style={{ "background": currentMode === ActionType.MODE_ADD ? "rgb(163 230 53)" : "white" }}
+                title="Add mode"
+                onClick={() => {
+                    dispatch({ type: ActionType.MODE_ADD });
+                    setCurrentMode(ActionType.MODE_ADD)
+                }}>
                 <FontAwesomeIcon icon={faShareNodes} />
-            </ControlButton>
-            <ControlButton title="Choose mode" onClick={() => dispatch({ type: ActionType.MODE_CHOOSE })}>
+            </ControlButton >
+            <ControlButton
+                style={{ "background": currentMode === ActionType.MODE_CHOOSE ? "rgb(163 230 53)" : "white" }}
+                title="Choose mode"
+                onClick={() => {
+                    dispatch({ type: ActionType.MODE_CHOOSE });
+                    setCurrentMode(ActionType.MODE_CHOOSE)
+                }}>
                 <FontAwesomeIcon icon={faHand} />
             </ControlButton>
-            <ControlButton title="Remove mode" onClick={() => dispatch({ type: ActionType.MODE_REMOVE })}>
+            <ControlButton
+                style={{ "background": currentMode === ActionType.MODE_REMOVE ? "rgb(163 230 53)" : "white" }}
+                title="Remove mode"
+                onClick={() => {
+                    dispatch({ type: ActionType.MODE_REMOVE });
+                    setCurrentMode(ActionType.MODE_REMOVE)
+                }}>
                 <FontAwesomeIcon icon={faTrash} />
             </ControlButton>
             <ControlButton title="Remove weights" onClick={noWeights}>

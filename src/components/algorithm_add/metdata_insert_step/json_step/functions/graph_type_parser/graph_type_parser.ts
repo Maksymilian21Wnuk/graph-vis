@@ -15,12 +15,15 @@ export type GraphType = "DirectedGraph" | "Graph" | "WeightedGraph" | "TreeGraph
  */
 export default function graph_type_parser(agg : AggregationInterface) : GraphType {
     // cascade
-    // directed or not specified directed, we assume that it works for both
-    if (agg.require_directed || !(agg.require_directed || agg.require_non_directed)) {
+    if (agg.require_directed) {
         return "DirectedGraph";
     }
     else if (agg.require_tree) {
         return "TreeGraph";
+    }
+    // directed or not specified directed, we assume that it works for both
+    else if (!(agg.require_directed || agg.require_non_directed)) {
+        return "DirectedGraph";
     }
     else if (agg.require_weights) {
         return "WeightedGraph";

@@ -1,6 +1,6 @@
 import Description from "../components/graphs/description/description"
 import GraphSpawner from "../components/graphs/graph_map/components/graph_spawner/graph_spawner"
-import GraphMap from "../components/graphs/graph_map/graph_map"
+import GraphView from "../components/graphs/graph_map/graph_view"
 import Visualisation from "../components/graphs/visualisation/visualisation"
 import { ReactFlowProvider } from "@xyflow/react"
 import { useWindowWidth } from "@react-hook/window-size"
@@ -24,7 +24,7 @@ export default function GraphVisualisationPage() {
                     <GraphSpawner />
                     <div className="flex justify-center">
                         <Description />
-                        <GraphMap />
+                        <GraphView />
                     </div>
                     <Visualisation />
                 </ReactFlowProvider>

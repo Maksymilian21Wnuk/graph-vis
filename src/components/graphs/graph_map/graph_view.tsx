@@ -47,7 +47,7 @@ const selector = (state: AppState) => ({
 });
 
 
-export default function GraphMap() {
+export default function GraphView() {
     const { nodes, edges, onNodesChange, onEdgesChange, setNodes, setEdges, message, setModifyMode, modifyMode, isDirected, setIsDirected, isWeighted, setIsWeighted } = useStore(useShallow(selector));
 
     const reactFlow = useReactFlow();

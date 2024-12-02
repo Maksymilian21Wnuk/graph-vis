@@ -135,7 +135,7 @@ export default function DescriptionForm({setTemplateJson} : DescriptionFormInter
             <div className="grid grid-cols-3">
                 <h1 className="h1-custom col-span-2"> Step 2: Template generation </h1>
                 <button className="btn m-2" onClick={onExampleShow}>
-                    { showExample ? "Hide example" : "See example"}
+                    { showExample ? "Clear" : "See example"}
                 </button>
             </div>
             <div className="bg-white">

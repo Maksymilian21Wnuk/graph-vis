@@ -6,21 +6,7 @@ import TreeGraph from "../../../../shared/models/tree_graph/tree_graph";
 import WeightedGraph from "../../../../shared/models/weighted_graph/weighted_graph";
 import { GraphFunction } from "../../../../shared/types/visualisation_types";
 import { WeightedFunction } from "../../../../shared/types/visualisation_types";
-/*
-    if (graph instanceof DirectedGraph) {
-        const f = foo as DirectedFunction;
-        try {
-            const res = f(graph)
-            return res;
-        }
-        catch (error) {
-            if (error instanceof TypeError) {
-                alert("ERROR, the function might not be implemented in source code!")
-            }
-            return null
-        }
-    }
-    */
+
 
 export default function steps_evaluator(graph: GraphAbstract, foo: GraphFunctionAbstract): Steps | never {
     // run chosen algo on given graph
