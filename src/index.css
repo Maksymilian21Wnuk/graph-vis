@@ -16,6 +16,11 @@ not draggable*/
   pointer-events: none;
 }
 
+.react-flow .react-flow__handle:hover {
+  cursor: pointer;
+}
+
+
 
 .react-flow .react-flow__node.selected {
   border: 1.5px solid black

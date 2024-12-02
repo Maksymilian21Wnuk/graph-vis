@@ -180,6 +180,9 @@ export default function GraphView() {
         reactFlow.fitView();
     }
 
+    const onConnectStart = () => {
+        console.log("asdf")
+    }
 
     return (
         <>
@@ -194,8 +197,10 @@ export default function GraphView() {
                     onEdgeClick={onEdgeClick}
                     onNodeClick={onNodeClick}
                     snapToGrid={true}
-                    onInit={onFitView}
+                    fitView
+                    nodesConnectable={false}
                     onPaneClick={onPaneClick}
+                    onConnectStart={onConnectStart}
                     minZoom={MIN_ZOOM}
                     snapGrid={[15, 15]}>
                     <CustomControls onDownload={() => onDownload(nodes, reactFlow)} onFitView={onFitView} setIsDirected={set_directed} noWeights={no_weights} dispatch={dispatch} clearGraph={clear} randomizeWeight={random_weight} />
