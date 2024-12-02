@@ -1,9 +1,9 @@
 import { faCopy } from "@fortawesome/free-solid-svg-icons/faCopy";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 
 
 interface CopyAtomInterface {
-    tooltip_text?: string;
     disabled? : boolean;
     text_to_copy: string;
 }
@@ -17,14 +17,18 @@ interface CopyAtomInterface {
  * @param text_to_copy text to copy to clipboard
  * @returns component for copying text
  */
-export default function CopyAtom({ tooltip_text, disabled, text_to_copy }: CopyAtomInterface) {
+export default function CopyAtom({ disabled, text_to_copy }: CopyAtomInterface) {
+    const [copied, setCopied] = useState("Copy to clipboard");
+
     const copy = () => {
         navigator.clipboard.writeText(text_to_copy);
+        setCopied("Copied!");
     }
 
     return (
-        <div className="tooltip" data-tip={tooltip_text ? tooltip_text : "Copy to clipboard"}>
-            <button disabled={disabled} onClick={copy}>
+        <div className="tooltip" data-tip={copied}>
+            <button disabled={disabled} onClick={copy} 
+            onMouseLeave={() => {setCopied("Copy to clipboard")}}>
                 <FontAwesomeIcon icon={faCopy} />
             </button>
         </div>
