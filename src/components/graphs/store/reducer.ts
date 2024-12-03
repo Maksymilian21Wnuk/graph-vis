@@ -10,11 +10,15 @@ function reducer(state: GraphState, action: GraphAction): GraphState {
         }
 
         case ActionType.MODE_REMOVE: {
-            return { ...state, addMode: false, removeMode: true };
+            return { ...state, first: -1, connect: false, addMode: false, removeMode: true };
         }
 
         case ActionType.MODE_CHOOSE: {
             return {...state, first: -1, connect: false, addMode: false, removeMode: false};
+        }
+
+        case ActionType.RESET: {
+            return {...state, first: -1, connect: false, addMode: true, removeMode: false};
         }
 
         case ActionType.SET_PAIR: {

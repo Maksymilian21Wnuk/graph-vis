@@ -9,6 +9,11 @@ import kruskal from "../kruskal";
 import { GraphFunctionAbstract } from "../../shared/types/visualisation_types";
 import tree_path_find from "../tree_path_find";
 
+/**
+ * Mapping string -> function
+ * string is valid function name 
+ * that represents visualisation function
+ */
 export const AlgorithmsMap = new Map<string, GraphFunctionAbstract> ([
     ["bfs", bfs],
     ["dfs", dfs],

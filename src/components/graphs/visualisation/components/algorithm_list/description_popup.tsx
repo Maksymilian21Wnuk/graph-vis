@@ -28,8 +28,6 @@ export default function DescriptionPopup({ chosen, title, onHide }: DescriptionP
                     <div className="p-1">
                         Space: {desc.space}
                     </div>
-
-
                 </div>
                 <div className="modal-action">
                     <form method="dialog">

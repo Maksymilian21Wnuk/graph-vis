@@ -1,10 +1,11 @@
 import { useState } from "react";
 import Elements from "./elements";
 import JsonGetter from "../../../store/json_getter";
+import { AggregationInterfaceNamed } from "../../../../../algorithms/algorithms_description/json_interfaces";
 
 interface DropdownProps {
     setSelectedValue: (n: string) => void;
-    setChosenFunction: React.Dispatch<React.SetStateAction<any>>;
+    setChosenFunction: React.Dispatch<React.SetStateAction<AggregationInterfaceNamed>>;
     resetGraph: () => void;
 };
 

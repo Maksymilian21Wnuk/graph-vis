@@ -2,7 +2,7 @@ import DirectedGraph from "../../../../../../shared/models/directed_graph/direct
 
 
 function parse_weighted(graph : DirectedGraph) {
-    let parsed : string[] = ["graph = {"];
+    let parsed : string[] = ["{"];
 
     for (let node of graph.get_nodes()) {
         let current = "     " + node + ": {"
@@ -21,7 +21,7 @@ function parse_weighted(graph : DirectedGraph) {
 }
 
 function parse_unweighted(graph : DirectedGraph) { 
-    let parsed : string[] = ["graph = {"];
+    let parsed : string[] = ["{"];
 
     for (let node of graph.get_nodes()) {
         let current = "     " + node + ": ["

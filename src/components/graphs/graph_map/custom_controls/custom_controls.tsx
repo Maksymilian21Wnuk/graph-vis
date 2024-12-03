@@ -15,9 +15,6 @@ displayed by default, but hidden
 on hidden state change
 */
 
-interface CustomControlsProps extends AdditionalControls {
-    onFitView: () => void;
-}
 
 interface AdditionalControls {
     randomizeWeight: () => void;
@@ -26,11 +23,15 @@ interface AdditionalControls {
     noWeights: () => void;
     setIsDirected: () => void;
     onDownload: () => void;
+    chosen: number;
+}
+
+interface CustomControlsProps extends AdditionalControls {
+    onFitView: () => void;
 }
 
 
-
-function AdditionalControls({ onDownload, randomizeWeight, clearGraph, dispatch, noWeights, setIsDirected }: AdditionalControls) {
+function AdditionalControls({ onDownload, randomizeWeight, clearGraph, dispatch, noWeights, setIsDirected, chosen }: AdditionalControls) {
     const [currentMode, setCurrentMode] = useState(ActionType.MODE_CHOOSE);
 
     return (
@@ -77,10 +78,13 @@ function AdditionalControls({ onDownload, randomizeWeight, clearGraph, dispatch,
             <ControlButton title="Download image" onClick={onDownload}>
                 <FontAwesomeIcon icon={faDownload} />
             </ControlButton>
+            <ControlButton title="Chosen vertice to connect" onClick={() => dispatch({ type: ActionType.RESET})}>
+                {chosen}
+            </ControlButton>
         </>)
 }
 
-export default function CustomControls({ onDownload, onFitView, randomizeWeight, clearGraph, dispatch, noWeights, setIsDirected }: CustomControlsProps) {
+export default function CustomControls({ onDownload, onFitView, randomizeWeight, clearGraph, dispatch, noWeights, setIsDirected, chosen }: CustomControlsProps) {
     const [hidden, setHidden] = useState(false);
 
     const onHiddenClick = () => {
@@ -94,7 +98,9 @@ export default function CustomControls({ onDownload, onFitView, randomizeWeight,
             </ControlButton>
             {hidden ?
                 null :
-                <AdditionalControls onDownload={onDownload} randomizeWeight={randomizeWeight}
+                <AdditionalControls
+                    chosen={chosen} 
+                    onDownload={onDownload} randomizeWeight={randomizeWeight}
                     clearGraph={clearGraph} dispatch={dispatch}
                     noWeights={noWeights} setIsDirected={setIsDirected} />}
         </Controls>

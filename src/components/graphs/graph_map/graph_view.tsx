@@ -76,11 +76,20 @@ export default function GraphView() {
         else if (state.addMode) {
             if (state.connect) {
                 const new_edges = handle_connection(isDirected, state.first, node.id, dispatch, isWeighted, edges);
+                // handle the case if connection cannot be made
                 if (new_edges === null) {
                     return;
                 }
-                setEdges(new_edges);
-                dispatch({ type: ActionType.SET_PAIR, payload: -1 });
+                // handle case when node clicked already has the connection,
+                // then dispatch as the second clicked will be next to connect
+                else if (typeof new_edges === 'number') {
+                    dispatch({ type: ActionType.SET_PAIR, payload: parseInt(node.id) });
+                    return;
+                }
+                else {
+                    setEdges(new_edges);
+                    dispatch({ type: ActionType.SET_PAIR, payload: -1 });
+                }
             }
             // handle click of first node, do not connect now
             // next click will connect them
@@ -203,17 +212,31 @@ export default function GraphView() {
                     onConnectStart={onConnectStart}
                     minZoom={MIN_ZOOM}
                     snapGrid={[15, 15]}>
-                    <CustomControls onDownload={() => onDownload(nodes, reactFlow)} onFitView={onFitView} setIsDirected={set_directed} noWeights={no_weights} dispatch={dispatch} clearGraph={clear} randomizeWeight={random_weight} />
+                    <CustomControls
+                        onDownload={() => onDownload(nodes, reactFlow)}
+                        onFitView={onFitView}
+                        setIsDirected={set_directed}
+                        noWeights={no_weights}
+                        dispatch={dispatch}
+                        clearGraph={clear}
+                        randomizeWeight={random_weight}
+                        chosen={state.first} />
                 </ReactFlow>
             </div>
             <div className="w-1/5">
                 {modifyMode ?
                     <div className="px-4">
-                    <Representation graph={new DirectedGraph(nodes, edges)} />
+                        <Representation graph={new DirectedGraph(nodes, edges)} />
                     </div>
                     : null}
 
-                <Additionals additional_snd={message.additional_snd} additional_snd_name={message.additional_snd_name} step_idx={message.step_idx} msg={message.msg} additional={message.additional} additional_name={message.additional_name} modifyMode={modifyMode} />
+                <Additionals additional_snd={message.additional_snd}
+                    additional_snd_name={message.additional_snd_name}
+                    step_idx={message.step_idx}
+                    msg={message.msg}
+                    additional={message.additional}
+                    additional_name={message.additional_name}
+                    modifyMode={modifyMode} />
             </div>
         </>
     );

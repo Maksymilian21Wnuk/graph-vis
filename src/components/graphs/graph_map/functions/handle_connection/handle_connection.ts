@@ -6,7 +6,7 @@ import { ActionType } from "../../../../../shared/enumerations/enums";
 import { GraphAction } from "../../../../../shared/types/graph_map_types";
 
 
-function handle_directed(edges: Edge[], isWeighted: boolean, nodeId: string, first: string, dispatch: React.Dispatch<GraphAction>): Edge[] | null {
+function handle_directed(edges: Edge[], isWeighted: boolean, nodeId: string, first: string, dispatch: React.Dispatch<GraphAction>): Edge[] | null | number {
     if (first === "-1") {
         dispatch({ type: ActionType.SET_PAIR, payload: first });
         return null;
@@ -15,9 +15,11 @@ function handle_directed(edges: Edge[], isWeighted: boolean, nodeId: string, fir
     const id: string = `${first}-${scnd}`;
     const prevent_two_arrows_id: string = `${scnd}-${first}`;
 
+    // check if there is same id ///// parseInt(scnd) highly experimental
     if (edges.some((e: Edge) => e.id === id) || first === scnd) {
         return null;
     }
+
     const new_label: string = isWeighted ? String(getRandomInt(NODE_MAX)) : NO_WEIGHT;
 
     if (edges.some((e: Edge) => e.id === prevent_two_arrows_id)) {
@@ -35,7 +37,7 @@ function handle_directed(edges: Edge[], isWeighted: boolean, nodeId: string, fir
 }
 
 
-function handle_undirected(edges: Edge[], nodeId: string, first: number, isWeighted: boolean, dispatch: React.Dispatch<GraphAction>): Edge[] | null {
+function handle_undirected(edges: Edge[], nodeId: string, first: number, isWeighted: boolean, dispatch: React.Dispatch<GraphAction>): Edge[] | null | number {
     let scnd: number = parseInt(nodeId);
 
     if (first > scnd) {
@@ -46,11 +48,13 @@ function handle_undirected(edges: Edge[], nodeId: string, first: number, isWeigh
     // this is for removing double edges
     const id = `${first}-${scnd}`;
 
+    // if first is not set, set it as next will make connection
     if (first === -1) {
         dispatch({ type: ActionType.SET_PAIR, payload: first });
         return null;
     }
-    // handle same id's
+    // handle same id's, if there is connection then second will be dispatched
+    // as next to connect
     if (edges.some((e: Edge) => e.id === id) || first === scnd) {
         return null;
     }
@@ -65,11 +69,7 @@ function handle_undirected(edges: Edge[], nodeId: string, first: number, isWeigh
 
 
 export default function handle_connection(isDirected: boolean, first: number, nodeId: string, dispatch: React.Dispatch<GraphAction>,
-    isWeighted: boolean, edges: Edge[]): Edge[] | null {
-    if (first === -1) {
-        dispatch({ type: ActionType.SET_PAIR, payload: first });
-        return null;
-    }
+    isWeighted: boolean, edges: Edge[]): Edge[] | null | number {
 
     return isDirected ?
         handle_directed(edges, isWeighted, nodeId, String(first), dispatch)

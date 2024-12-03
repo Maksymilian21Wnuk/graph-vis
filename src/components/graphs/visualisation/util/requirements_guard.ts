@@ -16,7 +16,6 @@ function weight_check(guard: Guard, g: TreeGraph | WeightedGraph | DirectedGraph
 }
 
 export default function requirements_guard(guard: Guard, graph: Graph | TreeGraph | WeightedGraph | DirectedGraph, directed : boolean): boolean {
-    console.log(guard)
     if (graph instanceof TreeGraph) {
         if (guard.tree && !graph.get_is_tree()) {
             alert("Graph must be tree")

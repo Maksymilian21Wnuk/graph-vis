@@ -23,15 +23,15 @@
         ],
         "code": [
             "def bfs(g):",
-            "   visited = set({});",
-            "   queue = [g.arbitrary_node()];",
-            "   while (queue.length > 0):",
-            "       node = queue.shift()",
-            "       if (!visited.has(node)):",
-            "           visited.add(node)",
-            "           neighbours = g.get_neighbours(node)",
-            "           for (neighbour in neighbours):",
-            "               queue.push(neighbour)"
+            "    visited = set()",
+            "    queue = [g.arbitrary_node()]",
+            "    while len(queue) != 0 :",
+            "        node = queue.pop(0)",
+            "        if (node not in visited):",
+            "            visited.add(node)",
+            "            neighbours = g.get_neighbours(node)",
+            "            for nei in neighbours:",
+            "                queue.append(nei)"
         ]
     },
     "dfs": {
@@ -55,16 +55,18 @@
             "space": "O(V)"
         },
         "code": [
-            "def bfs(g):",
-            "   visited = set({});",
-            "   queue = [g.arbitrary_node()];",
-            "   while (queue.length > 0):",
-            "       node = queue.shift()",
-            "       if (!visited.has(node)):",
-            "           visited.add(node)",
-            "           neighbours = g.get_neighbours(node)",
-            "           for (neighbour in neighbours):",
-            "               queue.push(neighbour)"
+            "def dfs_recursion(vertice, parent, visited, g):",
+            "    if vertice in visited:",
+            "        return",
+            "    else:",
+            "        visited.add(vertice)",
+            "        for nei in g.get_neighbours(vertice):",
+            "           if (nei != parent):",
+            "               dfs_recursion(nei, vertice, visited, g)",
+            "",
+            "def dfs(g):",
+            "\tvisited = set()",
+            "\tdfs_recursion(g.arbitrary_node(), -1, visited, g)"
         ]
     },
     "connectivity_check": {
@@ -86,16 +88,20 @@
             "Terminate"
         ],
         "code": [
-            "def bfs(g):",
-            "   visited = set({});",
-            "   queue = [g.arbitrary_node()];",
-            "   while (queue.length > 0):",
-            "       node = queue.shift()",
-            "       if (!visited.has(node)):",
-            "           visited.add(node)",
-            "           neighbours = g.get_neighbours(node)",
-            "           for (neighbour in neighbours):",
-            "               queue.push(neighbour)"
+            "def connectivity_check(g):",
+            "    visited = set()",
+            "    queue = [g.arbitrary_node()]",
+            "    while len(queue) != 0 :",
+            "        node = queue.pop(0)",
+            "        if (node not in visited):",
+            "            visited.add(node)",
+            "            neighbours = g.get_neighbours(node)",
+            "            for nei in neighbours:",
+            "                queue.append(nei)",
+            "    if (len(visited) != g.size()):",
+            "        print(\"Not connected\")",
+            "    else:",
+            "        print(\"Connected\")"
         ],
         "description": {
             "text": "Connectivity check performs breadth first search on given graph. Upon visiting all nodes of graph, it checks if number of visited nodes is same as number of graph's nodes. If it's not equal, the graph is not connected.",
@@ -134,14 +140,14 @@
         ],
         "description": {
             "text": "Initialize algorithm by setting distances to all nodes to infinity. First node has distance 0. Find the distance to neighbours of current node, if it's shorter, decrease key in fib",
-            "time": "O(E+V\\logV)",
+            "time": "O(E+VlogV)",
             "space": "O(V)"
         }
     },
     "kruskal": {
         "description": {
             "text": "Initialize algorithm by sorting edges in nondecreasing order and creating disjoint sets from vertices. Pick smallest available edge  and perform find operation between edge's nodes. If they are not in same set, append edge to result and make union between nodes. Select edges from array until all edges have been visited.",
-            "time": "O(E\\logE)",
+            "time": "O(ElogE)",
             "space": "O(E + V)"
         },
         "aggregation": {
@@ -298,7 +304,7 @@
         ],
         "description": {
             "text": "Kosraju algorithm finds strongly connected components of graph (SCC). It runs two DFS, first ",
-            "time": "O(V+E)",
+            "`time`": "O(V+E)",
             "space": "O(V+E)"
         },
         "steps": [
@@ -309,5 +315,4 @@
             "Terminate"
         ]
     }
-    
 }

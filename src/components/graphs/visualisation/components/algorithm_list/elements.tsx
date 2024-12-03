@@ -16,8 +16,9 @@ export default function Elements({ onClick, algos, filterVal }: ElementsProps) {
     const [title, setTitle] = useState<string>("bfs");
     const [showModal, setShowModal] = useState(false);
 
-
-    const onShowPopup = (chosen: string, title: string) => {
+    // required stop propagation to not trigger li
+    const onShowPopup = (event : React.MouseEvent<HTMLButtonElement, MouseEvent>, chosen: string, title: string) => {
+        event.stopPropagation();
         setChosen(chosen);
         setShowModal(true);
         setTitle(title);
@@ -26,6 +27,8 @@ export default function Elements({ onClick, algos, filterVal }: ElementsProps) {
     const onHide = () => {
         setShowModal(false);
     }
+
+    
 
     return (
         <ul>
@@ -38,15 +41,14 @@ export default function Elements({ onClick, algos, filterVal }: ElementsProps) {
                             className="grid grid-cols-9 gap-x-10 
                             cursor-pointer rounded-xl border-2 mb-2 
                             bg-white hover:bg-gray-100 h-24">
-
                             <div className="col-span-2 font-bold border-r-2 p-5">
                                 {a.title}
                             </div>
                             <div className="col-span-6 p-5">
-                                {a.description ? a.description : "No description provided, provide it lorem ipsum"}
+                                {a.description}
                             </div>
                             <div className="col-span-1 py-4">
-                                <button className="font-bold bg-slate-200 hover:bg-slate-300 p-5 px-6 rounded-full text-black" onClick={() => onShowPopup(a.name, a.title)}>
+                                <button className="font-bold bg-slate-200 hover:bg-slate-300 p-5 px-6 rounded-full text-black" onClick={(e) => onShowPopup(e, a.name, a.title)}>
                                     <FontAwesomeIcon icon={faInfo} />
                                 </button>
                             </div>

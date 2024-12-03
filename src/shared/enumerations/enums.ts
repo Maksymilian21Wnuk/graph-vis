@@ -6,6 +6,15 @@ export enum ImageSize {
     WIDTH = 768,
     HEIGHT = 400
 }
+/**
+ * enum for 
+ * representation state
+ */
+export enum RepresentationState {
+    Adjacency,
+    Matrix,
+    Code
+}
 
 /**
  * Action type for reducer
@@ -19,6 +28,7 @@ export enum ActionType {
     MODE_CHOOSE,
     SET_PAIR,
     CHANGE_EDGE,
+    RESET
 }
 
 /**
@@ -55,13 +65,6 @@ export enum EdgeColor {
  */
 export enum Value {
     NOT_SELECTED = -1,
-}
-/**
- * co to jest?
- */
-export enum DIRECTION {
-    LEFT,
-    RIGHT
 }
 
 /**
