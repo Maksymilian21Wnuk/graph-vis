@@ -12,6 +12,9 @@ class Graph:
     def size(self):
         return len(self)
     
+    def get_nodes(self):
+        return list(self.repr.keys())
+    
     def get_neighbours(self, vertice : int) -> List[int]:
         return self.repr[vertice]
     

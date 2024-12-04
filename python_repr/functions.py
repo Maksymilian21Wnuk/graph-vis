@@ -43,20 +43,65 @@ def connectivity_check(g):
         print("Connected")
 
 
-def kruskal(g):
+def kahn(g):
+    indegrees = {}
+    for node in g.get_nodes():
+        indegrees[node] = 0
     
-    
-g = Graph({
-     1: [5,2,4],
-     2: [1,3],
-     3: [5,2],
-     4: [5,1,7],
-     5: [1,3,4,8],
-     6: [8],
-     7: [8,4],
-     8: [6,7,5],
-     9: [],
-     10: []
-})
+    for node in g.get_nodes():
+        for neighbour in g.get_neighbours(node):
+            indegrees[neighbour] += 1
+    queue = []
 
-g.get_weight(1,565)
+    for node in indegrees:
+        if indegrees[node] == 0 :
+            queue.append(node)
+    result = []    
+    while len(queue) != 0 :
+        node = queue.pop(0)
+        result.append(node)
+        for neighbour in g.get_neighbours(node):
+            indegrees[neighbour] -= 1
+            if indegrees[neighbour] == 0:
+                queue.append(neighbour)
+    
+    if len(result) != g.size():
+        print("Graph has no topological ordering")
+        return []
+    
+    return result
+
+def bipartite_check(g):
+    BLUE = 0
+    RED = 1
+    
+    current_color = BLUE
+    
+    visited = set()
+    queue = [g.arbitrary_node()]
+    
+    while len(queue) != 0 :
+        node = queue.pop(0)
+        if (node not in visited):
+            visited.add(node)
+            print(node)
+            neighbours = g.get_neighbours(node)
+            for nei in neighbours:
+                queue.append(nei)
+
+    return True
+
+g = Graph(
+{
+     1: [2],
+     2: [4],
+     4: [5,1],
+     5: [6],
+     6: [9,7,8],
+     7: [8],
+     8: [],
+     9: [8]
+}
+          )
+
+print(kahn(g))
