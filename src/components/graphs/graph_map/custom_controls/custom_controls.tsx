@@ -1,9 +1,11 @@
 import { Controls, ControlButton } from "@xyflow/react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDownload, faShareNodes, faDice, faX, faHand, faTrash, faToiletPaperSlash, faArrowRight, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { GraphAction } from "../../../../shared/types/graph_map_types";
 import { useState } from "react";
 import { ActionType } from "../../../../shared/enumerations/enums";
+import { CustomControlsProps } from "./controls_interface";
+import CollapsibleControls from "./collapsible_controls";
+import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
+import { faMinus } from "@fortawesome/free-solid-svg-icons/faMinus";
 
 /*
 file for setting custom controls
@@ -14,78 +16,9 @@ it contains additional controls
 displayed by default, but hidden 
 on hidden state change
 */
-
-
-interface AdditionalControls {
-    randomizeWeight: () => void;
-    clearGraph: () => void;
-    dispatch: React.Dispatch<GraphAction>;
-    noWeights: () => void;
-    setIsDirected: () => void;
-    onDownload: () => void;
-    chosen: number;
-}
-
-interface CustomControlsProps extends AdditionalControls {
-    onFitView: () => void;
-}
-
-
-function AdditionalControls({ onDownload, randomizeWeight, clearGraph, dispatch, noWeights, setIsDirected, chosen }: AdditionalControls) {
-    const [currentMode, setCurrentMode] = useState(ActionType.MODE_CHOOSE);
-
-    return (
-        <>
-            <ControlButton title="Randomize weights" onClick={randomizeWeight}>
-                <FontAwesomeIcon icon={faDice} />
-            </ControlButton>
-            <ControlButton title="Clear graph" onClick={clearGraph}>
-                <FontAwesomeIcon icon={faX} />
-            </ControlButton>
-            <ControlButton
-                style={{ "background": currentMode === ActionType.MODE_ADD ? "rgb(163 230 53)" : "white" }}
-                title="Add mode"
-                onClick={() => {
-                    dispatch({ type: ActionType.MODE_ADD });
-                    setCurrentMode(ActionType.MODE_ADD)
-                }}>
-                <FontAwesomeIcon icon={faShareNodes} />
-            </ControlButton >
-            <ControlButton
-                style={{ "background": currentMode === ActionType.MODE_CHOOSE ? "rgb(163 230 53)" : "white" }}
-                title="Choose mode"
-                onClick={() => {
-                    dispatch({ type: ActionType.MODE_CHOOSE });
-                    setCurrentMode(ActionType.MODE_CHOOSE)
-                }}>
-                <FontAwesomeIcon icon={faHand} />
-            </ControlButton>
-            <ControlButton
-                style={{ "background": currentMode === ActionType.MODE_REMOVE ? "rgb(163 230 53)" : "white" }}
-                title="Remove mode"
-                onClick={() => {
-                    dispatch({ type: ActionType.MODE_REMOVE });
-                    setCurrentMode(ActionType.MODE_REMOVE)
-                }}>
-                <FontAwesomeIcon icon={faTrash} />
-            </ControlButton>
-            <ControlButton title="Remove weights" onClick={noWeights}>
-                <FontAwesomeIcon icon={faToiletPaperSlash} />
-            </ControlButton>
-            <ControlButton title="Set directed graph" onClick={setIsDirected}>
-                <FontAwesomeIcon icon={faArrowRight} />
-            </ControlButton>
-            <ControlButton title="Download image" onClick={onDownload}>
-                <FontAwesomeIcon icon={faDownload} />
-            </ControlButton>
-            <ControlButton title="Chosen vertice to connect" onClick={() => dispatch({ type: ActionType.RESET})}>
-                {chosen}
-            </ControlButton>
-        </>)
-}
-
 export default function CustomControls({ onDownload, onFitView, randomizeWeight, clearGraph, dispatch, noWeights, setIsDirected, chosen }: CustomControlsProps) {
     const [hidden, setHidden] = useState(false);
+    const [currentMode, setCurrentMode] = useState(ActionType.MODE_CHOOSE);
 
     const onHiddenClick = () => {
         setHidden(!hidden);
@@ -98,11 +31,12 @@ export default function CustomControls({ onDownload, onFitView, randomizeWeight,
             </ControlButton>
             {hidden ?
                 null :
-                <AdditionalControls
-                    chosen={chosen} 
+                <CollapsibleControls
+                    chosen={chosen}
                     onDownload={onDownload} randomizeWeight={randomizeWeight}
                     clearGraph={clearGraph} dispatch={dispatch}
-                    noWeights={noWeights} setIsDirected={setIsDirected} />}
+                    noWeights={noWeights} setIsDirected={setIsDirected}
+                    setCurrentMode={setCurrentMode} currentMode={currentMode} />}
         </Controls>
     )
 }

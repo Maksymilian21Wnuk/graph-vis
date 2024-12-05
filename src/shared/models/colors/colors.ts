@@ -95,7 +95,9 @@ export default class Colors {
         for (let i = 0; i < this.colors_preset.length; i++) {
             yield this.colors_preset[i][0];
         }
-        yield this.not_colored[0];
+        while(1){
+            yield this.not_colored[0];
+        }
     }
 
     next_color() : number {
