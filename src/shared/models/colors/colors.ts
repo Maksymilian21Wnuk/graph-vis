@@ -21,16 +21,16 @@ const INITIAL_COLORS : Color[] = [[0, "#8fd9fb"], [1, "#5ce65c"],
  * Class for algorithms
  * that needs vertice coloring
  * Colors currently supports 10 colors, in case of coloring vertices for
- * more than 10 colors, next vertices will be colored black
+ * more than 10 colors, next vertices will be colored white
  */
 
 export default class Colors {
     private colors_preset : Color[] = INITIAL_COLORS;
     private color_map : Map<NodeId, Color>;
-    private error_color : Color = [-1, "black"];
+    private not_colored : Color = [-1, "white"];
     private generator : Generator<number, undefined, number>;
     public length = INITIAL_COLORS.length;
-    static ERROR_ID = -1;
+    static NOT_COLORED_ID = -1;
     /**
 
      * @param color_map additional argument for previously initiated map color
@@ -54,7 +54,7 @@ export default class Colors {
      */
     set_color(id : NodeId, color : number) : void {
         if (color > this.colors_preset.length || color < 0) {
-            this.color_map.set(id, this.error_color);
+            this.color_map.set(id, this.not_colored);
         }
         else{
             this.color_map.set(id, this.colors_preset[color]);
@@ -71,7 +71,7 @@ export default class Colors {
             return this.color_map.get(id)![0];
         }
         else{
-            return Colors.ERROR_ID;
+            return Colors.NOT_COLORED_ID;
         }
     }
 
@@ -95,10 +95,14 @@ export default class Colors {
         for (let i = 0; i < this.colors_preset.length; i++) {
             yield this.colors_preset[i][0];
         }
-        yield this.error_color[0];
+        yield this.not_colored[0];
     }
 
     next_color() : number {
         return this.generator.next().value!;
+    }
+
+    get_not_colored() : number {
+        return Colors.NOT_COLORED_ID;
     }
 }

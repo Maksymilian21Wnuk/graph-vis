@@ -47,7 +47,6 @@ export default function tree_path_find(g: TreeGraph): Steps {
                 distances.set(neighbour, distance);
 
                 queue.enqueue(neighbour);
-                visited.add(neighbour);
             }
         }
         g.add_step({

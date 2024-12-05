@@ -20,7 +20,12 @@ class Graph:
     
     def get_weight(self, source, dest):
         if type(self.repr[source]) != dict: 
-            print("Graph is not weighted")
+            # does exist, distance 1
+            if dest in self.repr[source]:
+                return 1
+            # does not exist, weight inf
+            else:
+                return float('inf')
         else:
             return self.repr[source][dest]
     
