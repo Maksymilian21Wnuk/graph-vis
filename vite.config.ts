@@ -5,7 +5,7 @@ import { visualizer } from 'rollup-plugin-visualizer'
 
 
 export default defineConfig({
-  base: "/graphVisual/",
+  base: "/GraphVisual/",
   plugins: [
     react(),
     visualizer()],
