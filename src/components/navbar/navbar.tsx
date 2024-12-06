@@ -19,7 +19,7 @@ export default function Navbar() {
                 <div className="hidden md:flex md:justify-between py-4">
                     <li>
                         <Link className="text-xl font-bold p-4" to="/">
-                            <FontAwesomeIcon icon={faShareNodes} />  {"GraphVisual" + (import.meta.env.DEV ? " DEV" : "")}
+                            <FontAwesomeIcon icon={faShareNodes} />  {"GraphVisual" + (import.meta.env.DEV ? " DEV" : (import.meta.env.PROD ?  " beta" : "" ))}
                         </Link>
                     </li>
                     <div className="md:flex md:space-x-10">

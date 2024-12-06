@@ -5,9 +5,10 @@ import { visualizer } from 'rollup-plugin-visualizer'
 
 
 export default defineConfig({
+  base: "/graphVisual/",
   plugins: [
     react(),
-    visualizer({ open: true })],
+    visualizer()],
   server: {
     host: true,
     port: 3000,

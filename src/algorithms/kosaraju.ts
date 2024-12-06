@@ -13,7 +13,7 @@ function dfs_recursive(vertice: string, visited: Set<string>, g: DirectedGraph, 
             console.log(vertice, col_idx)
             colors.set_color(vertice, col_idx);
             g.add_step({
-                step_idx: 1,
+                step_idx: 5,
                 current_node: vertice,
                 additional: visited, additional_name: `Visited:`,
                 additional_snd: kosaraju_stack, additional_snd_name: `Exhaustion stack:`,
@@ -46,7 +46,7 @@ function dfs_recursive(vertice: string, visited: Set<string>, g: DirectedGraph, 
         }
         else{
             g.add_step({
-                step_idx: 2,
+                step_idx: 6,
                 current_node: vertice,
                 additional: visited, additional_name: `Visited:`,
                 additional_snd: kosaraju_stack, additional_snd_name: `Exhaustion stack:`,
@@ -57,20 +57,6 @@ function dfs_recursive(vertice: string, visited: Set<string>, g: DirectedGraph, 
     }
 }
 
-// is this required? maybe some other way
-function dfs_duplicate_removal(steps : Steps) : Steps {
-    let s : Steps = [steps[0]];
-    for (let i = 1; i < steps.length - 1; i++) {
-        if (steps[i].current_node === steps[i + 1].current_node) {
-            continue
-        }
-        s.push(steps[i]);
-    }
-
-    return s;
-}
-
-
 
 
 export default function kosaraju(g: DirectedGraph): Steps {
@@ -79,6 +65,7 @@ export default function kosaraju(g: DirectedGraph): Steps {
 
     for (const node of g.get_nodes()) {
         if (!visited.has(node)){
+            g.add_step({step_idx: 0, current_node: node})
             dfs_recursive(node, visited, g, kosaraju_stack);
         }
     }
@@ -87,19 +74,17 @@ export default function kosaraju(g: DirectedGraph): Steps {
 
     g.transpose()
 
-    g.set_steps(dfs_duplicate_removal(g.get_steps()))
-
     let colors = new Colors();
     visited = new Set<string>();
     while (kosaraju_stack.length !== 0) {
         let node = kosaraju_stack.pop()!
         if (!visited.has(node)){
+            g.add_step({step_idx: 4, current_node: node})
             const col_idx = colors.next_color()
             dfs_recursive(node, visited, g, kosaraju_stack, colors, col_idx);
         }
     }
 
-    g.add_step({step_idx: 5, colorize_nodes: colors})
-
+    g.add_step({step_idx: 7, colorize_nodes: colors})
     return g.get_steps();
 }

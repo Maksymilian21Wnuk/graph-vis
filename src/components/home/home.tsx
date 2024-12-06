@@ -9,7 +9,7 @@ export default function Home() {
                 <h1 className="text-2xl md:text-5xl font-extrabold text-gray-900 mb-4">
                     Welcome to GraphVisual
                 </h1>
-                <Link className="btn" to="/graphs">Ready? Get started</Link>
+                <Link className="btn btn-lg bg-lime-200" to="/graphs">Get started</Link>
             </div>
             <div className="divider"></div>
             <InfoField />

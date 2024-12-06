@@ -12,12 +12,12 @@ describe(`Colors test`, () => {
             console.log(color_basic.next_color());
         }
 
-        expect(color_basic.next_color()).toStrictEqual(Colors.ERROR_ID)
+        expect(color_basic.next_color()).toStrictEqual(Colors.NOT_COLORED_ID)
     })
 
     test(`Should correctly yield values to 9 and last error id`, () => {
         let c = new Colors()
-        const exp = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, Colors.ERROR_ID];
+        const exp = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, Colors.NOT_COLORED_ID];
         const actual = []
         for (let i = 0; i < c.length + 1; i++) {
             actual.push(c.next_color());
@@ -40,7 +40,7 @@ describe(`Colors test`, () => {
         
         c.set_color(id, -42);
 
-        expect(c.get_color(id)).toBe(Colors.ERROR_ID);
+        expect(c.get_color(id)).toBe(Colors.NOT_COLORED_ID);
     })
 
     test(`Cloning test`, () => {

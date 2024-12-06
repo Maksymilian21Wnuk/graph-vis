@@ -14,7 +14,9 @@ export const fields : InfoFieldProps[] = [
         title: "Algorithms",
         content: `There are several algorithms available on this website, among them
         ones used for graph traversals, shortest paths finding, topological sorting or 
-        checking properties such as bipartiness or connectivity.`
+        checking properties such as bipartiness or connectivity.
+        The visualisation is the best way of studying algorithms, that is
+        why this application was created.`
     },
     {
         title: "Extending current set of algorithms",

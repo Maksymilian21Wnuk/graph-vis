@@ -1,6 +1,7 @@
 from graph import Graph, WeightedGraph
 from collections import deque
 from scipy.cluster.hierarchy import DisjointSet
+from heap import Heap
 
 def dfs_recursion(vertice, parent, visited, g):
     if vertice in visited:
@@ -147,9 +148,28 @@ def kosaraju(g : Graph):
             result.append(comp)
     return result
             
-
-def dijkstra(g : WeightedGraph):
-    pass
+# heap implementation, runs in O((E+V)logV)
+def dijkstra(g : WeightedGraph, start_node : str | int):
+    heap = Heap((0, start_node))
+    
+    distances = {node : float('inf') for node in g.get_nodes()}
+    distances[start_node] = 0
+    
+    visited = set()
+    while len(heap) != 0:
+        current_distance, node = heap.pop()
+        if node in visited:
+            continue
+        for nei in g.get_neighbours(node):
+            new_dist = g.get_weight(node, nei) + current_distance
+            old_dist = distances[nei]
+            
+            if new_dist < old_dist:
+                print(new_dist)
+                distances[nei] = new_dist
+                heap.push((new_dist, nei))
+                
+    return distances
 
 def kruskal(g : WeightedGraph):
     edges = g.get_edges()
@@ -184,20 +204,18 @@ g = Graph(
 
 weig = WeightedGraph(
 {
-     1: {8: 12, 10: 6},
-     2: {4: 21, 7: 7, 8: 1, 9: 1, 10: 17, 11: 5},
-     3: {4: 16, 5: 27, 6: 0, 7: 6, 8: 16, 11: 18, 12: 18},
-     4: {2: 21, 3: 16, 5: 18, 6: 4, 8: 26, 9: 11, 10: 11, 11: 1, 12: 5},
-     5: {3: 27, 4: 18, 6: 7, 13: 0},
-     6: {3: 0, 4: 4, 5: 7, 7: 27},
-     7: {2: 7, 3: 6, 6: 27, 11: 15, 13: 0},
-     8: {1: 12, 2: 1, 3: 16, 4: 26, 9: 26, 11: 4},
-     9: {2: 1, 4: 11, 8: 26, 11: 13},
-     10: {1: 6, 2: 17, 4: 11, 12: 20},
-     11: {2: 5, 3: 18, 4: 1, 7: 15, 8: 4, 9: 13, 12: 14, 13: 11},
-     12: {3: 18, 4: 5, 10: 20, 11: 14},
-     13: {5: 0, 7: 0, 11: 11}
+     1: {5: 19, 2: 0, 4: 7, 3: 11},
+     2: {1: 0, 3: 14},
+     3: {5: 15, 2: 14, 6: 20, 1: 11},
+     4: {5: 17, 1: 7, 7: 5},
+     5: {1: 19, 3: 15, 4: 17, 8: 8, 7: 19, 6: 13},
+     6: {8: 4, 5: 13, 3: 20},
+     7: {8: 1, 4: 5, 5: 19},
+     8: {6: 4, 7: 1, 5: 8},
+     9: {10: 25},
+     10: {9: 25, 11: 26},
+     11: {10: 26}
 }
 )
 
-print(kruskal(weig))
+print(dijkstra(weig, 1))

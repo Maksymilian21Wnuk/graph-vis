@@ -17,16 +17,24 @@ export default function bipartite(g: Graph): Steps {
 
     g.get_nodes().map((n: string) => map_color.set_color(n, NOT_COLORED))
 
-    g.add_step({
-        msg: ``, step_idx: 0,
-        additional_snd_name: `Visited:`, additional_snd: visited,
-        colorize_nodes: map_color
-    })
-
+    let fst = false;
     for (let start of g.get_nodes()) {
         if (map_color.get_color(start) == NOT_COLORED) {
+            if (fst){
+                g.add_step({
+                    step_idx: 4
+                })
+            }
+            fst = true;
             let q: Queue<string> = new Queue<string>(start);
             map_color.set_color(start, BLUE);
+            
+
+            g.add_step({
+                msg: ``, step_idx: 0,
+                additional_snd_name: `Visited:`, additional_snd: visited,
+                colorize_nodes: map_color
+            })
             while (q.length > 0) {
 
                 let node: string = q.dequeue();
@@ -57,7 +65,7 @@ export default function bipartite(g: Graph): Steps {
                     }
                     else if (map_color.get_color(neighbour) === current_color) {
                         g.add_step({
-                            step_idx: 4,
+                            step_idx: 5,
                             colorize_nodes: map_color,
                             msg: `Graph not bipartite, ${neighbour} and ${node} have same color`
                         });
@@ -75,12 +83,13 @@ export default function bipartite(g: Graph): Steps {
 
             }
         }
+
     }
 
 
 
     g.add_step({
-        step_idx: 4,
+        step_idx: 5,
         colorize_nodes: map_color,
         msg: `Graph bipartite`
     })

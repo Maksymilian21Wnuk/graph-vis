@@ -45,7 +45,7 @@
     },
     {
         "title": "Queue",
-        "desc": "Data structure in which oldest element is removed first. Perfect example of queue usage in algorithm is breadth first search."
+        "desc": "Data structure in which oldest element is removed first. Breadth first search uses queue for storing nodes."
     },
     {
         "title": "Stack",
@@ -61,7 +61,7 @@
     },
     {
         "title": "Topological sorting",
-        "desc": "Directed graph sorting, that orders vertices such that if there is connection from u to v, u comes first in ordering. For example, such sorting is used in solving dependencies of software, where installing program is dependant on another program."
+        "desc": "Directed graph sorting, that orders vertices such that if there is connection from u to v, u comes first in ordering. For example, such sorting is used in solving dependencies of software, where installing program is dependant on another program. Kahn's algorithm and dfs modification finds topological sorting."
     },
     {
         "title": "Fibonacci heap",
@@ -77,6 +77,6 @@
     },
     {
         "title": "SCC (Strongly Connected Components)",
-        "desc": "Components of directed graph, in which there is path between each node in component."
+        "desc": "Components of directed graph, in which there is path between each node in component. Kosaraju's and Tarjan's algorithms are used for finding SCC's."
     }
 ]

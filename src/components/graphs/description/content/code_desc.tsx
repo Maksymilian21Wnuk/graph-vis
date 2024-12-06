@@ -17,7 +17,6 @@ export default function CodeDesc({ selectedValue, hideCodeDesc }: CodeDescProps)
         return JsonGetter.getCode(selectedValue);
     }, [selectedValue])
 
-    console.log(code_text)
     return (
         <dialog id="code_modal" className="modal gray-out" open>
             <div className="modal-box w-11/12 max-w-2xl">

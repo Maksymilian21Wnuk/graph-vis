@@ -1,5 +1,16 @@
-import { faShareNodes, faDice, faX, faHand, faTrash, faExpand, faFileExport, faToiletPaperSlash, faArrowRight, faMinus, faPlus, IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShareNodes } from "@fortawesome/free-solid-svg-icons/faShareNodes";
+import { faHand } from "@fortawesome/free-solid-svg-icons/faHand";
+import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons/faArrowRight";
+import { faDownload } from "@fortawesome/free-solid-svg-icons/faDownload";
+import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
+import { faMinus } from "@fortawesome/free-solid-svg-icons/faMinus";
+import { faExpand } from "@fortawesome/free-solid-svg-icons/faExpand";
+import { faWeightHanging } from "@fortawesome/free-solid-svg-icons/faWeightHanging";
+import { faX } from "@fortawesome/free-solid-svg-icons/faX";
+import { fa1 } from "@fortawesome/free-solid-svg-icons/fa1";
 
 interface IconHelper {
     icon : IconDefinition;
@@ -8,17 +19,17 @@ interface IconHelper {
 
 const helper_data : IconHelper[] = [
     {icon : faExpand, description: `Center view on graph`},
-    {icon : faPlus, description: `Show control panel`},
     {icon : faMinus, description: `Hide control panel`},
-    {icon : faDice, description: `Assign random weights to graph`},
-    {icon : faX, description: `Clear current graph`},
+    {icon : faPlus, description: `Show control panel if hidden`},
+    {icon : faWeightHanging, description: `Assign random weights to graph or click again to remove weights.`},
+    {icon : faArrowRight, description: `Make graph directed/undirected`},
     {icon : faShareNodes, description: `Add mode for adding nodes by clicking on panel, connecting edges 
         by clicking two nodes or editing edge's weight by clicking on it`},
     {icon : faHand, description: `Drag mode for choosing or dragging nodes`},
     {icon : faTrash, description: `Remove mode for deleting nodes or edges`},
-    {icon : faToiletPaperSlash, description: `Remove weights of graph`},
-    {icon : faArrowRight, description: `Make graph directed/undirected`},
-    {icon : faFileExport, description: `Save to clipboard graph's python representation`},
+    {icon : faX, description: `Clear current graph`},
+    {icon : faDownload, description: `Download png file of graph`},
+    {icon : fa1, description:`Displays currently clicked node when connecting. -1 if not clicked any`}
 ];
 
 export default function Helper() {

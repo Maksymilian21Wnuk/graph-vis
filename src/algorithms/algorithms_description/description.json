@@ -14,7 +14,7 @@
             "space": "O(V)"
         },
         "steps": [
-            "Initialize queue Q",
+            "Initialize queue Q with starting node",
             "Extract node from Q",
             "Add unvisited neighbours to Q",
             "Repeat from 2, if Q is not empty",
@@ -22,9 +22,9 @@
             "Terminate"
         ],
         "code": [
-            "def bfs(g):",
+            "def bfs(g, start_node):",
             "    visited = set()",
-            "    queue = [g.arbitrary_node()]",
+            "    queue = [start_node]",
             "    while len(queue) != 0 :",
             "        node = queue.pop(0)",
             "        if (node not in visited):",
@@ -44,9 +44,9 @@
             "require_tree": false
         },
         "steps": [
-            "Start",
+            "Begin from starting node",
             "Go to unvisited neighbour",
-            "Go back if no visited",
+            "Go back if no unvisited neighbour",
             "Terminate"
         ],
         "description": {
@@ -64,9 +64,9 @@
             "           if (nei != parent):",
             "               dfs_recursion(nei, vertice, visited, g)",
             "",
-            "def dfs(g):",
+            "def dfs(g, start_node):",
             "\tvisited = set()",
-            "\tdfs_recursion(g.arbitrary_node(), -1, visited, g)"
+            "\tdfs_recursion(start_node, -1, visited, g)"
         ]
     },
     "connectivity_check": {
@@ -98,10 +98,10 @@
             "            neighbours = g.get_neighbours(node)",
             "            for nei in neighbours:",
             "                queue.append(nei)",
-            "    if (len(visited) != g.size()):",
-            "        print(\"Not connected\")",
+            "    if len(visited) != g.size():",
+            "        return False",
             "    else:",
-            "        print(\"Connected\")"
+            "        return True"
         ],
         "description": {
             "text": "Connectivity check performs breadth first search on given graph. Upon visiting all nodes of graph, it checks if number of visited nodes is same as number of graph's nodes. If it's not equal, the graph is not connected.",
@@ -119,16 +119,28 @@
             "require_tree": false
         },
         "code": [
-            "def bfs(g):",
-            "   visited = set({});",
-            "   queue = [g.arbitrary_node()];",
-            "   while (queue.length > 0):",
-            "       node = queue.shift()",
-            "       if (!visited.has(node)):",
-            "           visited.add(node)",
-            "           neighbours = g.get_neighbours(node)",
-            "           for (neighbour in neighbours):",
-            "               queue.push(neighbour)"
+            "# heap implementation, runs in O((E+V)logV)",
+            "def dijkstra(g : WeightedGraph, start_node : str | int):",
+            "    heap = Heap((0, start_node))",
+            "    ",
+            "    distances = {node : float('inf') for node in g.get_nodes()}",
+            "    distances[start_node] = 0",
+            "    ",
+            "    visited = set()",
+            "    while len(heap) != 0:",
+            "        current_distance, node = heap.pop()",
+            "        if node in visited:",
+            "            continue",
+            "        for nei in g.get_neighbours(node):",
+            "            new_dist = g.get_weight(node, nei) + current_distance",
+            "            old_dist = distances[nei]",
+            "            ",
+            "            if new_dist < old_dist:",
+            "                print(new_dist)",
+            "                distances[nei] = new_dist",
+            "                heap.push((new_dist, nei))",
+            "                ",
+            "    return distances"
         ],
         "steps": [
             "Select start node",
@@ -249,10 +261,11 @@
             "require_tree": false
         },
         "steps": [
-            "Select start node and color it to blue",
+            "Start from unvisited node and color it blue",
             "Extract node from queue",
             "Visit adjacent nodes",
             "Color adjacent nodes to a color different from current node",
+            "If there are still unvisited, repeat from 1, as there is another component to check.",
             "Terminate algorithm"
         ],
         "code": [
@@ -365,14 +378,17 @@
             "    return result"
         ],
         "description": {
-            "text": "Kosraju algorithm finds strongly connected components of graph (SCC). It runs two DFS, first ",
-            "`time`": "O(V+E)",
+            "text": "Kosraju algorithm finds strongly connected components of graph (SCC). It runs two DFS, first runs dfs on unvisited nodes and upon going back in recursion from node, it adds it to stack. The second part run begins with transposing graph. Then it runs dfs on popping the nodes from previously retrieved stack. Sequentially runs dfs and each dfs denotes each component.",
+            "time": "O(V+E)",
             "space": "O(V+E)"
         },
         "steps": [
-            "Start",
-            "Go to unvisited neighbour",
-            "Exhausted neighbours, add to kosaraju-stack",
+            "Start dfs from unvisited node",
+            "Go to unvisited",
+            "Upon going back, add to kosaraju-stack",
+            "Start dfs, this time on transposed graph",
+            "Pop from stack, if not visited, run dfs",
+            "Add to component",
             "Go back",
             "Terminate"
         ]
