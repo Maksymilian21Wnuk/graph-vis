@@ -2,15 +2,17 @@ import { useState } from "react";
 import { GraphName } from "../../../../../../shared/types/graph_map_types"
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { PRESETS_COUNT } from "../../../../../../shared/constants";
+import { graph_preset } from "../preset/graph_preset";
 
 interface SpawnerModalInterface {
     graph_names: GraphName[];
     onClose: (idx: number) => void;
     setShowRandom: (b: boolean) => void;
-    onRemove: (idx : number) => void;
+    onRemove: (idx: number) => void;
 }
 
+
+const preset_length = graph_preset.length;
 
 export default function SpawnerModal({ graph_names, onClose, setShowRandom, onRemove }: SpawnerModalInterface) {
 
@@ -51,8 +53,9 @@ export default function SpawnerModal({ graph_names, onClose, setShowRandom, onRe
                                                 "p-2 m-2 col-span-4 border-2 rounded hover:bg-lime-100 cursor-pointer")}>
                                         {n.name}
                                     </li>
-                                    {idx < PRESETS_COUNT ? null :
-                                        <li key={"trash" + idx} onClick={() => onRemove(idx)} className="cursor-pointer border w-10 h-10">
+                                    {idx < preset_length ? null :
+                                        <li key={"trash" + idx} title="Remove" onClick={() => onRemove(idx)}
+                                            className="cursor-pointer p-5 w-10 h-10">
                                             <FontAwesomeIcon icon={faTrash} />
                                         </li>
                                     }

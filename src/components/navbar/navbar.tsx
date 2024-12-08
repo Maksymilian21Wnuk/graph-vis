@@ -14,7 +14,7 @@ export default function Navbar() {
 
 
     return (
-        <nav id="navbar" className="bg-gray-600 text-white">
+        <nav id="navbar" className={`${import.meta.env.DEV ? "bg-purple-300 text-black" : "bg-gray-600 text-white"}`} >
             <ul>
                 <div className="hidden md:flex md:justify-between py-4">
                     <li>
