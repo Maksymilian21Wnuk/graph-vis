@@ -20,7 +20,7 @@ const one_line_info: InputInterface[] = [
 
 const large_info: InputInterface[] = [
     { title: "Detailed description", desc: "Detailed description of algorithm", name: "description", placeholder: `This algorithm does something. It starts from visiting...` },
-    { title: "Steps of algorithm", desc: "Algorithm's steps separated by endline", name: "steps", placeholder: `Get arbitrary node\nVisit its neighbours\nIf neighbour visited...\nTerminate`},
+    { title: "Steps of algorithm", desc: "Algorithm's steps separated by endline", name: "steps", placeholder: `Get arbitrary node\nVisit its neighbours\nIf neighbour visited...\nTerminate` },
 ]
 
 const code_info: InputInterface[] = [
@@ -36,7 +36,7 @@ const checkboxes: CheckboxInputInterface[] = [
 
 
 
-const initialOutput : OutputInterface = {
+const initialOutput: OutputInterface = {
     title: "",
     name: "",
     text: "",
@@ -47,7 +47,7 @@ const initialOutput : OutputInterface = {
     code: "",
 }
 
-const exampleOutput : OutputInterface = {
+const exampleOutput: OutputInterface = {
     title: "Breadth first search",
     name: "bfs",
     text: "Graph traversal with queue structure",
@@ -73,10 +73,10 @@ while (queue.length > 0):
 }
 
 interface DescriptionFormInterface {
-    setTemplateJson : (repr : JsonRepresentation | null) => void
+    setTemplateJson: (repr: JsonRepresentation | null) => void
 }
 
-export default function DescriptionForm({setTemplateJson} : DescriptionFormInterface) {
+export default function DescriptionForm({ setTemplateJson }: DescriptionFormInterface) {
     const [showExample, setExampleShow] = useState(false);
 
     const [output, setOutput] = useState<OutputInterface>(initialOutput);
@@ -120,11 +120,11 @@ export default function DescriptionForm({setTemplateJson} : DescriptionFormInter
     }
 
     const onExampleShow = () => {
-        if (showExample){
+        if (showExample) {
             setExampleShow(false);
             setOutput(initialOutput);
         }
-        else{
+        else {
             setExampleShow(true);
             setOutput(exampleOutput)
         }
@@ -135,14 +135,14 @@ export default function DescriptionForm({setTemplateJson} : DescriptionFormInter
             <div className="grid grid-cols-3">
                 <h1 className="h1-custom col-span-2"> Step 2: Template generation </h1>
                 <button className="btn m-2" onClick={onExampleShow}>
-                    { showExample ? "Clear" : "See example"}
+                    {showExample ? "Clear" : "See example"}
                 </button>
             </div>
             <div className="bg-white">
                 <form onSubmit={onSubmit}>
                     <ul>
                         {one_line_info.map((info: InputInterface, idx: number) =>
-                            <OneLineInput input_info={info} bg={idx % 2} onChange={handleChange} value={output[info.name]}/>
+                            <OneLineInput input_info={info} bg={idx % 2} onChange={handleChange} value={output[info.name]} />
                         )}
                         {large_info.map((info: InputInterface, idx: number) =>
                             <LargeInput input_info={info} bg={(idx + 1) % 2} onChange={handleChange} value={output[info.name]} />
@@ -152,7 +152,11 @@ export default function DescriptionForm({setTemplateJson} : DescriptionFormInter
                         )}
                         <CheckBoxes checkboxes={checkboxes} handleCheckbox={handleCheckbox} requirements={requirements} />
                     </ul>
-                    <button className="btn btn-lg m-2" type="submit">Generate Template</button>
+                    <div className="justify-center items-center flex">
+                        <button className="btn btn-lg m-2" type="submit">
+                            Generate Template
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
