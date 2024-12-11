@@ -27,6 +27,9 @@ export default function connectivity_check(g: Graph): Steps {
         g.add_step({ additional: queue, additional_name: `Queue:`, step_idx: 3, additional_snd: visited, additional_snd_name: `Visited:` });
     }
 
+    g.add_step({ step_idx: 4, msg: `Queue empty`
+    })
+
     g.add_step({
         additional_name: "Visited:", additional_snd_name: "Graph's nodes:", step_idx: 5,
         additional: visited, additional_snd: g.get_nodes()
