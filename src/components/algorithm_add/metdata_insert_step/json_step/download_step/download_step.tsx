@@ -53,7 +53,7 @@ export default function ${algo_name}(g: ${graph_type}) : Steps {
     return (
         <div className="grid grid-cols-4 bg-slate-100">
             <div className="col-span-3 text-2xl p-2 m-4">
-                Paste template into algorithms folder
+                Paste template into ./src/algorithms folder
             </div>
             <div>
                 <Button 
