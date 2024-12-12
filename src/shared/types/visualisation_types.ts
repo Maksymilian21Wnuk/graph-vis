@@ -20,7 +20,7 @@ message, algorithm
 export type PlainEdge = {
     source: string;
     dest: string;
-    value: number;
+    weight?: number;
 }
 
 type Stack = string[];
@@ -103,9 +103,11 @@ export type PreviousStep = {
 
 export type Steps = Step[]
 
+export type NoValue = "";
+
 export type Additional = {
     id: string;
-    value: string;
+    value: string | NoValue;
 }
 
 export type Message = {

@@ -1,16 +1,11 @@
 import { Steps } from "../shared/types/visualisation_types";
 import WeightedGraph from "../shared/models/weighted_graph/weighted_graph";
 import { DisjointSetCustom } from "../shared/models/disjoint_set_custom/disjoint_set_custom";
+import { PlainEdge } from "../shared/types/visualisation_types";
 
 
-interface Edge {
-    source : string;
-    dest : string;
-    value : number;
-}
-
-function sort_edges(edges : Edge[]) : Edge[] {
-    return edges.sort((e1 : Edge, e2 : Edge) => e1.value - e2.value);
+function sort_edges(edges : PlainEdge[]) : PlainEdge[] {
+    return edges.sort((e1 : PlainEdge, e2 : PlainEdge) => e1.weight! - e2.weight!);
 }
 
 
@@ -18,7 +13,7 @@ export default function kruskal(g : WeightedGraph) : Steps{
     // initialization of disjoint set O(V)
     let disjoint_set = new DisjointSetCustom(g.get_nodes());
     // array as object for type checking
-    let edges : Edge[] = new Array<Edge>();
+    let edges : PlainEdge[] = new Array<PlainEdge>();
     
     for (const node of g.get_nodes()){
         // initialization of array of edge values
@@ -27,7 +22,7 @@ export default function kruskal(g : WeightedGraph) : Steps{
         for (const nei of neighbours){
             // trick for not doubling edges
             if (parseInt(node) > parseInt(nei)){
-                edges.push({source : nei, dest : node, value : g.get_weight(node, nei)!});
+                edges.push({source : nei, dest : node, weight : g.get_weight(node, nei)!});
             }
         }
     }
@@ -36,9 +31,9 @@ export default function kruskal(g : WeightedGraph) : Steps{
     edges = sort_edges(edges);
     g.add_step({step_idx: 0, additional_name: "Sorted edges: ", additional: edges})
 
-    let result : Edge[] = [];
+    let result : PlainEdge[] = [];
 
-    let edges_additional : Edge[] = Array.from(edges);
+    let edges_additional : PlainEdge[] = Array.from(edges);
 
     for (const e of edges) {
         // if not in same set append to result and make union

@@ -3,6 +3,7 @@ import { Additional, AdditionalType, PlainEdge, Step, Steps } from "../../types/
 import { Queue } from "queue-typescript";
 import { DisjointSetCustom } from "../disjoint_set_custom/disjoint_set_custom";
 import get_currently_clicked from "../../../components/utility/functions/get_currently_clicked";
+import { NO_VALUE } from "../../constants";
 
 
 /**
@@ -72,7 +73,7 @@ export default class Graph{
 
         else if (additional instanceof Queue) {
             additional.toArray().forEach((element: string) => {
-                res.push({ id: element, value: "" })
+                res.push({ id: element, value: NO_VALUE })
             });
         }
 
@@ -92,20 +93,20 @@ export default class Graph{
         // handle set, that is visited
         else if (additional instanceof Set) {
             additional.forEach((value: string) => {
-                res.push({ id: value, value: "" });
+                res.push({ id: value, value: NO_VALUE });
             })
         }
         // handle stack
         else if (Array.isArray(additional) && additional.every(a => typeof a === 'string')) {
             additional.forEach((value: string) => {
-                res.push({ id: value, value: "" });
+                res.push({ id: value, value: NO_VALUE });
             })
         }
     
         // handle case of edge type
         else if (Array.isArray(additional)) {
             additional.forEach((edge: PlainEdge) => {
-                res.push({ id: `${edge.source}e${edge.dest}`, value: String(edge.value) });
+                res.push({ id: `${edge.source}e${edge.dest}`, value: String(edge.weight ? edge.weight : NO_VALUE) });
             })
         }
         return res;
@@ -173,7 +174,7 @@ export default class Graph{
      * Method for getting map which
      * for key nodeId returns list of
      * nodes adjacent to it (neighbours)
-     * @returns edges of graph
+     * @returns map of edges of graph
      */
     get_edges() : Map<string, string[]> {
         return this.edges;

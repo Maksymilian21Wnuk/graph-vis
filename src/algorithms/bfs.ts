@@ -6,7 +6,10 @@ import { Queue } from "queue-typescript";
 export default function bfs(g: DirectedGraph): Steps {
     let visited = new Set<string>();
     let queue : Queue<string> = new Queue<string>(g.get_start_node());
-    g.add_step({ additional_name: `Queue:`, additional: queue, msg: ``, step_idx: 0, current_node: g.get_start_node()})
+    g.add_step({ additional_name: `Queue:`, 
+        additional: queue, 
+        step_idx: 0, 
+        current_node: g.get_start_node()})
 
 
     while (queue.length > 0) {

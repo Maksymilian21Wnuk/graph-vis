@@ -14,7 +14,8 @@ import graph_director from "./util/graph_director";
 import steps_evaluator from "./util/steps_evaluator";
 import { AggregationInterfaceNamed } from "../../../algorithms/algorithms_description/json_interfaces";
 import JsonGetter from "../store/json_getter";
-import { NOT_SELECTED } from "../../../shared/constants";
+import { NO_MESSAGE, NO_STEP, NOT_SELECTED } from "../../../shared/constants";
+import AlgorithmHeader from "./components/algorithm_header/algorithm_header";
 //import { Node, Edge } from "@xyflow/react";
 
 const selector = (state: AppState) => ({
@@ -36,7 +37,7 @@ export default function Visualisation() {
 
     const [chosenFunction, setChosenFunction] = useState<AggregationInterfaceNamed>(JsonGetter.getAggregation('bfs'));
     const [steps, setSteps] = useState<Steps>([]);
-    const [stepIdx, setStepIdx] = useState(-1);
+    const [stepIdx, setStepIdx] = useState(NO_STEP);
     const [prevStep, setPrevStep] = useState<PreviousStep | undefined>(undefined);
     const [firstPrev, setFirstPrev] = useState<boolean>(true);
 
@@ -68,7 +69,7 @@ export default function Visualisation() {
             setSteps([]);
             setStepIdx(0);
             reset_graph();
-            setMessage({ step_idx: -1, msg: '' });
+            setMessage({ step_idx: NO_STEP, msg: NO_MESSAGE });
         }
 
     }
@@ -111,12 +112,13 @@ export default function Visualisation() {
     /* function for starting algorithm execution
     it basically initialize the graph with
     currently placed nodes and edges on the graph map*/
-    function start() {{}
-        if (nodes.length === 0 && edges.length === 0) { 
+    function start() {
+        { }
+        if (nodes.length === 0 && edges.length === 0) {
             alert("Graph is empty, populate it");
             return;
-        } 
-        setMessage({ msg: 'Starting Algorithm', step_idx: -1 });
+        }
+        setMessage({ msg: 'Starting Algorithm', step_idx: NO_STEP });
         setNodes(reset_node_color(nodes));
         setEdges(reset_edge_color(edges));
 
@@ -156,9 +158,7 @@ export default function Visualisation() {
         <div className="">
             {selectedValue !== NOT_SELECTED ?
                 <ProgressButtons prev_step={prev_step} resetGraph={reset_graph} setModifyMode={setModifyMode} modifyMode={modifyMode} start={start} next_step={next_step} stepCount={steps.length - stepIdx} /> : null}
-            <div className="flex flex-col items-center bg-white">
-                <h1 className="text-2xl font-bold py-4">{selectedValue === NOT_SELECTED ? `Select algorithm...` : chosenFunction!.title}</h1>
-            </div>
+            <AlgorithmHeader selectedValue={selectedValue} title={chosenFunction!.title} />
             <AlgorithmList resetGraph={reset_graph} setSelectedValue={setSelectedValue} setChosenFunction={setChosenFunction} />
         </div>
     );
