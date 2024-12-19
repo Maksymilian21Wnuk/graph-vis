@@ -3,6 +3,7 @@ import { AggregationInterfaceNamed } from "../../../../../algorithms/algorithms_
 import DescriptionPopup from "./description_popup";
 import { faInfo } from "@fortawesome/free-solid-svg-icons/faInfo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ChipsTypes from "./chips_types";
 
 interface ElementsProps {
     onClick: (event: any) => void;
@@ -38,7 +39,7 @@ export default function Elements({ onClick, algos, filterVal }: ElementsProps) {
                     return (
                         <li key={idx}
                             onClick={() => onClick(a.name)}
-                            className="grid grid-cols-9 gap-x-10 
+                            className="grid grid-cols-11 gap-x-10 
                             cursor-pointer rounded-xl border-2 mb-2 
                             bg-white hover:bg-gray-100 h-24">
                             <div className="col-span-2 font-bold border-r-2 p-5">
@@ -46,6 +47,9 @@ export default function Elements({ onClick, algos, filterVal }: ElementsProps) {
                             </div>
                             <div className="col-span-6 p-5">
                                 {a.description}
+                            </div>
+                            <div className="col-span-2 p-0.5">
+                                <ChipsTypes require_directed={a.require_directed} require_non_directed={a.require_non_directed} require_tree={a.require_tree} require_weights={a.require_weights} />
                             </div>
                             <div className="col-span-1 py-4">
                                 <button className="font-bold bg-slate-200 hover:bg-slate-300 p-5 px-6 rounded-full text-black" onClick={(e) => onShowPopup(e, a.name, a.title)}>

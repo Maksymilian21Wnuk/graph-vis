@@ -113,7 +113,6 @@ export default function Visualisation() {
     it basically initialize the graph with
     currently placed nodes and edges on the graph map*/
     function start() {
-        { }
         if (nodes.length === 0 && edges.length === 0) {
             alert("Graph is empty, populate it");
             return;

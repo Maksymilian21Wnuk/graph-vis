@@ -18,6 +18,7 @@ export default function ProgressButtons({ prev_step, setModifyMode, modifyMode, 
 
     const [animating, setAnimating] = useState(false);
     const [sliderValue, setSliderValue] = useState<number | string>(500);
+    const btn_ref = useRef<HTMLButtonElement | null>(null);
 
     const onReset = () => {
         setModifyMode(true);
@@ -40,7 +41,6 @@ export default function ProgressButtons({ prev_step, setModifyMode, modifyMode, 
         setSliderValue(parseInt(event.target.value));
     }
 
-    const btn_ref = useRef<HTMLButtonElement | null>(null);
 
     return (
         <div className="flex justify-center bg-white">
