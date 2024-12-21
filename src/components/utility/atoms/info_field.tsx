@@ -12,11 +12,8 @@ export default function InfoField() {
                     <div className="">
                         {field.content}
                     </div>
-                    
                 </li>
-                
             )}
-            
         </ul>
     )
 }

@@ -41,7 +41,7 @@ export default function Elements({ onClick, algos, filterVal }: ElementsProps) {
                             onClick={() => onClick(a.name)}
                             className="grid grid-cols-11 gap-x-10 
                             cursor-pointer rounded-xl border-2 mb-2 
-                            bg-white hover:bg-gray-100 h-24">
+                            bg-white hover:bg-gray-100 h-28">
                             <div className="col-span-2 font-bold border-r-2 p-5">
                                 {a.title}
                             </div>

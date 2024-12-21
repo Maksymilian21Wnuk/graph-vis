@@ -27,7 +27,7 @@ export default function AlgorithmList({ setSelectedValue, setChosenFunction, res
     }
 
     return (
-        <div className="flex flex-col items-center content-center pb-6 bg-slate-50 border-2">
+        <div className="flex flex-col items-center content-center pb-12 bg-slate-50 border-2">
             <div className="grid grid-cols-2 p-4">
                 <h1 className="text-2xl font-bold">Algorithms</h1>
                 <input onChange={handleFilterChange} placeholder="filter" className="input border border-black"></input>
@@ -37,6 +37,7 @@ export default function AlgorithmList({ setSelectedValue, setChosenFunction, res
                 algos={algorithm_list} 
                 filterVal={filterVal} />
             </div>
+
         </div>
     );
 }

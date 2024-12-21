@@ -3,26 +3,24 @@ import Chip from "../../../../utility/atoms/chip/chip";
 
 
 
-
+/**
+ * Component rendering chips for 
+ * algorithm with given guards
+ * @param guards guards of given algorithm
+ * @returns 
+ */
 export default function ChipsTypes(guards: GuardsInterface) {
 
     return (
-        <div>
-            <div className="p-0.5">
-                {guards.require_directed ? <Chip text="Directed" /> : null}
-            </div>
-            <div className="p-0.5">
-                {guards.require_non_directed && !guards.require_tree ? <Chip text="Undirected" /> : null}
-            </div>
-            <div className="p-0.5">
-                {guards.require_tree ? <Chip text="Tree" /> : null}
-            </div>
-            <div className="p-0.5">
-                {guards.require_weights ? <Chip text="Weighted" /> : null}
-            </div>
-            <div className="p-0.5">
-                {!guards.require_directed && !guards.require_non_directed ? <Chip text="Both" /> : null}
-            </div>
+        <div className="">
+            {guards.require_directed || !(guards.require_directed || guards.require_non_directed) ?
+                <Chip text="Directed" /> : null}
+            {guards.require_non_directed && !guards.require_tree || !(guards.require_directed || guards.require_non_directed) ?
+                <Chip text="Undirected" /> : null}
+            {guards.require_tree ?
+                <Chip text="Tree" /> : null}
+            {guards.require_weights ?
+                <Chip text="Weighted" /> : null}
         </div>
     )
 }

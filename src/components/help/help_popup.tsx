@@ -9,8 +9,7 @@ export function HelpPopup() {
     return (
         <>
             <button className="text-xl font-bold" onClick={() => {
-                const modal = document.getElementById('help_modal');
-                (modal as any).showModal();
+                (document.getElementById('help_modal') as HTMLDialogElement).showModal();
             }}>
                 <FontAwesomeIcon icon={faCircleQuestion} />
             </button>
@@ -21,12 +20,11 @@ export function HelpPopup() {
                         <Helper />
                     </div>
                     <Legend />
-                    <div className="modal-action">
-                        <form method="dialog">
-                            <button className="btn">Close</button>
-                        </form>
-                    </div>
+
                 </div>
+                <form method="dialog" className="modal-backdrop">
+                    <button>Close</button>
+                </form>
             </dialog>
         </>
     );
